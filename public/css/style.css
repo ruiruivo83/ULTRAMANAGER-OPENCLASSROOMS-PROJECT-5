@@ -1,0 +1,60 @@
+.initial {
+    all: initial;
+}
+
+.center {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    vertical-align: middle;
+}
+
+.hover_line:hover {
+    background-color: rgba(18, 135, 176, 0.31);
+}
+
+
+
+.hover:hover {
+    background-color: rgba(18, 135, 176, 0.31);
+
+}
+
+.ticket_line {
+    margin: 2px;
+    border-radius: 5px;
+    background-color: rgba(14, 175, 241, 0.19);
+}
+
+.ticket_line_warning {
+    margin: 2px;
+    border-radius: 5px;
+    background-color: rgba(200, 241, 185, 0.19);
+}
+
+.vl {
+    border-left: 6px solid green;
+    height: 50px;
+}
+
+.container {
+    background-color: rgba(255, 0, 0, 0.05);
+}
+
+.ticket_icones {
+    text-align: right;
+}
+
+.description_textarea {
+    width: 100%;
+    height: 300px;
+}
+
+#textarea_id {
+    margin-top: 10px;
+    width: 100%;
+    height: 200px;
+}
+

@@ -27,16 +27,32 @@ class pagesController
         echo $view;
     }
 
-    // PAGE - MyTickets Page
-    public function AllMyTickets()
+    // PAGE - My Active Tickets Page
+    public function MyActiveTickets()
     {
         $view = file_get_contents('view/frontend/_layout.html');
 
         $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "allmytickets");
+        $view = $this->ReplaceContent($view, "myactivetickets");
         $view = $this->ReplaceTotals($view);
+        $status = "open";
         $myTicketsController = new MyTicketsController;
-        $view = $myTicketsController->ReplaceTicketList($view);
+        $view = $myTicketsController->ReplaceTicketList($view, $status);
+        echo $view;
+    }
+
+    
+    // PAGE - My Active Tickets Page
+    public function MyClosedTickets()
+    {
+        $view = file_get_contents('view/frontend/_layout.html');
+
+        $view = $this->SessionTestForUserMenu($view);
+        $view = $this->ReplaceContent($view, "myclosedtickets");
+        $view = $this->ReplaceTotals($view);
+        $status = "close";
+        $myTicketsController = new MyTicketsController;
+        $view = $myTicketsController->ReplaceTicketList($view, $status);
         echo $view;
     }
 
@@ -172,7 +188,8 @@ class pagesController
         // IF SESSION IS OPEN - REPLACE WITH REAL CONTENT
         if (isset($_SESSION["user"])) {
             $ticket = new Tickets(null, null, null, null, null);
-            $result = $ticket->getMyTickets(); // FROM MODEL
+            $status="open";
+            $result = $ticket->getMyTickets($status); // FROM MODEL
             $view = str_replace("{TOTAL_TICKETS_CARD_DEFAULT_CODE}", file_get_contents('view/backend/total_tickets_card_default_code.html'), $view);
             $view = str_replace("{TOTAL_TICKETS_OPEN}", count($result), $view);
         } else {

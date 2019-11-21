@@ -1,0 +1,82 @@
+<!-- START TICKET CODE -->
+<div class="ticket_line_warning hover row center">
+
+        
+    <div class="col-lg-10  row">
+        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseTicket{TICKET_ID}"
+            aria-expanded="false" aria-controls="collapseTicket{TICKET_ID}">
+            &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <div>
+            <i class="fas fa-ticket-alt text-info text-sm-center"></i>&nbsp;{TICKET_ID}&nbsp;&nbsp;&nbsp;
+        </div>
+        <a class="hover" data-toggle="popover" title="Requester" data-content="data-content"><i
+                class="fas fa-user"></i>&nbsp;Requester Name</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="font-weight-bold">{TICKET_TITLE}</span>
+    </div>
+
+
+
+    <div class="ticket_icones col-lg-2 float-right">
+        <!-- Trigger modal -->
+
+        <a class="btn btn-primary  btn-sm " data-toggle="modal" data-target="#exampleModal{TICKET_ID}"
+            title="User Interventions" data-content="data-content" href=""><i class="fas fa-history "></i><sup><i
+                    class="fas fa-users"></i></sup></a>
+
+
+        <a class="btn btn-info  btn-sm " data-toggle="popover" title="Ticket Details" data-content="data-content"
+            href="index.php?action=ticketdetails&ticket_id={TICKET_ID}"><i class="fas fa-ellipsis-h"></i></a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{TICKET_ID}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{TICKET_TITLE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- NEW INTERVENTION TEXT AREA-->
+                    <div class="modal-body">
+                        <div class="card-header">
+                            <div class="div_add_form">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- INTERVENTION CARD-->
+                    {INTERVENTION_CARD}
+
+                    <br>
+
+
+                    <br>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="collapse mb-5 ml-2 mr-2" id="collapseTicket{TICKET_ID}">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-body ">
+                {TICKET_DESCRIPTION}
+            </div>
+            <hr>
+            <h4>Last Intervention: </h4>
+            {LAST_INTERVENTION}
+        </div>
+    </div>
+    <!-- END TICKET CODE -->
+</div>

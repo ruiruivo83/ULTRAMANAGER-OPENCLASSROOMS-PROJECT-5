@@ -53,14 +53,24 @@ class Router
                 }
             }
 
-            // MY TICKETS
-            if ($_GET['action'] == 'allmytickets') {
+            // MY ACTIVE TICKETS
+            if ($_GET['action'] == 'myactivetickets') {
                 if (isset($_SESSION["user"])) {
-                    $pagesController->AllMyTickets();
+                    $pagesController->MyActiveTickets();
                 } else {
                     header('Location: ../index.php');
                 }
             }
+
+            // MY CLOSED TICKETS
+            if ($_GET['action'] == 'myclosedtickets') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->MyClosedTickets();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
 
             // ACCUEIL
             if ($_GET['action'] == 'newticket') {
@@ -128,7 +138,11 @@ class Router
 
             // CREATE COMPANY
             if ($_GET['action'] == 'company') {
-                $pagesController->Company();
+                if (isset($_SESSION["user"])) {
+                    $pagesController->Company();
+                } else {
+                    header('Location: ../index.php');
+                }
             }
 
 
@@ -186,8 +200,9 @@ class Router
 
             // ADD TICKET INTERVENTION
             if ($_GET['action'] == 'addTicketIntervention') {
-                if (isset($_SESSION["user"])) {
-                    $myTicketsController->addTicketIntervention();
+                if (isset($_SESSION["user"])) {                    
+                    $string = null;
+                    $myTicketsController->addTicketIntervention($string);
                 } else {
                     header('Location: ../index.php');
                 }

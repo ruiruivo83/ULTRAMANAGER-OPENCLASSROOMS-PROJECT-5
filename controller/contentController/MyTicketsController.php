@@ -24,7 +24,7 @@ class MyTicketsController
                 // Execute method addTicket
                 $Tickets->addTicket($Title, $Description, $Author, $Requester);
                 //
-                header('Location: ../index.php?action=allmytickets');
+                header('Location: ../index.php?action=myactivetickets');
                 exit();
             }
             // }
@@ -35,37 +35,57 @@ class MyTicketsController
     public function closeTicket($ticketid)
     {
         $Tickets = new Tickets(null, null, null, null, null);
+      
+        $this->addTicketIntervention($ticketid);       
         $Tickets->closeTicket($ticketid);
-        header('Location: ../index.php?action=allmytickets');
+        header('Location: ../index.php?action=myactivetickets');
     }
 
-    public function addTicketIntervention()
+    public function addTicketIntervention($CloseTicketId)
     {
-        if (isset($_SESSION['user'])) {
-            $Intervention_Description = $_POST["intervention_description"];
-            $Ticket_id = $_POST["ticket_id"];
-            // $Author = $_POST["author"];
-            // var_dump($Intervention_Description, $Ticket_id);
-            $Tickets = new Tickets(null, null, null, null, null);
-            $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());
-            header('Location: ../index.php?action=allmytickets');
-            exit();
+        if ($CloseTicketId != null) {
+            if (isset($_SESSION['user'])) {
+                $Intervention_Description = "CLOSED TICKET";
+                $Ticket_id = $CloseTicketId;              
+                // $Author = $_POST["author"];
+                // var_dump($Intervention_Description, $Ticket_id);
+                $Tickets = new Tickets(null, null, null, null, null);
+                $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());              
+                
+            }
+        } else {
+            if (isset($_SESSION['user'])) {
+                $Intervention_Description = $_POST["intervention_description"];
+                $Ticket_id = $_POST["ticket_id"];
+                // $Author = $_POST["author"];
+                // var_dump($Intervention_Description, $Ticket_id);
+                $Tickets = new Tickets(null, null, null, null, null);
+                $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());
+                header('Location: ../index.php?action=myactivetickets');
+                exit();
+            }
         }
     }
 
     // REPLACE TICKET LIST AREA IN THE HTML BY ALL AVAILABLE POSTS
-    public function ReplaceTicketList($view)
+    public function ReplaceTicketList($view, $status)
     {
 
         $ticket_list_final_code = null;
         $Author = $_SESSION['user']->getEmail();
         if (isset($_SESSION['user'])) {
             $ticket = new Tickets(null, null, null, null, null);
-            $result = $ticket->getMyTickets(); // FROM MODEL
+            $result = $ticket->getMyTickets($status); // FROM MODEL
 
             foreach ($result as $current_result) {
                 $current_ticket = null;
-                $current_ticket = file_get_contents('view/backend/ticket_list_default_code.html');
+                if ($status == "open") {
+                    $current_ticket = file_get_contents('view/backend/ticket_list_default_code.html');
+                } else {
+
+                    $current_ticket = file_get_contents('view/backend/closed_ticket_list_default_code.html');
+                }
+
                 $current_ticket = str_replace("{TICKET_ID}", $current_result["id"], $current_ticket, $count);
                 $current_ticket = str_replace("{TICKET_DESCRIPTION}", $current_result["description"], $current_ticket);
                 $current_ticket = str_replace("{TICKET_TITLE}", $current_result["title"], $current_ticket);

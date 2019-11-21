@@ -1,5 +1,6 @@
 <?php
 
+// require "controller/sessionTestController.php";
 require "model/user.php";
 
 class userController
@@ -36,7 +37,7 @@ class userController
                 $view = file_get_contents('view/frontend/_layout.html');
                 $view = str_replace("{CONTENT}", file_get_contents('view/frontend/login.html'), $view);
                 $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
-                $sessionController = new sessionController;
+                $sessionController = new sessionTestController;
                 $view = $sessionController->replaceMenuIfSessionIsOpen($view);
                 echo $view;
             }

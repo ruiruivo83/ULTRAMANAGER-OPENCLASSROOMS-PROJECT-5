@@ -64,9 +64,7 @@ class Company
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("INSERT INTO company(company_name, company_owner, creation_date) values (?,?, NOW()) ");       
-        $req->execute(array($CompanyName, $CompanyOwner));
-        // $req->debugDumpParams();
-        // die;
+        $req->execute(array($CompanyName, $CompanyOwner));        
     }
 
 
@@ -74,18 +72,16 @@ class Company
     // GET ALL TICKETS FROM DATABASE, ORDER BY DESC DATE
     public function getMyCompany()
     {
-        $bdd = Database::getBdd();
-        // PREPARE QUERY - utilise prepare pour les accents sur les lettres
+        $bdd = Database::getBdd();        
         $currentUserEmail = $_SESSION['user']->getEmail();
         $req = $bdd->prepare("SELECT * FROM company WHERE company_owner = '$currentUserEmail'  ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-       
+        $req->execute();        
+        $result = $req->fetchall();       
         return $result;
     }
+
+      
+   
 
 
 }

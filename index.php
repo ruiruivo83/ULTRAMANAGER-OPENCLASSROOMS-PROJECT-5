@@ -7,8 +7,7 @@
 // IMPORT CONTROLLERS
 require 'controller/pagesController.php';
 require 'controller/userController.php';
-require 'controller/contentController/MyCompanyController.php';
-// require 'controller/contentController/MyTicketsController.php';
+
 
 
 // CLASS ROUTER {
@@ -31,7 +30,7 @@ class Router
         $pagesController = new pagesController();
         $userController = new userController();
         $myTicketsController = new MyTicketsController();
-        $myCompanyController = new MyCompanyController();
+
 
         if (isset($_GET['action'])) {
             //////////////////////////////////////////////////////////////////
@@ -44,10 +43,14 @@ class Router
             }
 
             // TICKET DETAILS
-            if ($_GET['action'] == 'ticketdetails' && $_GET['ticket_id'] != null) {
-                if (isset($_SESSION["user"])) {
-                    $ticketid = $_GET['ticket_id'];
-                    $pagesController->TicketDetails($ticketid);
+            if ($_GET['action'] == 'ticketdetails') {
+                if ($_GET['ticket_id'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $ticketid = $_GET['ticket_id'];
+                        $pagesController->TicketDetails($ticketid);
+                    } else {
+                        header('Location: ../index.php');
+                    }
                 } else {
                     header('Location: ../index.php');
                 }
@@ -62,6 +65,8 @@ class Router
                 }
             }
 
+
+
             // MY CLOSED TICKETS
             if ($_GET['action'] == 'myclosedtickets') {
                 if (isset($_SESSION["user"])) {
@@ -70,7 +75,6 @@ class Router
                     header('Location: ../index.php');
                 }
             }
-
 
             // ACCUEIL
             if ($_GET['action'] == 'newticket') {
@@ -81,23 +85,9 @@ class Router
                 }
             }
 
-            // All COMPANY TICKETS
-            if ($_GET['action'] == 'allcompanytickets') {
-                if (isset($_SESSION["user"])) {
-                    $pagesController->AllCompanyTickets();
-                } else {
-                    header('Location: ../index.php');
-                }
-            }
 
-            // Assigned COMPANY TICKETS
-            if ($_GET['action'] == 'assignedcompanytickets') {
-                if (isset($_SESSION["user"])) {
-                    $pagesController->AssignedCompanyTickets();
-                } else {
-                    header('Location: ../index.php');
-                }
-            }
+
+
 
             // User Profile
             if ($_GET['action'] == 'userprofile') {
@@ -136,14 +126,7 @@ class Router
                 $pagesController->register();
             }
 
-            // CREATE COMPANY
-            if ($_GET['action'] == 'company') {
-                if (isset($_SESSION["user"])) {
-                    $pagesController->Company();
-                } else {
-                    header('Location: ../index.php');
-                }
-            }
+
 
 
             ////////////////////////////////////////////////////////////////////
@@ -179,28 +162,22 @@ class Router
             }
 
             // CLOSE TICKET
-            if ($_GET['action'] == 'closeticket' && $_GET['ticket_id'] != null) {
-
-                if (isset($_SESSION["user"])) {
-                    $ticketid = $_GET['ticket_id'];
-                    $myTicketsController->closeTicket($ticketid);
-                } else {
-                    header('Location: ../index.php');
-                }
+            if ($_GET['action'] == 'closeticket') {
+                if ( $_GET['ticket_id'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $ticketid = $_GET['ticket_id'];
+                        $myTicketsController->closeTicket($ticketid);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }               
             }
 
-            // ADD COMPANY
-            if ($_GET['action'] == 'addcompany') {
-                if (isset($_SESSION["user"])) {
-                    $myCompanyController->addCompany();
-                } else {
-                    header('Location: ../index.php');
-                }
-            }
+
 
             // ADD TICKET INTERVENTION
             if ($_GET['action'] == 'addTicketIntervention') {
-                if (isset($_SESSION["user"])) {                    
+                if (isset($_SESSION["user"])) {
                     $string = null;
                     $myTicketsController->addTicketIntervention($string);
                 } else {

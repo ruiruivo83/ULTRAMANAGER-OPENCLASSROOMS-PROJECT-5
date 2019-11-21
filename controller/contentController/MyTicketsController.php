@@ -35,8 +35,8 @@ class MyTicketsController
     public function closeTicket($ticketid)
     {
         $Tickets = new Tickets(null, null, null, null, null);
-      
-        $this->addTicketIntervention($ticketid);       
+
+        $this->addTicketIntervention($ticketid);
         $Tickets->closeTicket($ticketid);
         header('Location: ../index.php?action=myactivetickets');
     }
@@ -46,23 +46,27 @@ class MyTicketsController
         if ($CloseTicketId != null) {
             if (isset($_SESSION['user'])) {
                 $Intervention_Description = "CLOSED TICKET";
-                $Ticket_id = $CloseTicketId;              
-                // $Author = $_POST["author"];
-                // var_dump($Intervention_Description, $Ticket_id);
-                $Tickets = new Tickets(null, null, null, null, null);
-                $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());              
-                
-            }
-        } else {
-            if (isset($_SESSION['user'])) {
-                $Intervention_Description = $_POST["intervention_description"];
-                $Ticket_id = $_POST["ticket_id"];
+                $Ticket_id = $CloseTicketId;
                 // $Author = $_POST["author"];
                 // var_dump($Intervention_Description, $Ticket_id);
                 $Tickets = new Tickets(null, null, null, null, null);
                 $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());
-                header('Location: ../index.php?action=myactivetickets');
-                exit();
+
+            }
+        } else {
+            if (isset($_SESSION['user'])) {
+                $Intervention_Description = $_POST["intervention_description"];
+                if ($Intervention_Description != "") {
+                    $Ticket_id = $_POST["ticket_id"];
+                    // $Author = $_POST["author"];
+                    // var_dump($Intervention_Description, $Ticket_id);
+                    $Tickets = new Tickets(null, null, null, null, null);
+                    $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());
+                    header('Location: ../index.php?action=myactivetickets');
+                    exit();
+                } else {
+                    header('Location: ../index.php?action=myactivetickets');
+                }
             }
         }
     }
@@ -87,6 +91,8 @@ class MyTicketsController
                 }
 
                 $current_ticket = str_replace("{TICKET_ID}", $current_result["id"], $current_ticket, $count);
+                $current_ticket = str_replace("{REQUESTER_NAME}", $current_result["requester"], $current_ticket, $count);
+                
                 $current_ticket = str_replace("{TICKET_DESCRIPTION}", $current_result["description"], $current_ticket);
                 $current_ticket = str_replace("{TICKET_TITLE}", $current_result["title"], $current_ticket);
                 $current_ticket = str_replace("{INTERVENTION_CARD}", $this->ReplaceInterventionList($current_result["id"], null), $current_ticket);
@@ -99,9 +105,6 @@ class MyTicketsController
 
         return $view;
     }
-
-
-
 
 
     // ADD NEW TICKET TO DATABASE
@@ -138,10 +141,6 @@ class MyTicketsController
             exit();
         }
     }
-
-
-
-
 
 
     // REPLACE INTERVENTION LIST AREA IN THE HTML BY ALL AVAILABLE INTERVENTIONS FOR SPECIFIC TICKET

@@ -2,8 +2,7 @@
 
 require 'controller/sessionTestController.php';
 require 'controller/contentController/MyTicketsController.php';
-// require 'controller/contentController/MyCompanyController.php';
-// require 'model/Tickets.php';
+
 
 class pagesController
 {
@@ -40,6 +39,7 @@ class pagesController
         $view = $myTicketsController->ReplaceTicketList($view, $status);
         echo $view;
     }
+
 
     
     // PAGE - My Active Tickets Page
@@ -80,37 +80,6 @@ class pagesController
         echo $view;
     }
 
-    // PAGE - Company Page
-    public function Company()
-    {
-        $view = file_get_contents('view/frontend/_layout.html');
-        $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "company");
-        $view = $this->ReplaceTotals($view);
-        $myCompanyController = new MyCompanyController;
-        $view = $myCompanyController->ReplaceCompanyList($view);
-        echo $view;
-    }
-
-    // PAGE - All Company Tickets Page
-    public function AllCompanyTickets()
-    {
-        $view = file_get_contents('view/frontend/_layout.html');
-        $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "allcompanytickets");
-        $view = $this->ReplaceTotals($view);
-        echo $view;
-    }
-
-    // PAGE - Assigned Company Tickets Page
-    public function AssignedCompanyTickets()
-    {
-        $view = file_get_contents('view/frontend/_layout.html');
-        $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "assignedcompanytickets");
-        $view = $this->ReplaceTotals($view);
-        echo $view;
-    }
 
     // PAGE - User Profile Page
     public function UserProfile()

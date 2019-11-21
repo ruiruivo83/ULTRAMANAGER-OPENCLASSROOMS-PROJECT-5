@@ -97,7 +97,7 @@ class userController
 
     // MAIN LOGOUT
     public function logout()
-    {
+    {  
         session_destroy();
         header('Location: ../index.php');
     }

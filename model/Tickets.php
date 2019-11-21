@@ -91,20 +91,7 @@ class Tickets
         return $result;
     }
 
-    // GET ALL TICKETS FROM DATABASE, ORDER BY DESC DATE
-    public function getMyTicketsOpen()
-    {
-        $bdd = Database::getBdd();
-        // PREPARE QUERY - utilise prepare pour les accents sur les lettres
-        $currentUserEmail = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM ticket WHERE author = '$currentUserEmail' AND status = 'open' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
+    
 
 
 

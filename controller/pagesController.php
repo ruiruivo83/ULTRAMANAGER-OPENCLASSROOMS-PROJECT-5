@@ -2,12 +2,13 @@
 
 require 'controller/sessionTestController.php';
 require 'controller/contentController/MyTicketsController.php';
+// require 'controller/contentController/MyCompanyController.php';
 // require 'model/Tickets.php';
 
 class pagesController
 {
 
-    
+
 
     // PAGE - INDEX Graphics PAGE
     public function Index()
@@ -60,6 +61,18 @@ class pagesController
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "newticket");
         $view = $this->ReplaceTotals($view);
+        echo $view;
+    }
+
+    // PAGE - Company Page
+    public function Company()
+    {
+        $view = file_get_contents('view/frontend/_layout.html');
+        $view = $this->SessionTestForUserMenu($view);
+        $view = $this->ReplaceContent($view, "company");
+        $view = $this->ReplaceTotals($view);
+        $myCompanyController = new MyCompanyController;
+        $view = $myCompanyController->ReplaceCompanyList($view);
         echo $view;
     }
 
@@ -159,7 +172,7 @@ class pagesController
         // IF SESSION IS OPEN - REPLACE WITH REAL CONTENT
         if (isset($_SESSION["user"])) {
             $ticket = new Tickets(null, null, null, null, null);
-            $result = $ticket->getMyTicketsOpen(); // FROM MODEL
+            $result = $ticket->getMyTickets(); // FROM MODEL
             $view = str_replace("{TOTAL_TICKETS_CARD_DEFAULT_CODE}", file_get_contents('view/backend/total_tickets_card_default_code.html'), $view);
             $view = str_replace("{TOTAL_TICKETS_OPEN}", count($result), $view);
         } else {

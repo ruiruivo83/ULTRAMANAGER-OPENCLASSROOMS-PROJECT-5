@@ -7,6 +7,7 @@
 // IMPORT CONTROLLERS
 require 'controller/pagesController.php';
 require 'controller/userController.php';
+require 'controller/contentController/MyCompanyController.php';
 // require 'controller/contentController/MyTicketsController.php';
 
 
@@ -30,6 +31,7 @@ class Router
         $pagesController = new pagesController();
         $userController = new userController();
         $myTicketsController = new MyTicketsController();
+        $myCompanyController = new MyCompanyController();
 
         if (isset($_GET['action'])) {
             //////////////////////////////////////////////////////////////////
@@ -124,6 +126,11 @@ class Router
                 $pagesController->register();
             }
 
+            // CREATE COMPANY
+            if ($_GET['action'] == 'company') {
+                $pagesController->Company();
+            }
+
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
@@ -157,12 +164,21 @@ class Router
                 }
             }
 
-            // ADD TICKET
-            if ($_GET['action'] == 'closeticket' && $_GET['ticket_id'] != null ) {
-              
-                if (isset($_SESSION["user"])) {                    
+            // CLOSE TICKET
+            if ($_GET['action'] == 'closeticket' && $_GET['ticket_id'] != null) {
+
+                if (isset($_SESSION["user"])) {
                     $ticketid = $_GET['ticket_id'];
                     $myTicketsController->closeTicket($ticketid);
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // ADD COMPANY
+            if ($_GET['action'] == 'addcompany') {
+                if (isset($_SESSION["user"])) {
+                    $myCompanyController->addCompany();
                 } else {
                     header('Location: ../index.php');
                 }

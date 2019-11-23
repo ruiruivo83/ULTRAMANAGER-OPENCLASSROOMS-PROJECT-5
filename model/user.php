@@ -139,10 +139,33 @@ class User
         $bdd = Database::getBdd($this->email);
         $req = $bdd->prepare("SELECT * FROM users WHERE email =  ?   ");
         $req->execute(array($this->email));
-         // DEBUG
+        // DEBUG
         // $req->debugDumpParams();
         // die;
         $emailCount = $req->rowCount();
         return $emailCount;
+    }
+
+    // ATACH PHOTO TO USER
+    public function atachPhotoToUser($user_id, $filename)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("UPDATE users SET photo_filename=? WHERE id=?");
+        $req->execute(array($filename, $user_id));
+        // $req->debugDumpParams();
+        // die;
+    }
+
+    // ATACH PHOTO TO USER
+    public function getPhotoIfExist($user_id)
+    {
+        $bdd = Database::getBdd();
+        // SELECT title, description FROM billets WHERE id = :id
+        $req = $bdd->prepare("SELECT photo_filename FROM users WHERE id=?");
+        $req->execute(array($user_id));
+        $result = $req->fetchall();
+        // $req->debugDumpParams();
+        // die;
+        return $result[0];
     }
 }

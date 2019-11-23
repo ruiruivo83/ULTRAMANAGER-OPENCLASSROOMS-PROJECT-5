@@ -1,49 +1,53 @@
 <!-- Begin Page Content -->
 <div class="container-fluid ">
-
-    <!-- ___________________________________________ -->
-    <!-- ___________________________________________ -->
-    <!-- ___________________________________________ -->
-
     <div class="col-lg-12">
-
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="row"><h6 class="m-0 font-weight-bold text-primary">New Ticket</h6></div>
+                <div class="row center">
+                    <h6 class="m-0 font-weight-bold text-primary">&nbsp;New Ticket</h6>&nbsp;&nbsp;&nbsp;
+                </div>
             </div>
-
-
-            <div class="card-header py-3">
+            <div class="card-body py-3">
                 <div class="div_add_form">
                     <form action="index.php?action=addTicket" method="post" class="form-example">
-
-
-                        <div class="new_post_title form-example">
-                            <label> REQUESTER: </label>
-                            <input type="text" name="Requester" id="Requester" required>
+                        <table class="table">
+                            <tbody">
+                                <tr>
+                                    <th class="w-25"> REQUESTER: </th>
+                                    <td><input class="w-50" type="text" name="Requester" id="Requester" required></td>
+                                </tr>
+                                <tr>
+                                    <th class="w-25"> TITLE: </th>
+                                    <td> <input class="w-100" type="text" name="Title" id="Title" required></td>
+                                </tr>
+                                <tr>
+                                    <th class="w-25"> <label> DESCRIPTION: </label></th>
+                                    <td>
+                                        <div class="input_text"><textarea id="textarea_id"
+                                                name="Description"></textarea></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        <div class="form-example text-right">
+                            <input type="submit" class="btn btn-primary " value="Create Ticket">
                         </div>
-
-                        <div class="new_post_title form-example">
-                            <label>NEW TICKET TITLE: </label>
-                            <input type="text" name="Title" id="Title" required>
-                        </div>
-                        <div class="form-example">
-                            <label>DESCRIPTION: </label>
-                            <div class="input_text"><textarea id="textarea_id" name="Description"></textarea></div>
-                            <!-- <input type="text" name="Contenu" id="Contenu" required> -->
-                        </div>
-                        <div class="form-example">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Create Ticket">
-                        </div>
+                    </form>
+                    <form enctype="multipart/form-data" action="controller/uploadController.php" method="post">
+                        <table>
+                            <tr>
+                                <td>Select file to upload:</td>
+                                <td><input type="file" name="upload_file"></td>                                
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" value="UPLOAD"></td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
         </div>
-
-
     </div>
-    <!-- /.container-fluid -->
-
-
 </div>

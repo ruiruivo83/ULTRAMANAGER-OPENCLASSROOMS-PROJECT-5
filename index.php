@@ -7,8 +7,7 @@
 // IMPORT CONTROLLERS
 require 'controller/pagesController.php';
 require 'controller/userController.php';
-
-
+require 'controller/uploadController.php';
 
 // CLASS ROUTER {
 class Router
@@ -30,7 +29,7 @@ class Router
         $pagesController = new pagesController();
         $userController = new userController();
         $myTicketsController = new MyTicketsController();
-
+        $uploadController = new UploadController();
 
         if (isset($_GET['action'])) {
             //////////////////////////////////////////////////////////////////
@@ -65,8 +64,6 @@ class Router
                 }
             }
 
-
-
             // MY CLOSED TICKETS
             if ($_GET['action'] == 'myclosedtickets') {
                 if (isset($_SESSION["user"])) {
@@ -84,10 +81,6 @@ class Router
                     header('Location: ../index.php');
                 }
             }
-
-
-
-
 
             // User Profile
             if ($_GET['action'] == 'userprofile') {
@@ -125,9 +118,6 @@ class Router
             if ($_GET['action'] == 'register') {
                 $pagesController->register();
             }
-
-
-
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
@@ -173,7 +163,23 @@ class Router
                 }               
             }
 
+            // FILE UPLOAD TO TICKET
+            if ($_GET['action'] == 'fileupload') {
+                if (isset($_SESSION["user"])) {
+                    $uploadController->uploadFile();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
 
+            
+            if ($_GET['action'] == 'atachphototouser') {
+                if (isset($_SESSION["user"])) {
+                    $uploadController->atachphototouser();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
 
             // ADD TICKET INTERVENTION
             if ($_GET['action'] == 'addTicketIntervention') {

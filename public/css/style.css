@@ -19,29 +19,31 @@
 
 .hover:hover {
     background-color: rgba(18, 135, 176, 0.31);
-
 }
 
 .ticket_line {
     margin: 2px;
     border-radius: 5px;
-    background-color: rgba(14, 175, 241, 0.19);
+    background-color: rgba(241, 14, 184, 0.19);
 }
 
 .ticket_line_warning {
     margin: 2px;
     border-radius: 5px;
-    background-color: rgba(200, 241, 185, 0.19);
+    background-color: rgba(185, 205, 241, 0.19);
+}
+
+.ticket_line_warning:hover {
+  
+    background-color: rgba(93, 148, 250, 0.19);
 }
 
 .vl {
-    border-left: 6px solid green;
+    border-left: 6px solid rgb(0, 45, 128);
     height: 50px;
 }
 
-.container {
-    background-color: rgba(255, 0, 0, 0.05);
-}
+
 
 .ticket_icones {
     text-align: right;
@@ -58,3 +60,40 @@
     height: 200px;
 }
 
+
+.width_50px {
+    width: 50px;
+}
+
+.width_100px {
+    width: 100px;
+}
+.width_200px {
+    width: 200px;
+}
+
+.width_300px {
+    width: 300px;
+}
+
+.card-header {
+    padding: 5px;
+}
+
+.modal_text_left {
+    margin-left: 20px;
+}
+
+.modal-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.modal_requester {
+    margin-top: 10px;
+    margin-left: 18px;    
+}
+
+.button_close {
+    margin-right: 5px;;
+}

@@ -137,6 +137,15 @@ class Tickets
         $req->execute(array($Ticket_id, $Intervention_Author, $Intervention_Description, $Intervention_Author_Country, $Intervention_Author_Company));
     }
 
+
+    // ATACH FILENAME TO TICKET
+    public function atachFileNameToTicket($ticket_id, $filename) {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("INSERT INTO uploaded_file(ticket_id, filename ) values (?, ?)");        
+        $req->execute(array($ticket_id, $filename));
+    }
+
+
     // EDIT TICKET*
     /*
     public function edit_post_query($id)

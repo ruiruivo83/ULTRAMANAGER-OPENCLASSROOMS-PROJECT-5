@@ -1,1 +1,49 @@
-userprofile
+<div class="container">    
+    <div class="container">
+        <table style="width:100%">
+            <tr>
+                    {USER_PHOTO}
+            </tr>
+        </table>
+        <br>
+        <form action="index.php?action=atachphototouser" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" />
+            <input class="btn btn-primary" type="submit" />
+        </form>
+    </div>
+    <hr>
+    <br>
+    <div class="container">
+        <table style="width:100%">
+            <tr>
+                <th>First Name: </th>
+                <td>{FIRST_NAME}</td>
+            </tr>
+            <tr>
+                <th>Last Name: </th>
+                <td>{LAST_NAME}</td>
+            </tr>
+            <tr>
+                <th>Email: </th>
+                <td>{USER_EMAIL}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div class="container">
+        <table style="width:100%">
+            <tr>
+                <th>Creation Date: </th>
+                <td>{CREATION_DATE}</td>
+            </tr>
+            <tr>
+                <th>Country: </th>
+                <td>{COUNTRY}</td>
+            </tr>
+            <tr>
+                <th>Company: </th>
+                <td>{COMPANY}</td>
+            </tr>
+        </table>
+    </div>
+</div>

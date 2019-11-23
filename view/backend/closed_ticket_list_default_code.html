@@ -1,7 +1,7 @@
 <!-- START TICKET CODE -->
 <div class="ticket_line_warning hover row center">
 
-        
+
     <div class="col-lg-10  row">
         <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseTicket{TICKET_ID}"
             aria-expanded="false" aria-controls="collapseTicket{TICKET_ID}">
@@ -44,7 +44,7 @@
                     <div class="modal-body">
                         <div class="card-header">
                             <div class="div_add_form">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -52,11 +52,7 @@
                     {INTERVENTION_CARD}
 
                     <br>
-
-
                     <br>
-
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
@@ -68,15 +64,32 @@
 
 </div>
 <div class="collapse mb-5 ml-2 mr-2" id="collapseTicket{TICKET_ID}">
-    <div class="card">
-        <div class="card-header">
-            <div class="card-body ">
-                {TICKET_DESCRIPTION}
+        <div class="card ">
+                <div class="card-header ">
+                    <div>
+                        <h4>Description: </h4>
+                    </div>
+                    <div class="bg-white text-dark p-4">
+                        <h6>{TICKET_DESCRIPTION}</h6>
+                    </div>
+                </div>
+        
+                <div class="card-header">
+                    <div>
+                        <h4>Last Intervention: </h4>
+                    </div>
+                    <div>
+                        {LAST_INTERVENTION}
+                    </div>
+                    <div class="float-right">
+                        <a class="btn btn-primary  btn-sm " data-toggle="modal" data-target="#exampleModal{TICKET_ID}"
+                            title="User Interventions" data-content="data-content" href=""><i
+                                class="fas fa-history "></i><sup><i class="fas fa-users"></i></sup></a>
+                        <a class="btn btn-info  btn-sm " data-toggle="popover" title="Ticket Details"
+                            data-content="data-content" href="index.php?action=ticketdetails&ticket_id={TICKET_ID}"><i
+                                class="fas fa-ellipsis-h"></i></a>                      
+                    </div>
+                </div>
             </div>
-            <hr>
-            <h4>Last Intervention: </h4>
-            {LAST_INTERVENTION}
-        </div>
-    </div>
     <!-- END TICKET CODE -->
 </div>

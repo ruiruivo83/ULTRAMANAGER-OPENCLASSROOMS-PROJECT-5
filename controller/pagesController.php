@@ -41,7 +41,7 @@ class pagesController
     }
 
 
-    
+
     // PAGE - My Active Tickets Page
     public function MyClosedTickets()
     {
@@ -88,7 +88,22 @@ class pagesController
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "userprofile");
         $view = $this->ReplaceTotals($view);
-        echo $view;
+        $user = new User(null, null, null, null, null, null, null);
+        $PhotoName = $user->getPhotoIfExist($_SESSION['user']->getId());
+        if (strlen ($PhotoName[0])!= 0) {
+            $PhotoCode = file_get_contents('view/backend/profile_photo_code.html');            
+            $view = str_replace("{USER_PHOTO}", $PhotoCode, $view);
+            $view = str_replace("{PHOTO_NAME}", $PhotoName[0], $view);
+            echo $view;
+        } else {
+            $PhotoCode = file_get_contents('view/backend/profile_no_photo_code.html');
+            $view = str_replace("{USER_PHOTO}", $PhotoCode, $view);
+            echo $view;
+        }
+       
+       
+
+        
     }
 
     // PAGE - User Settings Page
@@ -157,7 +172,7 @@ class pagesController
         // IF SESSION IS OPEN - REPLACE WITH REAL CONTENT
         if (isset($_SESSION["user"])) {
             $ticket = new Tickets(null, null, null, null, null);
-            $status="open";
+            $status = "open";
             $result = $ticket->getMyTickets($status); // FROM MODEL
             $view = str_replace("{TOTAL_TICKETS_CARD_DEFAULT_CODE}", file_get_contents('view/backend/total_tickets_card_default_code.html'), $view);
             $view = str_replace("{TOTAL_TICKETS_OPEN}", count($result), $view);

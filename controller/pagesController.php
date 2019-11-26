@@ -26,6 +26,32 @@ class pagesController
         echo $view;
     }
 
+    
+    // PAGE - My Active Tickets Page
+    public function MyGroups()
+    {
+   
+        $view = file_get_contents('view/frontend/_layout.html');
+
+        $view = $this->SessionTestForUserMenu($view);
+        $view = $this->ReplaceContent($view, "mygroups");
+        $view = $this->ReplaceTotals($view);
+        
+        echo $view;
+    }
+
+    // PAGE - My Active Tickets Page
+    public function OtherGroups()
+    {
+        $view = file_get_contents('view/frontend/_layout.html');
+
+        $view = $this->SessionTestForUserMenu($view);
+        $view = $this->ReplaceContent($view, "othergroups");
+        $view = $this->ReplaceTotals($view);
+       
+        echo $view;
+    }
+
     // PAGE - My Active Tickets Page
     public function MyActiveTickets()
     {

@@ -91,8 +91,10 @@ class uploadController
                 echo "Success";
                 header("refresh:2;url=../index.php?action=myactivetickets");
             } else {
-                print_r($errors);
+                header('Location: ../index.php');
             }
+        } else {
+            # code...
         }
     }
 }

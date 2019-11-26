@@ -41,6 +41,24 @@ class Router
                 $pagesController->Index();
             }
 
+            // MY GROUPS
+            if ($_GET['action'] == 'mygroups') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->MyGroups();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // MY GROUPS
+            if ($_GET['action'] == 'othergroups') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->OtherGroups();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
             // TICKET DETAILS
             if ($_GET['action'] == 'ticketdetails') {
                 if ($_GET['ticket_id'] != null) {
@@ -118,6 +136,7 @@ class Router
             if ($_GET['action'] == 'register') {
                 $pagesController->register();
             }
+            
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////

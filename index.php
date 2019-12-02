@@ -9,6 +9,9 @@ require 'controller/pagesController.php';
 require 'controller/userController.php';
 require 'controller/uploadController.php';
 
+// ??? require 'controller/contentController/MyTicketsController.php';
+require 'controller/contentController/MyGroupsController.php';
+
 // CLASS ROUTER {
 class Router
 {
@@ -29,6 +32,7 @@ class Router
         $pagesController = new pagesController();
         $userController = new userController();
         $myTicketsController = new MyTicketsController();
+        $myGroupsController = new MyGroupsController();
         $uploadController = new UploadController();
 
         if (isset($_GET['action'])) {
@@ -36,30 +40,87 @@ class Router
             //////////////////////// ROUTER PAGES ////////////////////////////
             //////////////////////////////////////////////////////////////////
 
-            // ACCUEIL
+            // ACCUEIL PAGE
             if ($_GET['action'] == 'index') {
                 $pagesController->Index();
             }
 
-            // MY GROUPS
-            if ($_GET['action'] == 'mygroups') {
+            // MY OPEN GROUPS PAGE
+            if ($_GET['action'] == 'myopengroups') {
                 if (isset($_SESSION["user"])) {
-                    $pagesController->MyGroups();
+                    $pagesController->MyOpenGroups();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // MY GROUPS
-            if ($_GET['action'] == 'othergroups') {
+            // MY CLOSED GROUPS PAGE
+            if ($_GET['action'] == 'myclosedgroups') {
                 if (isset($_SESSION["user"])) {
-                    $pagesController->OtherGroups();
+                    $pagesController->MyClosedGroups();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // TICKET DETAILS
+            // LIST GROUP MEMBERS PAGE
+            if ($_GET['action'] == 'groupmembers') {
+                if ($_GET['group_name'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $GroupName = $_GET['group_name'];
+                        $pagesController->listMembersForSpecificGroup($GroupName);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }
+            }
+
+            // NEW MEMBER PAGE
+            if ($_GET['action'] == 'newmember') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->NewMember();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // SHARED OPEN GROUPS PAGE
+            if ($_GET['action'] == 'sharedopengroups') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->SharedOpenGroups();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // Shared Closed Groups PAGE
+            if ($_GET['action'] == 'sharedclosedgroups') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->SharedClosedGroups();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // Shared Open Tickets PAGE
+            if ($_GET['action'] == 'sharedopentickets') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->SharedOpenTickets();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // Shared Closed Groups PAGE
+            if ($_GET['action'] == 'sharedclosedtickets') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->SharedClosedTickets();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // TICKET DETAILS PAGE
             if ($_GET['action'] == 'ticketdetails') {
                 if ($_GET['ticket_id'] != null) {
                     if (isset($_SESSION["user"])) {
@@ -73,7 +134,7 @@ class Router
                 }
             }
 
-            // MY ACTIVE TICKETS
+            // MY ACTIVE TICKETS PAGE
             if ($_GET['action'] == 'myactivetickets') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->MyActiveTickets();
@@ -82,7 +143,7 @@ class Router
                 }
             }
 
-            // MY CLOSED TICKETS
+            // MY CLOSED TICKETS PAGE
             if ($_GET['action'] == 'myclosedtickets') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->MyClosedTickets();
@@ -91,7 +152,7 @@ class Router
                 }
             }
 
-            // ACCUEIL
+            // NEW TICKET PAGE
             if ($_GET['action'] == 'newticket') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->NewTicket();
@@ -100,7 +161,16 @@ class Router
                 }
             }
 
-            // User Profile
+            // NEW GROUP PAGE
+            if ($_GET['action'] == 'newgroup') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->NewGroup();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // User Profile PAGE
             if ($_GET['action'] == 'userprofile') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->UserProfile();
@@ -109,7 +179,7 @@ class Router
                 }
             }
 
-            // User Settings
+            // User Settings PAGE
             if ($_GET['action'] == 'usersettings') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->UserSettings();
@@ -118,7 +188,7 @@ class Router
                 }
             }
 
-            // User Activity Log
+            // User Activity Log PAGE
             if ($_GET['action'] == 'useractivitylog') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->UserActivityLog();
@@ -127,22 +197,31 @@ class Router
                 }
             }
 
-            // LOGIN
+            // LOGIN PAGE
             if ($_GET['action'] == 'login') {
                 $pagesController->login();
             }
 
-            // REGISTER
+            // REGISTER PAGE
             if ($_GET['action'] == 'register') {
                 $pagesController->register();
             }
-            
+
+            // LIST INVITATIONS PAGE
+            if ($_GET['action'] == 'listinvitations') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->listInvitations();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
             ////////////////////////////////////////////////////////////////////
 
-            // LOGOUT
+            // LOGOUT FUNCTION
             if ($_GET['action'] == 'logout') {
                 if (isset($_SESSION["user"])) {
                     $userController->logout();
@@ -151,17 +230,22 @@ class Router
                 }
             }
 
-            // LOGIN VALIDATION
+            // LOGIN VALIDATION FUNCTION
             if ($_GET['action'] == 'login_validation') {
                 $userController->loginValidation();
             }
 
-            // PAGE REGISTER NEW USER
+            // REGISTER NEW USER FUNCTION
             if ($_GET['action'] == 'registernewuser') {
                 $userController->registerNewUser();
             }
 
-            // ADD TICKET
+            // SEARCH USER NEW MEMBER         
+            if ($_GET['action'] == 'searchusernewmember') {
+                $userController->searchUserNewMember();
+            }
+
+            // ADD TICKET FUNCTION
             if ($_GET['action'] == 'addTicket') {
                 if (isset($_SESSION["user"])) {
                     $myTicketsController->addTicket();
@@ -170,19 +254,41 @@ class Router
                 }
             }
 
-            // CLOSE TICKET
+            // ADD GROUPE FUNCTION
+            if ($_GET['action'] == 'addGroup') {
+                if (isset($_SESSION["user"])) {
+                    $myGroupsController->addGroup();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // CLOSE GROUP FUNCTION
+            if ($_GET['action'] == 'closegroup') {
+                if ($_GET['group_id'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $groupid = $_GET['group_id'];
+                        $myGroupsController->closeGroup($groupid);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }
+            }
+
+
+            // CLOSE TICKET FUNCTION
             if ($_GET['action'] == 'closeticket') {
-                if ( $_GET['ticket_id'] != null) {
+                if ($_GET['ticket_id'] != null) {
                     if (isset($_SESSION["user"])) {
                         $ticketid = $_GET['ticket_id'];
                         $myTicketsController->closeTicket($ticketid);
                     } else {
                         header('Location: ../index.php');
                     }
-                }               
+                }
             }
 
-            // FILE UPLOAD TO TICKET
+            // FILE UPLOAD TO TICKET FUNCTION
             if ($_GET['action'] == 'fileupload') {
                 if (isset($_SESSION["user"])) {
                     $uploadController->uploadFile();
@@ -191,7 +297,7 @@ class Router
                 }
             }
 
-            
+
             if ($_GET['action'] == 'atachphototouser') {
                 if (isset($_SESSION["user"])) {
                     $uploadController->atachphototouser();
@@ -200,11 +306,23 @@ class Router
                 }
             }
 
-            // ADD TICKET INTERVENTION
+            // ADD TICKET INTERVENTION FUNCTION
             if ($_GET['action'] == 'addTicketIntervention') {
                 if (isset($_SESSION["user"])) {
                     $string = null;
                     $myTicketsController->addTicketIntervention($string);
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // SEND INVITATION FUNCTION
+            if ($_GET['action'] == 'registerInvitation') {
+                if (isset($_SESSION["user"])) {
+                    $UserEmail = $_POST["email"];
+                    $GroupName = $_POST["group_name"];
+
+                    $userController->registerInvitation($UserEmail, $GroupName);
                 } else {
                     header('Location: ../index.php');
                 }

@@ -108,12 +108,12 @@ class Tickets
 
 
     // ADD TICKET TO DATABASE
-    public function addTicket($Title, $Description, $Author, $Requester)
+    public function addTicket($Title, $Description, $Author, $Requester, $Group)
     {
         $bdd = Database::getBdd();
-        $req = $bdd->prepare("INSERT INTO ticket( title, description, creation_date, status, author, requester) values (?,?, NOW(), ?, ?, ?) ");
+        $req = $bdd->prepare("INSERT INTO ticket( title, description, creation_date, status, author, requester, group_name) values (?,?, NOW(), ?, ?, ?, ?) ");
         $Status = "open";
-        $req->execute(array($Title, $Description, $Status, $Author, $Requester));
+        $req->execute(array($Title, $Description, $Status, $Author, $Requester, $Group));
     }
 
     // CLOSE TICKET ID

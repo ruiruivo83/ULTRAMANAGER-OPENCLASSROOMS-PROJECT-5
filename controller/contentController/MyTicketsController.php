@@ -10,19 +10,21 @@ class MyTicketsController
     {
         if (isset($_SESSION['user'])) {
             // if (isset($_SESSION['user']) && $_SESSION["user"]->isAdmin()) {
-            if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"])) {
+            if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Group"])) {
 
                 $Title = $_POST["Title"];
                 $Description = $_POST["Description"];
                 $Author = $_SESSION['user']->getEmail();
                 $Requester = $_POST["Requester"];
+                $Group = $_POST["Group"];
+
 
                 // INSERT INTO DATABASE
                 // Create class instance
 
                 $Tickets = new Tickets(null, null, null, null, null);
                 // Execute method addTicket
-                $Tickets->addTicket($Title, $Description, $Author, $Requester);
+                $Tickets->addTicket($Title, $Description, $Author, $Requester, $Group);
                 //
                 header('Location: ../index.php?action=myactivetickets');
                 exit();
@@ -51,7 +53,6 @@ class MyTicketsController
                 // var_dump($Intervention_Description, $Ticket_id);
                 $Tickets = new Tickets(null, null, null, null, null);
                 $Tickets->addTicketIntervention($Ticket_id, $Intervention_Description, $_SESSION['user']->getEmail());
-
             }
         } else {
             if (isset($_SESSION['user'])) {
@@ -92,7 +93,7 @@ class MyTicketsController
 
                 $current_ticket = str_replace("{TICKET_ID}", $current_result["id"], $current_ticket, $count);
                 $current_ticket = str_replace("{REQUESTER_NAME}", $current_result["requester"], $current_ticket, $count);
-                
+
                 $current_ticket = str_replace("{TICKET_DESCRIPTION}", $current_result["description"], $current_ticket);
                 $current_ticket = str_replace("{TICKET_TITLE}", $current_result["title"], $current_ticket);
                 $current_ticket = str_replace("{INTERVENTION_CARD}", $this->ReplaceInterventionList($current_result["id"], null), $current_ticket);
@@ -120,7 +121,7 @@ class MyTicketsController
                 // Create class instance
                 $Tickets = new Tickets(null, null, null, null, null);
                 // Execute method addTicket
-                $Tickets->addTicket($Title, $Description, $Author, $Requester);
+                $Tickets->addTicket($Title, $Description, $Author, $Requester, null);
                 header('Location: ../index.php');
                 exit();
             }
@@ -186,5 +187,25 @@ class MyTicketsController
             }
             return $intervention_list_final_code;
         }
+    }
+
+    public function ReplaceGroupListOptions($view)
+    {
+        $Admin = $_SESSION['user']->getEmail();
+        $User = new User(null, null, null, null, null, null, null);
+        $result = $User->getGroupList($Admin);
+        $option_list_final_code = "";
+        foreach ($result as $current_result) {
+            $current_option = null;
+            $current_option = file_get_contents('view/backend/option_my_group_list_default_code.html');
+            $current_option = str_replace("{GROUP_NAME}", $current_result["group_name"], $current_option);
+            $option_list_final_code .= $current_option;
+        }
+
+        $view = str_replace("{MY_GROUP_LIST}", $option_list_final_code, $view);
+
+
+       
+        return $view;
     }
 }

@@ -1,0 +1,37 @@
+<!-- Begin Page Content -->
+<div class="container-fluid ">
+    <div class="col-lg-12">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row center">
+                    <h6 class="m-0 font-weight-bold text-primary">&nbsp;&nbsp;&nbsp;New Group</h6>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="div_add_form">
+                    <form action="index.php?action=addGroup" method="post" class="form-example">
+                        <table class="table">
+                            <tbody">
+                                <tr>
+                                    <th class="w-25"> GROUPE NAME: </th>
+                                    <td> <input class="w-100" type="text" name="Title" id="Title" required></td>
+                                </tr>
+                                <tr>
+                                    <th class="w-25"> <label>GROUPE DESCRIPTION: </label></th>
+                                    <td>
+                                        <div class="input_text"><textarea id="textarea_id"
+                                                name="Description"></textarea></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        <div class="form-example text-right">
+                            <input type="submit" class="btn btn-primary " value="Create Group">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

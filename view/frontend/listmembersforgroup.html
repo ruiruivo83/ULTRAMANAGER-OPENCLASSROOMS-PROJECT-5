@@ -1,0 +1,62 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="col-lg-12">
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="center">
+                        <div>
+                            <h6 class="m-0 font-weight-bold text-primary">Members for group: <b>{GROUP_NAME}</b></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="search_container" action="index.php?action=searchusernewmember" method="post">
+                        <div class="row center">
+                            <div>
+                                Search New User:&nbsp;&nbsp;&nbsp;</div>
+                            <div>
+                                <input class="w-100" placeholder="Email" type="text" name="SearchUser" id="SearchUser"
+                                    required>
+                            </div>
+                            <div>
+
+                                <input type="text" name="GroupName" id="GroupName" value="{GROUP_NAME}" hidden>
+                            </div>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                                    class="btn btn-info btn-sm" type="submit"><i
+                                        class="fas fa-search-plus"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    - MUST SEND INVITATION TO THE OTHER USER IF EXISTS
+
+                    - Check if user mail exists.<br>
+                    - Send invitation that must be accepted.<br>
+                    - Register on our group member list the invitation link with timer and dead timestamp (example 48h
+                    to accept).<br>
+                    - Add user to the group list if invitation is accepted.<br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-lg-10  center">
+                        </div>
+                        <div class="col-lg-1 row center">
+                        </div>
+                        <div class="col-lg-1 row center">
+                        </div>
+                    </div>
+                    <!-- TICKET AREA -->
+                    {MEMBER_LIST}
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+</div>

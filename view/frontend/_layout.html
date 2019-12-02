@@ -26,6 +26,8 @@
     <!-- LOCAL JAVASCRIPT -->
     <script type="text/javascript" src="public/js/javascript"></script>
 
+    <meta name="viewport" content="initial-scale=0.5, maximum-scale=1">
+
 </head>
 
 <body id="page-top">
@@ -63,65 +65,58 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
 
 
+
+
             <!-- Heading -->
+            <!--
             <div class="sidebar-heading">
-                Interface
+                <i class="fas fa-user-shield"></i>
+                Groups
             </div>
+            -->
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyGroups"
                     aria-expanded="true" aria-controls="collapseMyGroups">
-                    <i class="fas fa-user-lock"></i>
-                    <span>My Groups</span>
+                    <i class="fas fa-users"></i>
+                    <span>Groups</span>
                 </a>
                 <div id="collapseMyGroups" class="collapse" aria-labelledby="headingMyGroups"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="index.php?action=mygroups"><i
-                                class="fas fa-users"></i>&nbsp;<sup><i class="fas fa-lock-open"></i></sup>&nbsp;Active
-                            Groups</a>
-                        <a class="collapse-item" href="index.php?action=othergroups"><i
-                                class="fas fa-users"></i>&nbsp;<sup><i class="fas fa-lock"></sup></i>&nbsp;Closed
-                            Groups</a>
+                        <a class="collapse-item" href="index.php?action=myopengroups">
+                            <i class="fas fa-users"></i>
+                            Open Groups</a>
+                        <a class="collapse-item" href="index.php?action=myclosedgroups">
+                            <i class="fas fa-users"></i>
+                            Closed Groups</a>
+                        <a class="collapse-item" href="index.php?action=myclosedgroups">
+                            <i class="fas fa-share-alt"></i>
+                            Shared Groups</a>
+                        <a class="collapse-item" href="index.php?action=listinvitations">
+                           
+                            Invitations</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOtherGroups"
-                    aria-expanded="true" aria-controls="collapseOtherGroups">
-                    <i class="fas fa-users"></i>
-                    <span>Other Groups</span>
-                </a>
-                <div id="collapseOtherGroups" class="collapse" aria-labelledby="headingOtherGroups"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="index.php?action=mygroups"><i
-                                class="fas fa-share-alt"></i>&nbsp;<sup><i class="fas fa-users"></i></sup>&nbsp;Active
-                            Groups</a>
-                        <a class="collapse-item" href="index.php?action=othergroups"><i
-                                class="fas fa-share-alt"></i>&nbsp;<sup><i class="fas fa-users"></i></sup>&nbsp;Closed
-                            Groups</a>
-                    </div>
-                </div>
-            </li>
+
+
+
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrivateTickets"
                     aria-expanded="true" aria-controls="collapsePrivateTickets">
-                    <i class="fas fa-user-lock"></i>
-                    <span>My Tickets</span>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Tickets</span>
                 </a>
                 <div id="collapsePrivateTickets" class="collapse" aria-labelledby="headingPrivateTickets"
                     data-parent="#accordionSidebar">
@@ -129,34 +124,11 @@
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
 
                         <a class="collapse-item" href="index.php?action=myactivetickets">
-                                <i class="fas fa-ticket-alt"></i>&nbsp;<sup><i class="fas fa-lock-open"></i></sup>
-                            <span>Active Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>Open Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
 
                         <a class="collapse-item" href="index.php?action=myclosedtickets">
-                            <i class="fas fa-ticket-alt"></i>&nbsp;<sup><i class="fas fa-lock"></i></sup>
-                            <span>Closed Tickets</span></a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOtherTickets"
-                    aria-expanded="true" aria-controls="collapseOtherTickets">
-                    <i class="fas fa-share-alt"></i>
-                    <span>Other Tickets</span>
-                </a>
-                <div id="collapseOtherTickets" class="collapse" aria-labelledby="headingOtherTickets"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-
-                        <a class="collapse-item" href="index.php?action=otheractivetickets">
-                            <i class="fas fa-share-alt"></i>&nbsp;<sup><i class="fas fa-ticket-alt"></i></sup></i>
-                            <span>Active Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
-
-                        <a class="collapse-item" href="index.php?action=otherclosedtickets">
-                            <i class="fas fa-share-alt"></i>&nbsp;<sup><i class="fas fa-ticket-alt"></i></sup></i>
+                            <i class="fas fa-ticket-alt"></i>
                             <span>Closed Tickets</span></a>
                     </div>
                 </div>
@@ -164,8 +136,8 @@
 
 
 
-            <br>
-            <br>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -209,10 +181,10 @@
                 {CONTENT}
 
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
+                <footer class="bg-white fixed-bottom">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2019</span>
+                            <span>Copyright &copy; Rui Ruivo for OpenClassRooms</span>
                         </div>
                     </div>
                 </footer>

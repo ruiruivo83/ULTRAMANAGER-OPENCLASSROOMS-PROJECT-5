@@ -127,7 +127,7 @@ class User
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
-        var_dump($req->execute(array($this->firstname, $this->lastname, $this->email, $this->psw, $this->country)));
+        $req->execute(array($this->firstname, $this->lastname, $this->email, $this->psw, $this->country));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -145,6 +145,21 @@ class User
         $emailCount = $req->rowCount();
         return $emailCount;
     }
+
+
+    // SEARCH USER
+    public function SearchUser()
+    {
+        $bdd = Database::getBdd($this->email);
+        $req = $bdd->prepare("SELECT email FROM users WHERE email =  ?   ");
+        $User = $_POST["SearchUser"];
+        $req->execute(array($User));
+        $result = $req->fetchall();
+        // $req->debugDumpParams();
+        // die;
+        return $result;
+    }
+
 
     // ATACH PHOTO TO USER
     public function atachPhotoToUser($user_id, $filename)
@@ -167,5 +182,35 @@ class User
         // $req->debugDumpParams();
         // die;
         return $result[0];
+    }
+
+    // GET MY GROUP LIST
+    public function getGroupList($Admin)
+    {
+        $bdd = Database::getBdd($this->email);
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = ? AND group_status = 'open' ");
+        $req->execute(array($Admin));
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+    // VERIFY IF USER IS ALREADY INVITED TO THIS GROUP
+    public function verifyIfUserIsAlreadyInvitedToThisGroup($ToUser, $InGroup)
+    {
+        $bdd = Database::getBdd($this->email);
+        $req = $bdd->prepare("SELECT * FROM invitations WHERE invitation_for_group_name = ? AND invitation_to = ? ");
+        $req->execute(array($InGroup, $ToUser));
+       
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+    // REGISTER INVITATION
+    public function registerInvitation($FromUser, $ToUser, $InGroup)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
+        $req = $bdd->prepare("INSERT INTO invitations (invitation_date, invitation_for_group_name, invitation_from, invitation_to) value (NOW(), ?, ?, ?)");
+        $req->execute(array($InGroup, $FromUser, $ToUser));
     }
 }

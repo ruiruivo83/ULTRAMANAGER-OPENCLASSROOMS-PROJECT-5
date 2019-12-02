@@ -1,0 +1,66 @@
+<!-- START TICKET CODE -->
+<div class="ticket_line_warning hover row center">
+    <div class="col-lg-10 center row">
+        <div class="width_50px">
+            <span data-toggle="popover" title="More Details" data-content="data-content">
+                <i class=" text-info text-sm-center"></i>&nbsp;
+                <button class="btn btn-sm hover" type="button" data-toggle="collapse"
+                    data-target="#collapseTicket{GROUP_ID}" aria-expanded="false"
+                    aria-controls="collapseTicket{GROUP_ID}">
+                    <i class="fas fa-search"></i></i>
+                </button>
+            </span>
+        </div>
+        <div class="width_100px">
+            <span data-toggle="popover" title="GROUP ID" data-content="data-content">
+                <i class="fas fa-users text-info text-sm-center"></i>&nbsp;{GROUP_ID}</span>
+        </div>
+
+        <div> <span class="font-weight-bold">{GROUP_NAME}</span>
+        </div>
+    </div>
+    <div class="ticket_icones col-lg-2 mr-0 pr-0">
+        <!-- Trigger modal -->
+        <a class="btn btn-primary  btn-sm " data-toggle="modal" data-target="#exampleModal{GROUP_ID}"
+            title="User Interventions" data-content="data-content" href=""><i class="fas fa-history "></i><sup><i
+                    class="fas fa-users"></i></sup></a>       
+    </div>
+    <div>
+        <!-- Modal - Description-->
+        <div class="modal fade" id="exampleModal{GROUP_ID}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{GROUP_NAME}</h5>
+                        <button type="button" class="close button_close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal_requester">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal Description-->
+    </div>
+</div>
+
+<div class="collapse mb-5 ml-2 mr-2 mt-2" id="collapseTicket{GROUP_ID}">
+    <div class="card ">
+        <div class="card-header ">
+            <div>
+                <h4>Description: </h4>
+            </div>
+            <div class="bg-white text-dark p-4">
+                <h6>{GROUP_DESCRIPTION}</h6>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- END GROUP CODE -->
+</div>

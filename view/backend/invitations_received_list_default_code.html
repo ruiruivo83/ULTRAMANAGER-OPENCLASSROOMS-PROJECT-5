@@ -11,7 +11,8 @@
     <div class="col-md-2">
         From: {invitation_from}
     </div>
-    <div class="col-md-6 float-right">
-        <a class="float-right"><button>DELETE</button></a>
+    <div class="col-md-6 text-right">
+        <a href="index.php?action=acceptinvitation&invitationid={INVITATION_ID}"><button type="button" class="btn btn-success">Accept</button></a>
+        <a href="index.php?action=deletereceivedinvitation&invitationid={INVITATION_ID}"><button type="button" class="btn btn-danger">Delete</button></a>
     </div>
 </div>

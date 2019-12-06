@@ -1,6 +1,7 @@
 <!-- START TICKET CODE -->
 <div class="ticket_line_warning hover row center">
     <div class="col-lg-10 center row">
+
         <div class="width_50px">
             <span data-toggle="popover" title="More Details" data-content="data-content">
                 <i class=" text-info text-sm-center"></i>&nbsp;
@@ -11,19 +12,21 @@
                 </button>
             </span>
         </div>
-        <div class="width_50px ">
-                <span data-toggle="popover" title="Ticket ID" data-content="data-content">
-                    <i class="fas fa-user-friends text-info text-sm-center"></i></span>
+
+        <div class="width_50px">
+                <span data-toggle="group_name" title="Ticket ID" data-content="data-content">&nbsp;<i class="fas fa-share-alt"></i></span>
             </div>
+
         <div class="width_200px">
-            <span data-toggle="popover" title="Ticket ID" data-content="data-content">
-               &nbsp;{TICKET_GROUP}</span>
+            <span data-toggle="group_name" title="Ticket ID" data-content="data-content">&nbsp;{GROUP_NAME}</span>
         </div>
-        <div class="">
-                &nbsp;&nbsp;&nbsp;&nbsp;
+     
+
+        <div class="width_300px">
             <span data-toggle="popover" title="Requester" data-content="data-content"><i
-                    class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;{REQUESTER_NAME}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    class="fas fa-user"></i>&nbsp;{REQUESTER_NAME}</span>
         </div>
+
         <div> <span class="font-weight-bold">{TICKET_TITLE}</span>
         </div>
     </div>

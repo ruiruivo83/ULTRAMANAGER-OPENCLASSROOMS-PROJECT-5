@@ -194,13 +194,24 @@ class User
         return $Result;
     }
 
+    // GET SHARED GROUP LIST
+    public function getOthersGroupList($Admin)
+    {
+        $bdd = Database::getBdd($this->email);
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin != ? AND group_status = 'open' ");
+        $req->execute(array($Admin));
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+
     // VERIFY IF USER IS ALREADY INVITED TO THIS GROUP
     public function verifyIfUserIsAlreadyInvitedToThisGroup($ToUser, $InGroup)
     {
         $bdd = Database::getBdd($this->email);
         $req = $bdd->prepare("SELECT * FROM invitations WHERE invitation_for_group_name = ? AND invitation_to = ? ");
         $req->execute(array($InGroup, $ToUser));
-       
+
         $Result = $req->fetchall();
         return $Result;
     }

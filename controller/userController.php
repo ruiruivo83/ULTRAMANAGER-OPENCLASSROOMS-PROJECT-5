@@ -117,7 +117,7 @@ class userController
         $User = new User(null, null, null, null, null, null, null);
         if ($User->verifyIfUserIsAlreadyInvitedToThisGroup($ToUser, $InGroup) == null) {
             $User->registerInvitation($FromUser, $ToUser, $InGroup);
-        } 
+        }
         header('Location: ../index.php?action=groupmembers&group_name=' . $GroupName);
     }
 
@@ -127,4 +127,90 @@ class userController
         session_destroy();
         header('Location: ../index.php');
     }
+
+    // DELETE MY OWN INVITATION ID
+    public function deleteMyInvitation($invitationId)
+    {
+        // Check Author - IF OK
+        // DELETE INVITATION
+        $Invitations = new Invitations;
+        $Result = $Invitations->getInvitationAuthor($invitationId);
+
+        foreach ($Result as $currentResult) {
+            $invitationAuthor = $currentResult["invitation_from"];
+        }
+        if ($_SESSION['user']->getEmail() == $invitationAuthor) {
+            $Invitations->deleteInvitation($invitationId);
+            header('Location: ../index.php?action=listinvitations');
+        } else {
+            header('Location: ../index.php?action=listinvitations');
+        }
+    }
+
+
+
+    // DELETE RECEIVED INVITATION    
+    public function deleteReceivedInvitation($invitationId)
+    {
+        // Check Author - IF OK
+        // DELETE INVITATION
+        $Invitations = new Invitations;
+        $Result = $Invitations->getInvitationDestinator($invitationId);
+
+        foreach ($Result as $currentResult) {
+            $invitationDestinator = $currentResult["invitation_to"];
+        }
+        if ($_SESSION['user']->getEmail() == $invitationDestinator) {
+            $Invitations->deleteInvitation($invitationId);
+            header('Location: ../index.php?action=listinvitations');
+        } else {
+            header('Location: ../index.php?action=listinvitations');
+        }
+    }
+
+    // ACCEPT INVITATION
+    public function acceptInvitation($invitationId)
+    {
+        $Invitations = new Invitations;
+        $Result = $Invitations->getInvitationDestinator($invitationId);
+        $invitationDestinator = "";
+        foreach ($Result as $currentResult) {
+            $invitationDestinator = $currentResult["invitation_to"];
+        }
+
+        // GET group name from invitation id
+        $Result = $Invitations->getGroupName($invitationId);
+        $GroupName = "";
+        foreach ($Result as $currentResult) {
+            $GroupName = $currentResult["invitation_for_group_name"];
+        }
+
+        // GET group id with group name
+        $Result = $Invitations->getGroupID($GroupName);
+        $GroupID = "";
+        foreach ($Result as $currentResult) {
+            $GroupID = $currentResult["id"];
+        }
+
+        // GET TOTAL COUNT FOR THIS Destinator in the group
+        $Groups = new Groups(null, null, null, null);
+        $Result = $Groups->GetDestinatorTotalCountsInGroup($GroupID,  $invitationDestinator);
+        if ($Result == 0) {
+            $Invitations->InsertDestinatorToGroup($GroupID,  $invitationDestinator);
+            $Invitations->deleteInvitation($invitationId);
+            header("Location: ../index.php?action=listinvitations");
+        } else {
+            $Invitations->deleteInvitation($invitationId);
+            header("Location: ../index.php?action=listinvitations");
+        }
+        header("Location: ../index.php?action=listinvitations");
+    }
+
+    // REMOVE MEMBER FROM GROUP
+    public function RemoveMemberFromGroup($GroupId, $MemberEmail)
+    {
+       $Groups = new Groups(null, null, null,null);
+       $Groups->RemoveMemberFromGroup($GroupId, $MemberEmail);
+       header('Location: ../index.php?action=myopengroups');
+     }
 }

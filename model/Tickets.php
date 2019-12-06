@@ -76,7 +76,7 @@ class Tickets
         $this->Description = $Description;
     }
 
-    // GET ALL TICKETS FROM DATABASE, ORDER BY DESC DATE
+    // GET MY TICKETS FROM DATABASE, ORDER BY DESC DATE
     public function getMyTickets($status)
     {
         $bdd = Database::getBdd();
@@ -91,6 +91,21 @@ class Tickets
         return $result;
     }
 
+     // GET ALL TICKETS BY GROUP NAME FROM DATABASE, ORDER BY DESC DATE
+     public function getTicketsByGroupName($GroupName)
+     {
+         $bdd = Database::getBdd();
+         // PREPARE QUERY - utilise prepare pour les accents sur les lettres         
+         $req = $bdd->prepare("SELECT * FROM ticket WHERE group_name = '$GroupName' ORDER BY creation_date DESC");
+         $req->execute();
+         // DEBUG
+         // $req->debugDumpParams();
+         // die;
+         $result = $req->fetchall();
+         return $result;
+     }
+
+     
     
 
 

@@ -88,7 +88,7 @@ class Groups
         // $req->debugDumpParams();
         // die;
         $result = $req->fetchall();
-       
+
 
         return $result;
     }
@@ -98,7 +98,7 @@ class Groups
     {
         $bdd = Database::getBdd();
         $Admin = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("INSERT INTO groups( group_name, group_description, creation_date, group_admin) values (?,?, NOW(), ?) ");       
+        $req = $bdd->prepare("INSERT INTO groups( group_name, group_description, creation_date, group_admin) values (?,?, NOW(), ?) ");
         $req->execute(array($GroupName, $GroupDescription, $Admin));
         // $req->debugDumpParams();
         // die;
@@ -114,4 +114,81 @@ class Groups
         // $req->debugDumpParams();
         // die;
     }
+
+    public function getMembers($GroupId)
+    {
+        $bdd = Database::getBdd();
+
+        $req = $bdd->prepare("SELECT * FROM group_members WHERE group_id = '$GroupId' ORDER BY member_email DESC");
+        $req->execute();
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
+    public function GetDestinatorTotalCountsInGroup($GroupID,  $invitationDestinator)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM group_members WHERE group_id = '$GroupID' AND member_email = '$invitationDestinator' ORDER BY member_email DESC");
+        $req->execute();
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->rowCount();
+        return $result;
+    }
+
+    public function GetGroupIdListWhereMemberIsCurrentUser()
+    {
+        $bdd = Database::getBdd();
+        $CurrentUser = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT group_id FROM group_members WHERE member_email = '$CurrentUser' ORDER BY group_id DESC");
+        $req->execute();
+        $result = $req->fetchall();
+        return $result;
+    }
+
+    public function GetAdminForGroupId($GroupId)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT group_admin FROM groups WHERE id = '$GroupId' ");
+        $req->execute();
+        $Result = $req->fetchall();
+
+        return $Result;
+    }
+
+    public function GetGroupNameForGroupId($CurrentGroupId)
+    { 
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$CurrentGroupId' ");
+        $req->execute();
+        $Result = $req->fetchall();
+
+        return $Result;
+
+    }
+
+    public function GetGroupAdminWithGroupName($GroupName)
+    { 
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT group_admin FROM groups WHERE group_name = '$GroupName' ");
+        $req->execute();
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+    public function RemoveMemberFromGroup($GroupId, $MemberEmail) {
+        $bdd = Database::getBdd();
+        // DELETE FROM table_name WHERE condition;
+        $req = $bdd->prepare("DELETE FROM group_members WHERE group_id = '$GroupId' AND member_email = '$MemberEmail'");
+        $req->execute();       
+        // $req->debugDumpParams();
+        // die;
+    }
+
+
+
+
+
 }

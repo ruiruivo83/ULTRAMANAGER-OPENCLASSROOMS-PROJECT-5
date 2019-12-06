@@ -13,8 +13,8 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <div class="row">
-                        <h6 class="m-0 font-weight-bold text-primary">Ticket Details</h6>
-                        <h6>&nbsp;&nbsp;<a><i class="hover fas fa-cog"></i></a></h6>
+                        <h6 class="m-0 font-weight-bold text-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fas fa-ticket-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Ticket Details - {TICKET_TITLE}</h6>
                     </div>
                 </div>
                 <div class="card-body">
@@ -29,10 +29,18 @@
                     </div>
                     <hr>
                     <!-- TICKET AREA -->
-                    {TICKET_DETAIL}
+                    <div class="col-md-12">
+                        <div> Creation Date: {CREATION_DATE}</div>
+                        <div> Group: {GROUP_NAME}</div>
+                        <div> Author: {TICKET_AUTHOR}</div>
+                        <div> Requester: {REQUESTER}</div>
+                        <div> Status: {TICKET_STATUS}</div>
+                        <div> Description:
+                            <input type="textarea" class="w-100" value=" {DESCRIPTION}">
+                        </div>
+                    </div>
+
                     <!-- CODE -->
-
-
                     <!-- NEW INTERVENTION TEXT AREA-->
                     <div class="modal-body">
                         <div class="card-header">
@@ -42,7 +50,7 @@
                                     <input type="text" name="ticket_id" id="Ticket_Id" value="{TICKET_ID}" hidden>
                                     <div>
                                         <div class="text-left row">
-                                            <div>
+                                            <div class="col-md-12">
                                                 New Intervention:
                                             </div>
                                         </div>

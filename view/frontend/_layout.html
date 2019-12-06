@@ -72,13 +72,6 @@
 
 
 
-            <!-- Heading -->
-            <!--
-            <div class="sidebar-heading">
-                <i class="fas fa-user-shield"></i>
-                Groups
-            </div>
-            -->
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -97,11 +90,11 @@
                         <a class="collapse-item" href="index.php?action=myclosedgroups">
                             <i class="fas fa-users"></i>
                             Closed Groups</a>
-                        <a class="collapse-item" href="index.php?action=myclosedgroups">
+                        <a class="collapse-item" href="index.php?action=sharedopengroups">
                             <i class="fas fa-share-alt"></i>
                             Shared Groups</a>
                         <a class="collapse-item" href="index.php?action=listinvitations">
-                           
+                            <i class="fas fa-sign-in-alt"></i>
                             Invitations</a>
                     </div>
                 </div>
@@ -122,14 +115,15 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-
                         <a class="collapse-item" href="index.php?action=myactivetickets">
                             <i class="fas fa-ticket-alt"></i>
-                            <span>Open Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
-
+                            <span>All Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
                         <a class="collapse-item" href="index.php?action=myclosedtickets">
                             <i class="fas fa-ticket-alt"></i>
-                            <span>Closed Tickets</span></a>
+                            <span>My Closed Tickets</span></a>
+                        <a class="collapse-item" href="index.php?action=sharedtickets">
+                                <i class="fas fa-share-alt-square"></i>
+                            <span>Shared Tickets</span></a>
                     </div>
                 </div>
             </li>

@@ -103,18 +103,18 @@ class Router
             }
 
             // Shared Open Tickets PAGE
-            if ($_GET['action'] == 'sharedopentickets') {
+            if ($_GET['action'] == 'sharedtickets') {
                 if (isset($_SESSION["user"])) {
-                    $pagesController->SharedOpenTickets();
+                    $pagesController->SharedTickets();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // Shared Closed Groups PAGE
+            // Shared Closed Tickets PAGE
             if ($_GET['action'] == 'sharedclosedtickets') {
                 if (isset($_SESSION["user"])) {
-                    $pagesController->SharedClosedTickets();
+                    $pagesController->sharedclosedtickets();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -156,6 +156,15 @@ class Router
             if ($_GET['action'] == 'newticket') {
                 if (isset($_SESSION["user"])) {
                     $pagesController->NewTicket();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // NEW SHARED TICKET            
+            if ($_GET['action'] == 'newsharedticket') {
+                if (isset($_SESSION["user"])) {
+                    $pagesController->NewSharedTicket();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -325,6 +334,62 @@ class Router
                     $userController->registerInvitation($UserEmail, $GroupName);
                 } else {
                     header('Location: ../index.php');
+                }
+            }
+
+            // DELETE MY INVITATION
+            // deletemyinvitation
+            if ($_GET['action'] == 'deletemyinvitation') {
+                if ($_GET['invitationid'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $invitationId = $_GET['invitationid'];
+                        $userController->deleteMyInvitation($invitationId);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }
+            }
+
+            // DELETE RECEIVED INVITATION
+            if ($_GET['action'] == 'deletereceivedinvitation') {
+                if ($_GET['invitationid'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $invitationId = $_GET['invitationid'];
+                        $userController->deleteReceivedInvitation($invitationId);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }
+            }
+
+            // ACCEPT INVITATION
+            // acceptinvitation
+            if ($_GET['action'] == 'acceptinvitation') {
+                if ($_GET['invitationid'] != null) {
+                    if (isset($_SESSION["user"])) {
+                        $invitationId = $_GET['invitationid'];
+                        $userController->acceptInvitation($invitationId);
+                    } else {
+                        header('Location: ../index.php');
+                    }
+                }
+            }
+
+            // removememberfromgroup
+            if ($_GET['action'] == 'removememberfromgroup') {
+               
+                if ($_GET['groupid'] != null) {
+                   
+                    if ($_GET['member'] != null) {
+                   
+                        if (isset($_SESSION["user"])) {                         
+                            $GroupId = $_GET['groupid'];
+                            $MemberEmail = $_GET['member'];
+                            $userController->RemoveMemberFromGroup($GroupId, $MemberEmail);
+                        } else {
+                            header('Location: ../index.php');
+                        }
+                    }
                 }
             }
         } else {

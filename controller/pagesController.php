@@ -29,7 +29,7 @@ class pagesController
 
     // PAGE - My Active Tickets Page
     public function MyOpenGroups()
-    {        
+    {
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "myopengroups");
@@ -80,12 +80,6 @@ class pagesController
         echo $view;
     }
 
-
-
-
-
-
-
     // LIST ALL INVITATIONS
     public function listInvitations()
     {
@@ -94,41 +88,28 @@ class pagesController
         $view = $this->ReplaceContent($view, "listinvitations");
 
         $Result = $this->replaceInvitationsSentList();
-      
+
 
         $CurrentResult = "";
         $compiledSentListCode = "";
         $compiledReceivedListCode = "";
 
-
         foreach ($Result as $CurrentResult) {
             $invitations_sent_list_default_code = file_get_contents('view/backend/invitations_sent_list_default_code.html');
-
-            $invitation_to = $CurrentResult["invitation_to"];
-            $invitations_sent_list_default_code = str_replace("{invitation_to}", $invitation_to, $invitations_sent_list_default_code);
-
-            $invitation_date = $CurrentResult["invitation_date"];
-            $invitations_sent_list_default_code = str_replace("{invitation_date}", $invitation_date, $invitations_sent_list_default_code);
-
-            $invitation_for_group_name = $CurrentResult["invitation_for_group_name"];
-            $invitations_sent_list_default_code = str_replace("{invitation_for_group_name}", $invitation_for_group_name, $invitations_sent_list_default_code);
-
+            $invitations_sent_list_default_code = str_replace("{invitation_to}", $CurrentResult["invitation_to"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{invitation_date}", $CurrentResult["invitation_date"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{invitation_for_group_name}", $CurrentResult["invitation_for_group_name"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{INVITATION_ID}", $CurrentResult["id"], $invitations_sent_list_default_code);
             $compiledSentListCode .=  $invitations_sent_list_default_code;
         }
 
         $Result = $this->replaceInvitationsReceivedList();
         foreach ($Result as $CurrentResult) {
             $invitations_sent_list_default_code = file_get_contents('view/backend/invitations_received_list_default_code.html');
-
-            $invitation_to = $CurrentResult["invitation_from"];
-            $invitations_sent_list_default_code = str_replace("{invitation_from}", $invitation_to, $invitations_sent_list_default_code);
-
-            $invitation_date = $CurrentResult["invitation_date"];
-            $invitations_sent_list_default_code = str_replace("{invitation_date}", $invitation_date, $invitations_sent_list_default_code);
-
-            $invitation_for_group_name = $CurrentResult["invitation_for_group_name"];
-            $invitations_sent_list_default_code = str_replace("{invitation_for_group_name}", $invitation_for_group_name, $invitations_sent_list_default_code);
-
+            $invitations_sent_list_default_code = str_replace("{invitation_from}", $CurrentResult["invitation_from"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{invitation_date}", $CurrentResult["invitation_date"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{invitation_for_group_name}", $CurrentResult["invitation_for_group_name"], $invitations_sent_list_default_code);
+            $invitations_sent_list_default_code = str_replace("{INVITATION_ID}", $CurrentResult["id"], $invitations_sent_list_default_code);
             $compiledReceivedListCode .=  $invitations_sent_list_default_code;
         }
         $view = str_replace("{INVITATIONS_SENT_LIST}", $compiledSentListCode, $view);
@@ -157,34 +138,22 @@ class pagesController
         return $Result;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function listMembersForSpecificGroup($GroupName)
     {
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "listmembersforgroup");
         $view = str_replace("{GROUP_NAME}", $GroupName, $view);
+        // GET COMPILED LIST OF GROUP MEMBERS
+        // GET GROUP ID WITH GROUP NAME
+        $Invitations = new Invitations;
+        $Result = $Invitations->getGroupID($GroupName);
+        foreach ($Result as $CurrentResult) {
+            $GroupId = $CurrentResult['id'];
+        }
+        $MyGroups = new MyGroupsController;
+        $CompiledMemberList = $MyGroups->GetCompiledMemberList($GroupId);
+        $view = str_replace("{MEMBER_LIST}", $CompiledMemberList, $view);
         $view = $this->ReplaceTotals($view);
         echo $view;
     }
@@ -195,6 +164,9 @@ class pagesController
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "sharedopengroups");
+        $MyGroupsController = new MyGroupsController;
+        $CompiledSharedGroupList = $MyGroupsController->GetCompiledSharedGroupList();
+        $view = str_replace("{GROUP_LIST}", $CompiledSharedGroupList, $view);
         $view = $this->ReplaceTotals($view);
         echo $view;
     }
@@ -210,25 +182,19 @@ class pagesController
     }
 
     // PAGE - Shared Open Tickets Page
-    public function SharedOpenTickets()
+    public function SharedTickets()
     {
-
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "sharedopentickets");
+        $view = $this->ReplaceContent($view, "sharedtickets");
+        $myTicketsController = new MyTicketsController;
+        $CompiledSharedTickets = $myTicketsController->GetCompiledSharedTicketsList();
+        $view = str_replace(" {TICKETS_SHARED_LIST}", $CompiledSharedTickets, $view);
         $view = $this->ReplaceTotals($view);
         echo $view;
     }
 
-    // PAGE - Chared Closed Tickets Page
-    public function SharedClosedTickets()
-    {
-        $view = file_get_contents('view/frontend/_layout.html');
-        $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "sharedclosedtickets");
-        $view = $this->ReplaceTotals($view);
-        echo $view;
-    }
+
 
     // PAGE - My Active Tickets Page
     public function MyActiveTickets()
@@ -243,6 +209,8 @@ class pagesController
         $view = $myTicketsController->ReplaceTicketList($view, $status);
         echo $view;
     }
+
+
 
     // PAGE - My Active Tickets Page
     public function MyClosedTickets()
@@ -263,8 +231,8 @@ class pagesController
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "ticketdetails");
-        $MyTicketsControllert = new MyTicketsController();
-        $view = str_replace("{INTERVENTION_LIST}", $MyTicketsControllert->ReplaceInterventionList($ticketid, null), $view);
+        $MyTicketsController = new MyTicketsController();
+        $view = str_replace("{INTERVENTION_LIST}", $MyTicketsController->ReplaceInterventionList($ticketid, null), $view);
         $view = $this->ReplaceTotals($view);
         // $myTicketsController = new MyTicketsController;
         // $view = $myTicketsController->ReplaceTicketList($view);
@@ -277,8 +245,31 @@ class pagesController
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "newticket");
-        $MyTicketsControllert = new MyTicketsController();
-        $view = $MyTicketsControllert->ReplaceGroupListOptions($view);
+        $MyTicketsController = new MyTicketsController();
+        $view = $MyTicketsController->ReplaceGroupListOptions($view);
+        $view = $this->ReplaceTotals($view);
+        echo $view;
+    }
+
+    
+    // PAGE - NEW SHARED PAGE
+    public function NewSharedTicket()
+    {
+        $view = file_get_contents('view/frontend/_layout.html');
+        $view = $this->SessionTestForUserMenu($view);
+       
+        $MyGroupsController = new MyGroupsController;
+        $CompiledSharedGroupList = $MyGroupsController->GetCompiledSharedGroupListForNewTicket();     
+      
+        if ($CompiledSharedGroupList != "") {
+            $view = $this->ReplaceContent($view, "newsharedticket");
+        } else {
+            $view = $this->ReplaceContent($view, "needsharedgroups");
+        }
+
+
+
+        $view = str_replace("{MY_SHARED_GROUP_LIST}", $CompiledSharedGroupList, $view);
         $view = $this->ReplaceTotals($view);
         echo $view;
     }

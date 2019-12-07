@@ -88,10 +88,10 @@ class MyTicketsController
                 // GET GroupAdmin with groupName
                 $Groups = new Groups(null, null, null, null);
                 $CurrentGroupAdmin = $Groups->GetGroupAdminWithGroupName($current_result["group_name"]);
-                foreach($CurrentGroupAdmin as $CurrentResult) {
+                foreach ($CurrentGroupAdmin as $CurrentResult) {
                     $CurrentGroupAdmin = $CurrentResult["group_admin"];
                 }
-                if ( $CurrentGroupAdmin != $_SESSION['user']->getEmail()) {
+                if ($CurrentGroupAdmin != $_SESSION['user']->getEmail()) {
                     $GroupName = $current_result["group_name"];
                     $SharedGroupName = '<i class="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;' . $GroupName;
                     $current_ticket = str_replace("{TICKET_GROUP}",  $SharedGroupName, $current_ticket, $count);
@@ -111,7 +111,50 @@ class MyTicketsController
             $view = str_replace("{TICKET_LIST}", $ticket_list_final_code, $view);
         }
         return $view;
+    } // REPLACE TICKET LIST AREA IN THE HTML BY ALL AVAILABLE POSTS
+    public function ReplaceGroupTicketList($view, $GroupName, $status)
+    {
+        $ticket_list_final_code = null;
+        if (isset($_SESSION['user'])) {
+            $ticket = new Tickets(null, null, null, null, null);
+            $result = $ticket->getGroupTickets($GroupName, $status); // FROM MODEL
+            foreach ($result as $current_result) {
+                $current_ticket = null;
+                if ($status == "open") {
+                    $current_ticket = file_get_contents('view/backend/ticket_list_default_code.html');
+                } else {
+                    $current_ticket = file_get_contents('view/backend/closed_ticket_list_default_code.html');
+                }
+                // IG group_name Author != Session user => apply share icone
+                // GET GroupAdmin with groupName
+                $Groups = new Groups(null, null, null, null);
+                $CurrentGroupAdmin = $Groups->GetGroupAdminWithGroupName($current_result["group_name"]);
+                foreach ($CurrentGroupAdmin as $CurrentResult) {
+                    $CurrentGroupAdmin = $CurrentResult["group_admin"];
+                }
+                if ($CurrentGroupAdmin != $_SESSION['user']->getEmail()) {
+                    $GroupName = $current_result["group_name"];
+                    $SharedGroupName = '<i class="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;' . $GroupName;
+                    $current_ticket = str_replace("{TICKET_GROUP}",  $SharedGroupName, $current_ticket, $count);
+                }
+                $current_ticket = str_replace("{TICKET_GROUP}", $current_result["group_name"], $current_ticket, $count);
+
+
+                $current_ticket = str_replace("{TICKET_ID}", $current_result["id"], $current_ticket, $count);
+                $current_ticket = str_replace("{REQUESTER_NAME}", $current_result["requester"], $current_ticket, $count);
+                $current_ticket = str_replace("{TICKET_DESCRIPTION}", $current_result["description"], $current_ticket);
+                $current_ticket = str_replace("{TICKET_TITLE}", $current_result["title"], $current_ticket);
+                $current_ticket = str_replace("{INTERVENTION_CARD}", $this->ReplaceInterventionList($current_result["id"], null), $current_ticket);
+                $current_ticket = str_replace("{LAST_INTERVENTION}", $this->ReplaceInterventionList($current_result["id"], 1), $current_ticket);
+                $current_ticket = str_replace("{CURRENT_USER_EMAIL}", $Author, $current_ticket);
+                $ticket_list_final_code .= $current_ticket;
+            }
+        }
+        var_dump($ticket_list_final_code);
+        die;
+        return $ticket_list_final_code;
     }
+
 
 
     // ADD NEW TICKET TO DATABASE
@@ -202,6 +245,7 @@ class MyTicketsController
         $Admin = $_SESSION['user']->getEmail();
         $User = new User(null, null, null, null, null, null, null);
         $result = $User->getGroupList($Admin);
+
         $option_list_final_code = "";
         foreach ($result as $current_result) {
             $current_option = null;
@@ -284,7 +328,7 @@ class MyTicketsController
                     $TicketLineCode = str_replace("{LAST_INTERVENTION}", $this->ReplaceInterventionList($current_result["id"], 1), $TicketLineCode);
                     //
                     $CompiledSharedTicketList .= $TicketLineCode;
-                }              
+                }
             }
         }
 

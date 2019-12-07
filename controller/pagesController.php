@@ -121,7 +121,7 @@ class pagesController
     // Builds list for Invitations Sent
     public function replaceInvitationsSentList()
     {
-        $result = "";
+        $Result = "";
         // GET invitations obj
         $Invitations = new Invitations;
         $Result = $Invitations->getSentInvitationsFromDB();
@@ -131,7 +131,7 @@ class pagesController
     // Builds list for Invitations Received
     public function replaceInvitationsReceivedList()
     {
-        $result = "";
+        $Result = "";
         // GET invitations obj
         $Invitations = new Invitations;
         $Result = $Invitations->getReceivedInvitationsFromDB();
@@ -226,14 +226,48 @@ class pagesController
     }
 
     // PAGE - Ticket Details
-    public function TicketDetails($ticketid)
+    public function TicketDetails($TicketId)
     {
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
         $view = $this->ReplaceContent($view, "ticketdetails");
+
+        // GET TICKET OBJECT WITH ALL DATA FOR DETAILS
+        $Ticket = new Tickets(null, null, null, null, null);
+        $Result = $Ticket->getTicketsByTicketId($TicketId);
+        foreach ($Result as $CurrentResult) {
+            $view = str_replace("{TICKET_TITLE}", $CurrentResult["title"], $view);
+            $GroupName = $CurrentResult["group_name"];
+            $view = str_replace("{GROUP_NAME}", $CurrentResult["group_name"], $view);
+            $view = str_replace("{REQUESTER}", $CurrentResult["requester"], $view);
+            $view = str_replace("{TICKET_ID}", $CurrentResult["id"], $view);
+
+            $view = str_replace("{TICKET_STATUS}", $CurrentResult["status"], $view);
+            $view = str_replace("{TICKET_AUTHOR}", $CurrentResult["author"], $view);
+            $view = str_replace("{CREATION_DATE}", $CurrentResult["creation_date"], $view);
+            $view = str_replace("{DESCRIPTION}", $CurrentResult["description"], $view);
+        }
+
+        // GET GROPUP ADMIN
+        $Groups = new Groups(null, null, null, null);
+        $Result = $Groups->GetGroupAdminWithGroupName($GroupName);
+        // foreach ($Result as $CurrentResult) {           
+        // }
+        $Result = $Groups->GetGroupWithGroupName($GroupName);
+        foreach ($Result as $CurrentResult) {
+            $view = str_replace("{GROUP_ADMIN}", $CurrentResult["group_admin"], $view);
+            $view = str_replace("{GROUP_NAME}", $CurrentResult["group_admin"], $view);
+            $GroupId = $CurrentResult["id"];
+        }
+
+        $MembersCount = $Groups->GetGroupMembersCount($GroupId);
+        $view = str_replace("{GROUP_MEMBERS_COUNT}", $MembersCount, $view);
+
+        // COUNT GROUP MEMBERS WITH GROUP
         $MyTicketsController = new MyTicketsController();
-        $view = str_replace("{INTERVENTION_LIST}", $MyTicketsController->ReplaceInterventionList($ticketid, null), $view);
+        $view = str_replace("{INTERVENTION_LIST}", $MyTicketsController->ReplaceInterventionList($TicketId, null), $view);
         $view = $this->ReplaceTotals($view);
+
         // $myTicketsController = new MyTicketsController;
         // $view = $myTicketsController->ReplaceTicketList($view);
         echo $view;
@@ -244,23 +278,34 @@ class pagesController
     {
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
-        $view = $this->ReplaceContent($view, "newticket");
-        $MyTicketsController = new MyTicketsController();
-        $view = $MyTicketsController->ReplaceGroupListOptions($view);
+
+        $Group = new Groups(null, null, null, null);
+        $GroupCount = $Group->GetGroupCountWithAdmin($_SESSION['user']->getEmail());
+
+        if ($GroupCount != 0) {
+            $view = $this->ReplaceContent($view, "newticket");
+            $MyTicketsController = new MyTicketsController();
+            $view = $MyTicketsController->ReplaceGroupListOptions($view);
+        } else {
+            $view = str_replace("{CONTENT}", file_get_contents('view/frontend/needsgroups.html'), $view);
+        }
+
+
+
         $view = $this->ReplaceTotals($view);
         echo $view;
     }
 
-    
+
     // PAGE - NEW SHARED PAGE
     public function NewSharedTicket()
     {
         $view = file_get_contents('view/frontend/_layout.html');
         $view = $this->SessionTestForUserMenu($view);
-       
+
         $MyGroupsController = new MyGroupsController;
-        $CompiledSharedGroupList = $MyGroupsController->GetCompiledSharedGroupListForNewTicket();     
-      
+        $CompiledSharedGroupList = $MyGroupsController->GetCompiledSharedGroupListForNewTicket();
+
         if ($CompiledSharedGroupList != "") {
             $view = $this->ReplaceContent($view, "newsharedticket");
         } else {
@@ -367,11 +412,41 @@ class pagesController
     {
         // IF SESSION IS OPEN - REPLACE WITH REAL CONTENT
         if (isset($_SESSION["user"])) {
-            $ticket = new Tickets(null, null, null, null, null);
+
+            // TICKETS TOTALS
             $status = "open";
-            $result = $ticket->getMyTickets($status); // FROM MODEL
+            $ticket = new Tickets(null, null, null, null, null);
+            $Result = $ticket->getMyTickets($status); // FROM MODEL
             $view = str_replace("{TOTAL_TICKETS_CARD_DEFAULT_CODE}", file_get_contents('view/backend/total_tickets_card_default_code.html'), $view);
-            $view = str_replace("{TOTAL_TICKETS_OPEN}", count($result), $view);
+            $view = str_replace("{TOTAL_TICKETS_OPEN}", count($Result), $view);
+            $status = "close";
+            $ticket = new Tickets(null, null, null, null, null);
+            $Result = $ticket->getMyTickets($status); // FROM MODEL            
+            $view = str_replace("{TOTAL_TICKETS_CLOSED}", count($Result), $view);
+            $status = "open";
+
+            // GROUPS TOTALS
+            $Groups = new Groups(null, null, null, null);
+            $Result = $Groups->getMyGroups($status);
+            $view = str_replace("{TOTAL_GROUPS_OPEN}", count($Result), $view);
+            $status = "close";
+            $Groups = new Groups(null, null, null, null);
+            $Result = $Groups->getMyGroups($status);
+            $view = str_replace("{TOTAL_GROUPS_CLOSED}", count($Result), $view);
+
+            // SHARED GROUPS
+            $Groups = new Groups(null, null, null, null);
+            $Result = $Groups->GetGroupIdListWhereMemberIsCurrentUser();            
+            $view = str_replace("{TOTAL_GROUPS_SHARED}", count($Result), $view);
+         
+
+            // INVITATION TOTALS
+            $Invitations = new Invitations;
+            $Result = $Invitations->getSentInvitationsFromDB();
+            $view = str_replace("{TOTAL_SENT_INVITATIONS}", count($Result), $view);
+            $Invitations = new Invitations;
+            $Result = $Invitations->getReceivedInvitationsFromDB();
+            $view = str_replace("{TOTAL_RECEIVED_INVITATIONS}", count($Result), $view);
         } else {
             $view = str_replace("{TOTAL_TICKETS_CARD_DEFAULT_CODE}", file_get_contents('view/backend/DEMO_total_tickets_card_default_code.html'), $view);
             $view = str_replace("{TOTAL_TICKETS_OPEN}", "14", $view);

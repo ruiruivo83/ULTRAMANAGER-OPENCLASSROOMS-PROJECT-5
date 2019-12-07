@@ -59,11 +59,30 @@ class MyGroupsController
 
 
     // CLOSE GROUP
-    public function closeGroup($groupid)
+    public function closeGroup($GroupId)
     {
-        $Groups = new Groups(null, null, null, null, null);
-        $Groups->closeGroup($groupid);
-        header('Location: ../index.php?action=myopengroups');
+        // Check if GroupAdmin = Current Session
+        $Group = new Groups(null, null, null, null);
+        $GroupResult = $Group->GetGroupWithGroupId($GroupId);
+
+        foreach ($GroupResult as $CurrentResult) {
+            $Admin  = $CurrentResult["group_admin"];
+            $GroupName = $CurrentResult["group_name"];
+            if ($Admin == $_SESSION['user']->getEmail()) {
+                // Close All tickets inside group
+                $Ticket = new Tickets(null, null, null, null, null);
+                $status = "open";
+                $TicketResult = $Ticket->getGroupTickets($GroupName, $status);
+                foreach ($TicketResult as $CurrentResult) {
+                    // Close Ticket by ticket_id
+                    $Ticket->closeTicket($CurrentResult["id"]);
+                }
+                // Close group
+                $Groups = new Groups(null, null, null, null, null);
+                $Groups->closeGroup($GroupId);
+                header('Location: ../index.php?action=myopengroups');
+            }
+        }
     }
 
 
@@ -75,12 +94,12 @@ class MyGroupsController
         $CompiledMemberList = "";
         foreach ($Result as $CurrentResult) {
             $member = $CurrentResult['member_email'];
-            $MemberList =   file_get_contents('view/backend/member_list_default_code.html');                      
+            $MemberList =   file_get_contents('view/backend/member_list_default_code.html');
             // ADD REMOVE BUTTON IF USER SESSION IS ADMIN OF THE GROUP, TO THIS MEMBER CODE LINE
             $RemoveThisMemberButton_DefaultCode = file_get_contents('view/backend/RemoveThisMemberFromGroupButton_DefaultCode.html');
-            $ArrayObj = $Groups->GetAdminForGroupId($GroupId);           
-            foreach ($ArrayObj as $CurrentResult) {              
-                $Admin = $CurrentResult["group_admin"];                 
+            $ArrayObj = $Groups->GetAdminForGroupId($GroupId);
+            foreach ($ArrayObj as $CurrentResult) {
+                $Admin = $CurrentResult["group_admin"];
             }
             if ($_SESSION['user']->getEmail() == $Admin) {
                 $MemberList = str_replace("{REMOVE_THIS_MEMBER_BUTTON}", $RemoveThisMemberButton_DefaultCode, $MemberList);
@@ -102,28 +121,27 @@ class MyGroupsController
         // GET single list of GROUPID WHERE member_email is $CurrentUser
         $Groups = new Groups(null, null, null, null);
         $Result = $Groups->GetGroupIdListWhereMemberIsCurrentUser();
+
         // $RESULT LISTS NOW ALL GROUPS ASSIGNED TO CURRENT USER      
         // CHECK IF CURRENT USER IS ADMIN AND REMOVE IT   
         foreach ($Result as $CurrenResult) {
-            $CurrentGroupId = $CurrenResult["group_id"];
+            foreach ($CurrenResult as $CurrentResult) {
+                $CurrentGroupId = $CurrenResult["group_id"];
+            }
             $CurrentGroupAdmin = $Groups->GetAdminForGroupId($CurrentGroupId);
-            foreach ($CurrentGroupAdmin as $CurrentResult) {
-                if ($CurrentResult["group_admin"] != $_SESSION['user']->getEmail()) {
-
-                    // GET DEFAULT CODE FOR EACH GROUP ID TO PRESENT TO THE PAGE
-                    $MemberList =   file_get_contents('view/backend/shared_group_list_default_code.html');
-                    $MemberList = str_replace("{GROUP_ID}",  $CurrentGroupId, $MemberList);
-
-                    // GET GROUP NAME FOR GROUP ID
-                    $CurrentGroupName = $Groups->GetGroupNameForGroupId($CurrentGroupId);
-                    foreach ($CurrentGroupName as $CurrentResult) {
-                        $CurrentGroupName = $CurrentResult["group_name"];
-                        $CurrentGroupAdmin = $CurrentResult["group_admin"];
-                    }
-                    $MemberList = str_replace("{GROUP_NAME}",  $CurrentGroupName, $MemberList);
-                    $MemberList = str_replace("{GROUP_ADMIN}",  $CurrentGroupAdmin, $MemberList);
-                    $CompiledMemberList .= $MemberList;
+            if ( $CurrentGroupAdmin != $_SESSION['user']->getEmail()) {
+                // GET DEFAULT CODE FOR EACH GROUP ID TO PRESENT TO THE PAGE
+                $MemberList =   file_get_contents('view/backend/shared_group_list_default_code.html');
+                $MemberList = str_replace("{GROUP_ID}",  $CurrentGroupId, $MemberList);
+                // GET GROUP NAME FOR GROUP ID
+                $CurrentGroupName = $Groups->GetGroupNameForGroupId($CurrentGroupId);
+                foreach ($CurrentGroupName as $CurrentResult) {
+                    $CurrentGroupName = $CurrentResult["group_name"];
+                    $CurrentGroupAdmin = $CurrentResult["group_admin"];
                 }
+                $MemberList = str_replace("{GROUP_NAME}",  $CurrentGroupName, $MemberList);
+                $MemberList = str_replace("{GROUP_ADMIN}",  $CurrentGroupAdmin, $MemberList);
+                $CompiledMemberList .= $MemberList;
             }
         }
         $Result = $CompiledMemberList;
@@ -160,9 +178,7 @@ class MyGroupsController
                     $MemberList = str_replace("{GROUP_NAME}",  $CurrentGroupName, $MemberList);
                     $MemberList = str_replace("{GROUP_ADMIN}",  $CurrentGroupAdmin, $MemberList);
                     $CompiledMemberList .= $MemberList;
-                } else {
-
-                }
+                } else { }
             }
         }
 

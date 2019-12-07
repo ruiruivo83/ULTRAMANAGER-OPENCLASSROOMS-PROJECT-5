@@ -124,7 +124,7 @@ class Router
             if ($_GET['action'] == 'ticketdetails') {
                 if ($_GET['ticket_id'] != null) {
                     if (isset($_SESSION["user"])) {
-                        $ticketid = $_GET['ticket_id'];
+                        $ticketid = $_GET['ticket_id'];                   
                         $pagesController->TicketDetails($ticketid);
                     } else {
                         header('Location: ../index.php');

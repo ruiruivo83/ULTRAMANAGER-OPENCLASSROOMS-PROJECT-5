@@ -91,22 +91,50 @@ class Tickets
         return $result;
     }
 
-     // GET ALL TICKETS BY GROUP NAME FROM DATABASE, ORDER BY DESC DATE
-     public function getTicketsByGroupName($GroupName)
-     {
-         $bdd = Database::getBdd();
-         // PREPARE QUERY - utilise prepare pour les accents sur les lettres         
-         $req = $bdd->prepare("SELECT * FROM ticket WHERE group_name = '$GroupName' ORDER BY creation_date DESC");
-         $req->execute();
-         // DEBUG
-         // $req->debugDumpParams();
-         // die;
-         $result = $req->fetchall();
-         return $result;
-     }
+    public function getGroupTickets($GroupName, $status)
+    {
+        $bdd = Database::getBdd();
+        // PREPARE QUERY - utilise prepare pour les accents sur les lettres
+        $currentUserEmail = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT * FROM ticket WHERE group_name = '$GroupName' AND status = '$status' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
 
-     
-    
+
+    // GET ALL TICKETS BY GROUP NAME FROM DATABASE, ORDER BY DESC DATE
+    public function getTicketsByGroupName($GroupName)
+    {
+        $bdd = Database::getBdd();
+        // PREPARE QUERY - utilise prepare pour les accents sur les lettres         
+        $req = $bdd->prepare("SELECT * FROM ticket WHERE group_name = '$GroupName' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
+    // GET ALL TICKETS BY GROUP NAME FROM DATABASE, ORDER BY DESC DATE
+    public function getTicketsByTicketId($TicketId)
+    {
+        $bdd = Database::getBdd();
+        // PREPARE QUERY - utilise prepare pour les accents sur les lettres         
+        $req = $bdd->prepare("SELECT * FROM ticket WHERE id = '$TicketId' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
+
 
 
 
@@ -154,9 +182,10 @@ class Tickets
 
 
     // ATACH FILENAME TO TICKET
-    public function atachFileNameToTicket($ticket_id, $filename) {
+    public function atachFileNameToTicket($ticket_id, $filename)
+    {
         $bdd = Database::getBdd();
-        $req = $bdd->prepare("INSERT INTO uploaded_file(ticket_id, filename ) values (?, ?)");        
+        $req = $bdd->prepare("INSERT INTO uploaded_file(ticket_id, filename ) values (?, ?)");
         $req->execute(array($ticket_id, $filename));
     }
 

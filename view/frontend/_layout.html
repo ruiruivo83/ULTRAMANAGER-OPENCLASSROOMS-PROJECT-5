@@ -68,12 +68,135 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+       
+
+
+
+            <!-- Heading -->
+            <!--
+            <div class="sidebar-heading">
+                Groups
+            </div>
+-->
+
+
+
+
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=myopengroups">
+                    <i class="fas fa-lock-open"></i>
+                    <span>My Groups & Members<sup>&nbsp;({TOTAL_GROUPS_OPEN})</sup></span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=myactivetickets">
+                        &nbsp;&nbsp;&nbsp;<i class="fas fa-ticket-alt"></i>
+                    <span>My Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=myclosedgroups">
+                    <i class="fas fa-lock"></i>
+                    <span>Closed Groups<sup>&nbsp;({TOTAL_GROUPS_CLOSED})</sup></span></a>
+            </li>
+
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=myclosedtickets">
+                        &nbsp;&nbsp;&nbsp;<i class="fas fa-ticket-alt"></i>
+                    <span>Closed Tickets<sup>&nbsp;({TOTAL_TICKETS_CLOSED})</sup></span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=sharedopengroups">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Shared Groups<sup>&nbsp;({TOTAL_GROUPS_SHARED})</sup></span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=sharedtickets">
+                        &nbsp;&nbsp;&nbsp;<i class="fas fa-share-alt-square"></i>
+                    <span>Shared Tickets<sup>&nbsp;({TOTAL_TICKETS_SHARED})</sup></span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=listinvitations">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Invitations<sup>&nbsp;({TOTAL_SENT_INVITATIONS})({TOTAL_RECEIVED_INVITATIONS})</sup></span></a>
+            </li>
+
+
+
+
+            <!-- Heading -->
+            <!--
+            <div class="sidebar-heading">
+                Tickets
+            </div>
+            -->
+
+
+
+
+
+
 
 
 
 
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <!--
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrivateTickets"
+                    aria-expanded="true" aria-controls="collapsePrivateTickets">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Tickets</span>
+                </a>
+                <div id="collapsePrivateTickets" class="collapse" aria-labelledby="headingPrivateTickets"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        -->
+            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+            <!--
+                        <a class="collapse-item" href="index.php?action=myactivetickets">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>All Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
+                        <a class="collapse-item" href="index.php?action=myclosedtickets">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>My Closed Tickets</span></a>
+                        <a class="collapse-item" href="index.php?action=sharedtickets">
+                            <i class="fas fa-share-alt-square"></i>
+                            <span>Shared Tickets</span></a>
+                    </div>
+                </div>
+            </li>
+            -->
+           
+
+
+
+
+
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <!--
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyGroups"
                     aria-expanded="true" aria-controls="collapseMyGroups">
@@ -83,7 +206,9 @@
                 <div id="collapseMyGroups" class="collapse" aria-labelledby="headingMyGroups"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        -->
+            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+            <!--
                         <a class="collapse-item" href="index.php?action=myopengroups">
                             <i class="fas fa-users"></i>
                             Open Groups</a>
@@ -99,35 +224,7 @@
                     </div>
                 </div>
             </li>
-
-
-
-
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrivateTickets"
-                    aria-expanded="true" aria-controls="collapsePrivateTickets">
-                    <i class="fas fa-ticket-alt"></i>
-                    <span>Tickets</span>
-                </a>
-                <div id="collapsePrivateTickets" class="collapse" aria-labelledby="headingPrivateTickets"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="index.php?action=myactivetickets">
-                            <i class="fas fa-ticket-alt"></i>
-                            <span>All Tickets<sup>&nbsp;({TOTAL_TICKETS_OPEN})</sup></span></a>
-                        <a class="collapse-item" href="index.php?action=myclosedtickets">
-                            <i class="fas fa-ticket-alt"></i>
-                            <span>My Closed Tickets</span></a>
-                        <a class="collapse-item" href="index.php?action=sharedtickets">
-                                <i class="fas fa-share-alt-square"></i>
-                            <span>Shared Tickets</span></a>
-                    </div>
-                </div>
-            </li>
-
+            -->
 
 
             <!-- Divider -->

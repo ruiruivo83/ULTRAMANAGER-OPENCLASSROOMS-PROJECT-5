@@ -87,10 +87,8 @@ class Groups
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();
-
-
-        return $result;
+        $Result = $req->fetchall();
+        return $Result;
     }
 
     // ADD TICKET TO DATABASE
@@ -123,8 +121,8 @@ class Groups
         $req->execute();
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();
-        return $result;
+        $Result = $req->fetchall();
+        return $Result;
     }
 
     public function GetDestinatorTotalCountsInGroup($GroupID,  $invitationDestinator)
@@ -134,8 +132,8 @@ class Groups
         $req->execute();
         // $req->debugDumpParams();
         // die;
-        $result = $req->rowCount();
-        return $result;
+        $Result = $req->rowCount();
+        return $Result;
     }
 
     public function GetGroupIdListWhereMemberIsCurrentUser()
@@ -144,8 +142,18 @@ class Groups
         $CurrentUser = $_SESSION['user']->getEmail();
         $req = $bdd->prepare("SELECT group_id FROM group_members WHERE member_email = '$CurrentUser' ORDER BY group_id DESC");
         $req->execute();
-        $result = $req->fetchall();
-        return $result;
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+    public function GetGroupCountWithAdmin($Admin)
+    {
+        $bdd = Database::getBdd();
+        $CurrentUser = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$Admin' ORDER BY group_name ASC");
+        $req->execute();
+        $Result = $req->rowCount();
+        return $Result;
     }
 
     public function GetAdminForGroupId($GroupId)
@@ -159,18 +167,17 @@ class Groups
     }
 
     public function GetGroupNameForGroupId($CurrentGroupId)
-    { 
+    {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$CurrentGroupId' ");
         $req->execute();
         $Result = $req->fetchall();
 
         return $Result;
-
     }
 
     public function GetGroupAdminWithGroupName($GroupName)
-    { 
+    {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT group_admin FROM groups WHERE group_name = '$GroupName' ");
         $req->execute();
@@ -178,17 +185,40 @@ class Groups
         return $Result;
     }
 
-    public function RemoveMemberFromGroup($GroupId, $MemberEmail) {
+    public function RemoveMemberFromGroup($GroupId, $MemberEmail)
+    {
         $bdd = Database::getBdd();
         // DELETE FROM table_name WHERE condition;
         $req = $bdd->prepare("DELETE FROM group_members WHERE group_id = '$GroupId' AND member_email = '$MemberEmail'");
-        $req->execute();       
+        $req->execute();
         // $req->debugDumpParams();
         // die;
     }
 
+    public function GetGroupWithGroupName($GroupName)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_name = '$GroupName' ");
+        $req->execute();
+        $Result = $req->fetchall();
+        return $Result;
+    }
 
+    public function GetGroupWithGroupId($GroupId)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$GroupId' ");
+        $req->execute();
+        $Result = $req->fetchall();
+        return $Result;
+    }
 
-
-
+    public function GetGroupMembersCount($GroupId)
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM group_members WHERE group_id = '$GroupId' ");
+        $req->execute();
+        $Result = $req->rowCount();
+        return $Result;
+    }
 }

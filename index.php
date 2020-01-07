@@ -3,6 +3,10 @@
 require 'controller/indexController.php';
 require 'controller/commonController.php';
 require 'controller/userController.php';
+require 'controller/profileController.php';
+require 'controller/activityLogController.php';
+require 'controller/settingsController.php';
+
 
 // ROUTER FOR INDEX PAGE
 class Router
@@ -18,38 +22,72 @@ class Router
     public function main()
     {
 
-        $indexController = new indexController();
-        $commonController = new commonController();
-        $userController = new userController();
+        $indexController = new IndexController();
+        $commonController = new CommonController();
+        $userController = new UserController();
+        $profileController = new ProfileController();
+        $activityLogController = new activityLogController();
+        $settingsController = new SettingsController();
+
+
+        // FOR TEST
+        /*
+        if (isset($_SESSION["user"])) {
+            echo ("SESSION IS OPEN");
+            die;
+        } else {
+            echo ("SESSION IS CLOSED");
+            die;
+        }
+        */
+
 
         if (isset($_GET['action'])) {
 
-            // INDEX PAGE
-            if ($_GET['action'] == 'index') {
-                if (isset($_SESSION["user"])) {
-                    $indexController->index();
-                } else {
-                    $indexController->frontPage();
-                }
-            }
-
             // LOGIN PAGE
             if ($_GET['action'] == 'login') {
-                if (isset($_SESSION["user"])) {
-                    $commonController->login();
-                } else {
-                    // TODO
-                    $commonController->login();
-                }
+                $commonController->login();
             }
 
             // REGISTER PAGE
             if ($_GET['action'] == 'register') {
+                $commonController->register();
+            }
+
+            // INDEX PAGE
+            if ($_GET['action'] == 'index') {
                 if (isset($_SESSION["user"])) {
-                    $commonController->register();
+                    $indexController->dashboard();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // ACTIVITY LOG PAGE
+            if ($_GET['action'] == 'activitylog') {
+                if (isset($_SESSION["user"])) {
+                    $activityLogController->activityLog();
                 } else {
                     // TODO
-                    $commonController->register();
+                    header('Location: ../index.php');
+                }
+            }
+
+            // PROFILE PAGE
+            if ($_GET['action'] == 'profile') {
+                if (isset($_SESSION["user"])) {
+                    $profileController->profile();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // SETTINGS PAGE
+            if ($_GET['action'] == 'settings') {
+                if (isset($_SESSION["user"])) {
+                    $settingsController->settings();
+                } else {
+                    header('Location: ../index.php');
                 }
             }
 
@@ -79,18 +117,14 @@ class Router
                     $userController->registerNewUser();
                 }
             }
-
+        } else  if (isset($_SESSION["user"])) {
+            $indexController->dashboard();
         } else {
-
-
-            if (isset($_SESSION["user"])) {
-                $indexController->index();
-            } else {
-                $indexController->frontPage();
-            }
+            $indexController->frontPage();
         }
     }
 }
+
 
 $router = new Router;
 $router->main();

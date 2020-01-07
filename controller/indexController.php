@@ -3,16 +3,21 @@
 class indexController
 {
 
-    public function index()
+    // WITH SESSION
+    public function dashboard()
     {
-        $view = file_get_contents('view/frontend/appLayout.html');
+        $targetPage = "dashboard";
+        $commonController = new CommonController();
+        $view = $commonController->pageBuilder($targetPage);
         echo $view;
     }
 
+    // NO SESSION
     public function frontPage()
     {
-        $view = file_get_contents('view/frontend/frontPage.html');
+        $targetPage = "frontPage";
+        $commonController = new CommonController();
+        $view = $commonController->pageBuilder($targetPage);
         echo $view;
     }
-
 }

@@ -20,8 +20,13 @@ class UserController
             $user = new User($firstname, $lastname, $email, $psw, null, null, $country, null, null);
             // Test if email exists in database
             if ($this->testIfEmailExists($email)) {
-                $message = '<div class="alert alert-danger " role="alert">CE MAIL EST EXISTANT</div>';
-                $view = file_get_contents('view/frontend/register.html');
+                $message = '<div class="alert alert-danger " role="alert">YOU ALREADY HAVE AN ACCOUNT</div>';
+
+                $view = file_get_contents('view/frontend/appLayout.html');
+                $content = file_get_contents('view/frontend/pagecontent/register.html');
+                $commonController = new CommonController();
+                $view = $commonController->pageBuilder($view, $content);
+
                 $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
 
                 echo $view;
@@ -49,13 +54,23 @@ class UserController
                     header('Location: ../index.php');
                 } else {
                     $message = '<div class="alert alert-danger " role="alert">PASSWORD DO NOT MATCH</div>';
-                    $view = file_get_contents('view/frontend/login.html');
+
+                    $view = file_get_contents('view/frontend/appLayout.html');
+                    $content = file_get_contents('view/frontend/pagecontent/login.html');
+                    $commonController = new CommonController();
+                    $view = $commonController->pageBuilder($view, $content);
+
                     $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
                     echo $view;
                 }
             } else {
                 $message = '<div class="alert alert-danger " role="alert">INVALID EMAIL ACCOUNT</div>';
-                $view = file_get_contents('view/frontend/login.html');
+
+                $view = file_get_contents('view/frontend/appLayout.html');
+                $content = file_get_contents('view/frontend/pagecontent/login.html');
+                $commonController = new CommonController();
+                $view = $commonController->pageBuilder($view, $content);              
+
                 $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
                 echo $view;
             }
@@ -82,7 +97,4 @@ class UserController
             return $result;
         }
     }
-
-
-    
 }

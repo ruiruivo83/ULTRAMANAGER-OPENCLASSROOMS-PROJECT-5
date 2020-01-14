@@ -13,15 +13,16 @@ use App\Controller\IndexController;
 use App\Controller\InterventionsController;
 use App\Controller\InvitationsController;
 use App\Controller\MessagesController;
-// ..
-// ..
-
-
+use App\Controller\ProfileController;
+use App\Controller\SettingsController;
+use App\Controller\TicketsController;
+use App\Controller\UserController;
 
 
 // ROUTER FOR INDEX PAGE
 class Router
 {
+
     public function __construct()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -32,7 +33,6 @@ class Router
     // ROUTER MAIN FUNCTION
     public function main()
     {
-
         $indexController = new IndexController;
         $commonController = new CommonController;
         $userController = new UserController;

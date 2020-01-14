@@ -1,6 +1,8 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Controller;
-require 'model/Group.php';
 
 class GroupsController
 {

@@ -1,5 +1,8 @@
 <?php
-require 'model/database.php';
+
+declare(strict_types=1);
+
+namespace App\Model;
 
 class User
 {
@@ -214,7 +217,8 @@ class User
     // CREATE NEW USER
     public function createNewUser()
     {
-        $bdd = Database::getBdd();
+        $bdd = new Database;
+        $bdd = $bdd->getBdd();
         $req = $bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
         $req->execute(array($this->firstname, $this->lastname, $this->email, $this->psw, $this->country));
         // DEBUG
@@ -226,7 +230,8 @@ class User
     // FIND USER BY EMAIL
     public static function getUserByEmail($email)
     {
-        $bdd = Database::getBdd();
+        $bdd = new Database;
+        $bdd = $bdd->getBdd();
         // GET DATA FROM DATABASE
         $req = $bdd->prepare("SELECT * FROM users WHERE email =  ?   ");
         $req->execute(array($email));
@@ -254,7 +259,8 @@ class User
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE
     public function getEmailCount()
     {
-        $bdd = Database::getBdd($this->email);
+        $bdd = new Database;
+        $bdd = $bdd->getBdd($this->email);
         $req = $bdd->prepare("SELECT * FROM users WHERE email =  ?   ");
         $req->execute(array($this->email));
         // DEBUG

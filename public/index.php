@@ -1,4 +1,9 @@
 <?php
+// COMPOSER AUTOLOAD
+require 'vendor/autoload.php';
+
+echo "HELLO FROM INDEX.PHP";
+die;
 
 require 'controller/indexController.php';
 require 'controller/commonController.php';

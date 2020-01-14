@@ -1,22 +1,22 @@
 <?php
+declare(strict_types=1);
+
 // COMPOSER AUTOLOAD
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
-echo "HELLO FROM INDEX.PHP";
-die;
+use App\Controller\ActivityLogController;
+use App\Controller\AlertsController;
+use App\Controller\CommonController;
+use App\Controller\FileController;
+use App\Controller\GroupsController;
+use App\Controller\IndexController;
+use App\Controller\InterventionsController;
+use App\Controller\InvitationsController;
+use App\Controller\MessagesController;
+// ..
+// ..
 
-require 'controller/indexController.php';
-require 'controller/commonController.php';
-require 'controller/userController.php';
-require 'controller/profileController.php';
-require 'controller/activityLogController.php';
-require 'controller/settingsController.php';
-require 'controller/groupsController.php';
-require 'controller/ticketsController.php';
-require 'controller/interventionsController.php';
-require 'controller/invitationsController.php';
-require 'controller/AlertsController.php';
-require 'controller/MessagesController.php';
+
 
 
 // ROUTER FOR INDEX PAGE

@@ -1,6 +1,6 @@
 <?php
-
-class indexController
+namespace App\Controller;
+class IndexController
 {
 
     // WITH SESSION

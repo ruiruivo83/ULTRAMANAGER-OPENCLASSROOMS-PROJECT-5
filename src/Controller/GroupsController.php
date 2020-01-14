@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Controller;
 require 'model/Group.php';
 
 class GroupsController

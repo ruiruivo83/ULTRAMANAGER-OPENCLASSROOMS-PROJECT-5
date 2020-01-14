@@ -1,7 +1,5 @@
 <?php
-
-// require "controller/sessionController.php";
-require "model/user.php";
+namespace App\Controller;
 
 class UserController
 {
@@ -85,16 +83,15 @@ class UserController
     }
 
     // TEST IF MAIL EXISTS IN THE DATABASE
-    public function testIfEmailExists($email)
+    public function testIfEmailExists(string $email):bool
     {
         $user = new User(null, null, $email, null, null, null, null, null, null);
         $emailCount = $user->getEmailCount();
-        if ($emailCount == 0) {
-            $result = false;
-            return $result;
-        } else {
-            $result = true;
-            return $result;
-        }
+        if ($emailCount == 0) {          
+            return false;
+        } else {          
+            return true;
+        } 
+        // return $emailCount === 0 ? false : true;
     }
 }

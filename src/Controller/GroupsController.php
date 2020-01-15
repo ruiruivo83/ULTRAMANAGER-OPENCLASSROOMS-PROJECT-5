@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\View\View;
+use App\Model\Group;
+
 class GroupsController
 {
 
@@ -28,7 +31,8 @@ class GroupsController
         $content = str_replace(" {CLOSED_GROUP_CONTENT}", $this->replaceGroupList("closed"), $content);
 
         // FINAL RENDER OF THE FULL CONTENT
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -40,7 +44,8 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -52,7 +57,8 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -64,7 +70,8 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -76,7 +83,8 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -88,7 +96,8 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -109,7 +118,9 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -121,7 +132,8 @@ class GroupsController
         $content = file_get_contents('view/backend/content/newgroup.html');
         $content = str_replace("{GROUP_TYPE}", "Private Group", $content);
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
@@ -148,7 +160,7 @@ class GroupsController
         $group_list_final_code = null;
         $group_admin = $_SESSION['user']->getEmail();
         if (isset($_SESSION['user'])) {
-            $group = new group(null, null, null, null, null, null);
+            $group = new Group(null, null, null, null, null, null);
             $groupList = $group->getGroups($status);
             foreach ($groupList as $current_group) {
                 $group = null;
@@ -166,7 +178,7 @@ class GroupsController
                 $group_list_final_code = str_replace("{GROUP_STATUS_TITLE}", "Open", $group_list_final_code);
             } else {
                 $group_list_final_code = str_replace("{GROUP_STATUS_TITLE}", "Closed", $group_list_final_code);
-            }            
+            }
         }
         return $group_list_final_code;
     }

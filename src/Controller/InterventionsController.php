@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\View\View;
+
 class InterventionsController
 {
 
@@ -13,7 +15,8 @@ class InterventionsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 
@@ -23,7 +26,8 @@ class InterventionsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 
@@ -33,7 +37,8 @@ class InterventionsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 
@@ -43,7 +48,8 @@ class InterventionsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 
@@ -55,9 +61,9 @@ class InterventionsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
 
         echo $view;
     }
-
 }

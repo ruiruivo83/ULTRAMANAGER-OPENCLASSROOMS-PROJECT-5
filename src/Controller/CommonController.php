@@ -52,7 +52,14 @@ class commonController
         }
     }
 
-
+    public function interventionContentBuilder($contentTitle, $buttons)
+    {
+        if ($contentTitle == "Interventions") {
+            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = str_replace("{BUTTONS}", $buttons, $content);
+            return $content;
+        }
+    }
 
 
 

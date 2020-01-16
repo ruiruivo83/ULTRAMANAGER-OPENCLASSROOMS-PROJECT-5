@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 class Group
@@ -166,4 +168,5 @@ class Group
         $Result = $req->fetchall();
         return $Result;
     }
+    
 }

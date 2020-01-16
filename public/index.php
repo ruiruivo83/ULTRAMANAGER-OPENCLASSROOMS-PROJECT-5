@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // COMPOSER AUTOLOAD
@@ -304,6 +305,15 @@ class Router
                 }
             }
 
+            // CREATE INTERVENTION PAGE             
+            if ($_GET['action'] == 'createintervention') {
+                if (isset($_SESSION["user"])) {
+                    $interventionsController->displayCreateInterventionsPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
@@ -332,7 +342,7 @@ class Router
                 }
             }
 
-            
+
             // createGroupFunction FUNCTION
             if ($_GET['action'] == 'creategroupgunction') {
                 if (isset($_SESSION["user"])) {
@@ -350,9 +360,6 @@ class Router
                     header('Location: ../index.php');
                 }
             }
-
-
-
         } else  if (isset($_SESSION["user"])) {
             $indexController->dashboard();
         } else {

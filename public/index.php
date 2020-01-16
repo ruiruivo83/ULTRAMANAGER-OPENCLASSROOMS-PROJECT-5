@@ -289,7 +289,16 @@ class Router
             // CREATE GROUP PAGE             
             if ($_GET['action'] == 'creategroup') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->createGroup();
+                    $groupsController->displayCreateGroupPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // CREATE TICKET PAGE             
+            if ($_GET['action'] == 'createticket') {
+                if (isset($_SESSION["user"])) {
+                    $ticketsController->displayCreateTicketPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -325,9 +334,18 @@ class Router
 
             
             // createGroupFunction FUNCTION
-            if ($_GET['action'] == 'createGroupFunction') {
+            if ($_GET['action'] == 'creategroupgunction') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->createGroupFunction();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // createTicketFunction FUNCTION
+            if ($_GET['action'] == 'createticketfunction') {
+                if (isset($_SESSION["user"])) {
+                    $ticketsController->createTicketFunction();
                 } else {
                     header('Location: ../index.php');
                 }

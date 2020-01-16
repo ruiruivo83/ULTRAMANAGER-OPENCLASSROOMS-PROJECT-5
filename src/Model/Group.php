@@ -147,7 +147,7 @@ class Group
     public function createNewGroup()
     {
         $bdd = Database::getBdd();
-        $req = $bdd->prepare("INSERT INTO groups(group_admin, creation_date, title, description, status) values (?, NOW(), ?, ?, ?) ");
+        $req = $bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
         $req->execute(array($this->group_admin, $this->title, $this->description, $this->status));
         // DEBUG
         // $req->debugDumpParams();
@@ -158,7 +158,7 @@ class Group
     {
         $bdd = Database::getBdd();
         $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' AND status = '$status' ORDER BY creation_date DESC");
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' AND group_status = '$status' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();

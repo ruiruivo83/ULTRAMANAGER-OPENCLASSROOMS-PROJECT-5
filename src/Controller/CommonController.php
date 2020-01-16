@@ -25,10 +25,6 @@ class commonController
         echo $view;
     }
 
-
-   
-
-
     public function buttonsBuilder($buttonTitle, $buttonLink)
     {
         $button = file_get_contents('../src/view/backend/buttons.html');
@@ -38,7 +34,7 @@ class commonController
     }
 
 
-    public function contentBuilder($contentTitle, $buttons)
+    public function groupContentBuilder($contentTitle, $buttons)
     {
         if ($contentTitle == "Groups") {
             $content = file_get_contents('../src/view/backend/content/content.html');
@@ -46,4 +42,18 @@ class commonController
             return $content;
         }
     }
+
+    public function ticketContentBuilder($contentTitle, $buttons)
+    {
+        if ($contentTitle == "Tickets") {
+            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = str_replace("{BUTTONS}", $buttons, $content);
+            return $content;
+        }
+    }
+
+
+
+
+
 }

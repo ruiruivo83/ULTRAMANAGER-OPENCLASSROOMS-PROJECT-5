@@ -1,5 +1,10 @@
 <?php
-require 'model/database.php';
+
+declare(strict_types=1);
+
+namespace App\Model;
+
+// require 'model/database.php';
 
 class Ticket
 {
@@ -31,7 +36,7 @@ class Ticket
 
     /**
      * Get the value of author
-     */ 
+     */
     public function getAuthor()
     {
         return $this->author;
@@ -41,7 +46,7 @@ class Ticket
      * Set the value of author
      *
      * @return  self
-     */ 
+     */
     public function setAuthor($author)
     {
         $this->author = $author;
@@ -51,7 +56,7 @@ class Ticket
 
     /**
      * Get the value of closed_date
-     */ 
+     */
     public function getClosed_date()
     {
         return $this->closed_date;
@@ -61,7 +66,7 @@ class Ticket
      * Set the value of closed_date
      *
      * @return  self
-     */ 
+     */
     public function setClosed_date($closed_date)
     {
         $this->closed_date = $closed_date;
@@ -71,7 +76,7 @@ class Ticket
 
     /**
      * Get the value of creation_date
-     */ 
+     */
     public function getCreation_date()
     {
         return $this->creation_date;
@@ -81,7 +86,7 @@ class Ticket
      * Set the value of creation_date
      *
      * @return  self
-     */ 
+     */
     public function setCreation_date($creation_date)
     {
         $this->creation_date = $creation_date;
@@ -91,7 +96,7 @@ class Ticket
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -101,7 +106,7 @@ class Ticket
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -111,7 +116,7 @@ class Ticket
 
     /**
      * Get the value of group_name
-     */ 
+     */
     public function getGroup_name()
     {
         return $this->group_name;
@@ -121,7 +126,7 @@ class Ticket
      * Set the value of group_name
      *
      * @return  self
-     */ 
+     */
     public function setGroup_name($group_name)
     {
         $this->group_name = $group_name;
@@ -131,7 +136,7 @@ class Ticket
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -141,7 +146,7 @@ class Ticket
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -151,7 +156,7 @@ class Ticket
 
     /**
      * Get the value of requester
-     */ 
+     */
     public function getRequester()
     {
         return $this->requester;
@@ -161,7 +166,7 @@ class Ticket
      * Set the value of requester
      *
      * @return  self
-     */ 
+     */
     public function setRequester($requester)
     {
         $this->requester = $requester;
@@ -171,7 +176,7 @@ class Ticket
 
     /**
      * Get the value of status
-     */ 
+     */
     public function getStatus()
     {
         return $this->status;
@@ -181,7 +186,7 @@ class Ticket
      * Set the value of status
      *
      * @return  self
-     */ 
+     */
     public function setStatus($status)
     {
         $this->status = $status;
@@ -191,7 +196,7 @@ class Ticket
 
     /**
      * Get the value of title
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -201,11 +206,35 @@ class Ticket
      * Set the value of title
      *
      * @return  self
-     */ 
+     */
     public function setTitle($title)
     {
         $this->title = $title;
 
         return $this;
     }
+
+    public function getTickets($status)
+    {
+        $bdd = Database::getBdd();
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT * FROM tickets WHERE author = '$currentUser' AND status = '$status' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $Result = $req->fetchall();
+        return $Result;
+    }
+
+    public function createNewTicket()
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("INSERT INTO tickets( author, requester, status, creation_date, title, description ) values (?,?,?, NOW(), ?, ?) ");
+        $req->execute(array($this->author, $this->requester, $this->status, $this->title, $this->description));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
+
 }

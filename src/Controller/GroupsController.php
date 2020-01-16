@@ -21,20 +21,18 @@ class GroupsController
         $buttons .= $commonController->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
 
         // BUILD CONTENT
-        $content = $commonController->contentBuilder($contentTitle, $buttons);
+        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
 
 
         // GET OPEN GROUPS
-        $content = str_replace(" {OPEN_GROUP_CONTENT}", $this->replaceGroupList("open"), $content);
+        $content = str_replace(" {OPEN_CONTENT}", $this->replaceGroupList("open"), $content);
 
         // GET CLOSED GROUPS
-        $content = str_replace(" {CLOSED_GROUP_CONTENT}", $this->replaceGroupList("closed"), $content);
+        $content = str_replace(" {CLOSED_CONTENT}", $this->replaceGroupList("closed"), $content);
 
         // FINAL RENDER OF THE FULL CONTENT
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function groupMembers()
@@ -44,10 +42,14 @@ class GroupsController
         // TODO
         $content = "";
         $commonController = new CommonController();
+
+
+
+
+
+        
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function memberDetails()
@@ -59,8 +61,6 @@ class GroupsController
         $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function sharedGroups()
@@ -72,8 +72,6 @@ class GroupsController
         $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function sharedGroupMembers()
@@ -85,8 +83,6 @@ class GroupsController
         $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function sharedMemberDetails()
@@ -98,8 +94,6 @@ class GroupsController
         $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     // GROUP CONTENT BUILDER
@@ -121,21 +115,17 @@ class GroupsController
 
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
-    public function createGroup()
+    public function displayCreateGroupPage()
     {
         $contentTitle = "Create New Group";
         // TODO
-        $content = file_get_contents('view/backend/content/newgroup.html');
-        $content = str_replace("{GROUP_TYPE}", "Private Group", $content);
-        $commonController = new CommonController();
+        $content = file_get_contents('../src/View/backend/content/newgroup.html');
+        $content = str_replace("{GROUP_TYPE}", "(Private)", $content);
+       
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function createGroupFunction()
@@ -144,10 +134,10 @@ class GroupsController
             $title = $_POST["Title"];
             $description = $_POST["Description"];
             $group_admin = $_SESSION['user']->getEmail();
-            $status = "open";
+            $group_status = "open";
             // INSERT INTO DATABASE
             // Create class instance
-            $Group = new Group(null, $group_admin, null, $title, $description, $status);
+            $Group = new Group(null, $group_admin, null, $title, $description, $group_status);
             // Execute method addTicket
             $Group->createNewGroup();
             header('Location: ../index.php?action=groups');
@@ -164,11 +154,11 @@ class GroupsController
             $groupList = $group->getGroups($status);
             foreach ($groupList as $current_group) {
                 $group = null;
-                $group = file_get_contents('view/backend/groups/group_list_default_code.html');
+                $group = file_get_contents('../src/View/backend/groups/group_list_default_code.html');
                 $group = str_replace("{GROUP_ADMIN}", $current_group["group_admin"], $group);
                 $group = str_replace("{GROUP_ID}", $current_group["id"], $group, $count);
-                $group = str_replace("{GROUP_DESCRIPTION}", $current_group["description"], $group);
-                $group = str_replace("{GROUP_NAME}", $current_group["title"], $group);
+                $group = str_replace("{GROUP_DESCRIPTION}", $current_group["group_description"], $group);
+                $group = str_replace("{GROUP_NAME}", $current_group["group_name"], $group);
                 $group = str_replace("{CURRENT_USER_EMAIL}", $group_admin, $group);
                 $group_list_final_code .= $group;
             }

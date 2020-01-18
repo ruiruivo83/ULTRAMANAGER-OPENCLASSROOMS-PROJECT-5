@@ -1,6 +1,13 @@
 <?php
 
-include "config.php";
+declare(strict_types=1);
+
+namespace App\Model;
+
+use PDO;
+use Exception;
+
+include "../public/Config.php";
 
 // CLASSE DATABASE
 class Database
@@ -12,8 +19,14 @@ class Database
     {
 
         if (self::$bdd == null) {
-            $Config = new config();
-            self::$bdd = new PDO('mysql:host=localhost; dbname=' . $Config->Database_Name, $Config->Database_User, $Config->Database_Password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            $config = new Config;
+            try {
+                self::$bdd = new PDO('mysql:host=localhost; dbname=' . $config->Database_Name, $config->Database_User, $config->Database_Password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            } catch (Exception $e) {
+                echo "Cannot reach Database";
+                die;
+            }
+            
         }
 
         return self::$bdd;

@@ -1,0 +1,7 @@
+.hover_bg_grey:hover {
+    background-color: rgb(200, 213, 219);
+}
+
+.hover_bg_highlight:hover {
+    background-color: rgb(204, 219, 200);
+}

@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace App\Controller;
+
+use App\View\View;
+
 class SettingsController
 {
     public function settings()
@@ -8,7 +14,8 @@ class SettingsController
         // TODO
         $content = "";
         $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 }

@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+namespace App\Controller;
+
+use App\View\View;
+
+require '../src/View/View.php';
+
 class ActivityLogController
 {
     public function activityLog()
@@ -7,9 +15,7 @@ class ActivityLogController
         $contentTitle = "Activity Log";
         // TODO
         $content = "";
-        $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
+        $view = new View();
+        $view->pageBuilder(null, $content, $contentTitle);
     }
 }

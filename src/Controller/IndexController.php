@@ -1,24 +1,28 @@
 <?php
 
-class indexController
-{
+declare(strict_types=1);
 
-    // WITH SESSION
-    public function dashboard()
-    {
-        $content = file_get_contents('view/frontend/pagecontent/dashboard.html');
-        $contentTitle = "Dashboard";
-        $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
-        echo $view;
-    }
+namespace App\Controller;
+
+use App\View\View;
+
+class IndexController
+{
 
     // NO SESSION
     public function frontPage()
     {
-        $noSessionTargetPage = file_get_contents('view/frontend/pagecontent/frontpage.html');
-        $commonController = new CommonController();
-        $view = $commonController->pageBuilder($noSessionTargetPage, null, null);
-        echo $view;
+        $noSessionTargetPage = file_get_contents('../src/view/frontend/pagecontent/frontpage.html');
+        $view = new View;
+        $view->pageBuilder($noSessionTargetPage, null, null);
+    }
+
+    // WITH SESSION
+    public function dashboard()
+    {
+        $content = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');
+        $contentTitle = "Dashboard";
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
     }
 }

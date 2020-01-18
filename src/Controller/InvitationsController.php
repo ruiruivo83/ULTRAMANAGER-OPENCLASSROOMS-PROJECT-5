@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+namespace App\Controller;
+
+use App\View\View;
+
 class InvitationsController
 {
 
@@ -7,9 +13,9 @@ class InvitationsController
     {
         $contentTitle = "Invitations";
         // TODO
-        $content = "";
-        $commonController = new CommonController();
-        $view = $commonController->pageBuilder(null, $content, $contentTitle);
+        $content = "";        
+        $view = new View;
+        $view->pageBuilder(null, $content, $contentTitle);
         echo $view;
     }
 }

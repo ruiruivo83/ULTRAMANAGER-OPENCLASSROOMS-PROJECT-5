@@ -1,0 +1,19 @@
+{
+    "name": "ruivo/ocr-p5",
+    "description": "openclassrooms project 5 - Ticket Manager",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Rui",
+            "email": "ruivo.rui@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

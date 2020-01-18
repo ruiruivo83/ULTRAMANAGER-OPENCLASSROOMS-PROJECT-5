@@ -1,22 +1,29 @@
 <?php
 
-require 'controller/indexController.php';
-require 'controller/commonController.php';
-require 'controller/userController.php';
-require 'controller/profileController.php';
-require 'controller/activityLogController.php';
-require 'controller/settingsController.php';
-require 'controller/groupsController.php';
-require 'controller/ticketsController.php';
-require 'controller/interventionsController.php';
-require 'controller/invitationsController.php';
-require 'controller/AlertsController.php';
-require 'controller/MessagesController.php';
+declare(strict_types=1);
+
+// COMPOSER AUTOLOAD
+require '../vendor/autoload.php';
+
+use App\Controller\ActivityLogController;
+use App\Controller\AlertsController;
+use App\Controller\CommonController;
+use App\Controller\FileController;
+use App\Controller\GroupsController;
+use App\Controller\IndexController;
+use App\Controller\InterventionsController;
+use App\Controller\InvitationsController;
+use App\Controller\MessagesController;
+use App\Controller\ProfileController;
+use App\Controller\SettingsController;
+use App\Controller\TicketsController;
+use App\Controller\UserController;
 
 
 // ROUTER FOR INDEX PAGE
 class Router
 {
+
     public function __construct()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -27,7 +34,6 @@ class Router
     // ROUTER MAIN FUNCTION
     public function main()
     {
-
         $indexController = new IndexController;
         $commonController = new CommonController;
         $userController = new UserController;
@@ -284,7 +290,25 @@ class Router
             // CREATE GROUP PAGE             
             if ($_GET['action'] == 'creategroup') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->createGroup();
+                    $groupsController->displayCreateGroupPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // CREATE TICKET PAGE             
+            if ($_GET['action'] == 'createticket') {
+                if (isset($_SESSION["user"])) {
+                    $ticketsController->displayCreateTicketPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // CREATE INTERVENTION PAGE             
+            if ($_GET['action'] == 'createintervention') {
+                if (isset($_SESSION["user"])) {
+                    $interventionsController->displayCreateInterventionsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -318,9 +342,9 @@ class Router
                 }
             }
 
-            
+
             // createGroupFunction FUNCTION
-            if ($_GET['action'] == 'createGroupFunction') {
+            if ($_GET['action'] == 'creategroupgunction') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->createGroupFunction();
                 } else {
@@ -328,8 +352,14 @@ class Router
                 }
             }
 
-
-
+            // createTicketFunction FUNCTION
+            if ($_GET['action'] == 'createticketfunction') {
+                if (isset($_SESSION["user"])) {
+                    $ticketsController->createTicketFunction();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
         } else  if (isset($_SESSION["user"])) {
             $indexController->dashboard();
         } else {

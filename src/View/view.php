@@ -1,14 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View;
 
-class View {
+class View
+{
 
     public function pageBuilder($noSessionTargetPage, $content, $contentTitle)
     {
 
-        $view = file_get_contents('../src/view/frontend/appLayout.html');
+        $view = file_get_contents('../src/View/frontend/appLayout.html');
         // $content = file_get_contents('view/frontend/pagecontent/' . $targetPage . '.html');
 
         if (isset($_SESSION["user"])) {
@@ -47,4 +49,46 @@ class View {
     }
 
 
+    public function htmlTableBuilder(array $htmlTableIndex, array $data): string
+    {
+        $htmlTable = "";
+        $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
+        
+        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
+        $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
+        $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
+        $htmlTh = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_th.html');
+        $htmlTd = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_td.html');
+
+        $indexCount = count($htmlTableIndex);
+        
+        $htmlTable = str_replace("{THEAD}", $htmlThead, $htmlTable);
+        $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);
+        $htmlTable = str_replace("{TD}", "", $htmlTable);
+        
+        $htmlThCompiled = "";
+        for ($i = 0; $i < $indexCount; $i++) {
+            $htmlThCompiled .= $htmlTh;            
+            $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);           
+        }      
+        $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
+       
+
+
+
+        
+
+
+        foreach ($data as $item => $value) {            
+            $columns = count($value) / 2;
+            for ($i = 0; $i < $columns; $i++) {
+               
+            }            
+        }
+
+        echo $htmlTable;
+        die;
+
+        return $htmlTable;
+    }
 }

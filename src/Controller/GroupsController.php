@@ -16,82 +16,69 @@ class GroupsController
         $contentTitle = "Groups";
         $commonController = new CommonController();
 
-        // DEFINE BUTTONS TO SHOW
+        // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
         $buttons .= $commonController->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
 
         // BUILD CONTENT
         $content = $commonController->groupContentBuilder($contentTitle, $buttons);
 
-
         // GET OPEN GROUPS
         $content = str_replace(" {OPEN_CONTENT}", $this->replaceGroupList("open"), $content);
-
         // GET CLOSED GROUPS
         $content = str_replace(" {CLOSED_CONTENT}", $this->replaceGroupList("closed"), $content);
 
-        // FINAL RENDER OF THE FULL CONTENT
+        // TODO - TESTING  AUTO BUILD TABLE WITH HTML COMPONENTS AND JSON FROM DATABASE
+        // GET MY GROUPS FROM DATABASE        
+        $group = new Group(null, null, null, null, null,null);
+        // $resultFromDatabase = $group->getMyGroups();
+
+        $myGroups = $group->getMyGroups();
+
         $view = new View;
+        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];
+        $content .= $view->htmlTableBuilder($htmlTableIndex, $myGroups);
+
+        // FINAL RENDER OF THE FULL CONTENT        
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
     public function groupMembers()
     {
-
         $contentTitle = "Group Members";
-        // TODO
         $content = "";
-        $commonController = new CommonController();
-
-
-
-
-
-        
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
     public function memberDetails()
     {
-
         $contentTitle = "Member Details";
-        // TODO
         $content = "";
-        $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
     public function sharedGroups()
     {
-
         $contentTitle = "Shared Groups";
-        // TODO
         $content = "";
-        $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
     public function sharedGroupMembers()
     {
-
         $contentTitle = "Shared Group Members";
-        // TODO
         $content = "";
-        $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
     public function sharedMemberDetails()
     {
-
         $contentTitle = "Shared Member Details";
-        // TODO
         $content = "";
-        $commonController = new CommonController();
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
@@ -99,7 +86,6 @@ class GroupsController
     // GROUP CONTENT BUILDER
     public function groupContentBuilder($info)
     {
-
         // groups() - LIST ALL GROUPS
         if ($info = "groups") {
         }
@@ -109,10 +95,8 @@ class GroupsController
     {
 
         $contentTitle = "Global Groups";
-        // TODO
-        $content = "";
-        $commonController = new CommonController();
 
+        $content = "";
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
@@ -120,10 +104,8 @@ class GroupsController
     public function displayCreateGroupPage()
     {
         $contentTitle = "Create New Group";
-        // TODO
         $content = file_get_contents('../src/View/backend/content/newgroup.html');
         $content = str_replace("{GROUP_TYPE}", "(Private)", $content);
-       
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }

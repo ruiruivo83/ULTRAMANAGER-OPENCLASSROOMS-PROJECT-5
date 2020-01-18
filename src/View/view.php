@@ -51,30 +51,31 @@ class View
 
     public function htmlTableBuilder(array $htmlTableIndex, array $data): string
     {
+        // IMPORT TABLE HTML COMPONENTS
         $htmlTable = "";
         $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
-
-        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
+        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');        
+        $htmlTheadTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead_tr.html');
         $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
         $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
         $htmlTh = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_th.html');
         $htmlTd = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_td.html');
 
+        // BUILD INDEX
         $indexCount = count($htmlTableIndex);
-
         $htmlTable = str_replace("{THEAD}", $htmlThead, $htmlTable);
-        $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);
+        $htmlTable = str_replace("{TR}", $htmlTheadTr, $htmlTable);
         $htmlTable = str_replace("{TD}", "", $htmlTable);
-
+        // BUILD INDEX TITLES
         $htmlThCompiled = "";
         for ($i = 0; $i < $indexCount; $i++) {
             $htmlThCompiled .= $htmlTh;
             $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);
         }
         $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
-
         $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
 
+        // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
         $htmlTrCompiled = "";
         foreach ($data as $value) {
             $htmlTrCompiled .= $htmlTr;
@@ -88,9 +89,8 @@ class View
             $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);
         }
         $htmlTable = str_replace("{TR}", $htmlTrCompiled, $htmlTable);
-        echo $htmlTable;
-        die;
 
+        // RETURN THE FULL HTML TABLE READY TO DISPLAY
         return $htmlTable;
     }
 }

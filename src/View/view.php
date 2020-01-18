@@ -76,36 +76,18 @@ class View
         $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
 
         $htmlTrCompiled = "";
-        $htmlTdCompiled = "";
+        foreach ($data as $value) {
+            $htmlTrCompiled .= $htmlTr;
 
-       
-
-        foreach ($data as $item => $value) {                  
-            $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);             
+            $htmlTdCompiled = "";
             for ($i = 0; $i < $indexCount; $i++) {
-
                 $htmlTdCompiled .= $htmlTd;
                 $htmlTdCompiled = str_replace("{CONTENT}", $value[$i], $htmlTdCompiled);
-
-                
-
-                /*
-                $htmlTrCompiled .= $htmlTr;            
-                $htmlTrCompiled = str_replace("{CONTENT}", $item, $htmlTrCompiled);   
-                
-                $columns = count($value) / 2;
-                for ($i = 0; $i < $item; $i++) {
-                    $htmlTdCompiled .= $htmlTd;
-                    $htmlTdCompiled = str_replace("{CONTENT}", $item[$i], $htmlTrCompiled);                 
-                }    
-                */
             }
-            $htmlTable = str_replace("{TD}", $htmlTdCompiled, $htmlTable);
-            $htmlTable = str_replace("{TH}", "", $htmlTable);
+            $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
+            $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);
         }
-
-
-
+        $htmlTable = str_replace("{TR}", $htmlTrCompiled, $htmlTable);
         echo $htmlTable;
         die;
 

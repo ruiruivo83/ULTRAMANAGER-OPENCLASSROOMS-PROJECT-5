@@ -73,20 +73,35 @@ class View
         }      
         $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
        
-
-
+        $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
+        $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);
+       
 
         
+        $htmlTrCompiled = "";
+        $htmlTdCompiled = "";
 
+       
 
-        foreach ($data as $item => $value) {            
+      
+        foreach ($data as $item => $value) {    
+            for ($i=0; $i < $indexCount; $i++) { 
+            echo $value[$i] ."<br>";
+
+            /*
+            $htmlTrCompiled .= $htmlTr;            
+            $htmlTrCompiled = str_replace("{CONTENT}", $item, $htmlTrCompiled);   
+            
             $columns = count($value) / 2;
-            for ($i = 0; $i < $columns; $i++) {
-               
-            }            
+            for ($i = 0; $i < $item; $i++) {
+                $htmlTdCompiled .= $htmlTd;
+                $htmlTdCompiled = str_replace("{CONTENT}", $item[$i], $htmlTrCompiled);                 
+            }    
+            */
         }
-
-        echo $htmlTable;
+        }
+       
+        
         die;
 
         return $htmlTable;

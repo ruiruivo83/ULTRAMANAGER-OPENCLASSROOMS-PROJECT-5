@@ -53,7 +53,7 @@ class View
     {
         $htmlTable = "";
         $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
-        
+
         $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
         $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
         $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
@@ -61,47 +61,52 @@ class View
         $htmlTd = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_td.html');
 
         $indexCount = count($htmlTableIndex);
-        
+
         $htmlTable = str_replace("{THEAD}", $htmlThead, $htmlTable);
         $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);
         $htmlTable = str_replace("{TD}", "", $htmlTable);
-        
+
         $htmlThCompiled = "";
         for ($i = 0; $i < $indexCount; $i++) {
-            $htmlThCompiled .= $htmlTh;            
-            $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);           
-        }      
+            $htmlThCompiled .= $htmlTh;
+            $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);
+        }
         $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
-       
-        $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
-        $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);
-       
 
-        
+        $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
+
         $htmlTrCompiled = "";
         $htmlTdCompiled = "";
 
        
 
-      
-        foreach ($data as $item => $value) {    
-            for ($i=0; $i < $indexCount; $i++) { 
-            echo $value[$i] ."<br>";
+        foreach ($data as $item => $value) {                  
+            $htmlTable = str_replace("{TR}", $htmlTr, $htmlTable);             
+            for ($i = 0; $i < $indexCount; $i++) {
 
-            /*
-            $htmlTrCompiled .= $htmlTr;            
-            $htmlTrCompiled = str_replace("{CONTENT}", $item, $htmlTrCompiled);   
-            
-            $columns = count($value) / 2;
-            for ($i = 0; $i < $item; $i++) {
                 $htmlTdCompiled .= $htmlTd;
-                $htmlTdCompiled = str_replace("{CONTENT}", $item[$i], $htmlTrCompiled);                 
-            }    
-            */
+                $htmlTdCompiled = str_replace("{CONTENT}", $value[$i], $htmlTdCompiled);
+
+                
+
+                /*
+                $htmlTrCompiled .= $htmlTr;            
+                $htmlTrCompiled = str_replace("{CONTENT}", $item, $htmlTrCompiled);   
+                
+                $columns = count($value) / 2;
+                for ($i = 0; $i < $item; $i++) {
+                    $htmlTdCompiled .= $htmlTd;
+                    $htmlTdCompiled = str_replace("{CONTENT}", $item[$i], $htmlTrCompiled);                 
+                }    
+                */
+            }
+            $htmlTable = str_replace("{TD}", $htmlTdCompiled, $htmlTable);
+            $htmlTable = str_replace("{TH}", "", $htmlTable);
         }
-        }
-       
-        
+
+
+
+        echo $htmlTable;
         die;
 
         return $htmlTable;

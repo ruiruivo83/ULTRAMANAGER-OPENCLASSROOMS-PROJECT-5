@@ -212,17 +212,30 @@ class Ticket
         return $this;
     }
 
-    public function getTickets($status)
+    public function getTickets()
     {
         $bdd = Database::getBdd();
         $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM tickets WHERE author = '$currentUser' AND status = '$status' ORDER BY creation_date DESC");
+        $req = $bdd->prepare("SELECT * FROM tickets ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
         // die;
         $Result = $req->fetchall();
         return $Result;
+    }
+
+    public function getMyTickets(): array
+    {
+        $bdd = Database::getBdd();
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT * FROM tickets WHERE author = '$currentUser' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
     }
 
     public function createNewTicket()

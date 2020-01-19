@@ -23,15 +23,15 @@ class TicketsController
         // BUILD CONTENT
         $content = $commonController->ticketContentBuilder($contentTitle, $buttons);
 
+        // GET MY TICKETS
+        $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
+        $myTickets = $ticket->getMyTickets();
 
-        // GET OPEN TICKETS
-        $content = str_replace(" {OPEN_CONTENT}", $this->replaceTicketList("open"), $content);
+        // GET HTML TABLE TO SHOW
+        $view = new View;
+        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
-        // GET CLOSED TICKETS
-        $content = str_replace(" {CLOSED_CONTENT}", $this->replaceTicketList("closed"), $content);
-
-
-        $view = new View();
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
@@ -73,13 +73,26 @@ class TicketsController
     {
 
         $contentTitle = "Global Tickets";
-        // TODO
-        $content = "";
+        $commonController = new CommonController();
 
-        $view = new View();
+        // DEFINE AND BUILD BUTTONS TO SHOW
+        $buttons = "";
+        $buttons .= $commonController->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
+
+        // BUILD CONTENT
+        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
+
+        // GET MY GROUPS
+        $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
+        $myTickets = $ticket->getTickets();
+
+      
+         // GET HTML TABLE TO SHOW
+        $view = new View;
+        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
+       
         $view->pageBuilder(null, $content, $contentTitle);
-
-        echo $view;
     }
 
     public function displayCreateTicketPage()

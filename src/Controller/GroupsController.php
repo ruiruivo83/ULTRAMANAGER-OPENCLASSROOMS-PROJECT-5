@@ -23,23 +23,16 @@ class GroupsController
         // BUILD CONTENT
         $content = $commonController->groupContentBuilder($contentTitle, $buttons);
 
-        // GET OPEN GROUPS
-        $content = str_replace(" {OPEN_CONTENT}", $this->replaceGroupList("open"), $content);
-        // GET CLOSED GROUPS
-        $content = str_replace(" {CLOSED_CONTENT}", $this->replaceGroupList("closed"), $content);
-
-        // TODO - TESTING  AUTO BUILD TABLE WITH HTML COMPONENTS AND JSON FROM DATABASE
-        // GET MY GROUPS FROM DATABASE        
-        $group = new Group(null, null, null, null, null,null);
-        // $resultFromDatabase = $group->getMyGroups();
-
+        // GET MY GROUPS
+        $group = new Group(null, null, null, null, null, null);
         $myGroups = $group->getMyGroups();
 
+        // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];
-        $content .= $view->htmlTableBuilder($htmlTableIndex, $myGroups);
+        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];        
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
 
-        // FINAL RENDER OF THE FULL CONTENT        
+        // SEND HTML TABLE RESULT TO THE VIEW
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
@@ -95,9 +88,25 @@ class GroupsController
     {
 
         $contentTitle = "Global Groups";
+        $commonController = new CommonController();
 
-        $content = "";
+        // DEFINE AND BUILD BUTTONS TO SHOW
+        $buttons = "";
+        $buttons .= $commonController->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
+
+        // BUILD CONTENT
+        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
+
+        // GET MY GROUPS
+        $group = new Group(null, null, null, null, null, null);
+        $myGroups = $group->getGroups();
+
+      
+         // GET HTML TABLE TO SHOW
         $view = new View;
+        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];        
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
+       
         $view->pageBuilder(null, $content, $contentTitle);
     }
 

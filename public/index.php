@@ -344,8 +344,9 @@ class Router
 
 
             // createGroupFunction FUNCTION
-            if ($_GET['action'] == 'creategroupgunction') {
+            if ($_GET['action'] == 'creategroupfunction') {
                 if (isset($_SESSION["user"])) {
+                 
                     $groupsController->createGroupFunction();
                 } else {
                     header('Location: ../index.php');

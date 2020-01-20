@@ -34,13 +34,11 @@ class commonController
     }
 
 
-    public function groupContentBuilder($contentTitle, $buttons)
-    {
-        if ($contentTitle == "Groups") {
+    public function groupContentBuilder( $buttons)
+    {      
             $content = file_get_contents('../src/view/backend/content/content.html');
             $content = str_replace("{BUTTONS}", $buttons, $content);
-            return $content;
-        }
+            return $content;      
     }
 
     public function ticketContentBuilder($contentTitle, $buttons)

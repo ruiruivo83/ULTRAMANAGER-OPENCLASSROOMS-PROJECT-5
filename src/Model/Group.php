@@ -158,19 +158,19 @@ class Group
 
     public function getGroups(): array
     {
-        $bdd = Database::getBdd();        
+        $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();      
+        $result = $req->fetchall();
         return $result;
     }
 
     public function getGroupsWithStatus(string $status): array
     {
-        $bdd = Database::getBdd();        
+        $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM groups WHERE group_status = '$status' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -189,7 +189,7 @@ class Group
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();       
+        $result = $req->fetchall();
         return $result;
     }
 
@@ -205,5 +205,4 @@ class Group
         $result = $req->fetchall();
         return $result;
     }
-    
 }

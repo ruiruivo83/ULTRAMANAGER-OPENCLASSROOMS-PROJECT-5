@@ -107,13 +107,29 @@ class View
         $buttonDefaultCode = "";
 
         // Get Project type (Group, Ticket or Intervention...)
+        // TICKETS
         if ($_GET['action'] == 'tickets') {
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
         }
 
+        // GROUPS
         if ($_GET['action'] == 'groups') {
+            $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+        }
+
+        // GLOBAL TICKETS
+        if ($_GET['action'] == 'globaltickets') {
+            $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+        }
+        
+        // GLOBAL GROUPS
+        if ($_GET['action'] == 'globalgroups') {
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);

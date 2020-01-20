@@ -54,7 +54,7 @@ class View
         // IMPORT TABLE HTML COMPONENTS
         $htmlTable = "";
         $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
-        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');        
+        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
         $htmlTheadTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead_tr.html');
         $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
         $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
@@ -72,6 +72,10 @@ class View
             $htmlThCompiled .= $htmlTh;
             $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);
         }
+        // ADD ONE COLUMN FOR BUTTON OPTIONS
+        $htmlThCompiled .= $htmlTh;
+        $htmlThCompiled = str_replace("{CONTENT}", "OPTIONS", $htmlThCompiled);
+        //..
         $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
         $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
 
@@ -85,6 +89,10 @@ class View
                 $htmlTdCompiled .= $htmlTd;
                 $htmlTdCompiled = str_replace("{CONTENT}", $value[$i], $htmlTdCompiled);
             }
+            // ADD OPTIONS PER LINE EACH ITEM
+            $htmlTdCompiled .= $htmlTd;
+            $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($value['id']), $htmlTdCompiled);
+            //...
             $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
             $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);
         }
@@ -92,5 +100,38 @@ class View
 
         // RETURN THE FULL HTML TABLE READY TO DISPLAY
         return $htmlTable;
+    }
+
+    public function getCompiledButtons($var)
+    {
+        $buttonDefaultCode = "";
+
+        // Get Project type (Group, Ticket or Intervention...)
+        if ($_GET['action'] == 'tickets') {
+            $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+        }
+
+        if ($_GET['action'] == 'groups') {
+            $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+        }
+
+        /*
+        echo "id";
+        die;
+        // DISPLAY BUTTONS FOR TICKETS
+        if ($_GET['action'] == 'tickets') {
+
+        }
+
+        // DISPLAY BUTTONS FOR GROUPS
+        if ($_GET['action'] == 'groups') {
+
+        }
+        */
+        return $buttonDefaultCode;
     }
 }

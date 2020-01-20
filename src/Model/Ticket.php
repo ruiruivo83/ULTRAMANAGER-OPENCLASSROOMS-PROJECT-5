@@ -215,7 +215,6 @@ class Ticket
     public function getTickets()
     {
         $bdd = Database::getBdd();
-        $currentUser = $_SESSION['user']->getEmail();
         $req = $bdd->prepare("SELECT * FROM tickets ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -248,20 +247,31 @@ class Ticket
         // die;
     }
 
+    // IMPORT TO SESSION VARIABLE
     public function getTicketDetails($id)
     {
         $bdd = Database::getBdd();
-        $currentUser = $_SESSION['user']->getEmail();
         $req = $bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
-        $req->execute();
+        $req->execute();       
+        $numresult = $req->rowCount();        
+        if ($numresult > 0) {       
+            $result = $req->fetch();
+            return new Ticket(
+                (int) $result['id'],
+                $result['author'],
+                $result['requester'],
+                $result['status'],
+                $result['creation_date'],
+                $result['title'],
+                $result['description'],
+                $result['group_name'],
+                $result['close_date']
+            );           
+        } else {
+            return null;
+        }
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();
-        return $result;
     }
-
-
-
-
 }

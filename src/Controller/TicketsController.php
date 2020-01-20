@@ -14,7 +14,7 @@ class TicketsController
     public function tickets()
     {
         $view = new View;
-        $contentTitle = "Tickets";        
+        $contentTitle = "Tickets";
 
         // DEFINE BUTTONS TO SHOW
         $buttons = "";
@@ -35,32 +35,90 @@ class TicketsController
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function ticketDetails()
     {
-        $view = new View();
+
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            // GET BACKEND PAGE TICKET DETAILS
-
-            // FILL WITH TICKET INFORMATION AND OPTIONS
+            $view = new View();
 
             $contentTitle = "Ticket Details";
-            // TODO
-            $content = file_get_contents('../src/View/backend/content/content.html');
-
 
             // DEFINE BUTTONS TO SHOW
             $buttons = "";
             $buttons .= $view->buttonsBuilder("Close Ticket", "../index.php?action=closeticket&id=" . $id);
 
+            // BUILD CONTENT
+            $content = $view->ticketContentBuilder($contentTitle, $buttons);
 
-            $view->pageBuilder($buttons, $content, $contentTitle);
-            //echo $view;
+            // REPLACE {HTML_TABLE_RESULT} BY TICKET DETAILS PAGE
+            $ticketDetailsContentPage = file_get_contents('../src/View/backend/content/ticketdetails.html');
+            $content = str_replace("{HTML_TABLE_RESULT}",  $ticketDetailsContentPage, $content);
+
+            // GET TICKET DETAILS
+
+
+            $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
+            $ticket = $ticket->getTicketDetails($id);
+            $_SESSION['ticket'] = $ticket;
+
+
+            // REPLACE TICKET DETAILS
+            // {TICKET_TITLE}
+            $content = str_replace("{TICKET_TITLE}",  $_SESSION['ticket']->getTitle(), $content);
+            // {GROUP_NAME}
+           
+            // {GROUP_ADMIN}
+           
+            // {TICKET_AUTHOR}
+            $content = str_replace("{TICKET_AUTHOR}",  $_SESSION['ticket']->getAuthor(), $content);
+            // {REQUESTER}
+            $content = str_replace("{REQUESTER}",  $_SESSION['ticket']->getRequester(), $content);
+            // {TICKET_STATUS}
+            $content = str_replace("{TICKET_STATUS}",  $_SESSION['ticket']->getStatus(), $content);
+            // {CREATION_DATE}
+            $content = str_replace("{CREATION_DATE}",  $_SESSION['ticket']->getCreation_Date(), $content);
+            // {DESCRIPTION}
+            $content = str_replace("{DESCRIPTION}",  $_SESSION['ticket']->getDESCRIPTION(), $content);
+
+
+
+            $view->pageBuilder(null, $content, $contentTitle);
         } else {
             echo "Missiong ID";
             die;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function sharedTickets()
     {
@@ -70,7 +128,6 @@ class TicketsController
 
         $view = new View();
         $view->pageBuilder(null, $content, $contentTitle);
-        echo $view;
     }
 
     public function sharedTicketDetails()
@@ -81,14 +138,13 @@ class TicketsController
 
         $view = new View();
         $view->pageBuilder(null, $content, $contentTitle);
-        echo $view;
     }
 
 
     public function globalTickets()
     {
         $view = new View();
-        $contentTitle = "Global Tickets";        
+        $contentTitle = "Global Tickets";
 
         // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
@@ -101,10 +157,10 @@ class TicketsController
         $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
         $myTickets = $ticket->getTickets();
 
-
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
+
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
@@ -164,8 +220,6 @@ class TicketsController
                 $ticket_list_final_code = str_replace("{TICKET_STATUS_TITLE}", "Closed", $ticket_list_final_code);
             }
         }
-
-
         return $ticket_list_final_code;
     }
 }

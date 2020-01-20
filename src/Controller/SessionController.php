@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\User;
+
 class SessionController
 {
 
@@ -25,8 +27,8 @@ class SessionController
             $view = str_replace("{USER_INFO}", $userInfo_button, $view);
             $view = str_replace("{LOGOUT}", $logout_button, $view);
 
-            $user = new User(null, null, null, null, null, null, null);
-            $PhotoName = $user->getPhotoIfExist($_SESSION['user']->getId());
+            $user = new User(null, null, null, null, null, null, null, null, null);
+            $PhotoName = $user->getPhoto_filename();
             // var_dump($PhotoName[0]);
             // die;
             if (strlen($PhotoName[0]) != 0) {

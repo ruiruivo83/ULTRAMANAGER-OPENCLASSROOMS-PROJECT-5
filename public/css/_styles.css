@@ -2,15 +2,6 @@ body {
     display: none;
 }
 
-.hover_bg_grey:hover {
-    background-color: rgb(200, 213, 219);
-}
-
-.hover_bg_highlight:hover {
-    background-color: rgb(204, 219, 200);
-}
-
-
 table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
     display: none;
 }
@@ -26,3 +17,5 @@ table.dataTable thead .sorting:before{
 table.dataTable thead .sorting:after{
     display: none;
 }
+
+

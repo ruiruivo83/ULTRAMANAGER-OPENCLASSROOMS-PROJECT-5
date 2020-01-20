@@ -25,40 +25,5 @@ class commonController
         echo $view;
     }
 
-    public function buttonsBuilder($buttonTitle, $buttonLink)
-    {
-        $button = file_get_contents('../src/view/backend/buttons.html');
-        $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
-        $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
-        return $button;
-    }
-
-
-    public function groupContentBuilder( $buttons)
-    {      
-            $content = file_get_contents('../src/view/backend/content/content.html');
-            $content = str_replace("{BUTTONS}", $buttons, $content);
-            return $content;      
-    }
-
-    public function ticketContentBuilder($contentTitle, $buttons)
-    {
-        if ($contentTitle == "Tickets") {
-            $content = file_get_contents('../src/view/backend/content/content.html');
-            $content = str_replace("{BUTTONS}", $buttons, $content);
-            return $content;
-        }
-    }
-
-    public function interventionContentBuilder($contentTitle, $buttons)
-    {
-        if ($contentTitle == "Interventions") {
-            $content = file_get_contents('../src/view/backend/content/content.html');
-            $content = str_replace("{BUTTONS}", $buttons, $content);
-            return $content;
-        }
-    }
-
-
 
 }

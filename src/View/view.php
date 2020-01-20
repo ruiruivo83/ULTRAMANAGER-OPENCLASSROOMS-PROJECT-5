@@ -102,16 +102,17 @@ class View
         return $htmlTable;
     }
 
-    public function getCompiledButtons($var)
+    public function getCompiledButtons($itemId)
     {
         $buttonDefaultCode = "";
 
         // Get Project type (Group, Ticket or Intervention...)
         // TICKETS
         if ($_GET['action'] == 'tickets') {
+            $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
-            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
-            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details " . $itemId, $buttonDefaultCode);
         }
 
         // GROUPS
@@ -127,7 +128,7 @@ class View
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
         }
-        
+
         // GLOBAL GROUPS
         if ($_GET['action'] == 'globalgroups') {
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
@@ -149,5 +150,51 @@ class View
         }
         */
         return $buttonDefaultCode;
+    }
+
+    public function buttonsBuilder($buttonTitle, $buttonLink)
+    {
+
+        // LOAD BUTTONS FOR PAGE MY GROUPS
+        if ($_GET['action'] == 'groups') {
+            $button = file_get_contents('../src/view/backend/buttons.html');
+            $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
+            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);            
+            return $button;
+        } 
+
+        // LOAD BUTTONS FOR PAGE MY TICKETS
+        if ($_GET['action'] == 'tickets') {
+            $button = file_get_contents('../src/view/backend/buttons.html');
+            $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
+            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);            
+            return $button;
+        }             
+    }
+
+
+    public function groupContentBuilder($content, $buttons)
+    {
+        $content = file_get_contents('../src/view/backend/content/content.html');
+        $content = str_replace("{BUTTONS}", $buttons, $content);
+        return $content;
+    }
+
+    public function ticketContentBuilder($contentTitle, $buttons)
+    {
+        if ($contentTitle == "Tickets") {
+            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = str_replace("{BUTTONS}", $buttons, $content);
+            return $content;
+        }
+    }
+
+    public function interventionContentBuilder($contentTitle, $buttons)
+    {
+        if ($contentTitle == "Interventions") {
+            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = str_replace("{BUTTONS}", $buttons, $content);
+            return $content;
+        }
     }
 }

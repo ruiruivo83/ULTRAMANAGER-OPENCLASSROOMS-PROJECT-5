@@ -248,4 +248,20 @@ class Ticket
         // die;
     }
 
+    public function getTicketDetails($id)
+    {
+        $bdd = Database::getBdd();
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
+
+
+
 }

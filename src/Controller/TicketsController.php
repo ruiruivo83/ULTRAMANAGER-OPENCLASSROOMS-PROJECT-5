@@ -13,15 +13,15 @@ class TicketsController
 
     public function tickets()
     {
-        $contentTitle = "Tickets";
-        $commonController = new CommonController();
+        $view = new View;
+        $contentTitle = "Tickets";        
 
         // DEFINE BUTTONS TO SHOW
         $buttons = "";
-        $buttons .= $commonController->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
+        $buttons .= $view->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
 
         // BUILD CONTENT
-        $content = $commonController->ticketContentBuilder($contentTitle, $buttons);
+        $content = $view->ticketContentBuilder($contentTitle, $buttons);
 
         // GET MY TICKETS
         $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
@@ -37,13 +37,29 @@ class TicketsController
 
     public function ticketDetails()
     {
-        $contentTitle = "Ticket Details";
-        // TODO
-        $content = "";
-
         $view = new View();
-        $view->pageBuilder(null, $content, $contentTitle);
-        echo $view;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            // GET BACKEND PAGE TICKET DETAILS
+
+            // FILL WITH TICKET INFORMATION AND OPTIONS
+
+            $contentTitle = "Ticket Details";
+            // TODO
+            $content = file_get_contents('../src/View/backend/content/content.html');
+
+
+            // DEFINE BUTTONS TO SHOW
+            $buttons = "";
+            $buttons .= $view->buttonsBuilder("Close Ticket", "../index.php?action=closeticket&id=" . $id);
+
+
+            $view->pageBuilder($buttons, $content, $contentTitle);
+            //echo $view;
+        } else {
+            echo "Missiong ID";
+            die;
+        }
     }
 
     public function sharedTickets()
@@ -71,27 +87,26 @@ class TicketsController
 
     public function globalTickets()
     {
-
-        $contentTitle = "Global Tickets";
-        $commonController = new CommonController();
+        $view = new View();
+        $contentTitle = "Global Tickets";        
 
         // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
-        $buttons .= $commonController->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
+        $buttons .= $view->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
 
         // BUILD CONTENT
-        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
+        $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
         $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
         $myTickets = $ticket->getTickets();
 
-      
-         // GET HTML TABLE TO SHOW
+
+        // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
-       
+
         $view->pageBuilder(null, $content, $contentTitle);
     }
 

@@ -174,9 +174,9 @@ class TicketsController
     public function createTicketFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_POST["Group"])) {
-            $groupName = $_POST["Group"];
-            $group = new Group(null, null, null, null, null, null);            
-            $groupId = $group->getGroupIdWithGroupName($groupName);
+            // $groupName = $_POST["Group"];
+            // $group = new Group(null, null, null, null, null, null);            
+            $groupId = $_SESSION['group']->getId();
             foreach ($groupId as $value) {              
                 $groupId = $value['id'];
             }

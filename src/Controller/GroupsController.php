@@ -90,15 +90,10 @@ class GroupsController
             // {TICKET_LIST}
             $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
             $result = $ticket->getTicketsWithGroupId($_SESSION['group']->getId());
-            
-            
+                        
             $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id","close_date"];
             $content = str_replace("{TICKET_LIST}", $view->htmlTableBuilder($htmlTableIndex, $result), $content);
             
-            
-            
-            
-
             $view->pageBuilder(null, $content, $contentTitle);
         } else {
             echo "Missiong ID";

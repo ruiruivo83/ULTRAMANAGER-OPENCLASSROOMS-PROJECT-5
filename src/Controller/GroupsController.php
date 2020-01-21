@@ -28,9 +28,10 @@ class GroupsController
         $group = new Group(null, null, null, null, null, null);
         $myGroups = $group->getMyGroups();
 
+
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];
+        $htmlTableIndex = ["id", "Group Admin", "Creation Date", "Groupe Name", "Description", "Status"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
 
         // SEND HTML TABLE RESULT TO THE VIEW
@@ -62,7 +63,7 @@ class GroupsController
 
             // GET GROUP DETAILS
             $group = new Group(null, null, null, null, null, null, null, null, null);
-            $group = $group->getGroupDetails($id);
+            $group = $group->getGroupDetails(intval($id));
             $_SESSION['group'] = $group;
 
             // REPLACE TICKET DETAILS
@@ -70,30 +71,32 @@ class GroupsController
             $content = str_replace("{GROUP_ID}",  $_SESSION['group']->getId(), $content);
 
             // {TICKET_TITLE}
-            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getTitle(), $content);
+            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getGroupname(), $content);
 
             // {GROUP_ADMIN}
             $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_Admin(), $content);
 
             // {GROUP_STATUS}
-            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getStatus(), $content);
+            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getGroupStatus(), $content);
 
             // {CREATION_DATE}
             $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
 
             // {DESCRIPTION}
-            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getDescription(), $content);
+            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getGroupDescription(), $content);
 
             // {MY_GROUP_LIST}
-            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getTitle() . "</option>", $content);
+            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getGroupname() . "</option>", $content);
 
             // {TICKET_LIST}
             $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
             $result = $ticket->getTicketsWithGroupId($_SESSION['group']->getId());
-                        
-            $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id","close_date"];
+
+
+
+            $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id", "close_date"];
             $content = str_replace("{TICKET_LIST}", $view->htmlTableBuilder($htmlTableIndex, $result), $content);
-            
+
             $view->pageBuilder(null, $content, $contentTitle);
         } else {
             echo "Missiong ID";

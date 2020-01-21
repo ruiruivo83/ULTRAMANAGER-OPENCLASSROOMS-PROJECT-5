@@ -49,7 +49,7 @@ class View
     }
 
 
-    public function htmlTableBuilder(array $htmlTableIndex, array $myTickets): string
+    public function htmlTableBuilder(array $htmlTableIndex, array $data): string
     {
         // IMPORT TABLE HTML COMPONENTS
         $htmlTable = "";
@@ -81,7 +81,7 @@ class View
 
         // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
         $htmlTrCompiled = "";
-        foreach ($myTickets as $value) {
+        foreach ($data as $value) {
             $htmlTrCompiled .= $htmlTr;
 
             $htmlTdCompiled = "";
@@ -113,13 +113,22 @@ class View
             $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
-            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details " . $itemId, $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details " , $buttonDefaultCode);
         }
 
         // GROUPS
         if ($_GET['action'] == 'groups') {
             // HREF FOR GROUP DETAILS
             $href = "../index.php?action=groupdetails&id=" . $itemId;
+            $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}",$href , $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
+        }
+
+         // GROUPS
+         if ($_GET['action'] == 'groupdetails') {
+            // HREF FOR GROUP DETAILS
+            $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}",$href , $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);

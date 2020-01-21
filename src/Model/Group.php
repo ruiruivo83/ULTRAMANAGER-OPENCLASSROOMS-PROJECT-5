@@ -11,9 +11,9 @@ class Group
     private $id;
     private $group_admin;
     private $creation_date;
-    private $title;
-    private $description;
-    private $status;
+    private $group_name;
+    private $group_description;
+    private $group_status;
 
     // CONSTRUCT
     public function __construct($id, $group_admin, $creation_date, $title, $description, $status)
@@ -21,9 +21,9 @@ class Group
         $this->id = $id;
         $this->group_admin = $group_admin;
         $this->creation_date = $creation_date;
-        $this->title = $title;
-        $this->description = $description;
-        $this->status = $status;
+        $this->group_name = $title;
+        $this->group_description = $description;
+        $this->group_status = $status;
     }
 
     /**
@@ -89,9 +89,9 @@ class Group
     /**
      * Get the value of title
      */
-    public function getTitle()
+    public function getGroupname()
     {
-        return $this->title;
+        return $this->group_name;
     }
 
     /**
@@ -99,9 +99,9 @@ class Group
      *
      * @return  self
      */
-    public function setTitle($title)
+    public function setGroupname($group_name)
     {
-        $this->title = $title;
+        $this->group_name = $group_name;
 
         return $this;
     }
@@ -109,9 +109,9 @@ class Group
     /**
      * Get the value of description
      */
-    public function getDescription()
+    public function getGroupDescription()
     {
-        return $this->description;
+        return $this->group_description;
     }
 
     /**
@@ -119,9 +119,9 @@ class Group
      *
      * @return  self
      */
-    public function setDescription($description)
+    public function setGroupDescription($group_description)
     {
-        $this->description = $description;
+        $this->group_description = $group_description;
 
         return $this;
     }
@@ -129,9 +129,9 @@ class Group
     /**
      * Get the value of status
      */
-    public function getStatus()
+    public function getGroupStatus()
     {
-        return $this->status;
+        return $this->group_status;
     }
 
     /**
@@ -139,9 +139,9 @@ class Group
      *
      * @return  self
      */
-    public function setStatus($status)
+    public function setGroupStatus($group_status)
     {
-        $this->status = $status;
+        $this->group_status = $group_status;
 
         return $this;
     }
@@ -150,7 +150,7 @@ class Group
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
-        $req->execute(array($this->group_admin, $this->title, $this->description, $this->status));
+        $req->execute(array($this->group_admin, $this->group_name, $this->group_description, $this->group_status));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -167,6 +167,9 @@ class Group
         $result = $req->fetchall();
         return $result;
     }
+
+
+  
 
     public function getGroupsWithStatus(string $status): array
     {
@@ -206,9 +209,9 @@ class Group
         return $result;
     }
 
-    public function getGroupIdWithGroupName($groupName): array
+    public function getGroupIdWithGroupName(string $groupName): array
     {
-        $bdd = Database::getBdd();        
+        $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT id FROM groups WHERE group_name = '$groupName' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -218,12 +221,25 @@ class Group
         return $result;
     }
 
-    public function getGroupDetails($id) {
+    public function getGroupNameWithGroupId(int $id): array
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT group_name FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
+    public function getGroupDetails(int $id)
+    {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
-        $req->execute();       
-        $numresult = $req->rowCount();        
-        if ($numresult > 0) {       
+        $req->execute();
+        $numresult = $req->rowCount();
+        if ($numresult > 0) {
             $result = $req->fetch();
             return new Group(
                 (int) $result['id'],
@@ -232,7 +248,7 @@ class Group
                 $result['group_name'],
                 $result['group_description'],
                 $result['group_status']
-            );           
+            );
         } else {
             return null;
         }
@@ -240,6 +256,4 @@ class Group
         // $req->debugDumpParams();
         // die;
     }
-
-
 }

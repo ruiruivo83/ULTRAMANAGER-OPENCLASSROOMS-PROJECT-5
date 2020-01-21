@@ -30,7 +30,7 @@ class TicketsController
 
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id","close_date"];
+        $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Group Id", "Close Date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
@@ -68,9 +68,27 @@ class TicketsController
             // REPLACE TICKET DETAILS
             // {TICKET_TITLE}
             $content = str_replace("{TICKET_TITLE}",  $_SESSION['ticket']->getTitle(), $content);
-            // {GROUP_NAME}
+
+            // $_SESSION['ticket']->getGroup_id()
+            // {GROUP_ID}
+            $content = str_replace("{GROUP_ID}",  $_SESSION['ticket']->getGroup_id(), $content);
+
+            // GET GROUP INFO TO DISPLAY
+           
+            // {GROUP_NAME}     
+            $group = new Group(null, null, null, null, null, null, null);
+            $group = $group->getGroupNameWithGroupId(intval($_SESSION['ticket']->getGroup_id()));        
+            foreach ($group as $value) {
+                $content = str_replace("{GROUP_NAME}",  $value['group_name'], $content);               
+            }
 
             // {GROUP_ADMIN}
+            //$group = new Group(null, null, null, null, null, null, null);
+         
+            // $groupDetails = $group->getGroupDetails(intval($_SESSION['ticket']->getGroup_id()));
+            $group = new Group(null, null, null, null, null, null, null);
+          
+            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_admin(), $content);
 
             // {TICKET_AUTHOR}
             $content = str_replace("{TICKET_AUTHOR}",  $_SESSION['ticket']->getAuthor(), $content);
@@ -127,12 +145,11 @@ class TicketsController
 
         // GET MY GROUPS
         $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
-        $myTickets = $ticket->getTickets();
+        $myTickets = $ticket->getMyTickets();
 
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "close_date"];
-
+        $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Close Date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
@@ -160,7 +177,7 @@ class TicketsController
         $optionCode =  file_get_contents('../src/View/backend/htmlcomponents/option/html_component_option.html');
         foreach ($myGroups as $group) {
             $compiledGroupList .=  $optionCode;
-            $compiledGroupList = str_replace("{CONTENT}", $group['group_name'], $compiledGroupList);
+            $compiledGroupList = str_replace("{CONTENT}", "#" . $group['id'] . " - " . $group['group_name'], $compiledGroupList);
         }
         return $compiledGroupList;
     }
@@ -177,7 +194,7 @@ class TicketsController
             // $groupName = $_POST["Group"];
             // $group = new Group(null, null, null, null, null, null);            
             $groupId = $_SESSION['group']->getId();
-            foreach ($groupId as $value) {              
+            foreach ($groupId as $value) {
                 $groupId = $value['id'];
             }
             $title = $_POST["Title"];

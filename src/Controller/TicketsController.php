@@ -179,11 +179,29 @@ class TicketsController
         $content = file_get_contents('../src/View/backend/content/newticket.html');
         $content = str_replace("{TICKET_TYPE}", "(Private)", $content);
         //  {MY_GROUP_LIST}
-        $content = str_replace("{MY_GROUP_LIST}", "<option>option 1</option><option>option 2</option>" , $content);
+        $content = str_replace("{MY_GROUP_LIST}", $this->getMyCompiledGroupList(), $content);
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
+    // Gets Compiled Group List for Current User
+    public function getMyCompiledGroupList(): string
+    {
+        $group = new Group(null, null, null, null, null, null);
+        $myGroups = $group->getMyGroups();
+        $compiledGroupList = "";
+        $optionCode =  file_get_contents('../src/View/backend/htmlcomponents/option/html_component_option.html');
+        foreach ($myGroups as $group) {
+            $compiledGroupList .=  $optionCode;
+            $compiledGroupList = str_replace("{CONTENT}", $group['group_name'], $compiledGroupList);
+        }
+        return $compiledGroupList;
+    }
+
+    // Gets Compiled Shared Group List for Current User
+    public function getSharedCompiledGroupList()
+    {
+    }
 
 
 

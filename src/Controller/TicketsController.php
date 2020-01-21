@@ -11,6 +11,7 @@ use App\Model\Group;
 class TicketsController
 {
 
+    // DISPLAY TICKETS PAGE
     public function tickets()
     {
         $view = new View;
@@ -29,28 +30,13 @@ class TicketsController
 
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "close_date"];
+        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id","close_date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // DISPLAY TIVKET DETAILS PAGE
     public function ticketDetails()
     {
 
@@ -105,20 +91,6 @@ class TicketsController
             die;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function sharedTickets()
     {
@@ -199,17 +171,15 @@ class TicketsController
     {
     }
 
-
-
-
-
-
-
-
-
     public function createTicketFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_POST["Group"])) {
+            $groupName = $_POST["Group"];
+            $group = new Group(null, null, null, null, null, null);            
+            $groupId = $group->getGroupIdWithGroupName($groupName);
+            foreach ($groupId as $value) {              
+                $groupId = $value['id'];
+            }
             $title = $_POST["Title"];
             $description = $_POST["Description"];
             $requester = $_POST["Requester"];
@@ -217,10 +187,10 @@ class TicketsController
             $ticket_status = "open";
             // INSERT INTO DATABASE
             // Create class instance
-            $Ticket = new Ticket(null, $ticket_admin, $requester, $ticket_status, null, $title, $description, null, null);
+            $Ticket = new Ticket(null, $ticket_admin, $requester, $ticket_status, null, $title, $description, $groupId, null);
             // Execute method addTicket
             $Ticket->createNewTicket();
-            header('Location: ../index.php?action=groups');
+            header('Location: ../index.php?action=tickets');
             // exit();
         }
     }

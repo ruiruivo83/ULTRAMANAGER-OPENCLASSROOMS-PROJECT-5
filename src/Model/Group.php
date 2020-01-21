@@ -206,5 +206,17 @@ class Group
         return $result;
     }
 
+    public function getGroupIdWithGroupName($groupName): array
+    {
+        $bdd = Database::getBdd();        
+        $req = $bdd->prepare("SELECT id FROM groups WHERE group_name = '$groupName' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        $result = $req->fetchall();
+        return $result;
+    }
+
 
 }

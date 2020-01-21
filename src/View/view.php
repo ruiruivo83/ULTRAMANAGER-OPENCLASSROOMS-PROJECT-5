@@ -49,7 +49,7 @@ class View
     }
 
 
-    public function htmlTableBuilder(array $htmlTableIndex, array $data): string
+    public function htmlTableBuilder(array $htmlTableIndex, array $myTickets): string
     {
         // IMPORT TABLE HTML COMPONENTS
         $htmlTable = "";
@@ -81,7 +81,7 @@ class View
 
         // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
         $htmlTrCompiled = "";
-        foreach ($data as $value) {
+        foreach ($myTickets as $value) {
             $htmlTrCompiled .= $htmlTr;
 
             $htmlTdCompiled = "";

@@ -167,11 +167,6 @@ class TicketsController
     }
 
 
-
-
-
-
-
     public function displayCreateTicketPage()
     {
         $contentTitle = "Create New Ticket";
@@ -199,6 +194,7 @@ class TicketsController
     }
 
     // Gets Compiled Shared Group List for Current User
+    // TODO
     public function getSharedCompiledGroupList()
     {
     }

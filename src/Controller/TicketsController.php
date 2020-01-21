@@ -36,7 +36,7 @@ class TicketsController
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
-    // DISPLAY TIVKET DETAILS PAGE
+    // DISPLAY TICKET DETAILS PAGE
     public function ticketDetails()
     {
 
@@ -195,6 +195,7 @@ class TicketsController
         }
     }
 
+    /*
     public function replaceTicketList($status)
     {
         $ticket_list_final_code = null;
@@ -222,4 +223,5 @@ class TicketsController
         }
         return $ticket_list_final_code;
     }
+    */
 }

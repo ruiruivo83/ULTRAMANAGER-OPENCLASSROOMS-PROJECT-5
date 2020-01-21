@@ -19,10 +19,10 @@ class GroupsController
         // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
         $buttons .= $view->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
-        
+
         // BUILD CONTENT
         $content = $view->groupContentBuilder($contentTitle, $buttons);
-       
+
         // GET MY GROUPS
         $group = new Group(null, null, null, null, null, null);
         $myGroups = $group->getMyGroups();
@@ -35,6 +35,64 @@ class GroupsController
         // SEND HTML TABLE RESULT TO THE VIEW
         $view->pageBuilder(null, $content, $contentTitle);
     }
+
+    // DISPLAY TICKET DETAILS PAGE
+    public function groupDetails()
+    {
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $view = new View();
+
+            $contentTitle = "Group Details";
+
+            // DEFINE BUTTONS TO SHOW
+            $buttons = "";
+            $buttons .= $view->buttonsBuilder("Close Group", "../index.php?action=closegroup&id=" . $id);
+
+            // BUILD CONTENT
+            $content = $view->groupContentBuilder($contentTitle, $buttons);
+
+            // REPLACE {HTML_TABLE_RESULT} BY TICKET DETAILS PAGE
+            $groupDetailsContentPage = file_get_contents('../src/View/backend/content/groupdetails.html');
+            $content = str_replace("{HTML_TABLE_RESULT}",  $groupDetailsContentPage, $content);
+
+            // GET GROUP DETAILS
+            $group = new Group(null, null, null, null, null, null, null, null, null);
+            $group = $group->getGroupDetails($id);
+            $_SESSION['group'] = $group;
+
+
+            // REPLACE TICKET DETAILS
+            // {ID}
+            $content = str_replace("{GROUP_ID}",  $_SESSION['group']->getId(), $content);
+            // {TICKET_TITLE}
+            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getTitle(), $content);
+            // {GROUP_NAME}
+
+            // {GROUP_ADMIN}
+
+            // {GROUP_AUTHOR}
+            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_Admin(), $content);
+
+            // {GROUP_STATUS}
+            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getStatus(), $content);
+            // {CREATION_DATE}
+            $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
+            // {DESCRIPTION}
+            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getDescription(), $content);
+
+            // {MY_GROUP_LIST}
+            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getTitle() . "</option>", $content);
+
+
+            $view->pageBuilder(null, $content, $contentTitle);
+        } else {
+            echo "Missiong ID";
+            die;
+        }
+    }
+
 
     public function groupMembers()
     {
@@ -135,6 +193,7 @@ class GroupsController
         }
     }
 
+    /*
     public function replaceGroupList($status)
     {
         $group_list_final_code = null;
@@ -162,4 +221,5 @@ class GroupsController
         }
         return $group_list_final_code;
     }
+    */
 }

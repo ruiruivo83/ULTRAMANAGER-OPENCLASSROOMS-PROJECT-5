@@ -109,6 +109,7 @@ class View
         // Get Project type (Group, Ticket or Intervention...)
         // TICKETS
         if ($_GET['action'] == 'tickets') {
+            // HREF FOR TICKET DETAILS
             $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
@@ -117,8 +118,10 @@ class View
 
         // GROUPS
         if ($_GET['action'] == 'groups') {
+            // HREF FOR GROUP DETAILS
+            $href = "../index.php?action=groupdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
-            $buttonDefaultCode = str_replace("{BUTTON_HREF}", "../index.php", $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}",$href , $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
         }
 

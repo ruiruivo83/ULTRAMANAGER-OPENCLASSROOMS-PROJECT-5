@@ -218,5 +218,28 @@ class Group
         return $result;
     }
 
+    public function getGroupDetails($id) {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
+        $req->execute();       
+        $numresult = $req->rowCount();        
+        if ($numresult > 0) {       
+            $result = $req->fetch();
+            return new Group(
+                (int) $result['id'],
+                $result['group_admin'],
+                $result['creation_date'],
+                $result['group_name'],
+                $result['group_description'],
+                $result['group_status']
+            );           
+        } else {
+            return null;
+        }
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
+
 
 }

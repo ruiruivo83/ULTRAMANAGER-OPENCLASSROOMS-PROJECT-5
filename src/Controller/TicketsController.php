@@ -29,7 +29,7 @@ class TicketsController
 
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
+        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "close_date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
@@ -83,9 +83,9 @@ class TicketsController
             // {TICKET_TITLE}
             $content = str_replace("{TICKET_TITLE}",  $_SESSION['ticket']->getTitle(), $content);
             // {GROUP_NAME}
-           
+
             // {GROUP_ADMIN}
-           
+
             // {TICKET_AUTHOR}
             $content = str_replace("{TICKET_AUTHOR}",  $_SESSION['ticket']->getAuthor(), $content);
             // {REQUESTER}
@@ -159,12 +159,18 @@ class TicketsController
 
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description", "group_name", "close_date"];
+        $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "close_date"];
 
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
     }
+
+
+
+
+
+
 
     public function displayCreateTicketPage()
     {
@@ -172,10 +178,20 @@ class TicketsController
         // TODO
         $content = file_get_contents('../src/View/backend/content/newticket.html');
         $content = str_replace("{TICKET_TYPE}", "(Private)", $content);
-
+        //  {MY_GROUP_LIST}
+        $content = str_replace("{MY_GROUP_LIST}", "<option>option 1</option><option>option 2</option>" , $content);
         $view = new View;
         $view->pageBuilder(null, $content, $contentTitle);
     }
+
+
+
+
+
+
+
+
+
 
     public function createTicketFunction()
     {

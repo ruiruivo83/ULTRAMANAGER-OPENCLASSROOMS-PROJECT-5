@@ -98,10 +98,15 @@
 
 
 
-                    {TICKET_LIST}
 
-                    <!-- CODE -->
-                    <!-- NEW INTERVENTION TEXT AREA-->
+
+                    <p>                     
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fas fa-plus-square"></i>&nbsp;Create New Ticket
+                        </button>
+                      </p>                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                           <!-- NEW TICKET AREA-->
                     <div class="modal-body">
                         <div class="card-header">
                             <div class="div_add_form mb-5">
@@ -148,6 +153,13 @@
                             </div>
                         </div>
                     </div>
+
+                        </div>
+                      </div>
+                   
+                    <!-- DISPLAY TICKET LIST OF THIS GROUP -->
+                    {TICKET_LIST}
+
                 </div>
             </div>
         </div>

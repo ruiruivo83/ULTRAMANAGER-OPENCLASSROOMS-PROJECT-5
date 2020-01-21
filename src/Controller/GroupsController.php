@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\View\View;
 use App\Model\Group;
+use App\Model\Ticket;
 
 class GroupsController
 {
@@ -41,8 +42,10 @@ class GroupsController
     {
 
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+
             $view = new View();
+
+            $id = $_GET['id'];
 
             $contentTitle = "Group Details";
 
@@ -62,29 +65,39 @@ class GroupsController
             $group = $group->getGroupDetails($id);
             $_SESSION['group'] = $group;
 
-
             // REPLACE TICKET DETAILS
             // {ID}
             $content = str_replace("{GROUP_ID}",  $_SESSION['group']->getId(), $content);
+
             // {TICKET_TITLE}
             $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getTitle(), $content);
-            // {GROUP_NAME}
 
             // {GROUP_ADMIN}
-
-            // {GROUP_AUTHOR}
             $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_Admin(), $content);
 
             // {GROUP_STATUS}
             $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getStatus(), $content);
+
             // {CREATION_DATE}
             $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
+
             // {DESCRIPTION}
             $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getDescription(), $content);
 
             // {MY_GROUP_LIST}
             $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getTitle() . "</option>", $content);
 
+            // {TICKET_LIST}
+            $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
+            $result = $ticket->getTicketsWithGroupId($_SESSION['group']->getId());
+            
+            
+            $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id","close_date"];
+            $content = str_replace("{TICKET_LIST}", $view->htmlTableBuilder($htmlTableIndex, $result), $content);
+            
+            
+            
+            
 
             $view->pageBuilder(null, $content, $contentTitle);
         } else {

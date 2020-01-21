@@ -247,6 +247,19 @@ class Ticket
         // die;
     }
 
+     // GET TICKET WITH GROUP ID
+     public function getTicketsWithGroupId($groupId)
+     {
+         $bdd = Database::getBdd();
+         $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' ORDER BY creation_date DESC");
+         $req->execute();
+         // DEBUG
+         // $req->debugDumpParams();
+         // die;
+         $Result = $req->fetchall();
+         return $Result;
+     }
+
     // IMPORT TO SESSION VARIABLE
     public function getTicketDetails($id)
     {
@@ -274,4 +287,6 @@ class Ticket
         // $req->debugDumpParams();
         // die;
     }
+
+   
 }

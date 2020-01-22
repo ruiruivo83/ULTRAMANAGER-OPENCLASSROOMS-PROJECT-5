@@ -65,6 +65,8 @@
       <workItem from="1579165391209" duration="1227000" />
       <workItem from="1579605987471" duration="62000" />
       <workItem from="1579606799175" duration="724000" />
+      <workItem from="1579700831484" duration="31000" />
+      <workItem from="1579700867203" duration="4000" />
     </task>
     <servers />
   </component>
@@ -80,6 +82,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579606914699" />
+    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1579700859767">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579700859767" />
     <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1579044705200">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -88,9 +94,9 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579043982650" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1579606799668">
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1579700843155">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579606799668" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579700843155" />
   </component>
 </project>

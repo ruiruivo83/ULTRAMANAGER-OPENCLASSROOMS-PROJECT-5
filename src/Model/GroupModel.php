@@ -1,24 +1,28 @@
 <?php
 
+namespace App\Model;
+
 use App\Model\Group;
+use PDO;
 
 class GroupModel
 {
 
+    private $PDO;
+
     //__ construct
 
-    public function getGroup(int $id): ?array
+    public function getMyGroups(): ?array
     {
 
-        $query = $this->PDO->prepare{
-            'SELECT * FROM ... WHERE group_admin = $group_admin'};
-        $query->execute(['id' => $id]);
-        $result = $query->fetchall($this->PDO::FETCH_CLASS, Group::class);
+        $group_admin = $_SESSION['user']->getEmail();
 
-        foreach ($result as $groups) {
-           $groups->getGroupName();
-           $groups->getGroupAdmin();
-        }
+        $query = $this->PDO->prepare('SELECT * FROM groups WHERE group_admin = ?');
+        $query->execute(array($group_admin));
+        $result = $query->fetchall($this->PDO::FETCH_CLASS, 'Group');
+
+        echo count($result);
+        die;
 
         return $result;
     }

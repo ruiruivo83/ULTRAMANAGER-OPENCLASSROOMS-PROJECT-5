@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\View\View;
-use App\Model\Group;
+use App\Model\GroupModel;
 use App\Model\Ticket;
 
 class GroupsController
@@ -25,8 +25,16 @@ class GroupsController
         $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
-        $group = new Group(null, null, null, null, null, null);
-        $myGroups = $group->getMyGroups();
+        $groupModel = new GroupModel(null, null, null, null, null, null);
+        $result = $groupModel->getMyGroups();
+  
+        foreach ($result as $groups) {
+            $groups->getGroupName();
+            $groups->getGroupAdmin();
+         }
+
+         var_dump($result);
+         die;
 
 
         // GET HTML TABLE TO SHOW

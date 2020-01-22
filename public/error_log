@@ -1,0 +1,2 @@
+[22-Jan-2020 11:28:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/a7tvva809nd8/public_html/p5.ruiruivo.net/src/Controller/TicketsController.php on line 197
+[22-Jan-2020 11:29:22 UTC] PHP Recoverable fatal error:  Object of class App\View\View could not be converted to string in /home/a7tvva809nd8/public_html/p5.ruiruivo.net/src/Controller/InvitationsController.php on line 19

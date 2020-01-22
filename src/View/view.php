@@ -14,9 +14,9 @@ class View
         // $content = file_get_contents('view/frontend/pagecontent/' . $targetPage . '.html');
 
         if (isset($_SESSION["user"])) {
-            $view = str_replace("{USER_TOPBAR}", file_get_contents('../src/view/backend/user_topbar.html'), $view);
+            $view = str_replace("{USER_TOPBAR}", file_get_contents('../src/View/backend/user_topbar.html'), $view);
             $view = str_replace("{FRONTPAGE_TOPBAR}", "", $view);
-            $view = str_replace("{SIDEBAR}", file_get_contents('../src/view/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}", file_get_contents('../src/View/backend/sidebar.html'), $view);
 
             // USER INFO
             $view = str_replace("{FIRST_NAME}", $_SESSION['user']->getFirstname() . "&nbsp", $view);
@@ -24,7 +24,7 @@ class View
             // REPLACE TOTALS
             // TODO
             // REPLACE CONTENT TITLE
-            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../src/view/backend/content/content_title.html'), $view);
+            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../src/View/backend/content/content_title.html'), $view);
             $view = str_replace("{CONTENT_TITLE_text}", $contentTitle, $view);
             // REPLACE CONTENT
             //...
@@ -37,9 +37,9 @@ class View
         } else {
             //
             $view = str_replace("{USER_TOPBAR}", "", $view);
-            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../src/view/backend/frontpage_topbar.html'), $view);
+            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../src/View/backend/frontpage_topbar.html'), $view);
             //
-            $view = str_replace("{SIDEBAR}",  file_get_contents('../src/view/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}",  file_get_contents('../src/View/backend/sidebar.html'), $view);
             //
             $view = str_replace("{CONTENT_TITLE}", "", $view);
             if (isset($_GET['action']) AND $_GET['action'] == 'register') {
@@ -47,7 +47,7 @@ class View
             } else  if (isset($_GET['action']) AND $_GET['action'] == 'login') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
             } else {
-                $dashboard = file_get_contents('../src/view/frontend/pagecontent/dashboard.html');
+                $dashboard = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');
                 $view = str_replace("{CONTENT}", $dashboard, $view);
             }
         }
@@ -176,7 +176,7 @@ class View
 
         // LOAD BUTTONS FOR PAGE MY GROUPS
         if ($_GET['action'] == 'groups') {
-            $button = file_get_contents('../src/view/backend/buttons.html');
+            $button = file_get_contents('../src/View/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
             $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
@@ -184,7 +184,7 @@ class View
 
         // LOAD BUTTONS FOR PAGE MY TICKETS
         if ($_GET['action'] == 'tickets') {
-            $button = file_get_contents('../src/view/backend/buttons.html');
+            $button = file_get_contents('../src/View/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
             $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
@@ -192,7 +192,7 @@ class View
 
         // LOAD BUTTONS FOR PAGE TICKET DETAILS
         if ($_GET['action'] == 'ticketdetails') {
-            $button = file_get_contents('../src/view/backend/buttons.html');
+            $button = file_get_contents('../src/View/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
             $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
@@ -202,7 +202,7 @@ class View
 
     public function groupContentBuilder($content, $buttons)
     {
-        $content = file_get_contents('../src/view/backend/content/content.html');
+        $content = file_get_contents('../src/View/backend/content/content.html');
         $content = str_replace("{BUTTONS}", $buttons, $content);
         return $content;
     }
@@ -210,13 +210,13 @@ class View
     public function ticketContentBuilder($contentTitle, $buttons)
     {
         if ($contentTitle == "Tickets") {
-            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = file_get_contents('../src/View/backend/content/content.html');
             $content = str_replace("{BUTTONS}", $buttons, $content);
             return $content;
         }
 
         if ($contentTitle == "Ticket Details") {
-            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = file_get_contents('../src/View/backend/content/content.html');
             $content = str_replace("{BUTTONS}", $buttons, $content);
             return $content;
         }
@@ -225,7 +225,7 @@ class View
     public function interventionContentBuilder($contentTitle, $buttons)
     {
         if ($contentTitle == "Interventions") {
-            $content = file_get_contents('../src/view/backend/content/content.html');
+            $content = file_get_contents('../src/View/backend/content/content.html');
             $content = str_replace("{BUTTONS}", $buttons, $content);
             return $content;
         }

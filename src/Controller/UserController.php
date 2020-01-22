@@ -67,8 +67,8 @@ class UserController
                  $content = file_get_contents('../src/view/frontend/pagecontent/register.html');
                  $view = new View;
                  $view->pageBuilder(null, $content, null); 
-                 // $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view); 
-                 // echo $view;
+                 $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view); 
+                 echo $view;
              } else {
                  // Add User to Database
                  $user->createNewUser();

@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\View\View;
 
-require '../src/View/View.php';
+// require '../src/View/View.php';
 
 class ActivityLogController
 {

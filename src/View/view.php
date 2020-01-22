@@ -39,10 +39,17 @@ class View
             $view = str_replace("{USER_TOPBAR}", "", $view);
             $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../src/view/backend/frontpage_topbar.html'), $view);
             //
-            $view = str_replace("{SIDEBAR}", "", $view);
+            $view = str_replace("{SIDEBAR}",  file_get_contents('../src/view/backend/sidebar.html'), $view);
             //
             $view = str_replace("{CONTENT_TITLE}", "", $view);
-            $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
+            if (isset($_GET['action']) AND $_GET['action'] == 'register') {
+                $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
+            } else  if (isset($_GET['action']) AND $_GET['action'] == 'login') {
+                $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
+            } else {
+                $dashboard = file_get_contents('../src/view/frontend/pagecontent/dashboard.html');
+                $view = str_replace("{CONTENT}", $dashboard, $view);
+            }
         }
 
         echo $view;
@@ -113,7 +120,7 @@ class View
             $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
             $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
-            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details " , $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details ", $buttonDefaultCode);
         }
 
         // GROUPS
@@ -121,16 +128,16 @@ class View
             // HREF FOR GROUP DETAILS
             $href = "../index.php?action=groupdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
-            $buttonDefaultCode = str_replace("{BUTTON_HREF}",$href , $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
         }
 
-         // GROUPS
-         if ($_GET['action'] == 'groupdetails') {
+        // GROUPS
+        if ($_GET['action'] == 'groupdetails') {
             // HREF FOR GROUP DETAILS
             $href = "../index.php?action=ticketdetails&id=" . $itemId;
             $buttonDefaultCode = file_get_contents('../src/View/backend/htmlcomponents/button/html_button.html');
-            $buttonDefaultCode = str_replace("{BUTTON_HREF}",$href , $buttonDefaultCode);
+            $buttonDefaultCode = str_replace("{BUTTON_HREF}", $href, $buttonDefaultCode);
             $buttonDefaultCode = str_replace("{BUTTON_TITLE}", "Details", $buttonDefaultCode);
         }
 
@@ -171,28 +178,25 @@ class View
         if ($_GET['action'] == 'groups') {
             $button = file_get_contents('../src/view/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
-            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);            
+            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
-        } 
+        }
 
         // LOAD BUTTONS FOR PAGE MY TICKETS
         if ($_GET['action'] == 'tickets') {
             $button = file_get_contents('../src/view/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
-            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);            
+            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
-        }  
-        
+        }
+
         // LOAD BUTTONS FOR PAGE TICKET DETAILS
         if ($_GET['action'] == 'ticketdetails') {
             $button = file_get_contents('../src/view/backend/buttons.html');
             $button = str_replace("{BUTTON_TITLE}", $buttonTitle, $button);
-            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);            
+            $button = str_replace("{BUTTON_LINK}", $buttonLink, $button);
             return $button;
-        }  
-        
-        
-
+        }
     }
 
 

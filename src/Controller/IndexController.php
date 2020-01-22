@@ -12,7 +12,7 @@ class IndexController
     // NO SESSION
     public function frontPage()
     {
-        $noSessionTargetPage = file_get_contents('../src/view/frontend/pagecontent/frontpage.html');
+        $noSessionTargetPage = file_get_contents('../src/View/frontend/pagecontent/frontpage.html');
         $view = new View;
         $view->pageBuilder($noSessionTargetPage, null, null);
     }

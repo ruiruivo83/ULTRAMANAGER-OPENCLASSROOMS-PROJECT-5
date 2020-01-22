@@ -12,15 +12,16 @@ class InterventionsController
 
     public function interventions()
     {
+        $view = new View;
         $contentTitle = "Interventions";
         $commonController = new CommonController();
 
         // DEFINE BUTTONS TO SHOW
         $buttons = "";
-        $buttons .= $commonController->buttonsBuilder("Create New Intervention", "../index.php?action=createintervention");
+        $buttons .= $view->buttonsBuilder("Create New Intervention", "../index.php?action=createintervention");
 
         // BUILD CONTENT
-        $content = $commonController->interventionContentBuilder($contentTitle, $buttons);
+        $content = $view->interventionContentBuilder($contentTitle, $buttons);
 
         // GET Interventions
         $content = str_replace(" {OPEN_CONTENT}", $this->replaceInterventionList("open"), $content);

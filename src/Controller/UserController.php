@@ -53,27 +53,22 @@ class UserController
      // REGISTER A NEW USER
      public function registerNewUser()
      {
-         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["email"])) {
-             //
+         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["email"])) {             
              $firstname = $_POST["firstname"];
              $lastname = $_POST["lastname"];
              $email = $_POST["email"];
              $country = $_POST["country"];
-             $psw = password_hash($_POST["psw"], PASSWORD_DEFAULT);
-             //
+             $psw = password_hash($_POST["psw"], PASSWORD_DEFAULT);             
              $user = new User($firstname, $lastname, $email, $psw, null, null, $country, null, null);
              // Test if email exists in database
              if ($this->testIfEmailExists($email)) {
-                 $message = '<div class="alert alert-danger " role="alert">YOU ALREADY HAVE AN ACCOUNT</div>';
- 
+                 $message = '<div class="alert alert-danger " role="alert">YOU ALREADY HAVE AN ACCOUNT</div>'; 
                  $view = file_get_contents('../src/view/frontend/appLayout.html');
                  $content = file_get_contents('../src/view/frontend/pagecontent/register.html');
                  $view = new View;
-                 $view->pageBuilder(null, $content, null);
- 
-                 // $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
- 
-                 // echo $view;
+                 $view->pageBuilder(null, $content, null); 
+                 $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view); 
+                 echo $view;
              } else {
                  // Add User to Database
                  $user->createNewUser();

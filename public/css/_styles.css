@@ -1,7 +1,28 @@
-.hover_bg_grey:hover {
-    background-color: rgb(200, 213, 219);
+body {
+    display: none;
 }
 
-.hover_bg_highlight:hover {
-    background-color: rgb(204, 219, 200);
+table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
+    display: none;
 }
+
+table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before {
+    display: none;
+}
+
+table.dataTable thead .sorting:before{
+    display: none;
+}
+
+table.dataTable thead .sorting:after{
+    display: none;
+}
+
+
+#textarea_id {
+    margin-top: 10px;
+    width: 100%;
+    height: 200px;
+}
+
+

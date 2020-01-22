@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\View\View;
 use App\Model\Group;
+use App\Model\Ticket;
 
 class GroupsController
 {
@@ -14,27 +15,95 @@ class GroupsController
     {
         // TODO        
         $contentTitle = "Groups";
-        $commonController = new CommonController();
+        $view = new View;
 
         // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
-        $buttons .= $commonController->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
+        $buttons .= $view->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
 
         // BUILD CONTENT
-        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
+        $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
         $group = new Group(null, null, null, null, null, null);
         $myGroups = $group->getMyGroups();
 
+
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];        
+        $htmlTableIndex = ["id", "Group Admin", "Creation Date", "Groupe Name", "Description", "Status"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
 
         // SEND HTML TABLE RESULT TO THE VIEW
         $view->pageBuilder(null, $content, $contentTitle);
     }
+
+    // DISPLAY TICKET DETAILS PAGE
+    public function groupDetails()
+    {
+
+        if (isset($_GET['id'])) {
+
+            $view = new View();
+
+            $id = $_GET['id'];
+
+            $contentTitle = "Group Details";
+
+            // DEFINE BUTTONS TO SHOW
+            $buttons = "";
+            $buttons .= $view->buttonsBuilder("Close Group", "../index.php?action=closegroup&id=" . $id);
+
+            // BUILD CONTENT
+            $content = $view->groupContentBuilder($contentTitle, $buttons);
+
+            // REPLACE {HTML_TABLE_RESULT} BY TICKET DETAILS PAGE
+            $groupDetailsContentPage = file_get_contents('../src/View/backend/content/groupdetails.html');
+            $content = str_replace("{HTML_TABLE_RESULT}",  $groupDetailsContentPage, $content);
+
+            // GET GROUP DETAILS
+            $group = new Group(null, null, null, null, null, null, null, null, null);
+            $group = $group->getGroupDetails(intval($id));
+            $_SESSION['group'] = $group;
+
+            // REPLACE TICKET DETAILS
+            // {ID}
+            $content = str_replace("{GROUP_ID}",  $_SESSION['group']->getId(), $content);
+
+            // {TICKET_TITLE}
+            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getGroupname(), $content);
+
+            // {GROUP_ADMIN}
+            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_Admin(), $content);
+
+            // {GROUP_STATUS}
+            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getGroupStatus(), $content);
+
+            // {CREATION_DATE}
+            $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
+
+            // {DESCRIPTION}
+            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getGroupDescription(), $content);
+
+            // {MY_GROUP_LIST}
+            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getGroupname() . "</option>", $content);
+
+            // {TICKET_LIST}
+            $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
+            $result = $ticket->getTicketsWithGroupId($_SESSION['group']->getId());
+
+
+
+            $htmlTableIndex = ["id", "author", "requester", "status", "creation_date", "title", "description",  "group_id", "close_date"];
+            $content = str_replace("{TICKET_LIST}", $view->htmlTableBuilder($htmlTableIndex, $result), $content);
+
+            $view->pageBuilder(null, $content, $contentTitle);
+        } else {
+            echo "Missiong ID";
+            die;
+        }
+    }
+
 
     public function groupMembers()
     {
@@ -88,25 +157,24 @@ class GroupsController
     {
 
         $contentTitle = "Global Groups";
-        $commonController = new CommonController();
+        $view = new View;
 
         // DEFINE AND BUILD BUTTONS TO SHOW
         $buttons = "";
-        $buttons .= $commonController->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
-
+        $buttons .= $view->buttonsBuilder("Create New Group", "../index.php?action=creategroup");
         // BUILD CONTENT
-        $content = $commonController->groupContentBuilder($contentTitle, $buttons);
+        $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
         $group = new Group(null, null, null, null, null, null);
         $myGroups = $group->getGroups();
 
-      
-         // GET HTML TABLE TO SHOW
+
+        // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];        
+        $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
-       
+
         $view->pageBuilder(null, $content, $contentTitle);
     }
 
@@ -136,6 +204,7 @@ class GroupsController
         }
     }
 
+    /*
     public function replaceGroupList($status)
     {
         $group_list_final_code = null;
@@ -163,4 +232,5 @@ class GroupsController
         }
         return $group_list_final_code;
     }
+    */
 }

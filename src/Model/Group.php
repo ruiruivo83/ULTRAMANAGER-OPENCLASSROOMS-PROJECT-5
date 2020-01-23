@@ -15,16 +15,16 @@ class Group
     private $group_description;
     private $group_status;
 
-    // CONSTRUCT
+    // CONSTRUCT - 
     public function __construct($parameters = null)
     {
         if ($parameters != null) {
             $this->id = $parameters->id;
             $this->group_admin = $parameters->group_admin;
             $this->creation_date = $parameters->creation_date;
-            $this->group_name = $parameters->title;
-            $this->group_description = $parameters->description;
-            $this->group_status = $parameters->status;
+            $this->group_name = $parameters->group_name;
+            $this->group_description = $parameters->group_description;
+            $this->group_status = $parameters->group_status;
         }
     }
   

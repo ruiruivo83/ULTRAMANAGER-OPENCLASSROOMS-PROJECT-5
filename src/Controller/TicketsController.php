@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\View\View;
 use App\Model\Ticket;
 use App\Model\Group;
+use App\Model\GroupModel;
 
 class TicketsController
 {
@@ -27,7 +28,7 @@ class TicketsController
         // GET MY TICKETS
         $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
         $myTickets = $ticket->getMyTickets();
-
+     
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Group Id", "Close Date"];
@@ -76,9 +77,9 @@ class TicketsController
             // GET GROUP INFO TO DISPLAY
            
             // {GROUP_NAME}     
-            $group = new Group(null, null, null, null, null, null, null);
-            $group = $group->getGroupNameWithGroupId(intval($_SESSION['ticket']->getGroup_id()));        
-            foreach ($group as $value) {
+            $groupModel = new GroupModel(null, null, null, null, null, null, null);
+            $groupModel = $groupModel->getGroupNameWithGroupId(intval($_SESSION['ticket']->getGroup_id()));        
+            foreach ($groupModel as $value) {
                 $content = str_replace("{GROUP_NAME}",  $value['group_name'], $content);               
             }
 

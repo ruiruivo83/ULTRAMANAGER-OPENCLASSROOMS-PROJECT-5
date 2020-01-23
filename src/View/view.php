@@ -55,6 +55,65 @@ class View
         echo $view;
     }
 
+    // TESTING
+    public function testingHtmlTableBuilder(array $htmlTableIndex, array $data): string
+    {
+
+        // IMPORT TABLE HTML COMPONENTS
+        $htmlTable = "";
+        $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
+        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
+        $htmlTheadTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead_tr.html');
+        $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
+        $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
+        $htmlTh = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_th.html');
+        $htmlTd = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_td.html');
+
+        // BUILD INDEX
+        $indexCount = count($htmlTableIndex);
+
+        $htmlTable = str_replace("{THEAD}", $htmlThead, $htmlTable);
+        $htmlTable = str_replace("{TR}", $htmlTheadTr, $htmlTable);
+        $htmlTable = str_replace("{TD}", "", $htmlTable);
+        // BUILD INDEX TITLES
+        $htmlThCompiled = "";
+        for ($i = 0; $i < $indexCount; $i++) {
+            $htmlThCompiled .= $htmlTh;
+            $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);
+        }
+
+        // ADD ONE COLUMN FOR BUTTON OPTIONS
+        $htmlThCompiled .= $htmlTh;
+        $htmlThCompiled = str_replace("{CONTENT}", "OPTIONS", $htmlThCompiled);
+        //..
+        $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
+        $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
+
+        // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
+        $htmlTrCompiled = "";
+
+
+        $htmlTrCompiled .= $htmlTr;
+
+        $htmlTdCompiled = "";
+        for ($i = 0; $i < $indexCount; $i++) {
+            $htmlTdCompiled .= $htmlTd;
+            $htmlTdCompiled = str_replace("{CONTENT}", $data[$i], $htmlTdCompiled);
+        }
+        // ADD OPTIONS PER LINE EACH ITEM
+        $htmlTdCompiled .= $htmlTd;
+        $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($data[0]), $htmlTdCompiled);
+        //...
+        $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
+        $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);
+
+
+        $htmlTable = str_replace("{TR}", $htmlTrCompiled, $htmlTable);
+
+        // RETURN THE FULL HTML TABLE READY TO DISPLAY
+        return $htmlTable;
+    }
+
 
     public function htmlTableBuilder(array $htmlTableIndex, array $data): string
     {
@@ -98,7 +157,7 @@ class View
             }
             // ADD OPTIONS PER LINE EACH ITEM
             $htmlTdCompiled .= $htmlTd;
-            $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($value['id']), $htmlTdCompiled);
+            $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($value[0]), $htmlTdCompiled);
             //...
             $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
             $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);

@@ -26,30 +26,44 @@ class GroupsController
 
         // GET MY GROUPS
         $groupModel = new GroupModel(null, null, null, null, null, null);
-        $groupResult = $groupModel->getMyGroups();
+        $groupsObj = $groupModel->getMyGroups();
 
-        var_dump($groupResult);
-        echo "<br><br>";
+        $total = count($groupsObj);
+        $compiledArray = array();
 
-        $array = json_decode(json_encode($groupResult), true);
-
-        var_dump($array);
-        die;
-
-        /*
-        foreach ($result as $groups) {
-            $groups->getGroup_admin();
-            
+        for ($i = 0; $i < $total; $i++) {
+            foreach ($groupsObj as $group) {
+                $currentArray = array($group->getId(), $group->getGroup_admin(), $group->getCreation_date(), $group->getGroup_name(), $group->getGroup_description(), $group->getGroup_status(), $group->getGroup_status());
+                $compiledArray[$i] = $currentArray;
+                $i++;
+            }
         }
-        */
 
-        // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "Group Admin", "Creation Date", "Groupe Name", "Description", "Status"];
-        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $groupResult), $content);
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
         // SEND HTML TABLE RESULT TO THE VIEW
         $view->pageBuilder(null, $content, $contentTitle);
+    }
+
+    function objToArray($obj, $arr): array
+    {
+
+        if (!is_object($obj) && !is_array($obj)) {
+            $arr = $obj;
+            return $arr;
+        }
+
+        foreach ($obj as $key => $value) {
+            if (!empty($value)) {
+                $arr[$key] = array();
+                $this->objToArray($value, $arr[$key]);
+            } else {
+                $arr[$key] = $value;
+            }
+        }
+        return $arr;
     }
 
     // DISPLAY TICKET DETAILS PAGE
@@ -210,9 +224,9 @@ class GroupsController
             $group_status = "open";
             // INSERT INTO DATABASE
             // Create class instance
-            $Group = new Group(null, $group_admin, null, $title, $description, $group_status);
+            $GroupModel = new GroupModel(null, $group_admin, null, $title, $description, $group_status);
             // Execute method addTicket
-            $Group->createNewGroup();
+            $GroupModel->createNewGroup();
             header('Location: ../index.php?action=groups');
             // exit();
         }

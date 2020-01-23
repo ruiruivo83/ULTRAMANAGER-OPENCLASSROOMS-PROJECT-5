@@ -42,9 +42,9 @@ class View
             $view = str_replace("{SIDEBAR}",  file_get_contents('../src/View/backend/sidebar.html'), $view);
             //
             $view = str_replace("{CONTENT_TITLE}", "", $view);
-            if (isset($_GET['action']) AND $_GET['action'] == 'register') {
+            if (isset($_GET['action']) and $_GET['action'] == 'register') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
-            } else  if (isset($_GET['action']) AND $_GET['action'] == 'login') {
+            } else  if (isset($_GET['action']) and $_GET['action'] == 'login') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
             } else {
                 $dashboard = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');
@@ -88,7 +88,7 @@ class View
 
         // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
         $htmlTrCompiled = "";
-        foreach ($data as $value) {
+        foreach ($data as $value) {           
             $htmlTrCompiled .= $htmlTr;
 
             $htmlTdCompiled = "";

@@ -26,21 +26,27 @@ class GroupsController
 
         // GET MY GROUPS
         $groupModel = new GroupModel(null, null, null, null, null, null);
-        $result = $groupModel->getMyGroups();
-  
+        $groupResult = $groupModel->getMyGroups();
+
+        var_dump($groupResult);
+        echo "<br><br>";
+
+        $array = json_decode(json_encode($groupResult), true);
+
+        var_dump($array);
+        die;
+
+        /*
         foreach ($result as $groups) {
-            $groups->getGroupName();
-            $groups->getGroupAdmin();
-         }
-
-         var_dump($result);
-         die;
-
+            $groups->getGroup_admin();
+            
+        }
+        */
 
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "Group Admin", "Creation Date", "Groupe Name", "Description", "Status"];
-        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $groupResult), $content);
 
         // SEND HTML TABLE RESULT TO THE VIEW
         $view->pageBuilder(null, $content, $contentTitle);

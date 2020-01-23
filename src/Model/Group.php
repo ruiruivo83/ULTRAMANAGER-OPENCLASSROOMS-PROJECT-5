@@ -16,14 +16,16 @@ class Group
     private $group_status;
 
     // CONSTRUCT
-    public function __construct($id, $group_admin, $creation_date, $title, $description, $status)
+    public function __construct($parameters = null)
     {
-        $this->id = $id;
-        $this->group_admin = $group_admin;
-        $this->creation_date = $creation_date;
-        $this->group_name = $title;
-        $this->group_description = $description;
-        $this->group_status = $status;
+        if ($parameters != null) {
+            $this->id = $parameters->id;
+            $this->group_admin = $parameters->group_admin;
+            $this->creation_date = $parameters->creation_date;
+            $this->group_name = $parameters->title;
+            $this->group_description = $parameters->description;
+            $this->group_status = $parameters->status;
+        }
     }
 
     /**
@@ -169,7 +171,7 @@ class Group
     }
 
 
-  
+
 
     public function getGroupsWithStatus(string $status): array
     {

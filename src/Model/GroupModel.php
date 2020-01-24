@@ -5,46 +5,69 @@ declare(strict_types=1);
 namespace App\Model;
 
 use PDO;
+use App\Model\Entity\Group;
 
 class GroupModel
 {
     // CONSTRUCT - 
-    public function __construct($id, $group_admin, $creation_date, $group_name, $group_description, $group_status)
+
+    private $bdd;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->group_admin = $group_admin;
-        $this->creation_date = $creation_date;
-        $this->group_name = $group_name;
-        $this->group_description = $group_description;
-        $this->group_status = $group_status;
+        $this->bdd = Database::getBdd();
     }
 
+
     public function getAllGroups(): array
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
+    {      
+        $req = $this->bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
         // die;
         // $Group = new Group(null, null, null, null, null, null);
-        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
+        // $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group'); 
+        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
         return $result;
     }
 
     public function getMyGroups(): array
-    {
-        $bdd = Database::getBdd();
+    {      
         $currentUser = $_SESSION['user']->geteMail();
-        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
         // die;
         // $Group = new Group(null, null, null, null, null, null);
-        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
+        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
         return $result;
     }
+
+    public function getGroupDetails(int $id)
+    {
+      
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        // $Group = new Group(null, null, null, null, null, null);
+        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
+        return $result;
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -127,21 +150,5 @@ class GroupModel
         // die;
         $result = $req->fetchall();
         return $result;
-    }
-
-    public function getGroupDetails(int $id)
-    {
-        $bdd = Database::getBdd();        
-        $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        // $Group = new Group(null, null, null, null, null, null);
-        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
-        return $result;
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
     }
 }

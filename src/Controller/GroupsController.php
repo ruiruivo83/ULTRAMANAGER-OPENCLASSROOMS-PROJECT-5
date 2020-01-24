@@ -25,8 +25,11 @@ class GroupsController
         $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
-        $groupModel = new GroupModel(null, null, null, null, null, null);
+        $groupModel = new GroupModel();
         $result = $groupModel->getMyGroups();
+
+        // var_dump($result);
+        // die;
 
         $total = count($result);
         $compiledArray = array();
@@ -41,6 +44,10 @@ class GroupsController
         }
 
         $view = new View;
+        
+        // $view->render('listgroup', ['groups' => $result, 'ticket' => $ticket ]);
+
+
         $htmlTableIndex = ["id", "Group Admin", "Creation Date", "Groupe Name", "Description", "Status"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
@@ -73,7 +80,7 @@ class GroupsController
 
         if (isset($_GET['id'])) {
 
-            $groupModel = new GroupModel(null, null, null, null, null, null, null, null, null);
+            $groupModel = new GroupModel();
             $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
 
             $view = new View();
@@ -94,38 +101,37 @@ class GroupsController
             $content = str_replace("{HTML_TABLE_RESULT}",  $groupDetailsContentPage, $content);
 
             // GET GROUP DETAILS
-            
+
             $group = $groupModel->getGroupDetails(intval($id));
-          
-           var_dump($group);
-           die;
 
 
+      
             // REPLACE TICKET DETAILS
-            // {ID}            
-            $content = str_replace("{GROUP_ID}",  $group['id'], $content);
+            foreach ($group as $value) {
+                // {ID}            
+                $content = str_replace("{GROUP_ID}",  $value->getId(), $content);
 
-            // {TICKET_TITLE}
-            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getGroup_name(), $content);
+                // {TICKET_TITLE}
+                $content = str_replace("{GROUP_TITLE}",  $value->getGroup_name(), $content);
 
-            // {GROUP_ADMIN}
-            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_admin(), $content);
+                // {GROUP_ADMIN}
+                $content = str_replace("{GROUP_ADMIN}",  $value->getGroup_admin(), $content);
 
-            // {GROUP_STATUS}
-            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getGroup_status(), $content);
+                // {GROUP_STATUS}
+                $content = str_replace("{GROUP_STATUS}",  $value->getGroup_status(), $content);
 
-            // {CREATION_DATE}
-            $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
+                // {CREATION_DATE}
+                $content = str_replace("{CREATION_DATE}",  $value->getCreation_Date(), $content);
 
-            // {DESCRIPTION}
-            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getGroup_description(), $content);
+                // {DESCRIPTION}
+                $content = str_replace("{DESCRIPTION}",  $value->getGroup_description(), $content);
 
-            // {MY_GROUP_LIST}
-            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getGroup_name() . "</option>", $content);
-
+                // {MY_GROUP_LIST}
+                $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $value->getId() . ", " .  $value->getGroup_name() . "</option>", $content);
+            }
             // {TICKET_LIST}
-            
-            $result = $ticketModel->getTicketsWithGroupId($_SESSION['group']->getId());
+
+            $result = $ticketModel->getTicketsWithGroupId($value->getId());
 
 
 
@@ -201,10 +207,10 @@ class GroupsController
         $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
-        $groupModel = new GroupModel(null, null, null, null, null, null);
+        $groupModel = new GroupModel();
         $myGroups = $groupModel->getAllGroups();
 
-        
+
         $total = count($myGroups);
         $compiledArray = array();
 

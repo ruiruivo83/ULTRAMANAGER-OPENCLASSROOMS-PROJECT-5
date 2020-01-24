@@ -18,6 +18,7 @@ class IndexController
     }
 
     // WITH SESSION
+    // FAIRE AVEC TWIG LE DASHBOARD
     public function dashboard()
     {
         $content = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');

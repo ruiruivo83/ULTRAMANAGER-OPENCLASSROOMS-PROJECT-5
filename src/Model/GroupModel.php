@@ -7,13 +7,14 @@ use PDO;
 class GroupModel
 {
 
+    /*
     private $id;
     private $group_admin;
     private $creation_date;
     private $group_name;
     private $group_description;
     private $group_status;
-
+*/
 
     // CONSTRUCT - 
     public function __construct($id, $group_admin, $creation_date, $group_name, $group_description, $group_status)
@@ -39,10 +40,6 @@ class GroupModel
         return $result;
     }
 
-
-
-
-
     public function createNewGroup()
     {
         $bdd = Database::getBdd();
@@ -65,9 +62,6 @@ class GroupModel
         return $result;
     }
 
-
-
-
     public function getGroupsWithStatus(string $status): array
     {
         $bdd = Database::getBdd();
@@ -79,21 +73,6 @@ class GroupModel
         $result = $req->fetchall();
         return $result;
     }
-
-    /*
-    public function getMyGroups(): array
-    {
-        $bdd = Database::getBdd();
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
-    */
 
     public function getMyGroupsWithStatus(string $status): array
     {
@@ -156,31 +135,4 @@ class GroupModel
         // die;
     }
 
-
-
-
-
-
-
-
-
-
-    /*
-    public function getMyGroups(): ?array
-    {
-        $group_admin = $_SESSION['user']->getEmail();
-
-
-        $bdd = Database::getBdd();
-        $pdoConnection = new PDO($bdd);
-        $query = $pdoConnection->prepare('SELECT * FROM groups WHERE group_admin = ?');
-        $query->execute(array($group_admin));
-        $result = $query->fetchall($pdoConnection::FETCH_CLASS, 'Group');
-
-        echo count($result);
-        die;
-
-        return $result;
-    }
-    */
 }

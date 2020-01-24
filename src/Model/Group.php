@@ -16,6 +16,7 @@ class Group
     private $group_status;
 
     // CONSTRUCT - 
+    /*
     public function __construct($parameters = null)
     {
         if ($parameters != null) {
@@ -27,6 +28,7 @@ class Group
             $this->group_status = $parameters->group_status;
         }
     }
+    */
   
 
     /**

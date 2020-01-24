@@ -31,6 +31,8 @@ class GroupsController
         $total = count($groupsObj);
         $compiledArray = array();
 
+
+        // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
         for ($i = 0; $i < $total; $i++) {
             foreach ($groupsObj as $group) {
                 $currentArray = array($group->getId(), $group->getGroup_admin(), $group->getCreation_date(), $group->getGroup_name(), $group->getGroup_description(), $group->getGroup_status(), $group->getGroup_status());

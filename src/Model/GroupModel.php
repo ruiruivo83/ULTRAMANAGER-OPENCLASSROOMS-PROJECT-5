@@ -131,23 +131,15 @@ class GroupModel
 
     public function getGroupDetails(int $id)
     {
-        $bdd = Database::getBdd();
+        $bdd = Database::getBdd();        
         $req = $bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
-        $numresult = $req->rowCount();
-        if ($numresult > 0) {
-            $result = $req->fetch();
-            return new Group(
-                (int) $result['id'],
-                $result['group_admin'],
-                $result['creation_date'],
-                $result['group_name'],
-                $result['group_description'],
-                $result['group_status']
-            );
-        } else {
-            return null;
-        }
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        // $Group = new Group(null, null, null, null, null, null);
+        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
+        return $result;
         // DEBUG
         // $req->debugDumpParams();
         // die;

@@ -18,12 +18,8 @@ class TicketsController
         $view = new View;
         $contentTitle = "Tickets";
 
-        // DEFINE BUTTONS TO SHOW
-        $buttons = "";
-        $buttons .= $view->buttonsBuilder("Create New Ticket", "../index.php?action=createticket");
-
         // BUILD CONTENT
-        $content = $view->ticketContentBuilder($contentTitle, $buttons);
+        $content = $view->ticketContentBuilder($contentTitle, null);
 
         // GET MY TICKETS
         $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);

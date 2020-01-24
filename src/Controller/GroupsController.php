@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\View\View;
 use App\Model\GroupModel;
-use App\Model\Ticket;
+use App\Model\TicketModel;
 
 class GroupsController
 {
@@ -73,6 +73,9 @@ class GroupsController
 
         if (isset($_GET['id'])) {
 
+            $groupModel = new GroupModel(null, null, null, null, null, null, null, null, null);
+            $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
+
             $view = new View();
 
             $id = $_GET['id'];
@@ -91,35 +94,38 @@ class GroupsController
             $content = str_replace("{HTML_TABLE_RESULT}",  $groupDetailsContentPage, $content);
 
             // GET GROUP DETAILS
-            $group = new Group(null, null, null, null, null, null, null, null, null);
-            $group = $group->getGroupDetails(intval($id));
-            $_SESSION['group'] = $group;
+            
+            $group = $groupModel->getGroupDetails(intval($id));
+          
+           var_dump($group);
+           die;
+
 
             // REPLACE TICKET DETAILS
-            // {ID}
-            $content = str_replace("{GROUP_ID}",  $_SESSION['group']->getId(), $content);
+            // {ID}            
+            $content = str_replace("{GROUP_ID}",  $group['id'], $content);
 
             // {TICKET_TITLE}
-            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getGroupname(), $content);
+            $content = str_replace("{GROUP_TITLE}",  $_SESSION['group']->getGroup_name(), $content);
 
             // {GROUP_ADMIN}
-            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_Admin(), $content);
+            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_admin(), $content);
 
             // {GROUP_STATUS}
-            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getGroupStatus(), $content);
+            $content = str_replace("{GROUP_STATUS}",  $_SESSION['group']->getGroup_status(), $content);
 
             // {CREATION_DATE}
             $content = str_replace("{CREATION_DATE}",  $_SESSION['group']->getCreation_Date(), $content);
 
             // {DESCRIPTION}
-            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getGroupDescription(), $content);
+            $content = str_replace("{DESCRIPTION}",  $_SESSION['group']->getGroup_description(), $content);
 
             // {MY_GROUP_LIST}
-            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getGroupname() . "</option>", $content);
+            $content = str_replace("{MY_GROUP_LIST}",  "<option>#" . $_SESSION['group']->getId() . ", " .  $_SESSION['group']->getGroup_name() . "</option>", $content);
 
             // {TICKET_LIST}
-            $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
-            $result = $ticket->getTicketsWithGroupId($_SESSION['group']->getId());
+            
+            $result = $ticketModel->getTicketsWithGroupId($_SESSION['group']->getId());
 
 
 

@@ -6,8 +6,9 @@ namespace App\Controller;
 
 use App\View\View;
 use App\Model\TicketModel;
-use App\Model\Group;
 use App\Model\GroupModel;
+use App\Model\Entity\Group;
+use App\Model\Entity\Ticket;
 
 class TicketsController
 {
@@ -25,19 +26,19 @@ class TicketsController
         $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
         $result = $ticketModel->getMyTickets();
 
-        
+
         $total = count($result);
         $compiledArray = array();
 
         // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
         for ($i = 0; $i < $total; $i++) {
             foreach ($result as $value) {
-                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date() );
+                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date());
                 $compiledArray[$i] = $currentArray;
                 $i++;
             }
         }
-     
+
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "Author", "Requester", "Creation Date", "Title", "Description", "Group Id", "Status", "Close Date"];
@@ -51,8 +52,13 @@ class TicketsController
     {
 
         if (isset($_GET['id'])) {
+
             $id = $_GET['id'];
+
             $view = new View();
+
+            $ticketModel = new TicketModel();
+            $groupModel = new GroupModel();
 
             $contentTitle = "Ticket Details";
 
@@ -67,50 +73,38 @@ class TicketsController
             $ticketDetailsContentPage = file_get_contents('../src/View/backend/content/ticketdetails.html');
             $content = str_replace("{HTML_TABLE_RESULT}",  $ticketDetailsContentPage, $content);
 
-            // GET TICKET DETAILS
+            // GET TICKET DETAILS           
+            $ticketModel = $ticketModel->getTicketDetails(intval($id));
 
 
-            $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
-            $ticket = $ticket->getTicketDetails($id);
-            $_SESSION['ticket'] = $ticket;
+
+            foreach ($ticketModel as $ticketValue) {
+                $content = str_replace("{TICKET_TITLE}",  $ticketValue->getTitle(), $content);
+                // 
+
+                $groupModel = $groupModel->getGroupDetails(intval($ticketValue->getGroup_id()));
+                foreach ($groupModel as $groupValue) {
+                    // var_dump($groupValue);
+                    // die;
+                    $content = str_replace("{GROUP_NAME}",  $groupValue->getGroup_name(), $content);
+                    $content = str_replace("{GROUP_ID}",  $groupValue->getId(), $content);
+                    $content = str_replace("{GROUP_ADMIN}",   $groupValue->getGroup_admin(), $content);
+                }
+
+                // 
 
 
-            // REPLACE TICKET DETAILS
-            // {TICKET_TITLE}
-            $content = str_replace("{TICKET_TITLE}",  $_SESSION['ticket']->getTitle(), $content);
-
-            // $_SESSION['ticket']->getGroup_id()
-            // {GROUP_ID}
-            $content = str_replace("{GROUP_ID}",  $_SESSION['ticket']->getGroup_id(), $content);
-
-            // GET GROUP INFO TO DISPLAY
-           
-            // {GROUP_NAME}     
-            $groupModel = new GroupModel(null, null, null, null, null, null, null);
-            $groupModel = $groupModel->getGroupNameWithGroupId(intval($_SESSION['ticket']->getGroup_id()));        
-            foreach ($groupModel as $value) {
-                $content = str_replace("{GROUP_NAME}",  $value['group_name'], $content);               
+                // {TICKET_AUTHOR}
+                $content = str_replace("{TICKET_AUTHOR}",   $ticketValue->getAuthor(), $content);
+                // {REQUESTER}
+                $content = str_replace("{REQUESTER}",   $ticketValue->getRequester(), $content);
+                // {TICKET_STATUS}
+                $content = str_replace("{TICKET_STATUS}",   $ticketValue->getStatus(), $content);
+                // {CREATION_DATE}
+                $content = str_replace("{CREATION_DATE}",  $ticketValue->getCreation_Date(), $content);
+                // {DESCRIPTION}
+                $content = str_replace("{DESCRIPTION}",   $ticketValue->getDESCRIPTION(), $content);
             }
-
-            // {GROUP_ADMIN}
-            //$group = new Group(null, null, null, null, null, null, null);
-         
-            // $groupDetails = $group->getGroupDetails(intval($_SESSION['ticket']->getGroup_id()));
-            $group = new Group(null, null, null, null, null, null, null);
-          
-            $content = str_replace("{GROUP_ADMIN}",  $_SESSION['group']->getGroup_admin(), $content);
-
-            // {TICKET_AUTHOR}
-            $content = str_replace("{TICKET_AUTHOR}",  $_SESSION['ticket']->getAuthor(), $content);
-            // {REQUESTER}
-            $content = str_replace("{REQUESTER}",  $_SESSION['ticket']->getRequester(), $content);
-            // {TICKET_STATUS}
-            $content = str_replace("{TICKET_STATUS}",  $_SESSION['ticket']->getStatus(), $content);
-            // {CREATION_DATE}
-            $content = str_replace("{CREATION_DATE}",  $_SESSION['ticket']->getCreation_Date(), $content);
-            // {DESCRIPTION}
-            $content = str_replace("{DESCRIPTION}",  $_SESSION['ticket']->getDESCRIPTION(), $content);
-
 
 
             $view->pageBuilder(null, $content, $contentTitle);
@@ -157,14 +151,14 @@ class TicketsController
         $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
         $result = $ticketModel->getAllTickets();
 
-        
+
         $total = count($result);
         $compiledArray = array();
 
         // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
         for ($i = 0; $i < $total; $i++) {
             foreach ($result as $value) {
-                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date() );
+                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date());
                 $compiledArray[$i] = $currentArray;
                 $i++;
             }
@@ -192,6 +186,7 @@ class TicketsController
     }
 
     // Gets Compiled Group List for Current User
+    /*
     public function getMyCompiledGroupList(): string
     {
         $group = new Group(null, null, null, null, null, null);
@@ -204,6 +199,7 @@ class TicketsController
         }
         return $compiledGroupList;
     }
+    */
 
     // Gets Compiled Shared Group List for Current User
     // TODO
@@ -214,24 +210,9 @@ class TicketsController
     public function createTicketFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_POST["Group"])) {
-            // $groupName = $_POST["Group"];
-            // $group = new Group(null, null, null, null, null, null);            
-            $groupId = $_SESSION['group']->getId();
-            foreach ($groupId as $value) {
-                $groupId = $value['id'];
-            }
-            $title = $_POST["Title"];
-            $description = $_POST["Description"];
-            $requester = $_POST["Requester"];
-            $ticket_admin = $_SESSION['user']->getEmail();
-            $ticket_status = "open";
-            // INSERT INTO DATABASE
-            // Create class instance
-            $Ticket = new Ticket(null, $ticket_admin, $requester, $ticket_status, null, $title, $description, $groupId, null);
-            // Execute method addTicket
-            $Ticket->createNewTicket();
+            $TicketModel = new TicketModel();
+            $TicketModel->createNewTicket();
             header('Location: ../index.php?action=tickets');
-            // exit();
         }
     }
 

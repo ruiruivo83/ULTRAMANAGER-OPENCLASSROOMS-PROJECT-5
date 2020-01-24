@@ -102,12 +102,12 @@ class GroupsController
 
             // GET GROUP DETAILS
 
-            $group = $groupModel->getGroupDetails(intval($id));
+            $groupModel = $groupModel->getGroupDetails(intval($id));
 
 
       
             // REPLACE TICKET DETAILS
-            foreach ($group as $value) {
+            foreach ($groupModel as $value) {
                 // {ID}            
                 $content = str_replace("{GROUP_ID}",  $value->getId(), $content);
 

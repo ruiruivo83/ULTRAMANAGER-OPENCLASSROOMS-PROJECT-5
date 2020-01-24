@@ -61,35 +61,36 @@ class GroupModel
         // die;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function createNewGroup()
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
-        $req->execute(array($this->group_admin, $this->group_name, $this->group_description, $this->group_status));
+    {       
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
+        $req->execute(array($currentUser, $_POST["Title"], $_POST["Description"], "open"));
         // DEBUG
         // $req->debugDumpParams();
         // die;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function getGroups(): array
     {

@@ -47,17 +47,6 @@ class Router
         $alertsController = new AlertsController;
         $messagesController = new MessagesController;
 
-        // FOR TEST
-        /*
-        if (isset($_SESSION["user"])) {
-            echo ("SESSION IS OPEN");
-            die;
-        } else {
-            echo ("SESSION IS CLOSED");
-            die;
-        }
-        */
-
         if (isset($_GET['action'])) {
 
             // LOGIN PAGE

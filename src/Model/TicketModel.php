@@ -5,20 +5,17 @@ declare(strict_types=1);
 namespace App\Model;
 
 use PDO;
+use App\Model\Entity\Ticket;
 
 class TicketModel
 {
     // CONSTRUCT - 
-    public function __construct($id, $author, $requester, $status, $creation_date, $title, $description, $group_id, $closed_date)
+
+    private $bdd;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->author = $author;
-        $this->requester = $requester;
-        $this->status = $status;
-        $this->creation_date = $creation_date;
-        $this->description = $description;
-        $this->group_id = $group_id;
-        $this->closed_date = $closed_date;
+        $this->bdd = Database::getBdd();
     }
 
     public function getAllTickets(): array
@@ -30,30 +27,83 @@ class TicketModel
         // $req->debugDumpParams();
         // die;
         // $Group = new Group(null, null, null, null, null, null);
-        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Ticket');
+        $result = $req->fetchall(PDO::FETCH_CLASS, Ticket::class);
         return $result;
     }
 
-    
+
     public function getMyTickets(): array
     {
-        $bdd = Database::getBdd();
         $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM tickets WHERE author = '$currentUser' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE author = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
         // die;
         // $Group = new Group(null, null, null, null, null, null);
-        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Ticket');
+        $result = $req->fetchall(PDO::FETCH_CLASS, Ticket::class);
         return $result;
     }
 
-    
-    public function getTickets()
+    public function createNewTicket()
+    {
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("INSERT INTO tickets( author, requester, status, creation_date, title, description, group_id ) values (?,?,?, NOW(), ?, ?, ?) ");
+        $req->execute(array($currentUser, $_POST['Requester'], "open", $_POST['Title'], $_POST['Description'], $_POST['GroupId']));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
+
+    public function getTicketDetails(int $id)
+    {
+        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
+        $req->execute();
+        $result = $req->fetchall(PDO::FETCH_CLASS, Ticket::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // GET TICKET WITH GROUP ID
+    public function getTicketsWithGroupId($groupId)
     {
         $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM tickets ORDER BY creation_date DESC");
+        $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
@@ -61,58 +111,4 @@ class TicketModel
         $Result = $req->fetchall();
         return $Result;
     }
-
-    
-
-    public function createNewTicket()
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("INSERT INTO tickets( author, requester, status, creation_date, title, description, group_id ) values (?,?,?, NOW(), ?, ?, ?) ");
-        $req->execute(array($this->author, $this->requester, $this->status, $this->title, $this->description, $this->group_id));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
-
-     // GET TICKET WITH GROUP ID
-     public function getTicketsWithGroupId($groupId)
-     {
-         $bdd = Database::getBdd();
-         $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' ORDER BY creation_date DESC");
-         $req->execute();
-         // DEBUG
-         // $req->debugDumpParams();
-         // die;
-         $Result = $req->fetchall();
-         return $Result;
-     }
-
-    // IMPORT TO SESSION VARIABLE
-    public function getTicketDetails($id)
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
-        $req->execute();       
-        $numresult = $req->rowCount();        
-        if ($numresult > 0) {       
-            $result = $req->fetch();
-            return new Ticket(
-                (int) $result['id'],
-                $result['author'],
-                $result['requester'],
-                $result['status'],
-                $result['creation_date'],
-                $result['title'],
-                $result['description'],
-                $result['group_id'],
-                $result['close_date']
-            );           
-        } else {
-            return null;
-        }
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
-
 }

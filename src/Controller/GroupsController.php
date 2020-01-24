@@ -26,16 +26,15 @@ class GroupsController
 
         // GET MY GROUPS
         $groupModel = new GroupModel(null, null, null, null, null, null);
-        $groupsObj = $groupModel->getMyGroups();
+        $result = $groupModel->getMyGroups();
 
-        $total = count($groupsObj);
+        $total = count($result);
         $compiledArray = array();
-
 
         // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
         for ($i = 0; $i < $total; $i++) {
-            foreach ($groupsObj as $group) {
-                $currentArray = array($group->getId(), $group->getGroup_admin(), $group->getCreation_date(), $group->getGroup_name(), $group->getGroup_description(), $group->getGroup_status(), $group->getGroup_status());
+            foreach ($result as $value) {
+                $currentArray = array($value->getId(), $value->getGroup_admin(), $value->getCreation_date(), $value->getGroup_name(), $value->getGroup_description(), $value->getGroup_status(), $value->getGroup_status());
                 $compiledArray[$i] = $currentArray;
                 $i++;
             }
@@ -196,14 +195,28 @@ class GroupsController
         $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
-        $group = new Group(null, null, null, null, null, null);
-        $myGroups = $group->getGroups();
+        $groupModel = new GroupModel(null, null, null, null, null, null);
+        $myGroups = $groupModel->getAllGroups();
+
+        
+        $total = count($myGroups);
+        $compiledArray = array();
+
+
+        // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
+        for ($i = 0; $i < $total; $i++) {
+            foreach ($myGroups as $group) {
+                $currentArray = array($group->getId(), $group->getGroup_admin(), $group->getCreation_date(), $group->getGroup_name(), $group->getGroup_description(), $group->getGroup_status(), $group->getGroup_status());
+                $compiledArray[$i] = $currentArray;
+                $i++;
+            }
+        }
 
 
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "group_admin", "creation_date", "group_name", "group_description", "group_status"];
-        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myGroups), $content);
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
     }

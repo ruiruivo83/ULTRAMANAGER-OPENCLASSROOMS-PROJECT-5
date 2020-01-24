@@ -15,25 +15,10 @@ class Group
     private $group_description;
     private $group_status;
 
-    // CONSTRUCT - 
-    /*
-    public function __construct($parameters = null)
-    {
-        if ($parameters != null) {
-            $this->id = $parameters->id;
-            $this->group_admin = $parameters->group_admin;
-            $this->creation_date = $parameters->creation_date;
-            $this->group_name = $parameters->group_name;
-            $this->group_description = $parameters->group_description;
-            $this->group_status = $parameters->group_status;
-        }
-    }
-    */
-  
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -43,7 +28,7 @@ class Group
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -53,7 +38,7 @@ class Group
 
     /**
      * Get the value of group_admin
-     */ 
+     */
     public function getGroup_admin()
     {
         return $this->group_admin;
@@ -63,7 +48,7 @@ class Group
      * Set the value of group_admin
      *
      * @return  self
-     */ 
+     */
     public function setGroup_admin($group_admin)
     {
         $this->group_admin = $group_admin;
@@ -73,7 +58,7 @@ class Group
 
     /**
      * Get the value of creation_date
-     */ 
+     */
     public function getCreation_date()
     {
         return $this->creation_date;
@@ -83,7 +68,7 @@ class Group
      * Set the value of creation_date
      *
      * @return  self
-     */ 
+     */
     public function setCreation_date($creation_date)
     {
         $this->creation_date = $creation_date;
@@ -93,7 +78,7 @@ class Group
 
     /**
      * Get the value of group_name
-     */ 
+     */
     public function getGroup_name()
     {
         return $this->group_name;
@@ -103,7 +88,7 @@ class Group
      * Set the value of group_name
      *
      * @return  self
-     */ 
+     */
     public function setGroup_name($group_name)
     {
         $this->group_name = $group_name;
@@ -113,7 +98,7 @@ class Group
 
     /**
      * Get the value of group_description
-     */ 
+     */
     public function getGroup_description()
     {
         return $this->group_description;
@@ -123,7 +108,7 @@ class Group
      * Set the value of group_description
      *
      * @return  self
-     */ 
+     */
     public function setGroup_description($group_description)
     {
         $this->group_description = $group_description;
@@ -133,7 +118,7 @@ class Group
 
     /**
      * Get the value of group_status
-     */ 
+     */
     public function getGroup_status()
     {
         return $this->group_status;
@@ -143,7 +128,7 @@ class Group
      * Set the value of group_status
      *
      * @return  self
-     */ 
+     */
     public function setGroup_status($group_status)
     {
         $this->group_status = $group_status;

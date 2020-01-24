@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\View\View;
-use App\Model\Ticket;
+use App\Model\TicketModel;
 use App\Model\Group;
 use App\Model\GroupModel;
 
@@ -26,13 +26,26 @@ class TicketsController
         $content = $view->ticketContentBuilder($contentTitle, $buttons);
 
         // GET MY TICKETS
-        $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
-        $myTickets = $ticket->getMyTickets();
+        $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
+        $result = $ticketModel->getMyTickets();
+
+        
+        $total = count($result);
+        $compiledArray = array();
+
+        // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
+        for ($i = 0; $i < $total; $i++) {
+            foreach ($result as $value) {
+                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date() );
+                $compiledArray[$i] = $currentArray;
+                $i++;
+            }
+        }
      
         // GET HTML TABLE TO SHOW
         $view = new View;
-        $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Group Id", "Close Date"];
-        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
+        $htmlTableIndex = ["id", "Author", "Requester", "Creation Date", "Title", "Description", "Group Id", "Status", "Close Date"];
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
     }
@@ -145,13 +158,26 @@ class TicketsController
         $content = $view->groupContentBuilder($contentTitle, $buttons);
 
         // GET MY GROUPS
-        $ticket = new Ticket(null, null, null, null, null, null, null, null, null);
-        $myTickets = $ticket->getMyTickets();
+        $ticketModel = new TicketModel(null, null, null, null, null, null, null, null, null);
+        $result = $ticketModel->getAllTickets();
+
+        
+        $total = count($result);
+        $compiledArray = array();
+
+        // NOT NECESSARY IF TO REBUILD THE $view->htmlTableBuilder() method
+        for ($i = 0; $i < $total; $i++) {
+            foreach ($result as $value) {
+                $currentArray = array($value->getId(), $value->getAuthor(), $value->getRequester(), $value->getCreation_date(), $value->getTitle(), $value->getDescription(), $value->getGroup_id(), $value->getStatus(), $value->getClosed_date() );
+                $compiledArray[$i] = $currentArray;
+                $i++;
+            }
+        }
 
         // GET HTML TABLE TO SHOW
         $view = new View;
         $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Close Date"];
-        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $myTickets), $content);
+        $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
         $view->pageBuilder(null, $content, $contentTitle);
     }

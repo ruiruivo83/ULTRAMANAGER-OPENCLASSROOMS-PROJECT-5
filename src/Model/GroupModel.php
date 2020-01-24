@@ -1,21 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 use PDO;
 
 class GroupModel
 {
-
-    /*
-    private $id;
-    private $group_admin;
-    private $creation_date;
-    private $group_name;
-    private $group_description;
-    private $group_status;
-*/
-
     // CONSTRUCT - 
     public function __construct($id, $group_admin, $creation_date, $group_name, $group_description, $group_status)
     {
@@ -27,7 +19,7 @@ class GroupModel
         $this->group_status = $group_status;
     }
 
-    public function getMyGroups(): array
+    public function getAllGroups(): array
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
@@ -39,6 +31,32 @@ class GroupModel
         $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
         return $result;
     }
+
+    public function getMyGroups(): array
+    {
+        $bdd = Database::getBdd();
+        $currentUser = $_SESSION['user']->geteMail();
+        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        // $Group = new Group(null, null, null, null, null, null);
+        $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group');
+        return $result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function createNewGroup()
     {
@@ -134,5 +152,4 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
     }
-
 }

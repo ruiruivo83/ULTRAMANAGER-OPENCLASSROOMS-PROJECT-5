@@ -56,6 +56,7 @@ class View
     }
 
     // TESTING
+    /*
     public function testingHtmlTableBuilder(array $htmlTableIndex, array $data): string
     {
 
@@ -113,7 +114,7 @@ class View
         // RETURN THE FULL HTML TABLE READY TO DISPLAY
         return $htmlTable;
     }
-
+*/
 
     public function htmlTableBuilder(array $htmlTableIndex, array $data): string
     {
@@ -147,7 +148,7 @@ class View
 
         // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
         $htmlTrCompiled = "";
-        foreach ($data as $value) {           
+        foreach ($data as $value) {
             $htmlTrCompiled .= $htmlTr;
 
             $htmlTdCompiled = "";
@@ -289,4 +290,5 @@ class View
             return $content;
         }
     }
+
 }

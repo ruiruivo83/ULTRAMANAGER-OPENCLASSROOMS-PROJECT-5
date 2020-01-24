@@ -119,7 +119,7 @@ class Router
             // GROUP DETAILS PAGE
             if ($_GET['action'] == 'groupdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groupdetails();
+                    $groupsController->groupDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -128,7 +128,7 @@ class Router
             // GROUPMEMBERS PAGE
             if ($_GET['action'] == 'groupmembers') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groupmembers();
+                    $groupsController->groupMembers();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -137,7 +137,7 @@ class Router
             // SHARED GROUPS PAGE
             if ($_GET['action'] == 'sharedgroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedgroups();
+                    $groupsController->sharedGroups();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -146,7 +146,7 @@ class Router
             // SHARED GROUP MEMBERS PAGE
             if ($_GET['action'] == 'sharedgroupmembers') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedgroupmembers();
+                    $groupsController->sharedGroupMembers();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -155,7 +155,7 @@ class Router
             // MEMBER DETAILS PAGE
             if ($_GET['action'] == 'memberdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->memberdetails();
+                    $groupsController->memberDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -164,7 +164,7 @@ class Router
             // SHARED MEMBER DETAILS PAGE
             if ($_GET['action'] == 'sharedmemberdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedmemberdetails();
+                    $groupsController->sharedMemberDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -182,7 +182,7 @@ class Router
             // TICKET DETAILS PAGE
             if ($_GET['action'] == 'ticketdetails') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->ticketdetails();
+                    $ticketsController->ticketDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -191,7 +191,7 @@ class Router
             // SHARED TICKETS PAGE
             if ($_GET['action'] == 'sharedtickets') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedtickets();
+                    $ticketsController->sharedTickets();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -200,7 +200,7 @@ class Router
             // SHARED TICKET DETAILS PAGE
             if ($_GET['action'] == 'sharedticketdetails') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedticketdetails();
+                    $ticketsController->sharedTicketDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -218,7 +218,7 @@ class Router
             // INTERVENTION DETAILS PAGE
             if ($_GET['action'] == 'interventiondetails') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->interventiondetails();
+                    $interventionsController->interventionDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -227,7 +227,7 @@ class Router
             // SHARED INTERVENTIONS PAGE
             if ($_GET['action'] == 'sharedinterventions') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedinterventions();
+                    $interventionsController->sharedInterventions();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -236,7 +236,7 @@ class Router
             // SHARED INTERVENTION DETAILS PAGE
             if ($_GET['action'] == 'sharedinterventiondetails') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedinterventiondetails();
+                    $interventionsController->sharedInterventionDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -272,7 +272,7 @@ class Router
             // GLOBAL GROUPS PAGE
             if ($_GET['action'] == 'globalgroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->globalgroups();
+                    $groupsController->globalGroups();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -281,7 +281,7 @@ class Router
             // GLOBAL TICKETS PAGE
             if ($_GET['action'] == 'globaltickets') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->globaltickets();
+                    $ticketsController->globalTickets();
                 } else {
                     header('Location: ../index.php');
                 }

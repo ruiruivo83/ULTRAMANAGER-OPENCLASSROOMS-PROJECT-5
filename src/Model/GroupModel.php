@@ -18,16 +18,13 @@ class GroupModel
         $this->bdd = Database::getBdd();
     }
 
-
     public function getAllGroups(): array
     {      
         $req = $this->bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;
-        // $Group = new Group(null, null, null, null, null, null);
-        // $result = $req->fetchall(PDO::FETCH_CLASS, 'App\Model' . '\\Group'); 
+        // die;     
         $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
         return $result;
     }
@@ -39,26 +36,20 @@ class GroupModel
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;
-        // $Group = new Group(null, null, null, null, null, null);
+        // die;      
         $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
         return $result;
     }
 
     public function getGroupDetails(int $id)
-    {
-      
+    {      
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;
-        // $Group = new Group(null, null, null, null, null, null);
+        // die;        
         $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
-        return $result;
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
+        return $result;        
     }
 
     public function createNewGroup()
@@ -70,27 +61,6 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getGroups(): array
     {

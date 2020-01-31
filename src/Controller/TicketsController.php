@@ -44,7 +44,10 @@ class TicketsController
         $htmlTableIndex = ["id", "Author", "Requester", "Creation Date", "Title", "Description", "Group Id", "Status", "Close Date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
-        $view->pageBuilder(null, $content, $contentTitle);
+        // $view->pageBuilder(null, $content, $contentTitle);
+        // ADD THIS TO CONTROLLER IN OUR PROJECT
+        // Render 'page' and 'Table with data'
+        $view->render("ticket", ['ticket' => '5']);
     }
 
     // DISPLAY TICKET DETAILS PAGE
@@ -107,7 +110,12 @@ class TicketsController
             }
 
 
-            $view->pageBuilder(null, $content, $contentTitle);
+            // $view->pageBuilder(null, $content, $contentTitle);
+
+            //
+            // ADD THIS TO CONTROLLER IN OUR PROJECT
+            // Render 'page' and 'Table with data'
+            $view->render("ticket", ['ticket' => '5']);
         } else {
             echo "Missiong ID";
             die;
@@ -121,7 +129,8 @@ class TicketsController
         $content = "";
 
         $view = new View();
-        $view->pageBuilder(null, $content, $contentTitle);
+        // $view->pageBuilder(null, $content, $contentTitle);
+        $view->render("ticket", ['ticket' => '5']);
     }
 
     public function sharedTicketDetails()
@@ -131,7 +140,11 @@ class TicketsController
         $content = "";
 
         $view = new View();
-        $view->pageBuilder(null, $content, $contentTitle);
+        // $view->pageBuilder(null, $content, $contentTitle);
+        //
+        // ADD THIS TO CONTROLLER IN OUR PROJECT
+        // Render 'page' and 'Table with data'
+        $view->render("ticket", ['ticket' => '5']);
     }
 
 
@@ -169,7 +182,11 @@ class TicketsController
         $htmlTableIndex = ["id", "Author", "Requester", "Status", "Creation Date", "Title", "Description",  "Close Date"];
         $content = str_replace("{HTML_TABLE_RESULT}", $view->htmlTableBuilder($htmlTableIndex, $compiledArray), $content);
 
-        $view->pageBuilder(null, $content, $contentTitle);
+        // $view->pageBuilder(null, $content, $contentTitle);
+        //
+        // ADD THIS TO CONTROLLER IN OUR PROJECT
+        // Render 'page' and 'Table with data'
+        $view->render("ticket", ['ticket' => '5']);
     }
 
 
@@ -182,7 +199,8 @@ class TicketsController
         //  {MY_GROUP_LIST}
         $content = str_replace("{MY_GROUP_LIST}", $this->getMyCompiledGroupList(), $content);
         $view = new View;
-        $view->pageBuilder(null, $content, $contentTitle);
+        // $view->pageBuilder(null, $content, $contentTitle);
+        $view->render("ticket", ['ticket' => '5']);
     }
 
     // Gets Compiled Group List for Current User

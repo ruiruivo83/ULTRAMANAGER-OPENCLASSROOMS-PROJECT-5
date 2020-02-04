@@ -20,8 +20,8 @@ class TicketModel
 
     public function getAllTickets(): array
     {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM tickets ORDER BY creation_date DESC");
+
+        $req = $this->bdd->prepare("SELECT * FROM tickets ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();

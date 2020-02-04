@@ -19,12 +19,12 @@ class InterventionModel
     }
 
     public function getAllInterventions(): array
-    {      
-        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions ORDER BY creation_date DESC");
+    {
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions ORDER BY intervention_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;     
+        // die;
         $result = $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
         return $result;
     }

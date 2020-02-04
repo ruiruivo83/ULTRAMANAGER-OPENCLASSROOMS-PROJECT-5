@@ -25,7 +25,7 @@ class IndexController
 
     // WITH SESSION
     // FAIRE AVEC TWIG LE DASHBOARD
-    public function dashboard()
+    public function dashboardPage()
     {
         $this->view->render("frontpage", []);
         /*
@@ -35,7 +35,7 @@ class IndexController
         */
     }
 
-    public function noLoginFrontPage()
+    public function noLoginFrontPagePage()
     {
         $this->view->render("noLoginFrontPage", []);
     }

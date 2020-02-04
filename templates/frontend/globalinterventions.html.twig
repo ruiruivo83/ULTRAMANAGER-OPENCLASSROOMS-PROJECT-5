@@ -1,0 +1,22 @@
+{% extends "_layout.html.twig" %}
+
+
+{% block topbar %}
+    {{ include('/backend/user_topbar.html') }}
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="card m-1">
+        <div class="card-header">
+            <h6>GLOBAL INTERVENTIONS</h6>
+        </div>
+        <div class="card-body">
+            {% for intervention in interventions %}
+                - {{ intervention.intervention_date }}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

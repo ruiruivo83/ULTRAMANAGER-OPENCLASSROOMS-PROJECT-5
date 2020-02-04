@@ -9,7 +9,7 @@ use App\View\View;
 class ProfileController
 {
 
-    public function profile()
+    public function profilePage()
     {
 
         $contentTitle = "Profile";

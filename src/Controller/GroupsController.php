@@ -22,7 +22,7 @@ class GroupsController
     }
 
     // DISPLAY PAGE - My Groups
-    public function myGroups()
+    public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
         $this->view->render("groups", ['groups' => $result]);
@@ -30,7 +30,7 @@ class GroupsController
 
 
     // DISPLAY PAGE - Group Details
-    public function groupDetails()
+    public function groupDetailsPage()
     {
         if (isset($_GET['id'])) {
             $groupModel = $this->groupModel->getGroupDetails(intval($_GET['id']));
@@ -45,7 +45,7 @@ class GroupsController
     }
 
     // DISPLAY PAGE - TICKET DETAILS
-    public function groupMembers()
+    public function groupMembersPage()
     {
 
     }
@@ -55,18 +55,18 @@ class GroupsController
 
     }
 
-    public function sharedGroups()
+    public function sharedGroupsPage()
     {
 
     }
 
-    public function globalGroups()
+    public function globalGroupsPage()
     {
         $result = $this->groupModel->getAllGroups();
         $this->view->render("globalgroups", ['groups' => $result]);
     }
 
-    public function displayCreateGroupPage()
+    public function createGroupPage()
     {
 
     }

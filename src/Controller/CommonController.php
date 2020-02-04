@@ -14,12 +14,12 @@ class commonController
         $this->view = new View();
     }
 
-    public function login()
+    public function loginPage()
     {
         $this->view->render("login", []);
     }
 
-    public function register()
+    public function registerPage()
     {
         $this->view->render("register", []);
     }

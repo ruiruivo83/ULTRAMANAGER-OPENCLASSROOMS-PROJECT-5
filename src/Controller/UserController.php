@@ -20,7 +20,7 @@ class UserController
     }
 
     // LOGIN VALIDATION FOR THE MAIN LOGIN
-    public function loginValidation()
+    public function loginValidationFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["email"])) {
             // GET LOGIN INFO FROM USER POST METHOD
@@ -48,7 +48,7 @@ class UserController
     }
 
     // REGISTER A NEW USER
-    public function registerNewUser()
+    public function registerNewUserFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["email"])) {
             // Test if email exists in database

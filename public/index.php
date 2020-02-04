@@ -47,42 +47,34 @@ class Router
         $alertsController = new AlertsController;
         $messagesController = new MessagesController;
 
-        // FOR TEST
-        /*
-        if (isset($_SESSION["user"])) {
-            echo ("SESSION IS OPEN");
-            die;
-        } else {
-            echo ("SESSION IS CLOSED");
-            die;
-        }
-        */
-
         if (isset($_GET['action'])) {
 
             // LOGIN PAGE
             if ($_GET['action'] == 'login') {
-                $commonController->login();
+                $commonController->loginPage();
             }
 
             // REGISTER PAGE
             if ($_GET['action'] == 'register') {
-                $commonController->register();
+                $commonController->registerPage();
             }
 
             // INDEX PAGE
             if ($_GET['action'] == 'index') {
+
                 if (isset($_SESSION["user"])) {
-                    $indexController->dashboard();
+                    // IF SESSION IS OPEN
+                    $indexController->dashboardPage();
                 } else {
-                    header('Location: ../index.php');
+                    // IF SESSION IS NOT OPEN
+                    $indexController->noLoginFrontPagePage();
                 }
             }
 
             // ACTIVITY LOG PAGE
             if ($_GET['action'] == 'activitylog') {
                 if (isset($_SESSION["user"])) {
-                    $activityLogController->activityLog();
+                    $activityLogController->activityLogPage();
                 } else {
                     // TODO
                     header('Location: ../index.php');
@@ -92,7 +84,7 @@ class Router
             // PROFILE PAGE
             if ($_GET['action'] == 'profile') {
                 if (isset($_SESSION["user"])) {
-                    $profileController->profile();
+                    $profileController->profilePage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -101,16 +93,16 @@ class Router
             // SETTINGS PAGE
             if ($_GET['action'] == 'settings') {
                 if (isset($_SESSION["user"])) {
-                    $settingsController->settings();
+                    $settingsController->settingsPage();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // GROUPS PAGE
-            if ($_GET['action'] == 'groups') {
+            // MY GROUPS PAGE
+            if ($_GET['action'] == 'mygroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groups();
+                    $groupsController->myGroupsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -119,7 +111,7 @@ class Router
             // GROUP DETAILS PAGE
             if ($_GET['action'] == 'groupdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groupdetails();
+                    $groupsController->groupDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -128,7 +120,7 @@ class Router
             // GROUPMEMBERS PAGE
             if ($_GET['action'] == 'groupmembers') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groupmembers();
+                    $groupsController->groupMembersPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -137,7 +129,7 @@ class Router
             // SHARED GROUPS PAGE
             if ($_GET['action'] == 'sharedgroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedgroups();
+                    $groupsController->sharedGroupsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -146,7 +138,7 @@ class Router
             // SHARED GROUP MEMBERS PAGE
             if ($_GET['action'] == 'sharedgroupmembers') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedgroupmembers();
+                    $groupsController->sharedGroupMembersPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -155,7 +147,7 @@ class Router
             // MEMBER DETAILS PAGE
             if ($_GET['action'] == 'memberdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->memberdetails();
+                    $groupsController->memberDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -164,7 +156,7 @@ class Router
             // SHARED MEMBER DETAILS PAGE
             if ($_GET['action'] == 'sharedmemberdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->sharedmemberdetails();
+                    $groupsController->sharedMemberDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -173,7 +165,7 @@ class Router
             // TICKETS PAGE
             if ($_GET['action'] == 'tickets') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->tickets();
+                    $ticketsController->ticketsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -182,7 +174,7 @@ class Router
             // TICKET DETAILS PAGE
             if ($_GET['action'] == 'ticketdetails') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->ticketdetails();
+                    $ticketsController->ticketDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -191,7 +183,8 @@ class Router
             // SHARED TICKETS PAGE
             if ($_GET['action'] == 'sharedtickets') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedtickets();
+                    $ticketsController->sharedTicketsPage
+                    ();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -200,7 +193,7 @@ class Router
             // SHARED TICKET DETAILS PAGE
             if ($_GET['action'] == 'sharedticketdetails') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedticketdetails();
+                    $ticketsController->sharedTicketDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -209,7 +202,7 @@ class Router
             // INTERVENTIONS PAGE
             if ($_GET['action'] == 'interventions') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->interventions();
+                    $interventionsController->myInterventionsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -218,7 +211,7 @@ class Router
             // INTERVENTION DETAILS PAGE
             if ($_GET['action'] == 'interventiondetails') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->interventiondetails();
+                    $interventionsController->interventionDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -227,7 +220,7 @@ class Router
             // SHARED INTERVENTIONS PAGE
             if ($_GET['action'] == 'sharedinterventions') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedinterventions();
+                    $interventionsController->sharedInterventionsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -236,34 +229,34 @@ class Router
             // SHARED INTERVENTION DETAILS PAGE
             if ($_GET['action'] == 'sharedinterventiondetails') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedinterventiondetails();
+                    $interventionsController->sharedInterventionDetailsPage();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // INVITATIONS
+            // INVITATIONS PAGE
             if ($_GET['action'] == 'invitations') {
                 if (isset($_SESSION["user"])) {
-                    $invitationsController->invitations();
+                    $invitationsController->invitationsPage();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // SHOW ALL ALERTS
+            // SHOW ALL ALERTS PAGE
             if ($_GET['action'] == 'showallalerts') {
                 if (isset($_SESSION["user"])) {
-                    $alertsController->showAllAlerts();
+                    $alertsController->showAllAlertsPage();
                 } else {
                     header('Location: ../index.php');
                 }
             }
 
-            // SHOW ALL MESSAGES
+            // SHOW ALL MESSAGES PAGE
             if ($_GET['action'] == 'showallmessages') {
                 if (isset($_SESSION["user"])) {
-                    $messagesController->showAllMessages();
+                    $messagesController->showAllMessagesPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -272,7 +265,7 @@ class Router
             // GLOBAL GROUPS PAGE
             if ($_GET['action'] == 'globalgroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->globalgroups();
+                    $groupsController->globalGroupsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -281,7 +274,7 @@ class Router
             // GLOBAL TICKETS PAGE
             if ($_GET['action'] == 'globaltickets') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->globaltickets();
+                    $ticketsController->globalTicketsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -290,7 +283,7 @@ class Router
             // GLOBAL INTERVENTIONS PAGE
             if ($_GET['action'] == 'globalinterventions') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->globalInterventions();
+                    $interventionsController->globalInterventionsPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -299,7 +292,7 @@ class Router
             // CREATE GROUP PAGE             
             if ($_GET['action'] == 'creategroup') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->displayCreateGroupPage();
+                    $groupsController->createGroupPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -308,7 +301,7 @@ class Router
             // CREATE TICKET PAGE             
             if ($_GET['action'] == 'createticket') {
                 if (isset($_SESSION["user"])) {
-                    $ticketsController->displayCreateTicketPage();
+                    $ticketsController->createTicketPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -317,12 +310,11 @@ class Router
             // CREATE INTERVENTION PAGE             
             if ($_GET['action'] == 'createintervention') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->displayCreateInterventionsPage();
+                    $interventionsController->createInterventionsPage();
                 } else {
                     header('Location: ../index.php');
                 }
             }
-
 
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
@@ -340,17 +332,16 @@ class Router
             // LOGIN VALIDATION FUNCTION
             if (!isset($_SESSION["user"])) {
                 if ($_GET['action'] == 'login_validation') {
-                    $userController->loginValidation();
+                    $userController->loginValidationFunction();
                 }
             }
 
             // REGISTER NEW USER FUNCTION
             if (!isset($_SESSION["user"])) {
                 if ($_GET['action'] == 'registernewuser') {
-                    $userController->registerNewUser();
+                    $userController->registerNewUserFunction();
                 }
             }
-
 
             // createGroupFunction FUNCTION
             if ($_GET['action'] == 'creategroupfunction') {
@@ -370,10 +361,12 @@ class Router
                     header('Location: ../index.php');
                 }
             }
-        } else  if (isset($_SESSION["user"])) {
-            $indexController->dashboard();
+
+        } else if (isset($_SESSION["user"])) {
+            $indexController->dashboardPage();
         } else {
-            $indexController->frontPage();
+            // IF SESSION IS NOT OPEN
+            $indexController->noLoginFrontPagePage();
         }
     }
 }

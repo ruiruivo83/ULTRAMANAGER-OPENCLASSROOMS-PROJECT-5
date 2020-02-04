@@ -10,7 +10,7 @@ use App\View\View;
 
 class ActivityLogController
 {
-    public function activityLog()
+    public function activityLogPage()
     {
         $contentTitle = "Activity Log";
         // TODO

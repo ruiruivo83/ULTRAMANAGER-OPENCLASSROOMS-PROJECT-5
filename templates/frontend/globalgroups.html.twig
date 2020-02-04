@@ -1,0 +1,14 @@
+{% extends "_layout.html.twig" %}
+
+
+{% block topbar %}
+    <h1>Bonjour</h1>
+    {{ include('/backend/user_topbar.html') }}
+{% endblock %}
+
+{% block body %}
+    <h1>GLOBAL GROUPS</h1>
+    {% for group in groups %}
+        - {{ group.group_name }}
+    {% endfor %}
+{% endblock %}

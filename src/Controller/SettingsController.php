@@ -8,7 +8,7 @@ use App\View\View;
 
 class SettingsController
 {
-    public function settings()
+    public function settingsPage()
     {
         $contentTitle = "Settings";
         // TODO

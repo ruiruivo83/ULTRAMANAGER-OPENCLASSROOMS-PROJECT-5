@@ -7,16 +7,60 @@ namespace App\View;
 class View
 {
 
+    private $twig;
+
+    public function __construct()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader('../templates');
+        $this->twig = new \Twig\Environment($loader, [
+            /*'cache' => '/path/to/compilation_cache'*/
+        ]);
+    }
+
+    public function render(string $template, array $data): void
+    {
+        echo $this->twig->render('frontend/'.$template.'.html.twig', $data);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function pageBuilder($noSessionTargetPage, $content, $contentTitle)
     {
 
-        $view = file_get_contents('../src/View/frontend/appLayout.html');
+        $view = file_get_contents('../templates/_layout.html.twig');
         // $content = file_get_contents('view/frontend/pagecontent/' . $targetPage . '.html');
 
         if (isset($_SESSION["user"])) {
-            $view = str_replace("{USER_TOPBAR}", file_get_contents('../src/View/backend/user_topbar.html'), $view);
+            $view = str_replace("{USER_TOPBAR}", file_get_contents('../templates/backend/user_topbar.html'), $view);
             $view = str_replace("{FRONTPAGE_TOPBAR}", "", $view);
-            $view = str_replace("{SIDEBAR}", file_get_contents('../src/View/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}", file_get_contents('../templates/backend/sidebar.html'), $view);
 
             // USER INFO
             $view = str_replace("{FIRST_NAME}", $_SESSION['user']->getFirstname() . "&nbsp", $view);
@@ -24,7 +68,7 @@ class View
             // REPLACE TOTALS
             // TODO
             // REPLACE CONTENT TITLE
-            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../src/View/backend/content/content_title.html'), $view);
+            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../templates/backend/content/content_title.html'), $view);
             $view = str_replace("{CONTENT_TITLE_text}", $contentTitle, $view);
             // REPLACE CONTENT
             //...
@@ -37,17 +81,17 @@ class View
         } else {
             //
             $view = str_replace("{USER_TOPBAR}", "", $view);
-            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../src/View/backend/frontpage_topbar.html'), $view);
+            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../templates/backend/public_topbar.html'), $view);
             //
-            $view = str_replace("{SIDEBAR}",  file_get_contents('../src/View/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}",  file_get_contents('../templates/backend/sidebar.html'), $view);
             //
             $view = str_replace("{CONTENT_TITLE}", "", $view);
-            if (isset($_GET['action']) AND $_GET['action'] == 'register') {
+            if (isset($_GET['action']) and $_GET['action'] == 'register') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
-            } else  if (isset($_GET['action']) AND $_GET['action'] == 'login') {
+            } else  if (isset($_GET['action']) and $_GET['action'] == 'login') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
             } else {
-                $dashboard = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');
+                $dashboard = file_get_contents('../templates/frontend/pagecontent/noLoginFrontPage.html.twig');
                 $view = str_replace("{CONTENT}", $dashboard, $view);
             }
         }
@@ -55,6 +99,66 @@ class View
         echo $view;
     }
 
+    // TESTING
+    /*
+    public function testingHtmlTableBuilder(array $htmlTableIndex, array $data): string
+    {
+
+        // IMPORT TABLE HTML COMPONENTS
+        $htmlTable = "";
+        $htmlTable = file_get_contents('../src/View/backend/htmlcomponents/table/html_table.html');
+        $htmlThead = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead.html');
+        $htmlTheadTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_thead_tr.html');
+        $htmlTbody = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tbody.html');
+        $htmlTr = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_tr.html');
+        $htmlTh = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_th.html');
+        $htmlTd = file_get_contents('../src/View/backend/htmlcomponents/table/html_table_td.html');
+
+        // BUILD INDEX
+        $indexCount = count($htmlTableIndex);
+
+        $htmlTable = str_replace("{THEAD}", $htmlThead, $htmlTable);
+        $htmlTable = str_replace("{TR}", $htmlTheadTr, $htmlTable);
+        $htmlTable = str_replace("{TD}", "", $htmlTable);
+        // BUILD INDEX TITLES
+        $htmlThCompiled = "";
+        for ($i = 0; $i < $indexCount; $i++) {
+            $htmlThCompiled .= $htmlTh;
+            $htmlThCompiled = str_replace("{CONTENT}", $htmlTableIndex[$i], $htmlThCompiled);
+        }
+
+        // ADD ONE COLUMN FOR BUTTON OPTIONS
+        $htmlThCompiled .= $htmlTh;
+        $htmlThCompiled = str_replace("{CONTENT}", "OPTIONS", $htmlThCompiled);
+        //..
+        $htmlTable = str_replace("{TH}", $htmlThCompiled, $htmlTable);
+        $htmlTable = str_replace("{TBODY}", $htmlTbody, $htmlTable);
+
+        // BUILDS CONTENT FOR EVERY ITEM LINE BY LINE
+        $htmlTrCompiled = "";
+
+
+        $htmlTrCompiled .= $htmlTr;
+
+        $htmlTdCompiled = "";
+        for ($i = 0; $i < $indexCount; $i++) {
+            $htmlTdCompiled .= $htmlTd;
+            $htmlTdCompiled = str_replace("{CONTENT}", $data[$i], $htmlTdCompiled);
+        }
+        // ADD OPTIONS PER LINE EACH ITEM
+        $htmlTdCompiled .= $htmlTd;
+        $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($data[0]), $htmlTdCompiled);
+        //...
+        $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
+        $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);
+
+
+        $htmlTable = str_replace("{TR}", $htmlTrCompiled, $htmlTable);
+
+        // RETURN THE FULL HTML TABLE READY TO DISPLAY
+        return $htmlTable;
+    }
+*/
 
     public function htmlTableBuilder(array $htmlTableIndex, array $data): string
     {
@@ -98,7 +202,7 @@ class View
             }
             // ADD OPTIONS PER LINE EACH ITEM
             $htmlTdCompiled .= $htmlTd;
-            $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($value['id']), $htmlTdCompiled);
+            $htmlTdCompiled = str_replace("{CONTENT}", $this->getCompiledButtons($value[0]), $htmlTdCompiled);
             //...
             $htmlTrCompiled = str_replace("{TD}", $htmlTdCompiled, $htmlTrCompiled);
             $htmlTrCompiled = str_replace("{TH}", "", $htmlTrCompiled);

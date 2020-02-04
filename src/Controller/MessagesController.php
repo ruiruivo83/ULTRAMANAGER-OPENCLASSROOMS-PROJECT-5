@@ -7,7 +7,7 @@ namespace App\Controller;
 class MessagesController
 {
 
-    public function showAllMessages()
+    public function showAllMessagesPage()
     {
         $contentTitle = "Message Center";
         // TODO

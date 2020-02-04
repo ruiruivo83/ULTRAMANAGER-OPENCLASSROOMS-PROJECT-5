@@ -9,7 +9,7 @@ use App\View\View;
 class InvitationsController
 {
 
-    public function invitations()
+    public function invitationsPage()
     {
         $contentTitle = "Invitations";
         // TODO

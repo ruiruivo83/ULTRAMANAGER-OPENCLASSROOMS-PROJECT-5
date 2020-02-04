@@ -7,7 +7,7 @@ namespace App\Controller;
 class AlertsController
 {
 
-    public function showAllAlerts()
+    public function showAllAlertsPage()
     {
 
         $contentTitle = "Alert Center";

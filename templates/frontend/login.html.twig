@@ -1,0 +1,112 @@
+{% extends "_layout.html.twig" %}
+
+{% block topbar %}
+    {{ include('/backend/public_topbar.html') }}
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <div class="">
+
+                    <!-- Outer Row -->
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-10 col-lg-12 col-md-9">
+
+                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                <div class="card-body p-0">
+                                    <!-- Nested Row within Card Body -->
+                                    <div class="row">
+                                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                        <div class="col-lg-6">
+                                            <div class="p-5">
+                                                <div class="text-center">
+                                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                                </div>
+                                                <form action="index.php?action=login_validation" method="post">
+
+                                                    <div class="login_container">
+
+                                                        <div>
+                                                            <h1>Login</h1>
+
+                                                            <hr>
+                                                        </div>
+                                                        {% if message %}
+                                                            <div class="alert alert-danger " role="alert"> {{ message }}
+                                                            </div>
+                                                        {% endif %}
+                                                        <br>
+                                                        <div class="login_div_credentials_email">
+                                                            <div>eMail:</div>
+
+
+                                                            <div>
+                                                                <input type="email" name="email"/>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="login_div_credentials_pass">
+                                                            <div>Password:</div>
+                                                            <div>
+                                                                <input type="password" name="password"/>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div>
+                                                            <input class="alert alert-info" type="submit"
+                                                                   value="Login"/>
+                                                        </div>
+
+                                                    </div>
+
+                                                </form>
+
+                                                <hr>
+
+                                                <div class="text-center">
+                                                    <a class="small" href="index.php?action=register">Create an
+                                                        Account!</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+    </div>
+{% endblock %}
+
+
+
+

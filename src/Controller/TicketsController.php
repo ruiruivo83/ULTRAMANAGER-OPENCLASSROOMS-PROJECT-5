@@ -69,6 +69,7 @@ class TicketsController
             $TicketModel = new TicketModel();
             $TicketModel->createNewTicket();
             header('Location: ../index.php?action=tickets');
+            exit();
         }
     }
 

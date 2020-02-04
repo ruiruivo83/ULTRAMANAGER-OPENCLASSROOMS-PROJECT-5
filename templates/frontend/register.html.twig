@@ -31,18 +31,18 @@
                                         <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                                         <div class="col-lg-7">
                                             <div class="p-5">
-                                                <!--{MESSAGEALERT}-->
+                                                {% if message %}
+                                                    <div class="alert alert-danger " role="alert"> {{ message }}
+                                                    </div>
+                                                {% endif %}
                                                 <div class="text-center">
                                                     <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                                                 </div>
                                                 <form class="main_register_container"
                                                       action="index.php?action=registernewuser" method="post">
-
-
                                                     <div class="register_bloc">
                                                         <div>
                                                             <div class="div_credentials">
-
                                                                 <div class="credentials_input">
                                                                     <!--name: prenom -->
                                                                     <input type="text" placeholder="First Name"
@@ -51,79 +51,49 @@
                                                         </div>
                                                         <br>
                                                         <div class="div_credentials">
-
                                                             <div class="credentials_input">
-
                                                                 <input type="text" placeholder="Last Name"
                                                                        name="lastname" required>
                                                             </div>
                                                         </div>
                                                         <br>
                                                         <div class="div_credentials">
-
                                                             <div class="credentials_input">
-
                                                                 <input type="email" placeholder="Email" name="email"
                                                                        required></div>
                                                         </div>
-
                                                         <hr>
                                                         <div class="div_credentials">
-
                                                             <div class="credentials_input">
-
                                                                 <input type="text" placeholder="Country" name="country"
                                                                        required></div>
                                                         </div>
-                                                        <!--
-                                                        <br>
-                                                        <div class="div_credentials">
-
-                                                            <div class="credentials_input">
-
-                                                                <input type="text" placeholder="Company" name="company" required></div>
-                                                        </div>
-                                                        -->
-
                                                         <hr>
                                                         <fieldset>
                                                             <div class="div_credentials">
-
                                                                 <div class="credentials_input">
-
                                                                     <input type="password" placeholder="Password"
                                                                            id="password" name="psw" required></div>
                                                             </div>
                                                             <br>
                                                             <div class="div_credentials">
-
                                                                 <div class="credentials_input">
-
                                                                     <input type="password"
                                                                            placeholder="Confirmer Password"
                                                                            id="confirm_password" name="psw-repeat"
                                                                            required></div>
                                                             </div>
-
                                                         </fieldset>
                                                         <hr>
-
-
                                                         <button class="alert alert-info registerbtn"
                                                                 type="submit">Register
                                                         </button>
                                                     </div>
-
-
                                                 </form>
-
-
                                                 <!-- Local Javascript -->
                                                 <script type="text/javascript"
-                                                        src="/public/js/validatePassword.js"></script>
-
+                                                        src="js/validatePassword.js"></script>
                                                 <hr>
-
                                                 <div class="text-center">
                                                     <a href="index.php?action=termsofservice">Terms of Service</a>.
                                                     <br>
@@ -137,24 +107,16 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
                 <!-- Local Javascript -->
-                <script type="text/javascript" src="/public/js/validatePassword.js"></script>
-
 
             </div>
             <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
-
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
     </div>
 {% endblock %}

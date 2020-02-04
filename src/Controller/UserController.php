@@ -11,10 +11,12 @@ class UserController
 {
 
     private $view;
+    private $userModel;
 
     public function __construct()
     {
         $this->view = new View();
+        $this->userModel = new UserModel();
     }
 
     // LOGIN VALIDATION FOR THE MAIN LOGIN
@@ -24,8 +26,7 @@ class UserController
             // GET LOGIN INFO FROM USER POST METHOD
             $login_email = $_POST["email"];
             $login_password = $_POST["password"];
-            $userModel = new UserModel();
-            $userModel = $userModel->getUserByEmail($login_email);
+            $userModel = $this->userModel->getUserByEmail($login_email);
             //
             if ($userModel != null) {
                 foreach ($userModel as $user) {
@@ -33,6 +34,7 @@ class UserController
                         //// IMPORTANT
                         //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
                         $_SESSION['user'] = $user;
+                        //
                         header('Location: ../index.php');
                         exit();
                     } else {
@@ -49,24 +51,12 @@ class UserController
     public function registerNewUser()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["email"])) {
-            $firstname = $_POST["firstname"];
-            $lastname = $_POST["lastname"];
-            $email = $_POST["email"];
-            $country = $_POST["country"];
-            $psw = password_hash($_POST["psw"], PASSWORD_DEFAULT);
-            $user = new User($firstname, $lastname, $email, $psw, null, null, $country, null, null);
             // Test if email exists in database
-            if ($this->testIfEmailExists($email)) {
-                $message = '<div class="alert alert-danger " role="alert">YOU ALREADY HAVE AN ACCOUNT</div>';
-                $view = file_get_contents('../src/view/frontend/appLayout.html');
-                $content = file_get_contents('../src/view/frontend/pagecontent/register.html.twig');
-                $view = new View;
-                $view->pageBuilder(null, $content, null);
-                $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
-                echo $view;
+            if ($this->testIfEmailExists($_POST["email"])) {
+                $this->view->render("register", ['message' => "MAIL ALREADY EXISTS"]);
             } else {
                 // Add User to Database
-                $user->createNewUser();
+                $this->userModel->createNewUser();
                 header('Location: ../index.php');
                 exit();
             }
@@ -84,8 +74,8 @@ class UserController
     // TEST IF MAIL EXISTS IN THE DATABASE
     public function testIfEmailExists(string $email): bool
     {
-        $user = new User(null, null, $email, null, null, null, null, null, null);
-        $emailCount = $user->getEmailCount();
+        $emailCount = $this->userModel->getEmailCount($email);
         return $emailCount === 0 ? false : true;
     }
+
 }

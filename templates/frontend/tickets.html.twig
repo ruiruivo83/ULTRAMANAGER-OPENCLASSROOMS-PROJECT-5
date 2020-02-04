@@ -1,5 +1,8 @@
-{% extends "appLayout.html.twig" %}
+{% extends "_layout.html.twig" %}
 
+{% block topbar %}
+    {{ include('/backend/public_topbar.html') }}
+{% endblock %}
 
 {% block body %}
 <h2>Tickets</h2>

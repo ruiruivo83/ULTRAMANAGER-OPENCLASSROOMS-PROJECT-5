@@ -22,16 +22,45 @@ class View
         echo $this->twig->render('frontend/'.$template.'.html.twig', ['data' => $data]);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function pageBuilder($noSessionTargetPage, $content, $contentTitle)
     {
 
-        $view = file_get_contents('../src/View/frontend/appLayout.html');
+        $view = file_get_contents('../templates/_layout.html.twig');
         // $content = file_get_contents('view/frontend/pagecontent/' . $targetPage . '.html');
 
         if (isset($_SESSION["user"])) {
-            $view = str_replace("{USER_TOPBAR}", file_get_contents('../src/View/backend/user_topbar.html'), $view);
+            $view = str_replace("{USER_TOPBAR}", file_get_contents('../templates/backend/user_topbar.html'), $view);
             $view = str_replace("{FRONTPAGE_TOPBAR}", "", $view);
-            $view = str_replace("{SIDEBAR}", file_get_contents('../src/View/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}", file_get_contents('../templates/backend/sidebar.html'), $view);
 
             // USER INFO
             $view = str_replace("{FIRST_NAME}", $_SESSION['user']->getFirstname() . "&nbsp", $view);
@@ -39,7 +68,7 @@ class View
             // REPLACE TOTALS
             // TODO
             // REPLACE CONTENT TITLE
-            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../src/View/backend/content/content_title.html'), $view);
+            $view = str_replace("{CONTENT_TITLE}", file_get_contents('../templates/backend/content/content_title.html'), $view);
             $view = str_replace("{CONTENT_TITLE_text}", $contentTitle, $view);
             // REPLACE CONTENT
             //...
@@ -52,9 +81,9 @@ class View
         } else {
             //
             $view = str_replace("{USER_TOPBAR}", "", $view);
-            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../src/View/backend/frontpage_topbar.html'), $view);
+            $view = str_replace("{FRONTPAGE_TOPBAR}", file_get_contents('../templates/backend/public_topbar.html'), $view);
             //
-            $view = str_replace("{SIDEBAR}",  file_get_contents('../src/View/backend/sidebar.html'), $view);
+            $view = str_replace("{SIDEBAR}",  file_get_contents('../templates/backend/sidebar.html'), $view);
             //
             $view = str_replace("{CONTENT_TITLE}", "", $view);
             if (isset($_GET['action']) and $_GET['action'] == 'register') {
@@ -62,7 +91,7 @@ class View
             } else  if (isset($_GET['action']) and $_GET['action'] == 'login') {
                 $view = str_replace("{CONTENT}", $noSessionTargetPage, $view);
             } else {
-                $dashboard = file_get_contents('../src/View/frontend/pagecontent/dashboard.html');
+                $dashboard = file_get_contents('../templates/frontend/pagecontent/noLoginFrontPage.html.twig');
                 $view = str_replace("{CONTENT}", $dashboard, $view);
             }
         }

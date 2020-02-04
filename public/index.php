@@ -62,9 +62,11 @@ class Router
             // INDEX PAGE
             if ($_GET['action'] == 'index') {
                 if (isset($_SESSION["user"])) {
+                    // IF SESSION IS OPEN
                     $indexController->dashboard();
                 } else {
-                    header('Location: ../index.php');
+                    // IF SESSION IS NOT OPEN
+                    $indexController->noLoginFrontPage();
                 }
             }
 
@@ -362,7 +364,8 @@ class Router
         } else  if (isset($_SESSION["user"])) {
             $indexController->dashboard();
         } else {
-            $indexController->frontPage();
+            // IF SESSION IS NOT OPEN
+            $indexController->noLoginFrontPage();
         }
     }
 }

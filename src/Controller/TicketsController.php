@@ -47,6 +47,7 @@ class TicketsController
         // $view->pageBuilder(null, $content, $contentTitle);
         // ADD THIS TO CONTROLLER IN OUR PROJECT
         // Render 'page' and 'Table with data'
+
         $view->render("ticket", ['ticket' => '5']);
     }
 

@@ -52,6 +52,28 @@ class GroupModel
         return $result;        
     }
 
+
+
+
+
+
+
+
+
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+
+
     public function createNewGroup()
     {       
         $currentUser = $_SESSION['user']->getEmail();

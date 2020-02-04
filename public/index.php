@@ -61,6 +61,7 @@ class Router
 
             // INDEX PAGE
             if ($_GET['action'] == 'index') {
+
                 if (isset($_SESSION["user"])) {
                     // IF SESSION IS OPEN
                     $indexController->dashboard();
@@ -98,10 +99,10 @@ class Router
                 }
             }
 
-            // GROUPS PAGE
-            if ($_GET['action'] == 'groups') {
+            // MY GROUPS PAGE
+            if ($_GET['action'] == 'mygroups') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groups();
+                    $groupsController->myGroups();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -314,7 +315,6 @@ class Router
                 }
             }
 
-
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
             ////////////////////////////////////////////////////////////////////
@@ -342,7 +342,6 @@ class Router
                 }
             }
 
-
             // createGroupFunction FUNCTION
             if ($_GET['action'] == 'creategroupfunction') {
                 if (isset($_SESSION["user"])) {
@@ -361,7 +360,8 @@ class Router
                     header('Location: ../index.php');
                 }
             }
-        } else  if (isset($_SESSION["user"])) {
+
+        } else if (isset($_SESSION["user"])) {
             $indexController->dashboard();
         } else {
             // IF SESSION IS NOT OPEN

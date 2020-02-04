@@ -43,7 +43,10 @@
 
                                                             <hr>
                                                         </div>
-                                                        <!--{MESSAGEALERT}-->
+                                                        {% if message %}
+                                                            <div class="alert alert-danger " role="alert"> {{ message }}
+                                                            </div>
+                                                        {% endif %}
                                                         <br>
                                                         <div class="login_div_credentials_email">
                                                             <div>eMail:</div>

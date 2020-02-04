@@ -10,6 +10,13 @@ use App\Model\UserModel;
 class UserController
 {
 
+    private $view;
+
+    public function __construct()
+    {
+        $this->view = new View();
+    }
+
     // LOGIN VALIDATION FOR THE MAIN LOGIN
     public function loginValidation()
     {
@@ -19,36 +26,21 @@ class UserController
             $login_password = $_POST["password"];
             $userModel = new UserModel();
             $userModel = $userModel->getUserByEmail($login_email);
+            //
             if ($userModel != null) {
                 foreach ($userModel as $user) {
                     if (password_verify($login_password, $user->getPsw())) {   // IF PASSWORD IS OK
                         //// IMPORTANT
                         //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
-                        $_SESSION['user'] = $this->user;
+                        $_SESSION['user'] = $user;
                         header('Location: ../index.php');
+                        exit();
                     } else {
-                        $message = '<div class="alert alert-danger " role="alert">PASSWORD DO NOT MATCH</div>';
-
-                        $appLayout = file_get_contents('../src/view/frontend/appLayout.html');
-                        $content = file_get_contents('../src/view/frontend/pagecontent/login.html.twig');
-                        $view = new View;
-                        $view->pageBuilder(null, $appLayout, $content);
-
-                        $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
-                        echo $view;
+                        $this->view->render("login", ['message' => "PASSWORD DO NOT MATCH"]);
                     }
                 }
-
             } else {
-                $message = '<div class="alert alert-danger " role="alert">INVALID EMAIL ACCOUNT</div>';
-
-                $appLayout = file_get_contents('../src/view/frontend/appLayout.html');
-                $content = file_get_contents('../src/view/frontend/pagecontent/login.html.twig');
-                $view = new View;
-                $view->pageBuilder(null, $appLayout, $content);
-
-                // $view = str_replace("<!--{MESSAGEALERT}-->", $message, $view);
-                // echo $view;
+                $this->view->render("login", ['message' => "INVALID EMAIL ACCOUNT"]);
             }
         }
     }
@@ -76,6 +68,7 @@ class UserController
                 // Add User to Database
                 $user->createNewUser();
                 header('Location: ../index.php');
+                exit();
             }
         }
     }
@@ -85,6 +78,7 @@ class UserController
     {
         session_destroy();
         header('Location: ../index.php');
+        exit();
     }
 
     // TEST IF MAIL EXISTS IN THE DATABASE
@@ -93,6 +87,5 @@ class UserController
         $user = new User(null, null, $email, null, null, null, null, null, null);
         $emailCount = $user->getEmailCount();
         return $emailCount === 0 ? false : true;
-        // return $emailCount === 0 ? false : true;
     }
 }

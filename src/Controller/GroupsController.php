@@ -65,6 +65,9 @@ class GroupsController
         $tableIndex = array("group_name", "group_admin", "creation_date");
         $tableTitle = array("Group Name", "Group Admin", "Creation Date");
         $result = $this->groupModel->getAllGroups();
+        var_dump($result);
+        var_dump($tableIndex);
+        var_dump($tableTitle);
         $this->view->render("globalgroups", ['results' => $result], ['tableIndex' => $tableIndex], ['tableTitle' => $tableTitle], );
     }
 

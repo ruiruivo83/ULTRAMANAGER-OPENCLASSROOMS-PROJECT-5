@@ -62,8 +62,10 @@ class GroupsController
 
     public function globalGroupsPage()
     {
+        $tableIndex = array("group_name", "group_admin", "creation_date");
+        $tableTitle = array("Group Name", "Group Admin", "Creation Date");
         $result = $this->groupModel->getAllGroups();
-        $this->view->render("globalgroups", ['groups' => $result]);
+        $this->view->render("globalgroups", ['results' => $result], ['tableIndex' => $tableIndex], ['tableTitle' => $tableTitle], );
     }
 
     public function createGroupPage()

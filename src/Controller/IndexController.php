@@ -13,7 +13,7 @@ class IndexController
     public function __construct()
     {
         $this->view = new View();
-        var_dump($_SESSION);
+        // var_dump($_SESSION);
     }
 
     // NO SESSION

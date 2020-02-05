@@ -1,0 +1,40 @@
+{% extends "_layout.html.twig" %}
+
+
+{% block topbar %}
+    {{ include('/backend/user_topbar.html') }}
+{% endblock %}
+
+{% block body %}
+    <div class="card m-1">
+        <div class="card-header">
+            <div class="w-100">
+                CREATE GROUP
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <form action="index.php?action=creategroupfunction" method="post" class="form-example">
+                <table class="table">
+                    <tbody>
+
+                    <tr>
+                        <th class="w-25"> GROUPE NAME:</th>
+                        <td><input class="w-100" type="text" name="Title" id="Title" required></td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-25"><label>GROUPE DESCRIPTION: </label></th>
+                        <td>
+                            <div class="input_text"><textarea style="height:250px;" class="w-100 p-1 " id="textarea_id"
+                                                              name="Description"></textarea></div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="form-example text-right">
+                    <input type="submit" class="btn btn-sm btn-primary m-3" value="Create Group">
+                </div>
+            </form>
+        </div>
+{% endblock %}

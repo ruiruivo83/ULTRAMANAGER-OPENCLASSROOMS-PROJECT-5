@@ -1,0 +1,61 @@
+{% extends "_layout.html.twig" %}
+
+
+{% block topbar %}
+    {{ include('/backend/user_topbar.html') }}
+{% endblock %}
+
+{% block body %}
+    <div class="card m-1">
+    <div class="card-header">
+        <div class="w-100">
+            GROUP DETAILS
+        </div>
+    </div>
+    <div class="card-body p-0">
+    <div class="w-100">
+        <a href="index.php?action=creategroup">
+            <button type="button" class="btn btn-primary btn-sm m-1">Create Ticket</button>
+        </a>
+    </div>
+    <br>
+    {% for result in results %}
+        <div class="col-md-12 ">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-4"> Group Id:</div>
+                    <div>  {{ result.id }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Group Name:</div>
+                    <div> {{ result.group_name }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Group Admin:</div>
+                    <div>  {{ result.group_admin }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"><a
+                                href="index.php?action=groupmembers&groupid={{ result.id }}">See
+                            Members...</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Status:</div>
+                    <div>  {{ result.group_status }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Creation Date:</div>
+                    <div> {{ result.creation_date }}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4"> Description:</div>
+                    <div class="block border p-1"><span>{{ result.group_description }}</span></div>
+                </div>
+            </div>
+            <br>
+        </div>
+    {% endfor %}
+
+{% endblock %}

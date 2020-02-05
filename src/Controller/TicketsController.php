@@ -45,7 +45,7 @@ class TicketsController
     public function globalTicketsPage()
     {
         $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['tickets' => $result]);
+        $this->view->render("globaltickets", ['results' => $result]);
     }
 
 

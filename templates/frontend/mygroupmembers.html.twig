@@ -9,13 +9,13 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                GLOBAL GROUPS
+                My GROUP MEMBERS
             </div>
 
         </div>
         <div class="card-body p-0">
             <div class="w-100">
-                <button type="button" class="btn btn-primary btn-sm m-1">Button</button>
+                <button type="button" class="btn btn-primary btn-sm m-1">Create Groupe</button>
 
 
             </div>
@@ -25,11 +25,17 @@
 
                 <thead>
                 <tr>
-                    <th class="th-sm">Group Id
+                    <th class="th-sm">Id
                     </th>
-                    <th class="th-sm">Group Name
+                    <th class="th-sm">FirstName
                     </th>
-                    <th class="th-sm">Group Admin
+                    <th class="th-sm">LastName
+                    </th>
+                    <th class="th-sm">eMail
+                    </th>
+                    <th class="th-sm">Company
+                    </th>
+                    <th class="th-sm">Country
                     </th>
                     <th class="th-sm">Creation Date
                     </th>
@@ -39,19 +45,28 @@
                 {% for result in results %}
                     <tr>
                         <td>  {{ result.id }}</td>
-                        <td>  {{ result.group_name }}</td>
-                        <td>  {{ result.group_admin }}</td>
+                        <td>  {{ result.firstname }}</td>
+                        <td>  {{ result.lastname }}</td>
+                        <td>  {{ result.email }}</td>
+                        <td>  {{ result.company }}</td>
+                        <td>  {{ result.country }}</td>
                         <td>  {{ result.creation_date }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th class="th-sm">Group Id
+                    <th class="th-sm">Id
                     </th>
-                    <th class="th-sm">Group Name
+                    <th class="th-sm">FirstName
                     </th>
-                    <th class="th-sm">Group Admin
+                    <th class="th-sm">LastName
+                    </th>
+                    <th class="th-sm">eMail
+                    </th>
+                    <th class="th-sm">Company
+                    </th>
+                    <th class="th-sm">Country
                     </th>
                     <th class="th-sm">Creation Date
                     </th>

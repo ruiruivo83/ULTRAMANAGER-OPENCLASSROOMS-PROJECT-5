@@ -19,6 +19,7 @@ class View
 
     public function render(string $template, array $data): void
     {
+
         echo $this->twig->render('frontend/'.$template.'.html.twig', $data);
     }
 

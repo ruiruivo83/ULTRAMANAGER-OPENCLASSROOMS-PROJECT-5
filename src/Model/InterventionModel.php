@@ -29,18 +29,5 @@ class InterventionModel
         return $result;
     }
 
-    /*
-    public function getinterventions($status)
-    {
-        $bdd = Database::getBdd();
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM ticket_interventions WHERE intervention_author = '$currentUser' ORDER BY intervention_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $Result = $req->fetchall();
-        return $Result;
-    }
-    */
+
 }

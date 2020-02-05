@@ -2,13 +2,18 @@
 
 
 {% block topbar %}
-    <h1>Bonjour</h1>
     {{ include('/backend/user_topbar.html') }}
 {% endblock %}
 
 {% block body %}
-    <h1>GLOBAL GROUPS</h1>
-    {% for group in groups %}
-        - {{ group.group_name }}
-    {% endfor %}
+    <div class="card m-1">
+        <div class="card-header">
+            <h6>GLOBAL GROUPS</h6>
+        </div>
+        <div class="card-body">
+            {% for group in groups %}
+                - {{ group.group_name }}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

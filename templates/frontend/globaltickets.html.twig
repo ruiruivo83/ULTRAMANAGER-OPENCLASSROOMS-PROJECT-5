@@ -2,13 +2,18 @@
 
 
 {% block topbar %}
-    <h1>Bonjour</h1>
     {{ include('/backend/user_topbar.html') }}
 {% endblock %}
 
 {% block body %}
-    <h1>GLOBAL TICKETS</h1>
-    {% for ticket in tickets %}
-        - {{ ticket.title }}
-    {% endfor %}
+    <div class="card m-1">
+        <div class="card-header">
+            <h6>GLOBAL TICKETS</h6>
+        </div>
+        <div class="card-body">
+            {% for ticket in tickets %}
+                - {{ ticket.title }}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

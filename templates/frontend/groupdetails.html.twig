@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
@@ -47,20 +48,16 @@
         </div>
     </div>
 
-
-
-
-
     <div class="card m-1">
     <div class="card-header">
         <div class="w-100">
-            TICKETS
+            GROUP TICKETS
         </div>
     </div>
 
     <div class="card-body p-0">
         <div class="w-100">
-            {% for result in groupresults %}
+            {% for result in ticketresults %}
             <a href="index.php?action=createticket&groupid={{ result.id }}">
                 {% endfor %}
                 <button type="button" class="btn btn-primary btn-sm m-1">Create Ticket</button>
@@ -86,6 +83,8 @@
                 </th>
                 <th class="th-sm">Author
                 </th>
+                <th class="th-sm">
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -97,6 +96,8 @@
                     <td>  {{ result.title }}</td>
                     <td>  {{ result.description }}</td>
                     <td>  {{ result.author }} </td>
+                    <td><a class="mr-2" href="index.php?action=ticketdetails&id={{ result.id }}"><i
+                                    class="fas fa-lg fa-info-circle"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -114,10 +115,11 @@
                 </th>
                 <th class="th-sm">Author
                 </th>
+                <th class="th-sm">
+                </th>
             </tr>
             </tfoot>
         </table>
     </div>
-
 
 {% endblock %}

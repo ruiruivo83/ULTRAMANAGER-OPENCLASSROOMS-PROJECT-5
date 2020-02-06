@@ -37,7 +37,7 @@ class GroupsController
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
-            $this->view->render("groupdetails", ['groupresults' => $groupResult], ['ticketresults' => $ticketResults]);
+            $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
             echo "Missiong ID";
             exit();

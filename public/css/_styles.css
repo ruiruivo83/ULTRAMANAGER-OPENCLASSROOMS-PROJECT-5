@@ -10,11 +10,11 @@ table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:be
     display: none;
 }
 
-table.dataTable thead .sorting:before{
+table.dataTable thead .sorting:before {
     display: none;
 }
 
-table.dataTable thead .sorting:after{
+table.dataTable thead .sorting:after {
     display: none;
 }
 
@@ -23,6 +23,32 @@ table.dataTable thead .sorting:after{
     margin-top: 10px;
     width: 100%;
     height: 200px;
+}
+
+.dataTables_filter {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.dataTables_length {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.table .odd:hover {
+    background-color: #e2e8ed;
+}
+
+.table .even:hover {
+    background-color: #e2e8ed;
+}
+
+.dataTables_paginate {
+    padding-bottom: 10px;
+}
+
+tr:hover {
+    background-color: #e2e8ed;
 }
 
 

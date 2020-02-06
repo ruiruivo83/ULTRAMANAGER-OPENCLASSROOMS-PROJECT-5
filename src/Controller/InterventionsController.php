@@ -28,7 +28,6 @@ class InterventionsController
     public function globalInterventionsPage()
     {
         $result = $this->interventionModel->getAllInterventions();
-
         $this->view->render("globalinterventions", ['interventions' => $result]);
     }
 

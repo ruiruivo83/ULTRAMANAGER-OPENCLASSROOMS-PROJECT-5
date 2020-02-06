@@ -14,11 +14,13 @@ class TicketsController
 {
     private $view;
     private $ticketModel;
+    private $groupModel;
 
     public function __construct()
     {
         $this->view = new View;
-        $this->ticketModel = new TicketModel;
+        $this->ticketModel = new TicketModel();
+        $this->groupModel = new GroupModel();
     }
 
     // DISPLAY PAGE - TICKETS PAGE
@@ -45,31 +47,35 @@ class TicketsController
     public function globalTicketsPage()
     {
         $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['tickets' => $result]);
+        $this->view->render("globaltickets", ['results' => $result]);
     }
 
 
     // DISPLAY PAGE - Create Ticket Page
     public function createTicketPage()
     {
-        $contentTitle = "Create New Ticket";
-        // TODO
-        $content = file_get_contents('../src/View/backend/content/newticket.html');
-        $content = str_replace("{TICKET_TYPE}", "(Private)", $content);
-        //  {MY_GROUP_LIST}
-        $content = str_replace("{MY_GROUP_LIST}", $this->getMyCompiledGroupList(), $content);
-        $view = new View;
-        // $view->pageBuilder(null, $content, $contentTitle);
-        $view->render("ticket", ['ticket' => '5']);
+        $groupName = "";
+        if (isset($_GET['groupid'])) {
+            $group = $this->groupModel->getGroupDetails(intval($_GET['groupid']));
+            foreach ($group as $key) {
+                $groupName = $key->getGroup_name();
+            }
+            $groupId = $_GET['groupid'];
+            var_dump($groupId);
+            var_dump($groupName);
+            $this->view->render("createticket", ['groupid' => $groupId, 'groupname' => $groupName]);
+        } else {
+            echo "Missiong ID";
+            exit();
+        }
     }
 
 
     public function createTicketFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_POST["Group"])) {
-            $TicketModel = new TicketModel();
-            $TicketModel->createNewTicket();
-            header('Location: ../index.php?action=tickets');
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_GET['groupid'])) {
+            $this->ticketModel->createNewTicket();
+            header('Location: ../index.php?action=groupdetails&id='. $_GET['groupid']);
             exit();
         }
     }

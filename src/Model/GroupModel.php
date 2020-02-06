@@ -24,9 +24,8 @@ class GroupModel
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;     
-        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
-        return $result;
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
     public function getMyGroups(): array
@@ -36,9 +35,8 @@ class GroupModel
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;      
-        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
-        return $result;
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
     public function getGroupDetails(int $id)
@@ -47,9 +45,8 @@ class GroupModel
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
-        // die;        
-        $result = $req->fetchall(PDO::FETCH_CLASS, Group::class);
-        return $result;        
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
 

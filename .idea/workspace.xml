@@ -43,8 +43,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model\entity" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model\entity" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -81,7 +81,7 @@
       <workItem from="1580485495029" duration="7166000" />
       <workItem from="1580727408466" duration="1936000" />
       <workItem from="1580818542034" duration="1012000" />
-      <workItem from="1580822641981" duration="15582000" />
+      <workItem from="1580822641981" duration="17753000" />
     </task>
     <servers />
   </component>
@@ -117,19 +117,19 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044705200" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1580841112456">
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1580981197261">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580841112456" />
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580981197261" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1580822643305">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580822643305" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579700843155" />
-    <state x="2576" y="256" width="607" height="536" key="find.popup" timestamp="1580833010868">
+    <state x="2576" y="256" width="607" height="536" key="find.popup" timestamp="1580978367465">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2576" y="256" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580833010868" />
+    <state x="2576" y="256" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580978367465" />
   </component>
 </project>

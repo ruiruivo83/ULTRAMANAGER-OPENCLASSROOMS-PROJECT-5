@@ -25,7 +25,7 @@ class GroupsController
     public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
-        $this->view->render("groups", ['groups' => $result]);
+        $this->view->render("mygroups", ['results' => $result]);
     }
 
 
@@ -33,21 +33,28 @@ class GroupsController
     public function groupDetailsPage()
     {
         if (isset($_GET['id'])) {
-            $groupModel = $this->groupModel->getGroupDetails(intval($_GET['id']));
-            foreach ($groupModel as $value) {
-                $result = $this->ticketModel->getTicketsWithGroupId($value->getId());
+            $groupResult = $this->groupModel->getGroupDetails(intval($_GET['id']));
+            foreach ($groupResult as $group) {
+                $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
-            $this->view->render("groupdetails", ['groupdetails' => $result]);
+            $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
             echo "Missiong ID";
             exit();
         }
     }
 
-    // DISPLAY PAGE - TICKET DETAILS
-    public function groupMembersPage()
+    // DISPLAY PAGE - Ticket Details
+    public function myGroupMembersPage()
     {
-
+        echo "MyGroupMembers Page";
+        die();
+        $result = $this->groupModel->getMyGroupMembers();
+        foreach ($result as $mygroup){
+            // getmembers
+            //merge with my members all list
+        }
+        $this->view->render("mygroups", ['results' => $result]);
     }
 
     public function memberDetails()
@@ -63,12 +70,12 @@ class GroupsController
     public function globalGroupsPage()
     {
         $result = $this->groupModel->getAllGroups();
-        $this->view->render("globalgroups", ['groups' => $result]);
+        $this->view->render("globalgroups", ['results' => $result]);
     }
 
     public function createGroupPage()
     {
-
+        $this->view->render("creategroup", []);
     }
 
     public function createGroupFunction()
@@ -83,7 +90,7 @@ class GroupsController
             $GroupModel = new GroupModel(null, $group_admin, null, $title, $description, $group_status);
             // Execute method addTicket
             $GroupModel->createNewGroup();
-            header('Location: ../index.php?action=groups');
+            header('Location: ../index.php?action=mygroups');
             // exit();
         }
     }

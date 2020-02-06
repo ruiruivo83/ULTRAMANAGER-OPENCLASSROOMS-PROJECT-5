@@ -49,7 +49,7 @@ class TicketModel
     {
         $currentUser = $_SESSION['user']->getEmail();
         $req = $this->bdd->prepare("INSERT INTO tickets( author, requester, status, creation_date, title, description, group_id ) values (?,?,?, NOW(), ?, ?, ?) ");
-        $req->execute(array($currentUser, $_POST['Requester'], "open", $_POST['Title'], $_POST['Description'], $_POST['GroupId']));
+        $req->execute(array($currentUser, $_POST['Requester'], "open", $_POST['Title'], $_POST['Description'], $_GET['groupid']));
         // DEBUG
         // $req->debugDumpParams();
         // die;

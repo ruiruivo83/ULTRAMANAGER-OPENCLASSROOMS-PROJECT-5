@@ -118,9 +118,9 @@ class Router
             }
 
             // GROUPMEMBERS PAGE
-            if ($_GET['action'] == 'groupmembers') {
+            if ($_GET['action'] == 'mygroupmembers') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->groupMembersPage();
+                    $groupsController->myGroupMembersPage();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -145,9 +145,9 @@ class Router
             }
 
             // MEMBER DETAILS PAGE
-            if ($_GET['action'] == 'memberdetails') {
+            if ($_GET['action'] == 'mymemberdetails') {
                 if (isset($_SESSION["user"])) {
-                    $groupsController->memberDetails();
+                    $groupsController->myMemberDetails();
                 } else {
                     header('Location: ../index.php');
                 }
@@ -346,7 +346,6 @@ class Router
             // createGroupFunction FUNCTION
             if ($_GET['action'] == 'creategroupfunction') {
                 if (isset($_SESSION["user"])) {
-
                     $groupsController->createGroupFunction();
                 } else {
                     header('Location: ../index.php');

@@ -40,14 +40,14 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td>  {{ result.id }}</td>
-                        <td>  {{ result.group_name }}</td>
-                        <td>  {{ result.group_description }}</td>
-                        <td>  {{ result.creation_date }} </td>
+                        <td class="">  {{ result.id }} </td>
+                        <td class="">  {{ result.group_name }} </td>
+                        <td style="max-width: 100px; ">  {{ result.group_description }} </td>
+                        <td class="">  {{ result.creation_date }} </td>
                         <td class="text-md-center">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}"><i class="fas fa-lg fa-info-circle"></i></a>
                             <a class="mr-2" href="index.php?action=creategroup"><i class="fas fa-lg fa-user-friends"></i></a>
-                            <a class="mr-2" href="index.php?action=creategroup"><i class="fas fa-lg fa-window-close"  style="color:#722e31"></i></a>
+                            <a class="mr-2" href="index.php?action=creategroup"><i class="fas fa-lg fa-window-close" ></i></a>
                         </td>
                     </tr>
                 {% endfor %}

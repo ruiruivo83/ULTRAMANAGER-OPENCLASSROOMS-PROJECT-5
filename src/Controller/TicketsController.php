@@ -44,23 +44,15 @@ class TicketsController
     // DISPLAY PAGE - Global Tickets
     public function globalTicketsPage()
     {
-        $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['results' => $result]);
+        $this->view->render("createticket", []);
     }
 
 
     // DISPLAY PAGE - Create Ticket Page
     public function createTicketPage()
     {
-        $contentTitle = "Create New Ticket";
-        // TODO
-        $content = file_get_contents('../src/View/backend/content/newticket.html');
-        $content = str_replace("{TICKET_TYPE}", "(Private)", $content);
-        //  {MY_GROUP_LIST}
-        $content = str_replace("{MY_GROUP_LIST}", $this->getMyCompiledGroupList(), $content);
-        $view = new View;
-        // $view->pageBuilder(null, $content, $contentTitle);
-        $view->render("ticket", ['ticket' => '5']);
+        $result = $this->ticketModel->getAllTickets();
+        $this->view->render("globaltickets", ['results' => $result]);
     }
 
 

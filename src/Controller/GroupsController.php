@@ -33,8 +33,11 @@ class GroupsController
     public function groupDetailsPage()
     {
         if (isset($_GET['id'])) {
-            $result = $this->groupModel->getGroupDetails(intval($_GET['id']));
-            $this->view->render("groupdetails", ['results' => $result]);
+            $groupResult = $this->groupModel->getGroupDetails(intval($_GET['id']));
+            foreach ($groupResult as $group) {
+                $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
+            }
+            $this->view->render("groupdetails", ['groupresults' => $groupResult], ['ticketresults' => $ticketResults]);
         } else {
             echo "Missiong ID";
             exit();

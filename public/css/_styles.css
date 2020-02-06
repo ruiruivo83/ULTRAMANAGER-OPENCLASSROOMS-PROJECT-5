@@ -47,5 +47,8 @@ table.dataTable thead .sorting:after {
     padding-bottom: 10px;
 }
 
+tr:hover {
+    background-color: #e2e8ed;
+}
 
 

@@ -44,15 +44,15 @@ class TicketsController
     // DISPLAY PAGE - Global Tickets
     public function globalTicketsPage()
     {
-        $this->view->render("createticket", []);
+        $result = $this->ticketModel->getAllTickets();
+        $this->view->render("globaltickets", ['results' => $result]);
     }
 
 
     // DISPLAY PAGE - Create Ticket Page
     public function createTicketPage()
     {
-        $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['results' => $result]);
+        $this->view->render("createticket", []);
     }
 
 

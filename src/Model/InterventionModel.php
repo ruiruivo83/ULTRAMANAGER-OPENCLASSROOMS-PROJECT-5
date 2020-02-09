@@ -25,9 +25,7 @@ class InterventionModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
-        return $result;
+        return $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
     }
-
 
 }

@@ -310,7 +310,7 @@ class Router
             // CREATE INTERVENTION PAGE             
             if ($_GET['action'] == 'createintervention') {
                 if (isset($_SESSION["user"])) {
-                    $interventionsController->createInterventionsPage();
+                    $interventionsController->createInterventionPage();
                 } else {
                     header('Location: ../index.php');
                 }

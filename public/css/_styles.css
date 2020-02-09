@@ -51,4 +51,17 @@ tr:hover {
     background-color: #e2e8ed;
 }
 
+.overflow-ellipsis {
+    text-overflow: ellipsis;
+}
 
+.min-width-10p {
+    min-width: 10%;
+}
+
+.table_text_overflow_ellipsis {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

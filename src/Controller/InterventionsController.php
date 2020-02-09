@@ -47,9 +47,10 @@ class InterventionsController
     }
 
 
-    public function createInterventionsPage()
+    public function createInterventionPage()
     {
-
+        $result = $this->interventionModel->getAllInterventions();
+        $this->view->render("createintervention", ['interventions' => $result]);
     }
 
 

@@ -10,7 +10,7 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                GROUP DETAILS
+                <i class="fas fa-user-friends fa-2x mr-3"></i>GROUP DETAILS
             </div>
         </div>
         <div class="card-body p-0">
@@ -90,14 +90,13 @@
             <tbody>
             {% for result in ticketresults %}
                 <tr>
-                    <td>  {{ result.id }}</td>
+                    <td><i class="fas fa-ticket-alt mr-3"></i>  {{ result.id }}</td>
                     <td>  {{ result.creation_date }}</td>
                     <td>  {{ result.requester }}</td>
                     <td>  {{ result.title }}</td>
                     <td>  {{ result.description }}</td>
                     <td>  {{ result.author }} </td>
-                    <td><a class="mr-2" href="index.php?action=ticketdetails&id={{ result.id }}"><i
-                                    class="fas fa-lg fa-info-circle"></i></a></td>
+                    <td><a class="mr-2" href="index.php?action=ticketdetails&id={{ result.id }}">Info</a></td>
                 </tr>
             {% endfor %}
             </tbody>

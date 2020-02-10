@@ -1,7 +1,10 @@
 <?php
-require 'model/database.php';
 
-class GroupMember
+declare(strict_types=1);
+
+namespace App\Model\Entity;
+
+class Member
 {
 
     // Variables en Private pour ne pas les modifier depuis l'exterieur de la class, seulement le "getter" peux les lir depuis l'exterieur.
@@ -9,17 +12,9 @@ class GroupMember
     private $group_id;
     private $member_email;
 
-    // CONSTRUCT
-    public function __construct($id, $group_id, $member_email)
-    {
-        $this->id = $id;
-        $this->group_id = $group_id;
-        $this->member_email = $member_email;
-    }
-
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -29,7 +24,7 @@ class GroupMember
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -39,7 +34,7 @@ class GroupMember
 
     /**
      * Get the value of group_id
-     */ 
+     */
     public function getGroup_id()
     {
         return $this->group_id;
@@ -49,7 +44,7 @@ class GroupMember
      * Set the value of group_id
      *
      * @return  self
-     */ 
+     */
     public function setGroup_id($group_id)
     {
         $this->group_id = $group_id;
@@ -59,7 +54,7 @@ class GroupMember
 
     /**
      * Get the value of member_email
-     */ 
+     */
     public function getMember_email()
     {
         return $this->member_email;
@@ -69,7 +64,7 @@ class GroupMember
      * Set the value of member_email
      *
      * @return  self
-     */ 
+     */
     public function setMember_email($member_email)
     {
         $this->member_email = $member_email;

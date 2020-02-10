@@ -118,6 +118,15 @@ class Router
             }
 
             // GROUPMEMBERS PAGE
+            if ($_GET['action'] == 'groupmembers') {
+                if (isset($_SESSION["user"])) {
+                    $groupsController->groupMembersPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
+            // MYGROUPMEMBERS PAGE
             if ($_GET['action'] == 'mygroupmembers') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->myGroupMembersPage();

@@ -7,17 +7,20 @@ namespace App\Controller;
 use App\View\View;
 use App\Model\GroupModel;
 use App\Model\TicketModel;
+use App\Model\MemberModel;
 
 class GroupsController
 {
     private $view;
     private $groupModel;
+    private $memberModel;
     private $ticketModel;
 
     public function __construct()
     {
         $this->view = new View();
         $this->groupModel = new GroupModel();
+        $this->memberModel = new MemberModel();
         $this->ticketModel = new TicketModel();
     }
 
@@ -39,7 +42,19 @@ class GroupsController
             }
             $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
-            echo "Missiong ID";
+            echo "Missing ID";
+            exit();
+        }
+    }
+
+    public function groupMembersPage()
+    {
+        if (isset($_GET['groupid'])) {
+
+            $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
+            $this->view->render("groupmembers", ['memberresults' => $groupMembers]);
+        } else {
+            echo "Missing Group ID";
             exit();
         }
     }
@@ -50,7 +65,7 @@ class GroupsController
         echo "MyGroupMembers Page";
         die();
         $result = $this->groupModel->getMyGroupMembers();
-        foreach ($result as $mygroup){
+        foreach ($result as $mygroup) {
             // getmembers
             //merge with my members all list
         }

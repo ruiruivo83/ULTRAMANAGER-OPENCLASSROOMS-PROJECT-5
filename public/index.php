@@ -78,6 +78,7 @@ class Router
                 } else {
                     // TODO
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -87,6 +88,7 @@ class Router
                     $profileController->profilePage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -96,6 +98,7 @@ class Router
                     $settingsController->settingsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -105,6 +108,7 @@ class Router
                     $groupsController->myGroupsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -114,6 +118,7 @@ class Router
                     $groupsController->groupDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -123,6 +128,7 @@ class Router
                     $groupsController->groupMembersPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -132,6 +138,7 @@ class Router
                     $groupsController->myGroupMembersPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -141,6 +148,7 @@ class Router
                     $groupsController->sharedGroupsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -150,6 +158,7 @@ class Router
                     $groupsController->sharedGroupMembersPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -159,6 +168,7 @@ class Router
                     $groupsController->myMemberDetails();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -168,6 +178,7 @@ class Router
                     $groupsController->sharedMemberDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -177,6 +188,7 @@ class Router
                     $ticketsController->ticketsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -186,6 +198,7 @@ class Router
                     $ticketsController->ticketDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -196,6 +209,7 @@ class Router
                     ();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -205,6 +219,7 @@ class Router
                     $ticketsController->sharedTicketDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -214,6 +229,7 @@ class Router
                     $interventionsController->myInterventionsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -223,6 +239,7 @@ class Router
                     $interventionsController->interventionDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -232,6 +249,7 @@ class Router
                     $interventionsController->sharedInterventionsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -241,6 +259,7 @@ class Router
                     $interventionsController->sharedInterventionDetailsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -250,6 +269,7 @@ class Router
                     $invitationsController->invitationsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -259,6 +279,7 @@ class Router
                     $alertsController->showAllAlertsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -268,6 +289,7 @@ class Router
                     $messagesController->showAllMessagesPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -277,6 +299,7 @@ class Router
                     $groupsController->globalGroupsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -286,6 +309,7 @@ class Router
                     $ticketsController->globalTicketsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -295,6 +319,7 @@ class Router
                     $interventionsController->globalInterventionsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -304,6 +329,7 @@ class Router
                     $groupsController->createGroupPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -313,6 +339,7 @@ class Router
                     $ticketsController->createTicketPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -322,15 +349,17 @@ class Router
                     $interventionsController->createInterventionPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
-            // CREATE INTERVENTION PAGE
+            // SEARCH RESULTS PAGE
             if ($_GET['action'] == 'searchuser') {
                 if (isset($_SESSION["user"])) {
                     $userController->searchUserResultsPage();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -344,6 +373,7 @@ class Router
                     $userController->logout();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
@@ -361,23 +391,51 @@ class Router
                 }
             }
 
-            // createGroupFunction FUNCTION
+            // CREATE GROUP FUNCTION
             if ($_GET['action'] == 'creategroupfunction') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->createGroupFunction();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
 
-            // createTicketFunction FUNCTION
+            // CREATE TICKET FUNCTION
             if ($_GET['action'] == 'createticketfunction') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->createTicketFunction();
                 } else {
                     header('Location: ../index.php');
+                    exit();
                 }
             }
+
+            // CREATE TICKET FUNCTION
+            if ($_GET['action'] == 'createinterventionfunction') {
+                if (isset($_SESSION["user"])) {
+                    $interventionsController->createInterventionFunction();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
+            // CREATE INVITATION FUNCTION
+            if ($_GET['action'] == 'createinvitationfunction') {
+                if (isset($_SESSION["user"])) {
+                    $invitationsController->createInvitationFunction();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
+
+
+
+
+
 
         } else if (isset($_SESSION["user"])) {
             $indexController->dashboardPage();

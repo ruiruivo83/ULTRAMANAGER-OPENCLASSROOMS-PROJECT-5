@@ -57,12 +57,12 @@
 
     <div class="card-body p-0">
         <div class="w-100">
-            {% for result in ticketresults %}
+            {% for result in groupresults %}
             <a href="index.php?action=createticket&groupid={{ result.id }}">
-                {% endfor %}
                 <button type="button" class="btn btn-primary btn-sm m-1">Create Ticket</button>
-
             </a>
+            {% endfor %}
+
         </div>
         <br>
 

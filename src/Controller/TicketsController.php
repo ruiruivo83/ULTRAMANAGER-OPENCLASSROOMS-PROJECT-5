@@ -68,8 +68,6 @@ class TicketsController
                 $groupName = $key->getGroup_name();
             }
             $groupId = $_GET['groupid'];
-            var_dump($groupId);
-            var_dump($groupName);
             $this->view->render("createticket", ['groupid' => $groupId, 'groupname' => $groupName]);
         } else {
             echo "Missiong ID";

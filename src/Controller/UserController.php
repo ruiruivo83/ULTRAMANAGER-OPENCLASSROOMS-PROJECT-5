@@ -19,6 +19,24 @@ class UserController
         $this->userModel = new UserModel();
     }
 
+    // Search User Results Page
+    public function searchUserResultsPage()
+    {
+
+
+        $result = $this->userModel->searchUsers($_POST['searchtext']);
+        $this->view->render("searchUserResults", ['results' => $result]);
+    }
+
+
+
+
+
+
+
+
+
+
     // LOGIN VALIDATION FOR THE MAIN LOGIN
     public function loginValidationFunction()
     {

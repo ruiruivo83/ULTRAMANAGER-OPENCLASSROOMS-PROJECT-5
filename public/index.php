@@ -325,6 +325,15 @@ class Router
                 }
             }
 
+            // CREATE INTERVENTION PAGE
+            if ($_GET['action'] == 'searchuser') {
+                if (isset($_SESSION["user"])) {
+                    $userController->searchUserResultsPage();
+                } else {
+                    header('Location: ../index.php');
+                }
+            }
+
             ////////////////////////////////////////////////////////////////////
             ////////////////////// ROUTER FUNCTIONS ////////////////////////////
             ////////////////////////////////////////////////////////////////////

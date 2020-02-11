@@ -23,9 +23,9 @@
                            placeholder="Search member"
                            aria-label="Search"
                            aria-describedby="basic-addon2"
-                           name="name">
+                           name="searchtext">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
+                        <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search fa-sm"></i>
                         </button>
                     </div>
@@ -60,9 +60,9 @@
                         </td>
                         <td class="min-width-10p">  {{ result.firstname }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.lastname }} </td>
-                        <td class="min-width-10p">  {{ result.company }} <span class="badge badge-secondary">Current Situation</span></td>
-                        <td class="min-width-10p">  {{ result.country }}  <span class="badge badge-secondary">Current Situation</span></td>
-                        <td class="min-width-10p">
+                        <td class="min-width-10p">  {{ result.company }} <span class="badge badge-info">Current Situation</span></td>
+                        <td class="min-width-10p">  {{ result.country }}  <span class="badge badge-info">Current Situation</span></td>
+                        <td class="min-width-10p"> <button>REMOVE</button>
                         </td>
                     </tr>
                 {% endfor %}

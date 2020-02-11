@@ -15,16 +15,22 @@
         </div>
         <div class="card-body p-0">
             <div class="bg-light p-1">
-                <div class="input-group" style="width: 300px;">
-                    <input type="text" class="form-control bg-white border-0 small"
-                           placeholder="Search member"
-                           aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
+                <form action="index.php?action=searchuser" method="post">
+                    <div class="input-group" style="width: 300px;">
+
+                        <input type="text"
+                               class="form-control bg-white border-0 small"
+                               placeholder="Search member"
+                               aria-label="Search"
+                               aria-describedby="basic-addon2"
+                               name="searchtext">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <!-- TABLE USER MEMBERS -->
@@ -48,15 +54,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for result in memberresults %}
+                {% for result in results %}
                     <tr>
                         <td class="min-width-10p"><i class="fas fa-user-friends mr-3"></i> {{ result.email }}
                         </td>
                         <td class="min-width-10p">  {{ result.firstname }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.lastname }} </td>
-                        <td class="min-width-10p">  {{ result.company }} <span class="badge badge-secondary">Current Situation</span></td>
-                        <td class="min-width-10p">  {{ result.country }}  <span class="badge badge-secondary">Current Situation</span></td>
-                        <td class="min-width-10p">
+                        <td class="min-width-10p">  {{ result.company }} <span class="badge badge-info">Current Situation</span></td>
+                        <td class="min-width-10p">  {{ result.country }}  <span class="badge badge-info">Current Situation</span></td>
+                        <td class="min-width-10p"> <button>INVITE</button>
                         </td>
                     </tr>
                 {% endfor %}

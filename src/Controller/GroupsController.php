@@ -55,13 +55,10 @@ class GroupsController
         if (isset($_GET['groupid'])) {
 
             $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
-            var_dump($groupMembers);
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {
                 $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->getId())));
             }
-            var_dump($memberDetailsResults);
-
             $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults]);
         } else {
             echo "Missing Group ID";

@@ -62,7 +62,7 @@ class GroupsController
             }
             var_dump($memberDetailsResults);
 
-            $this->view->render("groupmembers", ['memberresults' => $groupMembers, 'membersDetailsResults' => $memberDetailsResults]);
+            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults]);
         } else {
             echo "Missing Group ID";
             exit();

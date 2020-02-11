@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Model\Entity\Group;
 use PDO;
 use App\Model\Entity\User;
 
@@ -37,6 +36,18 @@ class UserModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
+    }
+
+    // FIND USER BY EMAIL
+    public function getUserById(int $id)
+    {
+        $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
+        $req->execute(array($id));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE

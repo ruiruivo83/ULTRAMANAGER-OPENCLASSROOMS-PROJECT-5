@@ -48,18 +48,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for result in results %}
+                {% for result in memberresults %}
+                {% for detailresult in membersDetailsResults %}
                     <tr>
                         <td class="min-width-10p"><i class="fas fa-user-friends mr-3"></i> {{ result.email }}
                         </td>
-                        <td class="min-width-10p">  {{ result.firstname }} </td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.lastname }} </td>
-                        <td class="min-width-10p">  {{ result.company }} </td>
-                        <td class="min-width-10p">  {{ result.country }} </td>
+                        <td class="min-width-10p">  {{ detailresult.firstname }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ detailresult.lastname }} </td>
+                        <td class="min-width-10p">  {{ detailresult.company }} </td>
+                        <td class="min-width-10p">  {{ detailresult.country }} </td>
                         <td class="min-width-10p">
-
                         </td>
                     </tr>
+                {% endfor %}
                 {% endfor %}
                 </tbody>
                 <tfoot>

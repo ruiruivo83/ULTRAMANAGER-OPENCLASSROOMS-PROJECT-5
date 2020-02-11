@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use App\View\View;
 use App\Model\GroupModel;
+use App\Model\UserModel;
 use App\Model\TicketModel;
 use App\Model\MemberModel;
 
@@ -15,6 +17,7 @@ class GroupsController
     private $groupModel;
     private $memberModel;
     private $ticketModel;
+    private $userModel;
 
     public function __construct()
     {
@@ -22,6 +25,7 @@ class GroupsController
         $this->groupModel = new GroupModel();
         $this->memberModel = new MemberModel();
         $this->ticketModel = new TicketModel();
+        $this->userModel = new UserModel();
     }
 
     // DISPLAY PAGE - My Groups
@@ -30,7 +34,6 @@ class GroupsController
         $result = $this->groupModel->getMyGroups();
         $this->view->render("mygroups", ['results' => $result]);
     }
-
 
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
@@ -52,7 +55,14 @@ class GroupsController
         if (isset($_GET['groupid'])) {
 
             $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
-            $this->view->render("groupmembers", ['memberresults' => $groupMembers]);
+            var_dump($groupMembers);
+            $memberDetailsResults = array();
+            foreach ($groupMembers as $member) {
+                $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->getId())));
+            }
+            var_dump($memberDetailsResults);
+
+            $this->view->render("groupmembers", ['memberresults' => $groupMembers, 'membersDetailsResults' => $memberDetailsResults]);
         } else {
             echo "Missing Group ID";
             exit();

@@ -9,15 +9,15 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                <i class="fas fa-search mr-3 fa-2x"></i>Search Results
+                <i class="fas fa-user-friends mr-3 fa-2x"></i>
+                GROUP: {{ groupid }} - GROUP MEMBERS
             </div>
 
         </div>
         <div class="card-body p-0">
             <div class="bg-light p-1">
-                <form action="index.php?action=searchuser" method="post">
+                <form action="index.php?action=searchuser&groupid={{ groupid }}" method="post">
                     <div class="input-group" style="width: 300px;">
-
                         <input type="text"
                                class="form-control bg-white border-0 small"
                                placeholder="Search member"
@@ -60,17 +60,16 @@
                         </td>
                         <td class="min-width-20p">  {{ result.firstname }} </td>
                         <td class="">  {{ result.lastname }} </td>
-                        <td class="min-width-20p">  {{ result.company }} <span class="badge badge-info">Current Situation</span></td>
-                        <td class="min-width-20p">  {{ result.country }}  <span class="badge badge-info">Current Situation</span></td>
+                        <td class="min-width-20p">  {{ result.company }} <span class="badge badge-info">Current Situation</span>
+                        </td>
+                        <td class="min-width-20p">  {{ result.country }} <span class="badge badge-info">Current Situation</span>
+                        </td>
                         <td class="min-width-10p">
-                            <form action="index.php?action=searchuser" method="post">
-                                <div class="input-group" style="width: 300px;">
-                                        <button class="btn btn-primary btn-xs" type="submit">
-                                           INVITE
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <a href="index.php?action=createinvitationfunction&groupid={{ groupid }}&memberid={{ result.id }}">
+                                <button class="btn btn-primary btn-xs" type="submit">
+                                    INVITE
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -31,7 +31,7 @@ class UserModel
     public function searchUsers(string $searchtext): array
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE ( LOWER(firstname) Like  LOWER(?)) OR ( LOWER(lastname) like  LOWER(?)) OR  (LOWER(email) like  LOWER(?))");
-        $req->execute(array("%".$searchtext."%", "%".$searchtext."%", "%".$searchtext."%"));
+        $req->execute(array("%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%"));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -71,5 +71,19 @@ class UserModel
         // die;
         return $req->rowCount();
     }
+
+    // CREATE NEW USER
+    public function createInvitation()
+    {
+
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
+        $req->execute(array($currentUser, $_GET['memberid'], $_GET['groupid']));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
+
+
 
 }

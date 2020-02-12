@@ -22,19 +22,10 @@ class UserController
     // Search User Results Page
     public function searchUserResultsPage()
     {
-
-
+        $groupid = $_GET['groupid'];
         $result = $this->userModel->searchUsers($_POST['searchtext']);
-        $this->view->render("searchUserResults", ['results' => $result]);
+        $this->view->render("searchUserResults", ['results' => $result, 'groupid' => $groupid]);
     }
-
-
-
-
-
-
-
-
 
 
     // LOGIN VALIDATION FOR THE MAIN LOGIN

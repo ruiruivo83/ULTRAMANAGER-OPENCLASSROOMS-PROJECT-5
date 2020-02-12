@@ -132,15 +132,7 @@ class Router
                 }
             }
 
-            // MYGROUPMEMBERS PAGE
-            if ($_GET['action'] == 'mygroupmembers') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->myGroupMembersPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
+
 
             // SHARED GROUPS PAGE
             if ($_GET['action'] == 'sharedgroups') {

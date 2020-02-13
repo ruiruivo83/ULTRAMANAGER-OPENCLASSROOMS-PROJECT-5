@@ -17,16 +17,6 @@ class InvitationModel
         $this->bdd = Database::getBdd();
     }
 
-    // CREATE NEW INVITATION
-    public function createInvitation()
-    {
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
-        $req->execute(array($currentUser, $_GET['memberemail'], $_GET['groupid']));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
 
     public function getInvitationsFromMe(): array
     {
@@ -37,6 +27,17 @@ class InvitationModel
         // $req->debugDumpParams();
         // die;
         return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
+    }
+
+    // CREATE NEW INVITATION
+    public function createInvitation()
+    {
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
+        $req->execute(array($currentUser, $_GET['memberemail'], $_GET['groupid']));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
     }
 
     public function getInvitationsForMe(): array

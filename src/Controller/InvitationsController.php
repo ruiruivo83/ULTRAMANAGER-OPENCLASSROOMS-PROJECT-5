@@ -22,13 +22,8 @@ class InvitationsController
     public function invitationsPage()
     {
         $invitationsFromMe = $this->invitationModel->getInvitationsFromMe();
-
-        // $invitationsForMe = $this->invitationModel->getInvitationsForMe();
         var_dump($invitationsFromMe);
-        // var_dump($invitationsForMe);
-        // REMOVE UNDERSCORES FROM KEYS
-
-        $this->view->render("invitations", ['invitationsisent' => $invitationsFromMe]);
+        $this->view->render("invitations", ['invitationsFromMe' => $invitationsFromMe]);
     }
 
     public function createInvitationFunction()

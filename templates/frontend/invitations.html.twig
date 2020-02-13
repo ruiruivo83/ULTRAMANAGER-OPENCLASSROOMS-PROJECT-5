@@ -20,8 +20,7 @@
                    width="100%">
                 <thead>
                 <tr>
-                    <th class="th-sm">ID
-                    </th>
+
                     <th class="th-sm">From
                     </th>
                     <th class="th-sm">To
@@ -35,25 +34,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- {% for invitation in invitationsisent %} -->
-                {% for key, value in invitationsisent|cast_to_array  %}
-                        <tr>
-                            <td> {{ invitation.id }} </td>
-                            <td> {{ invitation.invitation_from }} </td>
-                            <td>  {{ invitation.invitation_to }} </td>
-                            <td>  {{ invitation.invitation_date }} </td>
-                            <td>  {{ invitation.invitation_for_group_id }} </td>
-                            <td>
-                                <a href="#">DELETE</a>
-                            </td>
-                        </tr>
+                {% for invitation in invitationsFromMe %}
+                    <tr>
 
+                        <td> {{ invitation.invitation_from }} </td>
+                        <td>  {{ invitation.invitation_to }} </td>
+                        <td>  {{ invitation.invitation_date }} </td>
+                        <td>  {{ invitation.invitation_for_group_id }} </td>
+                        <td>
+                            <a href="#">DELETE</a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th class="th-sm">ID
-                    </th>
+
                     <th class="th-sm">From
                     </th>
                     <th class="th-sm">To

@@ -9,10 +9,10 @@ class Invitation
 
     // Variables en Private pour ne pas les modifier depuis l'exterieur de la class, seulement le "getter" peux les lir depuis l'exterieur.
     private $id;
-    private $invitation_from;
-    private $invitation_to;
-    private $invitation_date;
-    private $invitation_for_group_id;
+    private $invitationFrom;
+    private $invitationTo;
+    private $invitationDate;
+    private $invitationForGroupId;
 
     /**
      * @return mixed
@@ -35,15 +35,15 @@ class Invitation
      */
     public function getInvitationFrom()
     {
-        return $this->invitation_from;
+        return $this->invitationFrom;
     }
 
     /**
-     * @param mixed $invitation_from
+     * @param mixed $invitationFrom
      */
-    public function setInvitationFrom($invitation_from): void
+    public function setInvitationFrom($invitationFrom): void
     {
-        $this->invitation_from = $invitation_from;
+        $this->invitationFrom = $invitationFrom;
     }
 
     /**
@@ -51,15 +51,15 @@ class Invitation
      */
     public function getInvitationTo()
     {
-        return $this->invitation_to;
+        return $this->invitationTo;
     }
 
     /**
-     * @param mixed $invitation_to
+     * @param mixed $invitationTo
      */
-    public function setInvitationTo($invitation_to): void
+    public function setInvitationTo($invitationTo): void
     {
-        $this->invitation_to = $invitation_to;
+        $this->invitationTo = $invitationTo;
     }
 
     /**
@@ -67,15 +67,15 @@ class Invitation
      */
     public function getInvitationDate()
     {
-        return $this->invitation_date;
+        return $this->invitationDate;
     }
 
     /**
-     * @param mixed $invitation_date
+     * @param mixed $invitationDate
      */
-    public function setInvitationDate($invitation_date): void
+    public function setInvitationDate($invitationDate): void
     {
-        $this->invitation_date = $invitation_date;
+        $this->invitationDate = $invitationDate;
     }
 
     /**
@@ -83,17 +83,16 @@ class Invitation
      */
     public function getInvitationForGroupId()
     {
-        return $this->invitation_for_group_id;
+        return $this->invitationForGroupId;
     }
 
     /**
-     * @param mixed $invitation_for_group_id
+     * @param mixed $invitationForGroupId
      */
-    public function setInvitationForGroupId($invitation_for_group_id): void
+    public function setInvitationForGroupId($invitationForGroupId): void
     {
-        $this->invitation_for_group_id = $invitation_for_group_id;
+        $this->invitationForGroupId = $invitationForGroupId;
     }
-
 
 
 }

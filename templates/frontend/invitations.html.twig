@@ -42,7 +42,7 @@
                         <td>  {{ invitation.invitation_for_group_id }} </td>
                         <td>  {{ invitation.group_name }} </td>
                         <td>
-                            <a href="#">ACCEPT</a>
+                            <a href="index.php?action=acceptinvitationfunction&invitationid={{ invitation.id }}&groupid={{ invitation.invitation_for_group_id }}&useremail={{ invitation.invitation_to }}">ACCEPT</a>
                             <a href="index.php?action=deleteinvitationfunction&invitationid={{ invitation.id }}">DELETE</a>
                         </td>
                     </tr>

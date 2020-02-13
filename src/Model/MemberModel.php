@@ -21,7 +21,7 @@ class MemberModel
 
     public function getGroupMembers(int $groupid): array
     {
-        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupid' ORDER BY member_email DESC");
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupid' ");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();

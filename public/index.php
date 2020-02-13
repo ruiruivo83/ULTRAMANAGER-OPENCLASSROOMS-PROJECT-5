@@ -435,6 +435,26 @@ class Router
                 }
             }
 
+            // ACCEPT INVITATION FUNCTION
+            if ($_GET['action'] == 'acceptinvitationfunction') {
+                if (isset($_SESSION["user"])) {
+                    $invitationsController->acceptInvitationFunction();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
+            // ACCEPT INVITATION FUNCTION
+            if ($_GET['action'] == 'removememberfunction') {
+                if (isset($_SESSION["user"])) {
+                    $invitationsController->acceptInvitationFunction();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
 
 
 

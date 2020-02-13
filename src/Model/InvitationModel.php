@@ -46,6 +46,19 @@ class InvitationModel
         $req->execute(array($_GET['invitationid']));
     }
 
+    public function acceptInvitation(int $userId)
+    {
+        // Add User to the group in the database
+        $req = $this->bdd->prepare("INSERT INTO group_members(group_id, user_id) values (?, ?) ");
+        $req->execute(array($_GET['groupid'], $userId));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        // Delete invitation
+        $req = $this->bdd->prepare("DELETE FROM invitations where id = ?");
+        $req->execute(array($_GET['invitationid']));
+    }
+
     public function getInvitationsForMe(): array
     {
         $currentUser = $_SESSION['user']->getEmail();
@@ -55,6 +68,17 @@ class InvitationModel
         // $req->debugDumpParams();
         // die;
         return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
+    }
+
+
+    public function getUserCount(int $groupId, int $UserId): int
+    {
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = ? AND user_id = ?");
+        $req->execute(array($groupId, $UserId));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
     }
 
 }

@@ -57,7 +57,8 @@ class GroupsController
             $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {
-                $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->getId())));
+
+                $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->user_id)));
             }
 
 

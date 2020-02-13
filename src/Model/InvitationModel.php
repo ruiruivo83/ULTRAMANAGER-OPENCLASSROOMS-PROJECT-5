@@ -17,8 +17,18 @@ class InvitationModel
         $this->bdd = Database::getBdd();
     }
 
+    // CREATE NEW INVITATION
+    public function createInvitation()
+    {
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
+        $req->execute(array($currentUser, $_GET['memberemail'], $_GET['groupid']));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
 
-    public function getInvitationsFromMe()
+    public function getInvitationsFromMe(): array
     {
         $currentUser = $_SESSION['user']->getEmail();
         $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_from = ?");
@@ -27,12 +37,17 @@ class InvitationModel
         // $req->debugDumpParams();
         // die;
         return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
-
     }
 
-    public function getInvitationsForMe()
+    public function getInvitationsForMe(): array
     {
-
+        $currentUser = $_SESSION['user']->getEmail();
+        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_to = ?");
+        $req->execute(array($currentUser));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
     }
 
 }

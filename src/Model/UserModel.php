@@ -72,17 +72,7 @@ class UserModel
         return $req->rowCount();
     }
 
-    // CREATE NEW USER
-    public function createInvitation()
-    {
 
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
-        $req->execute(array($currentUser, $_GET['memberid'], $_GET['groupid']));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
 
 
 

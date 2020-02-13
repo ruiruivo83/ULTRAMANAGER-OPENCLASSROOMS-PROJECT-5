@@ -22,16 +22,19 @@ class InvitationsController
     public function invitationsPage()
     {
         $invitationsFromMe = $this->invitationModel->getInvitationsFromMe();
+
+        // $invitationsForMe = $this->invitationModel->getInvitationsForMe();
         var_dump($invitationsFromMe);
-        $invitationsForMe = $this->invitationModel->getInvitationsForMe();
-        var_dump($invitationsForMe);
-        $this->view->render("invitations", ['invitationsFromMe' => $invitationsFromMe, 'invitationsForMe' => $invitationsForMe]);
+        // var_dump($invitationsForMe);
+        // REMOVE UNDERSCORES FROM KEYS
+
+        $this->view->render("invitations", ['invitationsisent' => $invitationsFromMe]);
     }
 
     public function createInvitationFunction()
     {
-        if (isset($_GET['groupid']) AND isset($_GET['memberid'])) {
-            $this->userModel->createInvitation();
+        if (isset($_GET['groupid']) AND isset($_GET['memberemail'])) {
+            $this->invitationModel->createInvitation();
             header('Location: ../index.php?action=invitations');
             exit();
         }

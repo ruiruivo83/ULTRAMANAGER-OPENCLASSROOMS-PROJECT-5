@@ -43,6 +43,7 @@ class GroupsController
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
+            var_dump($ticketResults);
             $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
             echo "Missing ID";
@@ -59,6 +60,7 @@ class GroupsController
                 $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->getId())));
             }
 
+
             $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => intval($_GET['groupid'])]);
         } else {
             echo "Missing Group ID";
@@ -70,10 +72,12 @@ class GroupsController
     public function myGroupMembersPage()
     {
         $result = $this->groupModel->getMyGroupMembers();
+        /*
         foreach ($result as $mygroup) {
             // getmembers
             // merge with my members all list
         }
+        */
         $this->view->render("mygroups", ['results' => $result]);
     }
 

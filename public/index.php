@@ -49,6 +49,8 @@ class Router
 
         if (isset($_GET['action'])) {
 
+
+
             // LOGIN PAGE
             if ($_GET['action'] == 'login') {
                 $commonController->loginPage();
@@ -423,6 +425,16 @@ class Router
                 }
             }
 
+            // DELETE INVITATION FUNCTION
+            if ($_GET['action'] == 'deleteinvitationfunction') {
+                if (isset($_SESSION["user"])) {
+                    $invitationsController->deleteInvitationFunction();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
 
 
 
@@ -433,7 +445,7 @@ class Router
             $indexController->dashboardPage();
         } else {
             // IF SESSION IS NOT OPEN
-            $indexController->noLoginFrontPagePage();
+            $indexController->noLoginFrontPage();
         }
     }
 }

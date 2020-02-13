@@ -39,7 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -112,10 +112,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="735" y="324" key="#com.intellij.fileTypes.FileTypeChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580485572435" />
-    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1581425974588">
+    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1581589739768">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581425974588" />
+    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581589739768" />
     <state x="2673" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1581586902631">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -130,19 +130,19 @@
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510347407" />
     <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581507176948" />
-    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1581425972923">
+    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1581587848504">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581425972923" />
+    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581587848504" />
     <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1579044705200">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044705200" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1581584651116">
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1581589731350">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581584651116" />
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581589731350" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1581505749372">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

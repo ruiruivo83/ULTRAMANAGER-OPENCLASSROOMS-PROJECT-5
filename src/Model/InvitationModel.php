@@ -40,6 +40,12 @@ class InvitationModel
         // die;
     }
 
+    public function deleteInvitation()
+    {
+        $req = $this->bdd->prepare("DELETE FROM invitations where id = ?");
+        $req->execute(array($_GET['invitationid']));
+    }
+
     public function getInvitationsForMe(): array
     {
         $currentUser = $_SESSION['user']->getEmail();

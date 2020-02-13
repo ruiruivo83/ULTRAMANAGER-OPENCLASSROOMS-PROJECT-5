@@ -446,9 +446,9 @@ class Router
             }
 
             // ACCEPT INVITATION FUNCTION
-            if ($_GET['action'] == 'removememberfunction') {
+            if ($_GET['action'] == 'removememberfromgroupfunction') {
                 if (isset($_SESSION["user"])) {
-                    $invitationsController->acceptInvitationFunction();
+                    $groupsController->removeMemberFromGroupFunction();
                 } else {
                     header('Location: ../index.php');
                     exit();

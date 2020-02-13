@@ -19,7 +19,7 @@ class GroupModel
     }
 
     public function getAllGroups(): array
-    {      
+    {
         $req = $this->bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -29,7 +29,7 @@ class GroupModel
     }
 
     public function getMyGroups(): array
-    {      
+    {
         $currentUser = $_SESSION['user']->geteMail();
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
@@ -40,7 +40,7 @@ class GroupModel
     }
 
     public function getGroupDetails(int $id)
-    {      
+    {
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -49,7 +49,14 @@ class GroupModel
         return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
-
+    public function removememberfromgroupfunction(): void
+    {
+        $req = $this->bdd->prepare("DELETE FROM group_members where group_id = ? AND user_id = ? ");
+        $req->execute(array($_GET['groupid'], $_GET['userid']));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+    }
 
 
 
@@ -72,7 +79,7 @@ class GroupModel
 
 
     public function createNewGroup()
-    {       
+    {
         $currentUser = $_SESSION['user']->getEmail();
         $req = $this->bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
         $req->execute(array($currentUser, $_POST["Title"], $_POST["Description"], "open"));
@@ -141,4 +148,6 @@ class GroupModel
         $result = $req->fetchall();
         return $result;
     }
+
+
 }

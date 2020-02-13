@@ -43,7 +43,6 @@ class GroupsController
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
-            var_dump($ticketResults);
             $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
             echo "Missing ID";
@@ -57,11 +56,8 @@ class GroupsController
             $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {
-
                 $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->user_id)));
             }
-
-
             $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => intval($_GET['groupid'])]);
         } else {
             echo "Missing Group ID";
@@ -73,23 +69,7 @@ class GroupsController
     public function myGroupMembersPage()
     {
         $result = $this->groupModel->getMyGroupMembers();
-        /*
-        foreach ($result as $mygroup) {
-            // getmembers
-            // merge with my members all list
-        }
-        */
         $this->view->render("mygroups", ['results' => $result]);
-    }
-
-    public function memberDetails()
-    {
-
-    }
-
-    public function sharedGroupsPage()
-    {
-
     }
 
     public function globalGroupsPage()
@@ -108,6 +88,15 @@ class GroupsController
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
             $this->groupModel->createNewGroup();
             header('Location: ../index.php?action=mygroups');
+            exit();
+        }
+    }
+
+    public function removeMemberFromGroupFunction()
+    {
+        if (isset($_GET['groupid']) AND isset($_GET['userid'])) {
+            $this->groupModel->removememberfromgroupfunction();
+            header('Location: ../index.php?action=groupmembers&groupid='. $_GET['groupid']);
             exit();
         }
     }

@@ -65,7 +65,7 @@
                         <td class="min-width-10p">  {{ result.country }} <span class="badge badge-info">Current Situation</span>
                         </td>
                         <td class="min-width-10p">
-                            <a class="mr-2" href="index.php?action=removememberfunction&userid={{ result.id }}">REMOVE</a>
+                            <a class="mr-2" href="index.php?action=removememberfromgroupfunction&groupid={{ groupid }}&userid={{ result.id }}">REMOVE</a>
                         </td>
                     </tr>
                 {% endfor %}

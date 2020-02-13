@@ -26,8 +26,6 @@ class InvitationsController
     {
         $invitationsFromMe = $this->invitationModel->getInvitationsFromMe();
         $invitationsForMe = $this->invitationModel->getInvitationsForMe();
-        var_dump($invitationsFromMe);
-        var_dump($invitationsForMe);
         $this->view->render("invitations", ['invitationsFromMe' => $invitationsFromMe, 'invitationsForMe' => $invitationsForMe]);
     }
 
@@ -37,15 +35,16 @@ class InvitationsController
 
             // get User Id with Email
             $user = $this->userModel->getUserByEmail($_GET['memberemail']);
+            $userEmail = "";
             foreach ($user as $key) {
-                $userId = intval($key->getId());
+                $userEmail = $key->getEmail();
             }
 
             // TEST IF USER IS ALREADY A MEMBER
             $groupId = intval($_GET['groupid']);
-            if ($this->invitationModel->getUserCount($groupId, $userId) == 0) {
+            if ($this->invitationModel->getUserCount($groupId, $userEmail) == 0) {
                 $this->invitationModel->createInvitation();
-                header('Location: ../index.php?action=mygroups');
+                header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
                 exit();
             }
             header('Location: ../index.php?action=invitations');

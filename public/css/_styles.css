@@ -1,3 +1,8 @@
+html,
+body {
+    height: 100%;
+}
+
 body {
     display: none;
 }
@@ -51,4 +56,29 @@ tr:hover {
     background-color: #e2e8ed;
 }
 
+.overflow-ellipsis {
+    text-overflow: ellipsis;
+}
 
+.min-width-10p {
+    min-width: 10%;
+}
+.min-width-20p {
+    min-width: 20%;
+}
+
+
+.table_text_overflow_ellipsis {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.btn-group-xs > .btn, .btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}

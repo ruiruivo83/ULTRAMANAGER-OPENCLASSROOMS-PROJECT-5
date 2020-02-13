@@ -5,17 +5,45 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\View\View;
+use App\Model\InvitationModel;
 
 class InvitationsController
 {
 
+    private $view;
+    private $invitationModel;
+
+    public function __construct()
+    {
+        $this->view = new View();
+        $this->invitationModel = new InvitationModel();
+    }
+
     public function invitationsPage()
     {
-        $contentTitle = "Invitations";
-        // TODO
-        $content = "";        
-        $view = new View;
-        $view->pageBuilder(null, $content, $contentTitle);
-        echo $view;
+        $invitationsFromMe = $this->invitationModel->getInvitationsFromMe();
+        $invitationsForMe = $this->invitationModel->getInvitationsForMe();
+        $this->view->render("invitations", ['invitationsFromMe' => $invitationsFromMe, 'invitationsForMe' => $invitationsForMe]);
     }
+
+    public function createInvitationFunction()
+    {
+        if (isset($_GET['groupid']) AND isset($_GET['memberemail'])) {
+            $this->invitationModel->createInvitation();
+            header('Location: ../index.php?action=invitations');
+            exit();
+        }
+    }
+
+    public function deleteInvitationFunction()
+    {
+
+        if (isset($_GET['invitationid'])) {
+            $this->invitationModel->deleteInvitation();
+            header('Location: ../index.php?action=invitations');
+            exit();
+        }
+    }
+
+
 }

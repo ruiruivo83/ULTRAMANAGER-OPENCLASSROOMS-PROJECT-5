@@ -4,21 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use App\View\View;
 use App\Model\GroupModel;
+use App\Model\UserModel;
 use App\Model\TicketModel;
+use App\Model\MemberModel;
 
 class GroupsController
 {
     private $view;
     private $groupModel;
+    private $memberModel;
     private $ticketModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->view = new View();
         $this->groupModel = new GroupModel();
+        $this->memberModel = new MemberModel();
         $this->ticketModel = new TicketModel();
+        $this->userModel = new UserModel();
     }
 
     // DISPLAY PAGE - My Groups
@@ -28,7 +35,6 @@ class GroupsController
         $this->view->render("mygroups", ['results' => $result]);
     }
 
-
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
@@ -37,9 +43,27 @@ class GroupsController
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
+            var_dump($ticketResults);
             $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
-            echo "Missiong ID";
+            echo "Missing ID";
+            exit();
+        }
+    }
+
+    public function groupMembersPage()
+    {
+        if (isset($_GET['groupid'])) {
+            $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
+            $memberDetailsResults = array();
+            foreach ($groupMembers as $member) {
+                $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->getId())));
+            }
+
+
+            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => intval($_GET['groupid'])]);
+        } else {
+            echo "Missing Group ID";
             exit();
         }
     }
@@ -47,13 +71,13 @@ class GroupsController
     // DISPLAY PAGE - Ticket Details
     public function myGroupMembersPage()
     {
-        echo "MyGroupMembers Page";
-        die();
         $result = $this->groupModel->getMyGroupMembers();
-        foreach ($result as $mygroup){
+        /*
+        foreach ($result as $mygroup) {
             // getmembers
-            //merge with my members all list
+            // merge with my members all list
         }
+        */
         $this->view->render("mygroups", ['results' => $result]);
     }
 
@@ -81,17 +105,9 @@ class GroupsController
     public function createGroupFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
-            $title = $_POST["Title"];
-            $description = $_POST["Description"];
-            $group_admin = $_SESSION['user']->getEmail();
-            $group_status = "open";
-            // INSERT INTO DATABASE
-            // Create class instance
-            $GroupModel = new GroupModel(null, $group_admin, null, $title, $description, $group_status);
-            // Execute method addTicket
-            $GroupModel->createNewGroup();
+            $this->groupModel->createNewGroup();
             header('Location: ../index.php?action=mygroups');
-            // exit();
+            exit();
         }
     }
 

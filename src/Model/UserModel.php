@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Model\Entity\Group;
 use PDO;
 use App\Model\Entity\User;
 
@@ -28,15 +27,38 @@ class UserModel
         // die;
     }
 
+    // SEARCH USERS
+    public function searchUsers(string $searchtext): array
+    {
+        $req = $this->bdd->prepare("SELECT * FROM users WHERE ( LOWER(firstname) Like  LOWER(?)) OR ( LOWER(lastname) like  LOWER(?)) OR  (LOWER(email) like  LOWER(?))");
+        $req->execute(array("%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%"));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+    }
+
     // FIND USER BY EMAIL
     public function getUserByEmail($email)
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE email =  ?   ");
         $req->execute(array($email));
-        return $req->fetchall(PDO::FETCH_CLASS, User::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
+        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+    }
+
+    // FIND USER BY EMAIL
+    public function getUserById(int $id)
+    {
+        $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
+        $req->execute(array($id));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE
@@ -49,5 +71,9 @@ class UserModel
         // die;
         return $req->rowCount();
     }
+
+
+
+
 
 }

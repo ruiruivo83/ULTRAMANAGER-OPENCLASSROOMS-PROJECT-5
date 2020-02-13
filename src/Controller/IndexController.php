@@ -16,12 +16,6 @@ class IndexController
         // var_dump($_SESSION);
     }
 
-    // NO SESSION
-    public function frontPage()
-    {
-        $noSessionTargetPage = file_get_contents('../templates/frontend/pagecontent/frontpage.html.twig');
-        $this->view->pageBuilder($noSessionTargetPage, null, null);
-    }
 
     // WITH SESSION
     // FAIRE AVEC TWIG LE DASHBOARD
@@ -35,8 +29,9 @@ class IndexController
         */
     }
 
-    public function noLoginFrontPagePage()
+    public function noLoginFrontPage()
     {
+
         $this->view->render("noLoginFrontPage", []);
     }
 

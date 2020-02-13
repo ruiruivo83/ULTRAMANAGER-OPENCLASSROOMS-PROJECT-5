@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3e421ee-1c21-4352-8a82-cea660bbf422" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_CONFLICTS" value="false" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
@@ -82,54 +82,80 @@
       <workItem from="1580727408466" duration="1936000" />
       <workItem from="1580818542034" duration="1012000" />
       <workItem from="1580822641981" duration="17753000" />
+      <workItem from="1581323887275" duration="4757000" />
+      <workItem from="1581354370559" duration="649000" />
+      <workItem from="1581358651655" duration="9768000" />
+      <workItem from="1581425983416" duration="3941000" />
+      <workItem from="1581436531331" duration="2244000" />
+      <workItem from="1581505746895" duration="10226000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="false" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="false" />
+    <option name="LIMIT_HISTORY" value="false" />
+    <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="2472" y="179" key="#Notifications" timestamp="1579044068669">
+    <state x="2472" y="179" key="#Notifications" timestamp="1581437652675">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="179" key="#Notifications/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044068669" />
+    <state x="2472" y="179" key="#Notifications/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581437652675" />
     <state x="735" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580485572435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="735" y="324" key="#com.intellij.fileTypes.FileTypeChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580485572435" />
-    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1580510005480">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1581589739768">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2634" y="390" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581589739768" />
+    <state x="2673" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1581586902631">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510005480" />
+    <state x="2673" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581586902631" />
     <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579606914699">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579606914699" />
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580510347407">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510347407" />
-    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1579700859767">
+    <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581507176948">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579700859767" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510347407" />
+    <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581507176948" />
+    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1581587848504">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581587848504" />
     <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1579044705200">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044705200" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1580981197261">
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1581589731350">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580981197261" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1580822643305">
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581589731350" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1581505749372">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580822643305" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579700843155" />
-    <state x="2576" y="256" width="607" height="536" key="find.popup" timestamp="1580978367465">
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581350206527" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581505749371" />
+    <state x="2576" y="256" width="607" height="536" key="find.popup" timestamp="1581435514802">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2576" y="256" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1580978367465" />
+    <state x="2576" y="256" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581435514802" />
+  </component>
+  <component name="hg4idea.settings">
+    <option name="CHECK_INCOMING_OUTGOING" value="true" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
 </project>

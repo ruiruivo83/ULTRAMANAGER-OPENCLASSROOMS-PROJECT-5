@@ -9,7 +9,7 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                My GROUPS
+                <i class="fas fa-user-friends mr-3 fa-2x"></i>My GROUPS
             </div>
 
         </div>
@@ -20,7 +20,7 @@
                 </a>
             </div>
 
-            <table id="dtBasicExample" class="table table-striped table-bordered table-sm m-0" cellspacing="0"
+            <table id="dtBasicExample" class="table table-striped table-bordered table-sm m-0 " cellspacing="0"
                    width="100%">
 
                 <thead>
@@ -40,14 +40,15 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="">  {{ result.id }} </td>
-                        <td class="">  {{ result.group_name }} </td>
-                        <td style="max-width: 100px; ">  {{ result.group_description }} </td>
-                        <td class="">  {{ result.creation_date }} </td>
-                        <td class="text-md-center">
-                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}"><i class="fas fa-lg fa-info-circle"></i></a>
-                            <a class="mr-2" href="index.php?action=creategroup"><i class="fas fa-lg fa-user-friends"></i></a>
-                            <a class="mr-2" href="index.php?action=creategroup"><i class="fas fa-lg fa-window-close" ></i></a>
+                        <td class="min-width-10p"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
+                        </td>
+                        <td class="min-width-10p">  {{ result.group_name }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
+                        <td class="min-width-10p">  {{ result.creation_date }} </td>
+                        <td class="min-width-10p">
+                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Info</a>
+                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
+                            <a class="mr-2" href="index.php?action=creategroup">Close</a>
                         </td>
                     </tr>
                 {% endfor %}

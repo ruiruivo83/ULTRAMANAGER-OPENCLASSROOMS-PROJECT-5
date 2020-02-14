@@ -38,12 +38,26 @@ class InterventionsController
         foreach ($result as $key) {
             $ticketList = $this->ticketModel->getTicketsWithGroupId(intval($key['group_id']));
             foreach ($ticketList as $ticket) {
-                var_dump($ticket['id']);
                 $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId(intval($ticket['id'])));
             }
         }
 
         $this->view->render("sharedinterventions", ['results' => $finalArray]);
+    }
+
+    public function myInterventionsPage()
+    {
+        // GET SHARED GROUPS
+        $result = $this->groupModel->getMyGroups();
+        // GET TICKETS FOR SHARED GROUPS
+        $finalArray = array();
+        foreach ($result as $key) {
+            $ticketList = $this->ticketModel->getTicketsWithGroupId(intval($key->getId()));
+            foreach ($ticketList as $ticket) {
+                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId(intval($ticket['id'])));
+            }
+        }
+        $this->view->render("myinterventions", ['results' => $finalArray]);
     }
 
     // DISPLAY PAGE - Global Interventions Page
@@ -56,9 +70,9 @@ class InterventionsController
     // DISPLAY PAGE - Create Interventions Page
     public function createInterventionPage()
     {
-        $result = $this->interventionModel->getAllInterventions();
+        // $result = $this->interventionModel->getAllInterventions();
         $ticketId = $_GET["ticketid"];
-        $this->view->render("createintervention", ['interventions' => $result, 'ticketid' => $ticketId]);
+        $this->view->render("createintervention", ['ticketid' => $ticketId]);
     }
 
     // Create Intervention Function

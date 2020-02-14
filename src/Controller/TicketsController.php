@@ -98,5 +98,18 @@ class TicketsController
         $this->view->render("sharedtickets", ['results' => $finalArray]);
     }
 
+    // DISPLAY PAGE - My Tickets
+    public function myTicketsPage()
+    {
+        // Shared Groups
+        $result = $this->groupModel->getMyGroups();
+        // Get Tickets for shared groups
+        $finalArray = array();
+        foreach ($result as $key) {
+            $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId(intval($key->getId())));
+        }
+        $this->view->render("mytickets", ['results' => $finalArray]);
+    }
+
 
 }

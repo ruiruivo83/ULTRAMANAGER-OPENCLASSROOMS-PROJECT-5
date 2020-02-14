@@ -60,10 +60,11 @@ class GroupModel
         return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
-    public function removememberfromgroupfunction(): void
+    public function removeMemberFromGroupfunction(int $groupId, int $userId): void
     {
         $req = $this->bdd->prepare("DELETE FROM group_members where group_id = ? AND user_id = ? ");
-        $req->execute(array($_GET['groupid'], $_GET['userid']));
+        // $req->execute(array($_GET['groupid'], $_GET['userid']));
+        $req->execute(array($groupId, $userId));
         // DEBUG
         // $req->debugDumpParams();
         // die;

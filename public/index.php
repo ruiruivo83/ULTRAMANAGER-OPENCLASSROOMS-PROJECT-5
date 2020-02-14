@@ -18,17 +18,23 @@ use App\Controller\ProfileController;
 use App\Controller\SettingsController;
 use App\Controller\TicketsController;
 use App\Controller\UserController;
+use App\Tools\SuperGlobals;
 
 
 // ROUTER FOR INDEX PAGE
 class Router
 {
 
+    private $superGlobals;
+
     public function __construct()
     {
-        if (session_status() == PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $this->superGlobals = new SuperGlobals();
+
     }
 
     // ROUTER MAIN FUNCTION
@@ -47,22 +53,35 @@ class Router
         $alertsController = new AlertsController;
         $messagesController = new MessagesController;
 
-        if (isset($_GET['action'])) {
+
+        if ($this->superGlobals->testIfIsset("action")) {
 
 
             // LOGIN PAGE
-            if ($_GET['action'] == 'login') {
+            /*
+            if ($_GET['action'] === 'login') {
+                $commonController->loginPage();
+            }
+            */
+
+            if ($this->superGlobals->getGlobalGet("action") === "login") {
                 $commonController->loginPage();
             }
 
+            /*
             // REGISTER PAGE
-            if ($_GET['action'] == 'register') {
+            if ($_GET['action'] === 'register') {
+                $commonController->registerPage();
+            }
+            */
+
+            if ($this->superGlobals->getGlobalGet("action") === "register") {
                 $commonController->registerPage();
             }
 
+            /*
             // INDEX PAGE
-            if ($_GET['action'] == 'index') {
-
+            if ($_GET['action'] === 'index') {
                 if (isset($_SESSION["user"])) {
                     // IF SESSION IS OPEN
                     $indexController->dashboardPage();
@@ -71,9 +90,14 @@ class Router
                     $indexController->noLoginFrontPagePage();
                 }
             }
+            */
+            if ($this->superGlobals->getGlobalGet("action") === "index") {
+
+            }
+
 
             // ACTIVITY LOG PAGE
-            if ($_GET['action'] == 'activitylog') {
+            if ($_GET['action'] === 'activitylog') {
                 if (isset($_SESSION["user"])) {
                     $activityLogController->activityLogPage();
                 } else {
@@ -84,7 +108,7 @@ class Router
             }
 
             // PROFILE PAGE
-            if ($_GET['action'] == 'profile') {
+            if ($_GET['action'] === 'profile') {
                 if (isset($_SESSION["user"])) {
                     $profileController->profilePage();
                 } else {
@@ -94,7 +118,7 @@ class Router
             }
 
             // SETTINGS PAGE
-            if ($_GET['action'] == 'settings') {
+            if ($_GET['action'] === 'settings') {
                 if (isset($_SESSION["user"])) {
                     $settingsController->settingsPage();
                 } else {
@@ -104,7 +128,7 @@ class Router
             }
 
             // MY GROUPS PAGE
-            if ($_GET['action'] == 'mygroups') {
+            if ($_GET['action'] === 'mygroups') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->myGroupsPage();
                 } else {
@@ -114,7 +138,7 @@ class Router
             }
 
             // GROUP DETAILS PAGE
-            if ($_GET['action'] == 'groupdetails') {
+            if ($_GET['action'] === 'groupdetails') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->groupDetailsPage();
                 } else {
@@ -124,7 +148,7 @@ class Router
             }
 
             // GROUPMEMBERS PAGE
-            if ($_GET['action'] == 'groupmembers') {
+            if ($_GET['action'] === 'groupmembers') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->groupMembersPage();
                 } else {
@@ -135,7 +159,7 @@ class Router
 
 
             // SHARED GROUPS PAGE
-            if ($_GET['action'] == 'sharedgroups') {
+            if ($_GET['action'] === 'sharedgroups') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->sharedGroupsPage();
                 } else {
@@ -145,7 +169,7 @@ class Router
             }
 
             // SHARED TICKETS PAGE
-            if ($_GET['action'] == 'sharedtickets') {
+            if ($_GET['action'] === 'sharedtickets') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->sharedTicketsPage();
                 } else {
@@ -155,7 +179,7 @@ class Router
             }
 
             // SHARED INTERVENTIONS PAGE
-            if ($_GET['action'] == 'sharedinterventions') {
+            if ($_GET['action'] === 'sharedinterventions') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->sharedInterventionsPage();
                 } else {
@@ -165,7 +189,7 @@ class Router
             }
 
             // MY INTERVENTIONS PAGE
-            if ($_GET['action'] == 'myinterventions') {
+            if ($_GET['action'] === 'myinterventions') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->myInterventionsPage();
                 } else {
@@ -175,7 +199,7 @@ class Router
             }
 
             // SHARED GROUP MEMBERS PAGE
-            if ($_GET['action'] == 'sharedgroupmembers') {
+            if ($_GET['action'] === 'sharedgroupmembers') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->sharedGroupMembersPage();
                 } else {
@@ -185,7 +209,7 @@ class Router
             }
 
             // MEMBER DETAILS PAGE
-            if ($_GET['action'] == 'mymemberdetails') {
+            if ($_GET['action'] === 'mymemberdetails') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->myMemberDetails();
                 } else {
@@ -195,7 +219,7 @@ class Router
             }
 
             // SHARED MEMBER DETAILS PAGE
-            if ($_GET['action'] == 'sharedmemberdetails') {
+            if ($_GET['action'] === 'sharedmemberdetails') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->sharedMemberDetailsPage();
                 } else {
@@ -205,7 +229,7 @@ class Router
             }
 
             // TICKETS PAGE
-            if ($_GET['action'] == 'mytickets') {
+            if ($_GET['action'] === 'mytickets') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->myTicketsPage();
                 } else {
@@ -215,7 +239,7 @@ class Router
             }
 
             // TICKET DETAILS PAGE
-            if ($_GET['action'] == 'ticketdetails') {
+            if ($_GET['action'] === 'ticketdetails') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->ticketDetailsPage();
                 } else {
@@ -225,7 +249,7 @@ class Router
             }
 
             // SHARED TICKETS PAGE
-            if ($_GET['action'] == 'sharedtickets') {
+            if ($_GET['action'] === 'sharedtickets') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->sharedTicketsPage
                     ();
@@ -236,7 +260,7 @@ class Router
             }
 
             // SHARED TICKET DETAILS PAGE
-            if ($_GET['action'] == 'sharedticketdetails') {
+            if ($_GET['action'] === 'sharedticketdetails') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->sharedTicketDetailsPage();
                 } else {
@@ -246,7 +270,7 @@ class Router
             }
 
             // INTERVENTIONS PAGE
-            if ($_GET['action'] == 'interventions') {
+            if ($_GET['action'] === 'interventions') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->myInterventionsPage();
                 } else {
@@ -256,7 +280,7 @@ class Router
             }
 
             // INTERVENTION DETAILS PAGE
-            if ($_GET['action'] == 'interventiondetails') {
+            if ($_GET['action'] === 'interventiondetails') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->interventionDetailsPage();
                 } else {
@@ -266,7 +290,7 @@ class Router
             }
 
             // SHARED INTERVENTIONS PAGE
-            if ($_GET['action'] == 'sharedinterventions') {
+            if ($_GET['action'] === 'sharedinterventions') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->sharedInterventionsPage();
                 } else {
@@ -276,7 +300,7 @@ class Router
             }
 
             // SHARED INTERVENTION DETAILS PAGE
-            if ($_GET['action'] == 'sharedinterventiondetails') {
+            if ($_GET['action'] === 'sharedinterventiondetails') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->sharedInterventionDetailsPage();
                 } else {
@@ -286,7 +310,7 @@ class Router
             }
 
             // INVITATIONS PAGE
-            if ($_GET['action'] == 'invitations') {
+            if ($_GET['action'] === 'invitations') {
                 if (isset($_SESSION["user"])) {
                     $invitationsController->invitationsPage();
                 } else {
@@ -296,7 +320,7 @@ class Router
             }
 
             // SHOW ALL ALERTS PAGE
-            if ($_GET['action'] == 'showallalerts') {
+            if ($_GET['action'] === 'showallalerts') {
                 if (isset($_SESSION["user"])) {
                     $alertsController->showAllAlertsPage();
                 } else {
@@ -306,7 +330,7 @@ class Router
             }
 
             // SHOW ALL MESSAGES PAGE
-            if ($_GET['action'] == 'showallmessages') {
+            if ($_GET['action'] === 'showallmessages') {
                 if (isset($_SESSION["user"])) {
                     $messagesController->showAllMessagesPage();
                 } else {
@@ -316,7 +340,7 @@ class Router
             }
 
             // GLOBAL GROUPS PAGE
-            if ($_GET['action'] == 'globalgroups') {
+            if ($_GET['action'] === 'globalgroups') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->globalGroupsPage();
                 } else {
@@ -326,7 +350,7 @@ class Router
             }
 
             // GLOBAL TICKETS PAGE
-            if ($_GET['action'] == 'globaltickets') {
+            if ($_GET['action'] === 'globaltickets') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->globalTicketsPage();
                 } else {
@@ -336,7 +360,7 @@ class Router
             }
 
             // GLOBAL INTERVENTIONS PAGE
-            if ($_GET['action'] == 'globalinterventions') {
+            if ($_GET['action'] === 'globalinterventions') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->globalInterventionsPage();
                 } else {
@@ -346,7 +370,7 @@ class Router
             }
 
             // CREATE GROUP PAGE             
-            if ($_GET['action'] == 'creategroup') {
+            if ($_GET['action'] === 'creategroup') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->createGroupPage();
                 } else {
@@ -356,7 +380,7 @@ class Router
             }
 
             // CREATE TICKET PAGE             
-            if ($_GET['action'] == 'createticket') {
+            if ($_GET['action'] === 'createticket') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->createTicketPage();
                 } else {
@@ -366,7 +390,7 @@ class Router
             }
 
             // CREATE INTERVENTION PAGE             
-            if ($_GET['action'] == 'createintervention') {
+            if ($_GET['action'] === 'createintervention') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->createInterventionPage();
                 } else {
@@ -376,7 +400,7 @@ class Router
             }
 
             // SEARCH RESULTS PAGE
-            if ($_GET['action'] == 'searchuser') {
+            if ($_GET['action'] === 'searchuser') {
                 if (isset($_SESSION["user"])) {
                     $userController->searchUserResultsPage();
                 } else {
@@ -390,7 +414,7 @@ class Router
             ////////////////////////////////////////////////////////////////////
 
             // LOGOUT FUNCTION
-            if ($_GET['action'] == 'logout') {
+            if ($_GET['action'] === 'logout') {
                 if (isset($_SESSION["user"])) {
                     $userController->logout();
                 } else {
@@ -401,20 +425,20 @@ class Router
 
             // LOGIN VALIDATION FUNCTION
             if (!isset($_SESSION["user"])) {
-                if ($_GET['action'] == 'login_validation') {
+                if ($_GET['action'] === 'login_validation') {
                     $userController->loginValidationFunction();
                 }
             }
 
             // REGISTER NEW USER FUNCTION
             if (!isset($_SESSION["user"])) {
-                if ($_GET['action'] == 'registernewuser') {
+                if ($_GET['action'] === 'registernewuser') {
                     $userController->registerNewUserFunction();
                 }
             }
 
             // CREATE GROUP FUNCTION
-            if ($_GET['action'] == 'creategroupfunction') {
+            if ($_GET['action'] === 'creategroupfunction') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->createGroupFunction();
                 } else {
@@ -424,7 +448,7 @@ class Router
             }
 
             // CREATE TICKET FUNCTION
-            if ($_GET['action'] == 'createticketfunction') {
+            if ($_GET['action'] === 'createticketfunction') {
                 if (isset($_SESSION["user"])) {
                     $ticketsController->createTicketFunction();
                 } else {
@@ -434,7 +458,7 @@ class Router
             }
 
             // CREATE TICKET FUNCTION
-            if ($_GET['action'] == 'createinterventionfunction') {
+            if ($_GET['action'] === 'createinterventionfunction') {
                 if (isset($_SESSION["user"])) {
                     $interventionsController->createInterventionFunction();
                 } else {
@@ -444,7 +468,7 @@ class Router
             }
 
             // CREATE INVITATION FUNCTION
-            if ($_GET['action'] == 'createinvitationfunction') {
+            if ($_GET['action'] === 'createinvitationfunction') {
                 if (isset($_SESSION["user"])) {
                     $invitationsController->createInvitationFunction();
                 } else {
@@ -454,7 +478,7 @@ class Router
             }
 
             // DELETE INVITATION FUNCTION
-            if ($_GET['action'] == 'deleteinvitationfunction') {
+            if ($_GET['action'] === 'deleteinvitationfunction') {
                 if (isset($_SESSION["user"])) {
                     $invitationsController->deleteInvitationFunction();
                 } else {
@@ -464,7 +488,7 @@ class Router
             }
 
             // ACCEPT INVITATION FUNCTION
-            if ($_GET['action'] == 'acceptinvitationfunction') {
+            if ($_GET['action'] === 'acceptinvitationfunction') {
                 if (isset($_SESSION["user"])) {
                     $invitationsController->acceptInvitationFunction();
                 } else {
@@ -474,7 +498,7 @@ class Router
             }
 
             // ACCEPT INVITATION FUNCTION
-            if ($_GET['action'] == 'removememberfromgroupfunction') {
+            if ($_GET['action'] === 'removememberfromgroupfunction') {
                 if (isset($_SESSION["user"])) {
                     $groupsController->removeMemberFromGroupFunction();
                 } else {

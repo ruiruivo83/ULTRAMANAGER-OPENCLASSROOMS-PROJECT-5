@@ -10,6 +10,7 @@ use App\Model\GroupModel;
 use App\Model\UserModel;
 use App\Model\TicketModel;
 use App\Model\MemberModel;
+use App\Tools\SuperGlobals;
 
 class GroupsController
 {
@@ -18,6 +19,7 @@ class GroupsController
     private $memberModel;
     private $ticketModel;
     private $userModel;
+    private $superGlobals;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class GroupsController
         $this->memberModel = new MemberModel();
         $this->ticketModel = new TicketModel();
         $this->userModel = new UserModel();
+        $this->superGlobals = new SuperGlobals();
     }
 
     // DISPLAY PAGE - My Groups
@@ -128,7 +131,8 @@ class GroupsController
     public function removeMemberFromGroupFunction()
     {
         if (isset($_GET['groupid']) AND isset($_GET['userid'])) {
-            $this->groupModel->removememberfromgroupfunction();
+            // $req->execute(array($_GET['groupid'], $_GET['userid']));
+            $this->groupModel->removeMemberFromGroupfunction((int)($this->superGlobals->getGlobalGet('groupid')), (int)($this->superGlobals->getGlobalGet('userid')));
             header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
             exit();
         }

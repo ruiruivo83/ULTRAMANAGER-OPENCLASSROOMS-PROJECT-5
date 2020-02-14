@@ -42,12 +42,15 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model" />
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model\entity" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -91,7 +94,7 @@
       <workItem from="1581425983416" duration="3941000" />
       <workItem from="1581436531331" duration="2244000" />
       <workItem from="1581505746895" duration="10226000" />
-      <workItem from="1581685659017" duration="2465000" />
+      <workItem from="1581685659017" duration="5465000" />
     </task>
     <servers />
   </component>
@@ -142,15 +145,15 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581587848504" />
-    <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1579044705200">
+    <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1581693459086">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044705200" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1581685670188">
+    <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581693459086" />
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1581695904443">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581685670188" />
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581695904443" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1581685659448">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

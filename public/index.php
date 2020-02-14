@@ -156,6 +156,16 @@ class Router
                 }
             }
 
+            // SHARED INTERVENTIONS PAGE
+            if ($_GET['action'] == 'sharedinterventions') {
+                if (isset($_SESSION["user"])) {
+                    $interventionsController->sharedInterventionsPage();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
             // SHARED GROUP MEMBERS PAGE
             if ($_GET['action'] == 'sharedgroupmembers') {
                 if (isset($_SESSION["user"])) {

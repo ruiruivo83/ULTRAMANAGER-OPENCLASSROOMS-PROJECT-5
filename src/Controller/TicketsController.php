@@ -40,7 +40,7 @@ class TicketsController
             $ticketResult = $this->ticketModel->getTicketDetails(intval($_GET['id']));
             foreach ($ticketResult as $ticket) {
                 $groupResult = $this->groupModel->getGroupDetails(intval($ticket->getGroup_id()));
-                $interventionResult = $this->interventionModel->getAllInterventions(intval($ticket->getId()));
+                $interventionResult = $this->interventionModel->getAllInterventionsForTicketId(intval($ticket->getId()));
             }
             $this->view->render("ticketdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResult, 'interventionresults' => $interventionResult]);
         } else {
@@ -90,16 +90,11 @@ class TicketsController
     {
         // Shared Groups
         $result = $this->groupModel->getSharedGroups();
-        // Get Group Tickets
+        // Get Tickets for shared groups
         $finalArray = array();
         foreach ($result as $key) {
-            // Get GroupName with Group ID
-            var_dump($this->groupModel->getGroupNameWithGroupId(intval($key['group_id'])));
-
-            // GET ALL TICKET FOR THIS GROUPID AND ADD THEM TO THE FINAL ARRAY
             $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId(intval($key['group_id'])));
         }
-        var_dump($finalArray);
         $this->view->render("sharedtickets", ['results' => $finalArray]);
     }
 

@@ -7,8 +7,11 @@ window.onload = function getStatData() {
 // Basic example
 $(document).ready(function () {
     $('#dtBasicExample').DataTable({
-        "paging": true // false to disable pagination (or any other option)
+        "retrieve": true,
+        "paging": false // false to disable pagination (or any other option)
     });
+
+
     $('.dataTables_length').addClass('bs-select');
 });
 

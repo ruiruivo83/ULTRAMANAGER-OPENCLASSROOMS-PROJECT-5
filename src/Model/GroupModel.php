@@ -39,6 +39,17 @@ class GroupModel
         return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
+    public function getSharedGroups(): array
+    {
+        $currentUser = $_SESSION['user']->getId();
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE user_id = '$currentUser'");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
     public function getGroupDetails(int $id)
     {
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
@@ -56,6 +67,16 @@ class GroupModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
+    }
+
+    public function getGroupNameWithGroupId(int $id): array
+    {
+        $req = $this->bdd->prepare("SELECT group_name FROM groups WHERE id = '$id'");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
     }
 
 
@@ -137,6 +158,7 @@ class GroupModel
         return $result;
     }
 
+    /*
     public function getGroupNameWithGroupId(int $id): array
     {
         $bdd = Database::getBdd();
@@ -148,6 +170,6 @@ class GroupModel
         $result = $req->fetchall();
         return $result;
     }
-
+*/
 
 }

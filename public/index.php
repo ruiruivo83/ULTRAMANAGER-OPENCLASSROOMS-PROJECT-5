@@ -146,6 +146,16 @@ class Router
                 }
             }
 
+            // SHARED TICKETS PAGE
+            if ($_GET['action'] == 'sharedtickets') {
+                if (isset($_SESSION["user"])) {
+                    $ticketsController->sharedTicketsPage();
+                } else {
+                    header('Location: ../index.php');
+                    exit();
+                }
+            }
+
             // SHARED GROUP MEMBERS PAGE
             if ($_GET['action'] == 'sharedgroupmembers') {
                 if (isset($_SESSION["user"])) {

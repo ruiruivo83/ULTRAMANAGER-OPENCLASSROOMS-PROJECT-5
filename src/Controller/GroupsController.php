@@ -35,6 +35,20 @@ class GroupsController
         $this->view->render("mygroups", ['results' => $result]);
     }
 
+    // DISPLAY PAGE - Shared Groups
+    public function sharedGroupsPage()
+    {
+        $result = $this->groupModel->getSharedGroups();
+        $finalArray = array();
+        foreach ($result as $key) {
+            $finalArray = array_merge($finalArray, $this->groupModel->getGroupDetails(intval($key['group_id'])));
+        }
+        $this->view->render("sharedgroups", ['results' => $finalArray]);
+    }
+
+
+
+
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
@@ -96,7 +110,7 @@ class GroupsController
     {
         if (isset($_GET['groupid']) AND isset($_GET['userid'])) {
             $this->groupModel->removememberfromgroupfunction();
-            header('Location: ../index.php?action=groupmembers&groupid='. $_GET['groupid']);
+            header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
             exit();
         }
     }

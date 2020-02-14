@@ -47,8 +47,6 @@ class GroupsController
     }
 
 
-
-
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
@@ -88,8 +86,52 @@ class GroupsController
 
     public function globalGroupsPage()
     {
-        $result = $this->groupModel->getAllGroups();
-        $this->view->render("globalgroups", ['results' => $result]);
+        $finalArray = array();
+        $finalTable[] = array();
+
+
+        $myGroups = $this->groupModel->getMyGroups();
+        foreach ($myGroups as $myGroup) {
+            array_push($finalArray, $myGroup->getId());
+        }
+
+        $sharedGroups = $this->groupModel->getSharedGroups();
+        foreach ($sharedGroups as $sharedGroup) {
+            array_push($finalArray, $sharedGroup['group_id']);
+        }
+
+        foreach ($finalArray as $id) {
+            // var_dump($id);
+            // var_dump($this->groupModel->getGroupDetails(intval($id)));
+            $finalTable = array_merge($finalTable, $this->groupModel->getGroupDetails(intval($id)));
+        }
+
+        // var_dump($finalArray);
+        var_dump($finalTable);
+
+
+        /*
+                foreach ($finalArray as $groupId) {
+                    $newArray = array();
+                    $temp = $this->groupModel->getGroupDetails(intval($groupId));
+                    $groupArray = $temp[0];
+                    array_push($newArray, array(
+                            "id" => $groupArray->getId(),
+                            "group_admin" => $groupArray->getGroup_admin(),
+                            "creation_date" => $groupArray->getCreation_date(),
+                            "group_name" => $groupArray->getGroup_name(),
+                            "group_description" => $groupArray->getGroup_description(),
+                            "group_status" => $groupArray->getGroup_status())
+
+                    );
+                    $globalGroupDetailArray[] = array_merge($newArray);
+
+                }
+                var_dump($globalGroupDetailArray);
+        */
+
+        $this->view->render("globalgroups", ['results' => $finalTable]);
+
     }
 
     public function createGroupPage()

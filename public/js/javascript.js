@@ -8,7 +8,7 @@ window.onload = function getStatData() {
 $(document).ready(function () {
     $('#dtBasicExample').DataTable({
         "retrieve": true,
-        "paging": false // false to disable pagination (or any other option)
+        "paging": true // false to disable pagination (or any other option)
     });
 
 

@@ -49,12 +49,32 @@ class TicketsController
         }
     }
 
-
-    // DISPLAY PAGE - Global Tickets
+    // DISPLAY GLOBAL TICKETS PAGE
     public function globalTicketsPage()
     {
-        $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['results' => $result]);
+
+
+        // GET MY TICKETS FROM MY GROUPS
+        // Shared Groups
+        $result = $this->groupModel->getMyGroups();
+        // Get Tickets for my groups
+        $finalArrayMyTickets = array();
+        foreach ($result as $key) {
+            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId(intval($key->getId())));
+        }
+
+        // GET SHARED TICKETS FROM SHARED GROUPS
+        // Shared Groups
+        $result = $this->groupModel->getSharedGroups();
+        // Get Tickets for shared groups
+        $finalArraySharedTickets = array();
+        foreach ($result as $key) {
+            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId(intval($key['group_id'])));
+        }
+
+        $finalTable = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
+
+        $this->view->render("globaltickets", ['results' => $finalTable]);
     }
 
 

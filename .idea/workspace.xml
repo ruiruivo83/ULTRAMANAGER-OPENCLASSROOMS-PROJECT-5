@@ -91,6 +91,7 @@
       <workItem from="1581425983416" duration="3941000" />
       <workItem from="1581436531331" duration="2244000" />
       <workItem from="1581505746895" duration="10226000" />
+      <workItem from="1581685659017" duration="2465000" />
     </task>
     <servers />
   </component>
@@ -124,6 +125,10 @@
     </state>
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510005480" />
     <state x="2673" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581586902631" />
+    <state x="2560" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581685617002">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2560" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581685617002" />
     <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579606914699">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -141,17 +146,17 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579044705200" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1581589731350">
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1581685670188">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581589731350" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1581505749372">
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581685670188" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1581685659448">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580822643305" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581350206527" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581505749371" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581685659448" />
     <state x="2576" y="256" width="607" height="536" key="find.popup" timestamp="1581435514802">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

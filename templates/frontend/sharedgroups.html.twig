@@ -26,9 +26,11 @@
                     </th>
                     <th class="th-sm">Group Description
                     </th>
+                    <th class="th-sm">Group Admin
+                    </th>
                     <th class="th-sm">Creation Date
                     </th>
-                    <th class="th-sm align-items-end">
+                    <th class="th-sm">
                     </th>
                 </tr>
                 </thead>
@@ -39,6 +41,7 @@
                         </td>
                         <td class="min-width-10p">  {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
+                        <td class="min-width-10p">  {{ result.group_admin }} </td>
                         <td class="min-width-10p">  {{ result.creation_date }} </td>
                         <td class="min-width-10p">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Info</a>
@@ -55,6 +58,8 @@
                     <th class="th-sm">Group Name
                     </th>
                     <th class="th-sm">Group Description
+                    </th>
+                    <th class="th-sm">Group Admin
                     </th>
                     <th class="th-sm">Creation Date
                     </th>

@@ -87,51 +87,28 @@ class GroupsController
     public function globalGroupsPage()
     {
         $finalArray = array();
-        $finalTable[] = array();
+        $finalTable = array();
 
-
+        // GET MY GROUPS
         $myGroups = $this->groupModel->getMyGroups();
         foreach ($myGroups as $myGroup) {
             array_push($finalArray, $myGroup->getId());
         }
 
+        // GET SHARED GROUPS
         $sharedGroups = $this->groupModel->getSharedGroups();
         foreach ($sharedGroups as $sharedGroup) {
             array_push($finalArray, $sharedGroup['group_id']);
         }
 
+        // JOIN BOTH MY GROUPS AND GLOBAL GROUPS
         foreach ($finalArray as $id) {
             // var_dump($id);
             // var_dump($this->groupModel->getGroupDetails(intval($id)));
             $finalTable = array_merge($finalTable, $this->groupModel->getGroupDetails(intval($id)));
         }
 
-        // var_dump($finalArray);
-        var_dump($finalTable);
-
-
-        /*
-                foreach ($finalArray as $groupId) {
-                    $newArray = array();
-                    $temp = $this->groupModel->getGroupDetails(intval($groupId));
-                    $groupArray = $temp[0];
-                    array_push($newArray, array(
-                            "id" => $groupArray->getId(),
-                            "group_admin" => $groupArray->getGroup_admin(),
-                            "creation_date" => $groupArray->getCreation_date(),
-                            "group_name" => $groupArray->getGroup_name(),
-                            "group_description" => $groupArray->getGroup_description(),
-                            "group_status" => $groupArray->getGroup_status())
-
-                    );
-                    $globalGroupDetailArray[] = array_merge($newArray);
-
-                }
-                var_dump($globalGroupDetailArray);
-        */
-
         $this->view->render("globalgroups", ['results' => $finalTable]);
-
     }
 
     public function createGroupPage()

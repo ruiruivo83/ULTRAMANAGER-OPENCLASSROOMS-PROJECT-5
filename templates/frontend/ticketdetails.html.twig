@@ -20,28 +20,28 @@
                 <table class="mr-3 ml-3 col-md-12">
                     <tbody>
                     <tr>
-                        <td>Group Id:</td>
-                        <td>{{ result.id }}</td>
+                         <td class="table_text_overflow_ellipsis">Group Id:</td>
+                         <td class="table_text_overflow_ellipsis">{{ result.id }}</td>
                     </tr>
                     <tr>
-                        <td> Group Name:</td>
-                        <td>{{ result.group_name }}</td>
+                         <td class="table_text_overflow_ellipsis"> Group Name:</td>
+                         <td class="table_text_overflow_ellipsis">{{ result.group_name }}</td>
                     </tr>
                     <tr>
-                        <td> Group Admin:</td>
-                        <td> {{ result.group_admin }}</td>
+                         <td class="table_text_overflow_ellipsis"> Group Admin:</td>
+                         <td class="table_text_overflow_ellipsis"> {{ result.group_admin }}</td>
                     </tr>
                     <tr>
-                        <td>Status:</td>
-                        <td>{{ result.group_status }}</td>
+                         <td class="table_text_overflow_ellipsis">Status:</td>
+                         <td class="table_text_overflow_ellipsis">{{ result.group_status }}</td>
                     </tr>
                     <tr>
-                        <td>Creation Date:</td>
-                        <td>{{ result.creation_date }}</td>
+                         <td class="table_text_overflow_ellipsis">Creation Date:</td>
+                         <td class="table_text_overflow_ellipsis">{{ result.creation_date }}</td>
                     </tr>
                     <tr>
-                        <td>Description:</td>
-                        <td>{{ result.group_description }}</td>
+                         <td class="table_text_overflow_ellipsis">Description:</td>
+                         <td class="table_text_overflow_ellipsis">{{ result.group_description }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -51,28 +51,28 @@
                 <table class="mr-3 ml-3 col-md-6">
                     <tbody>
                     <tr>
-                        <td>Ticket Id:</td>
-                        <td>{{ ticket.author }}</td>
+                         <td class="table_text_overflow_ellipsis">Ticket Id:</td>
+                         <td class="table_text_overflow_ellipsis">{{ ticket.author }}</td>
                     </tr>
                     <tr>
-                        <td> Ticket Title:</td>
-                        <td>{{ ticket.title }}</td>
+                         <td class="table_text_overflow_ellipsis"> Ticket Title:</td>
+                         <td class="table_text_overflow_ellipsis">{{ ticket.title }}</td>
                     </tr>
                     <tr>
-                        <td> Ticket Author:</td>
-                        <td> {{ ticket.author }}</td>
+                         <td class="table_text_overflow_ellipsis"> Ticket Author:</td>
+                         <td class="table_text_overflow_ellipsis"> {{ ticket.author }}</td>
                     </tr>
                     <tr>
-                        <td>Ticket Status:</td>
-                        <td>{{ ticket.status }}</td>
+                         <td class="table_text_overflow_ellipsis">Ticket Status:</td>
+                         <td class="table_text_overflow_ellipsis">{{ ticket.status }}</td>
                     </tr>
                     <tr>
-                        <td>Creation Date:</td>
-                        <td>{{ ticket.creation_date }}</td>
+                         <td class="table_text_overflow_ellipsis">Creation Date:</td>
+                         <td class="table_text_overflow_ellipsis">{{ ticket.creation_date }}</td>
                     </tr>
                     <tr>
-                        <td>Description:</td>
-                        <td>{{ ticket.description }}</td>
+                         <td class="table_text_overflow_ellipsis">Description:</td>
+                         <td class="table_text_overflow_ellipsis">{{ ticket.description }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -121,12 +121,12 @@
                 <tbody>
                 {% for intervention in interventionresults %}
                     <tr>
-                        <td><i class="fas fa-check mr-3"></i> {{ intervention.id }}</td>
-                        <td>  {{ intervention.intervention_date }}</td>
-                        <td>  {{ intervention.intervention_description }}</td>
-                        <td>  {{ intervention.intervention_author }}</td>
-                        <td>  {{ intervention.intervention_author_company }} </td>
-                        <td>  {{ intervention.intervention_author_country }} </td>
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-wrench mr-3"></i> {{ intervention.id }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_date }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_description }}</td>
+                         <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author }}</td>
+                         <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_company }} </td>
+                         <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_country }} </td>
                     </tr>
                 {% endfor %}
                 </tbody>

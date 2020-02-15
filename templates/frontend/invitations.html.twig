@@ -39,11 +39,11 @@
                 <tbody>
                 {% for invitation in invitationsFromMe %}
                     <tr>
-                        <td>  {{ invitation.invitation_to }} </td>
-                        <td>  {{ invitation.invitation_date }} </td>
-                        <td>  {{ invitation.invitation_for_group_id }} </td>
-                        <td>  {{ invitation.group_name }} </td>
-                        <td>
+                        <td class="table_text_overflow_ellipsis"> {{ invitation.invitation_to }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ invitation.invitation_date }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ invitation.invitation_for_group_id }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ invitation.group_name }} </td>
+                        <td class="table_text_overflow_ellipsis">
                             <a href="index.php?action=deleteinvitationfunction&invitationid={{ invitation.id }}">DELETE</a>
                         </td>
                     </tr>

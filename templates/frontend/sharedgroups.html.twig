@@ -37,13 +37,13 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="min-width-10p"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
                         </td>
-                        <td class="min-width-10p">  {{ result.group_name }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
-                        <td class="min-width-10p">  {{ result.group_admin }} </td>
-                        <td class="min-width-10p">  {{ result.creation_date }} </td>
-                        <td class="min-width-10p">
+                        <td class="table_text_overflow_ellipsis"> {{ result.group_admin }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.creation_date }} </td>
+                        <td class="table_text_overflow_ellipsis">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Info</a>
                             <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
                             <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.id }}">Close</a>

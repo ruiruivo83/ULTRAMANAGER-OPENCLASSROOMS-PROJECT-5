@@ -10,7 +10,7 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                SHARED INTERVENTIONS
+                <i class="fas fa-fw fa-wrench  mr-3 fa-2x"></i>SHARED INTERVENTIONS
             </div>
         </div>
         <div class="card-body p-0">
@@ -37,12 +37,12 @@
                 <tbody>
                 {% for intervention in results %}
                     <tr>
-                        <td> <i class="fas fa-fw fa-wrench"></i> {{ intervention.id }}</td>
-                        <td>  {{ intervention.intervention_date }}</td>
-                        <td>  {{ intervention.intervention_description }}</td>
-                        <td>  {{ intervention.intervention_author }}</td>
-                        <td>  {{ intervention.intervention_author_company }} </td>
-                        <td>  {{ intervention.intervention_author_country }} </td>
+                        <td class="table_text_overflow_ellipsis"> <i class="fas fa-fw fa-wrench"></i> {{ intervention.id }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_date }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_description }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_company }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_country }} </td>
                     </tr>
                 {% endfor %}
                 </tbody>

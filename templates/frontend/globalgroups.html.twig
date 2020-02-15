@@ -9,7 +9,7 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                GLOBAL GROUPS
+                <i class="fas fa-user-friends mr-3 fa-2x"></i>GLOBAL GROUPS
             </div>
         </div>
         <div class="card-body p-0">
@@ -32,10 +32,10 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td> <i class="fas fa-user-friends mr-3"></i> {{ result.id }}</td>
-                        <td>  {{ result.group_name }}</td>
-                        <td>  {{ result.group_admin }}</td>
-                        <td>  {{ result.creation_date }}</td>
+                        <td class="table_text_overflow_ellipsis"> <i class="fas fa-user-friends mr-3"></i> {{ result.id }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.group_name }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.group_admin }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.creation_date }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

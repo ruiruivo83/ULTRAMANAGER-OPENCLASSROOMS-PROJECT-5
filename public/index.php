@@ -26,6 +26,24 @@ class Router
 {
 
     private $superGlobals;
+    private $indexController;
+
+    private $userController;
+
+    private $groupsController;
+    private $ticketsController;
+    private $interventionsController;
+    private $invitationsController;
+
+    private $commonController;
+
+    private $profileController;
+    private $activityLogController;
+    private $settingsController;
+
+    private $alertsController;
+    private $messagesController;
+
 
     public function __construct()
     {
@@ -34,627 +52,236 @@ class Router
         }
 
         $this->superGlobals = new SuperGlobals();
+        $this->indexController = new IndexController;
+        $this->commonController = new CommonController;
+        $this->userController = new UserController;
+        $this->profileController = new ProfileController;
+        $this->activityLogController = new activityLogController;
+        $this->settingsController = new SettingsController;
+        $this->groupsController = new GroupsController;
+        $this->ticketsController = new TicketsController;
+        $this->interventionsController = new InterventionsController;
+        $this->invitationsController = new InvitationsController;
+        $this->alertsController = new AlertsController;
+        $this->messagesController = new MessagesController;
 
     }
 
     // ROUTER MAIN FUNCTION
     public function main()
     {
-        $indexController = new IndexController;
-        $commonController = new CommonController;
-        $userController = new UserController;
-        $profileController = new ProfileController;
-        $activityLogController = new activityLogController;
-        $settingsController = new SettingsController;
-        $groupsController = new GroupsController;
-        $ticketsController = new TicketsController;
-        $interventionsController = new InterventionsController;
-        $invitationsController = new InvitationsController;
-        $alertsController = new AlertsController;
-        $messagesController = new MessagesController;
 
 
         if ($this->superGlobals->if_IssetGet("action")) {
 
-
-            // LOGIN PAGE
-            /*
-            if ($_GET['action'] === 'login') {
-                $commonController->loginPage();
-            }
-            */
-
+            // NO SESSION
             if ($this->superGlobals->getGlobal_Get("action") === "login") {
-                $commonController->loginPage();
+                $this->commonController->loginPage();
             }
-
-            /*
-            // REGISTER PAGE
-            if ($_GET['action'] === 'register') {
-                $commonController->registerPage();
-            }
-            */
 
             if ($this->superGlobals->getGlobal_Get("action") === "register") {
-                $commonController->registerPage();
+                $this->commonController->registerPage();
+
             }
 
-            /*
-            // INDEX PAGE
-            if ($_GET['action'] === 'index') {
-                if (isset($_SESSION["user"])) {
-                    // IF SESSION IS OPEN
-                    $indexController->dashboardPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    $indexController->noLoginFrontPagePage();
-                }
-            }
-            */
-            /*
-            if ($this->superGlobals->getGlobal_Get("action") === "index") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $indexController->dashboardPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    $indexController->noLoginFrontPagePage();
-                }
-            }
-            */
+            // GET FUNCTIONS - Must Run first
+            $this->getFunction($this->superGlobals->getGlobal_Get("action"));
 
-            /*
-            // ACTIVITY LOG PAGE
-            if ($_GET['action'] === 'activitylog') {
-                if (isset($_SESSION["user"])) {
-                    $activityLogController->activityLogPage();
-                } else {
-                    // TODO
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            if ($this->superGlobals->getGlobal_Get("action") === "activitylog") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $activityLogController->activityLogPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // PROFILE PAGE
-            if ($_GET['action'] === 'profile') {
-                if (isset($_SESSION["user"])) {
-                    $profileController->profilePage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // PROFILE PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "profile") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $profileController->profilePage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SETTINGS PAGE
-            if ($_GET['action'] === 'settings') {
-                if (isset($_SESSION["user"])) {
-                    $settingsController->settingsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SETTINGS PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "settings") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $settingsController->settingsPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // MY GROUPS PAGE
-            if ($_GET['action'] === 'mygroups') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->myGroupsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-/*
-            // MY GROUPS PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "mygroups") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $groupsController->myGroupsPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-*/
-            /*
-            // GROUP DETAILS PAGE
-            if ($_GET['action'] === 'groupdetails') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->groupDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // GROUP DETAILS PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "groupdetails") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $groupsController->groupDetailsPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // GROUPMEMBERS PAGE
-            if ($_GET['action'] === 'groupmembers') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->groupMembersPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // GROUPMEMBERS PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "groupmembers") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $groupsController->groupMembersPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SHARED GROUPS PAGE
-            if ($_GET['action'] === 'sharedgroups') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->sharedGroupsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SHARED GROUPS PAGE
-            if ($this->superGlobals->getGlobal_Get("action") === "sharedgroups") {
-                if ($this->superGlobals->if_IssetSession(("user"))) {
-                    // IF SESSION IS OPEN
-                    $groupsController->sharedGroupsPage();
-                } else {
-                    // IF SESSION IS NOT OPEN
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SHARED TICKETS PAGE
-            if ($_GET['action'] === 'sharedtickets') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedTicketsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            /*
-            // SHARED INTERVENTIONS PAGE
-            if ($_GET['action'] === 'sharedinterventions') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedInterventionsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-            */
-
-            // MY INTERVENTIONS PAGE
-            if ($_GET['action'] === 'myinterventions') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->myInterventionsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED GROUP MEMBERS PAGE
-            if ($_GET['action'] === 'sharedgroupmembers') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->sharedGroupMembersPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // MEMBER DETAILS PAGE
-            if ($_GET['action'] === 'mymemberdetails') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->myMemberDetails();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED MEMBER DETAILS PAGE
-            if ($_GET['action'] === 'sharedmemberdetails') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->sharedMemberDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // TICKETS PAGE
-            if ($_GET['action'] === 'mytickets') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->myTicketsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // TICKET DETAILS PAGE
-            if ($_GET['action'] === 'ticketdetails') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->ticketDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED TICKETS PAGE
-            if ($_GET['action'] === 'sharedtickets') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedTicketsPage
-                    ();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED TICKET DETAILS PAGE
-            if ($_GET['action'] === 'sharedticketdetails') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->sharedTicketDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // INTERVENTIONS PAGE
-            if ($_GET['action'] === 'interventions') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->myInterventionsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // INTERVENTION DETAILS PAGE
-            if ($_GET['action'] === 'interventiondetails') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->interventionDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED INTERVENTIONS PAGE
-            if ($_GET['action'] === 'sharedinterventions') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedInterventionsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHARED INTERVENTION DETAILS PAGE
-            if ($_GET['action'] === 'sharedinterventiondetails') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->sharedInterventionDetailsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // INVITATIONS PAGE
-            if ($_GET['action'] === 'invitations') {
-                if (isset($_SESSION["user"])) {
-                    $invitationsController->invitationsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHOW ALL ALERTS PAGE
-            if ($_GET['action'] === 'showallalerts') {
-                if (isset($_SESSION["user"])) {
-                    $alertsController->showAllAlertsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SHOW ALL MESSAGES PAGE
-            if ($_GET['action'] === 'showallmessages') {
-                if (isset($_SESSION["user"])) {
-                    $messagesController->showAllMessagesPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // GLOBAL GROUPS PAGE
-            if ($_GET['action'] === 'globalgroups') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->globalGroupsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // GLOBAL TICKETS PAGE
-            if ($_GET['action'] === 'globaltickets') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->globalTicketsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // GLOBAL INTERVENTIONS PAGE
-            if ($_GET['action'] === 'globalinterventions') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->globalInterventionsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE GROUP PAGE             
-            if ($_GET['action'] === 'creategroup') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->createGroupPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE TICKET PAGE             
-            if ($_GET['action'] === 'createticket') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->createTicketPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE INTERVENTION PAGE             
-            if ($_GET['action'] === 'createintervention') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->createInterventionPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // SEARCH RESULTS PAGE
-            if ($_GET['action'] === 'searchuser') {
-                if (isset($_SESSION["user"])) {
-                    $userController->searchUserResultsPage();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            ////////////////////// ROUTER FUNCTIONS ////////////////////////////
-            ////////////////////////////////////////////////////////////////////
-
-            // LOGOUT FUNCTION
-            if ($_GET['action'] === 'logout') {
-                if (isset($_SESSION["user"])) {
-                    $userController->logout();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // LOGIN VALIDATION FUNCTION
-            if (!isset($_SESSION["user"])) {
-                if ($_GET['action'] === 'login_validation') {
-                    $userController->loginValidationFunction();
-                }
-            }
-
-            // REGISTER NEW USER FUNCTION
-            if (!isset($_SESSION["user"])) {
-                if ($_GET['action'] === 'registernewuser') {
-                    $userController->registerNewUserFunction();
-                }
-            }
-
-            // CREATE GROUP FUNCTION
-            if ($_GET['action'] === 'creategroupfunction') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->createGroupFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE TICKET FUNCTION
-            if ($_GET['action'] === 'createticketfunction') {
-                if (isset($_SESSION["user"])) {
-                    $ticketsController->createTicketFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE TICKET FUNCTION
-            if ($_GET['action'] === 'createinterventionfunction') {
-                if (isset($_SESSION["user"])) {
-                    $interventionsController->createInterventionFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // CREATE INVITATION FUNCTION
-            if ($_GET['action'] === 'createinvitationfunction') {
-                if (isset($_SESSION["user"])) {
-                    $invitationsController->createInvitationFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // DELETE INVITATION FUNCTION
-            if ($_GET['action'] === 'deleteinvitationfunction') {
-                if (isset($_SESSION["user"])) {
-                    $invitationsController->deleteInvitationFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // ACCEPT INVITATION FUNCTION
-            if ($_GET['action'] === 'acceptinvitationfunction') {
-                if (isset($_SESSION["user"])) {
-                    $invitationsController->acceptInvitationFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
-
-            // ACCEPT INVITATION FUNCTION
-            if ($_GET['action'] === 'removememberfromgroupfunction') {
-                if (isset($_SESSION["user"])) {
-                    $groupsController->removeMemberFromGroupFunction();
-                } else {
-                    header('Location: ../index.php');
-                    exit();
-                }
-            }
+            // GET PAGES
+            $this->getPage($this->superGlobals->getGlobal_Get("action"));
 
 
-        } else if (isset($_SESSION["user"])) {
-            $indexController->dashboardPage();
+        } else if ($this->superGlobals->if_IssetSession("user")) {
+            // SESSION OPEN
+            $this->indexController->dashboardPage();
         } else {
-            // IF SESSION IS NOT OPEN
-            $indexController->noLoginFrontPage();
+            // SESSION NOT OPEN
+            $this->indexController->noLoginFrontPage();
         }
     }
 
-    public function getPage($page) {
-        if ($this->superGlobals->getGlobal_Get("action") === $page) {
-            if ($this->superGlobals->if_IssetSession(("user"))) {
-                /////////////////////////////////
-                ///
-                /// IF SESSION IS OPEN
+    public function getFunction($functionName)
+    {
 
-                if ($page === "index") {$this->indexController->dashboardPage();}
-                if ($page === "activityLog") {$this->activityLogController->activityLogPage();}
-                if ($page === "profile") {$this->profileController->profilePage();}
-                if ($page === "settings") {$this->settingsController->settingsPage();}
-                if ($page === "mygroups") {$this->groupsController->myGroupsPage();}
-                if ($page === "groupdetails") {$this->groupsController->groupDetailsPage();}
-                if ($page === "groupmembers") {$this->groupsController->groupMembersPage();}
-                if ($page === "sharedgroups") {$this->groupsController->sharedGroupsPage();}
-                if ($page === "sharedTickets") {$this->ticketsController->sharedTicketsPage();}
-                if ($page === "sharedinterventions") {$this->interventionsController->sharedInterventionsPage();}
-                if ($page === "groupmembers") {$this->groupsController->groupMembersPage();}
-                if ($page === "groupmembers") {$this->groupsController->groupMembersPage();}
-                if ($page === "groupmembers") {$this->groupsController->groupMembersPage();}
+        ////////////////////////////////////////////////////////////////////
+        ////////////////////// ROUTER FUNCTIONS ////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+
+        // LOGIN VALIDATION FUNCTION
+        if ($functionName === 'login_validation') {
+            $this->userController->loginValidationFunction();
+        }
+
+        // REGISTER NEW USER FUNCTION
+        if ($functionName === 'registernewuser') {
+            $this->userController->registerNewUserFunction();
+        }
+
+        if ($this->superGlobals->if_IssetSession("user")) {
+
+            // LOGOUT FUNCTION
+            if ($functionName === "logout") {
+                $this->userController->logout();
+            }
+
+            // GROUPS FUNCTIONS
+            if ($functionName === 'creategroupfunction') {
+                $this->groupsController->createGroupFunction();
+            }
+            if ($functionName === 'modifygroupfunction') {
+                $this->groupsController->modifyGroupFunction();
+            }
+            // - close group will add a ticket with author, date and time.
+            if ($functionName === 'closegroupfunction') {
+                $this->groupsController->closeGroupFunction();
+            }
+
+            // TICKETS FUNCTIONS
+            if ($functionName === 'createticketfunction') {
+                $this->ticketsController->createTicketFunction();
+            }
+            if ($functionName === 'modifyticketfunction') {
+                $this->ticketsController->modifyTicketFunction();
+            }
+            if ($functionName === 'closeticketfunction') {
+                $this->ticketsController->closeTicketFunction();
+            }
+
+            // INTERVENTIONS FUNCTIONS -- CANNOT MODIFY NOR CLOSE
+            if ($functionName === 'createinterventionfunction') {
+                $this->interventionsController->createInterventionFunction();
+            }
+
+            // INVITATIONS FUNCTIONS
+            if ($functionName === 'createinvitationfunction') {
+                $this->invitationsController->createInvitationFunction();
+            }
+            if ($functionName === 'acceptinvitationfunction') {
+                $this->invitationsController->acceptInvitationFunction();
+            }
+            if ($functionName === 'deleteinvitationfunction') {
+                $this->invitationsController->deleteInvitationFunction();
+            }
+
+            // MEMBERS FUNCTIONS
+            if ($functionName === 'removememberfromgroupfunction') {
+                $this->groupsController->removeMemberFromGroupFunction();
+            }
+
+        }
+    }
+
+    public function getPage($pageName)
+    {
+        if ($this->superGlobals->getGlobal_Get("action") === $pageName) {
+            if ($this->superGlobals->if_IssetSession(("user"))) {
+
+                ////////////////////////////////////////////////////////////////////
+                ////////////////////////// ROUTER PAGES ////////////////////////////
+                ////////////////////////////////////////////////////////////////////
+
+                // MAIN
+                if ($pageName === "index") {
+                    $this->indexController->dashboardPage();
+                }
+
+                // USER
+                if ($pageName === "activityLog") {
+                    $this->activityLogController->activityLogPage();
+                }
+                if ($pageName === "profile") {
+                    $this->profileController->profilePage();
+                }
+                if ($pageName === "settings") {
+                    $this->settingsController->settingsPage();
+                }
+                if ($pageName === "sharedTickets") {
+                    $this->ticketsController->sharedTicketsPage();
+                }
+                if ($pageName === "searchuserresults") {
+                    $this->userController->searchUserResultsPage();
+                }
+
+                // GROUPS
+                if ($pageName === "creategroup") {
+                    $this->groupsController->createGroupPage();
+                }
+                if ($pageName === "mygroups") {
+                    $this->groupsController->myGroupsPage();
+                }
+                if ($pageName === "sharedgroups") {
+                    $this->groupsController->sharedGroupsPage();
+                }
+                if ($pageName === "groupdetails") {
+                    $this->groupsController->groupDetailsPage();
+                }
+                if ($pageName === "groupmembers") {
+                    $this->groupsController->groupMembersPage();
+                }
+                if ($pageName === "globalgroups") {
+                    $this->groupsController->globalGroupsPage();
+                }
+
+                // TICKETS
+                if ($pageName === "createticket") {
+                    $this->ticketsController->createTicketPage();
+                }
+                if ($pageName === "mytickets") {
+                    $this->ticketsController->myTicketsPage();
+                }
+                if ($pageName === "sharedtickets") {
+                    $this->ticketsController->sharedTicketsPage();
+                }
+                if ($pageName === "globaltickets") {
+                    $this->ticketsController->globalTicketsPage();
+                }
+                // TODO
+                if ($pageName === "ticketdetails") {
+                    $this->ticketsController->ticketDetailsPage();
+                }
+                if ($pageName === "sharedticketdetails") {
+                    $this->ticketsController->sharedTicketDetailsPage();
+                }
+
+
+                // INTERVENTIONS
+                if ($pageName === "createintervention") {
+                    $this->interventionsController->createInterventionPage();
+                }
+                if ($pageName === "myinterventions") {
+                    $this->interventionsController->myInterventionsPage();
+                }
+                if ($pageName === "sharedinterventions") {
+                    $this->interventionsController->sharedInterventionsPage();
+                }
+                if ($pageName === "globalinterventions") {
+                    $this->interventionsController->globalInterventionsPage();
+                }
+                // TODO
+                if ($pageName === "interventiondetails") {
+                    $this->interventionsController->interventionDetailsPage();
+                }
+                if ($pageName === "sharedinterventiondetails") {
+                    $this->interventionsController->sharedInterventionDetailsPage();
+                }
+
+
+                // MEMBERS
+                if ($pageName === "sharedgroupmembers") {
+                    $this->groupsController->sharedGroupMembersPage();
+                }
+                // TODO
+                if ($pageName === "mymemberdetails") {
+                    $this->groupsController->myMemberDetailsPage();
+                }
+                if ($pageName === "sharedmemberdetails") {
+                    $this->groupsController->sharedMemberDetailsPage();
+                }
+
+                // INVITATIONS
+                if ($pageName === "invitations") {
+                    $this->invitationsController->invitationsPage();
+                }
 
             } else {
                 // IF SESSION IS NOT OPEN

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use PDO;
+use App\Tools\Database;
 use App\Model\Entity\Invitation;
 
 class InvitationModel
@@ -16,7 +17,6 @@ class InvitationModel
     {
         $this->bdd = Database::getBdd();
     }
-
 
     public function getInvitationsFromMe(): array
     {

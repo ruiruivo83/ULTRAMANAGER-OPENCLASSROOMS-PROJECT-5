@@ -37,13 +37,6 @@ class Router
 
     private $commonController;
 
-    private $profileController;
-    private $activityLogController;
-    private $settingsController;
-
-    private $alertsController;
-    private $messagesController;
-
 
     public function __construct()
     {
@@ -55,15 +48,11 @@ class Router
         $this->indexController = new IndexController;
         $this->commonController = new CommonController;
         $this->userController = new UserController;
-        $this->profileController = new ProfileController;
-        $this->activityLogController = new activityLogController;
-        $this->settingsController = new SettingsController;
+
         $this->groupsController = new GroupsController;
         $this->ticketsController = new TicketsController;
         $this->interventionsController = new InterventionsController;
         $this->invitationsController = new InvitationsController;
-        $this->alertsController = new AlertsController;
-        $this->messagesController = new MessagesController;
 
     }
 
@@ -198,7 +187,7 @@ class Router
                 if ($pageName === "sharedTickets") {
                     $this->ticketsController->sharedTicketsPage();
                 }
-                if ($pageName === "searchuserresults") {
+                if ($pageName === "searchuser") {
                     $this->userController->searchUserResultsPage();
                 }
 
@@ -235,13 +224,10 @@ class Router
                 if ($pageName === "globaltickets") {
                     $this->ticketsController->globalTicketsPage();
                 }
-                // TODO
                 if ($pageName === "ticketdetails") {
                     $this->ticketsController->ticketDetailsPage();
                 }
-                if ($pageName === "sharedticketdetails") {
-                    $this->ticketsController->sharedTicketDetailsPage();
-                }
+
 
 
                 // INTERVENTIONS
@@ -257,12 +243,8 @@ class Router
                 if ($pageName === "globalinterventions") {
                     $this->interventionsController->globalInterventionsPage();
                 }
-                // TODO
                 if ($pageName === "interventiondetails") {
                     $this->interventionsController->interventionDetailsPage();
-                }
-                if ($pageName === "sharedinterventiondetails") {
-                    $this->interventionsController->sharedInterventionDetailsPage();
                 }
 
 

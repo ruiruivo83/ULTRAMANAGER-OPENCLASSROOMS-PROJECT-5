@@ -27,7 +27,6 @@ class InterventionsController
 
 
     // DISPLAY PAGE - Shared Interventions
-    // TODO
     public function sharedInterventionsPage()
     {
         // GET SHARED GROUPS

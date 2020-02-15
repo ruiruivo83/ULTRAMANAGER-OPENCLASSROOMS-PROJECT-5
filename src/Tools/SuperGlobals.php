@@ -8,7 +8,7 @@ namespace App\Tools;
 class SuperGlobals
 {
 
-    public function testIfIsset(string $var): bool
+    public function if_IssetGet(string $var): bool
     {
         if (isset($_GET[$var])) {
             return true;
@@ -17,12 +17,30 @@ class SuperGlobals
         }
     }
 
-    public function getGlobalGet(string $var): string
+    public function if_IssetPost(string $var): bool
+    {
+        if (isset($_POST[$var])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function if_IssetSession(string $var): bool
+    {
+        if (isset($_SESSION[$var])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getGlobal_Get(string $var): string
     {
         return $_GET[$var];
     }
 
-    public function getGlobalPost(string $var): string
+    public function getGlobal_Post(string $var): string
     {
         return $_GET[$var];
     }

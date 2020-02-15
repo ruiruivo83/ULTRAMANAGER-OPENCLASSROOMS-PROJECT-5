@@ -28,7 +28,6 @@ class InterventionsController
 
     // DISPLAY PAGE - Shared Interventions
     // TODO
-
     public function sharedInterventionsPage()
     {
         // GET SHARED GROUPS
@@ -60,13 +59,6 @@ class InterventionsController
         $this->view->render("myinterventions", ['results' => $finalArray]);
     }
 
-    // DISPLAY PAGE - Global Interventions Page
-    public function globalInterventionsPage()
-    {
-        $result = $this->interventionModel->getAllInterventions();
-        $this->view->render("globalinterventions", ['interventions' => $result]);
-    }
-
     // DISPLAY PAGE - Create Interventions Page
     public function createInterventionPage()
     {
@@ -84,6 +76,39 @@ class InterventionsController
             header('Location: ../index.php?action=ticketdetails&id=' . $_POST["ticketid"]);
             exit();
         }
+    }
+
+    // DISPLAY GLOBAL TICKETS PAGE
+    public function globalInterventionsPage()
+    {
+
+        $finalInterventionsTable = array();
+
+        // GET MY TICKETS FROM MY GROUPS
+        // Shared Groups
+        $result = $this->groupModel->getMyGroups();
+        // Get Tickets for my groups
+        $finalArrayMyTickets = array();
+        foreach ($result as $key) {
+            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+        }
+
+        // GET SHARED TICKETS FROM SHARED GROUPS
+        // Shared Groups
+        $result = $this->groupModel->getSharedGroups();
+        // Get Tickets for shared groups
+        $finalArraySharedTickets = array();
+        foreach ($result as $key) {
+            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+        }
+
+        $finalTicketList = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
+
+        foreach ($finalTicketList as $ticket) {
+            $finalInterventionsTable = array_merge($finalInterventionsTable, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
+        }
+
+        $this->view->render("globalinterventions", ['results' => $finalInterventionsTable]);
     }
 
 

@@ -61,15 +61,14 @@ class InterventionsController
     public function createInterventionPage()
     {
         // $result = $this->interventionModel->getAllInterventions();
-        $ticketId =$this->superGlobals->getGlobal_Post("ticketid");
+        $ticketId = $this->superGlobals->getGlobal_Get("ticketid");
         $this->view->render("createintervention", ['ticketid' => $ticketId]);
     }
 
     // DISPLAY PAGE - Create Intervention Function
     public function createInterventionFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->if_IssetGet("title") and $this->superGlobals->if_IssetPost("Description") and $this->superGlobals->if_IssetPost("ticket_id")) {
-            // Add Intervention to Database
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("Title") and $this->superGlobals->testIf_IssetPost("Description") and $this->superGlobals->testIf_IssetPost("ticketid")) {
             $this->interventionModel->createNewIntervention();
             header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->getGlobal_Post("ticketid"));
             exit();

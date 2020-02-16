@@ -53,7 +53,7 @@ class GroupsController
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
-        if ($this->superGlobals->if_IssetGet("id")) {
+        if ($this->superGlobals->testIf_IssetGet("id")) {
             $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->getGlobal_Get("id"));
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
@@ -67,7 +67,7 @@ class GroupsController
 
     public function groupMembersPage()
     {
-        if ($this->superGlobals->if_IssetGet("groupid")) {
+        if ($this->superGlobals->testIf_IssetGet("groupid")) {
             $groupMembers = $this->memberModel->getGroupMembers((int)$this->superGlobals->getGlobal_Get("groupid"));
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {

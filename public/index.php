@@ -60,17 +60,14 @@ class Router
     public function main()
     {
 
-
-        if ($this->superGlobals->if_IssetGet("action")) {
+        if ($this->superGlobals->testIf_IssetGet("action")) {
 
             // NO SESSION
             if ($this->superGlobals->getGlobal_Get("action") === "login") {
                 $this->commonController->loginPage();
             }
-
             if ($this->superGlobals->getGlobal_Get("action") === "register") {
                 $this->commonController->registerPage();
-
             }
 
             // GET FUNCTIONS - Must Run first
@@ -79,8 +76,7 @@ class Router
             // GET PAGES
             $this->getPage($this->superGlobals->getGlobal_Get("action"));
 
-
-        } else if ($this->superGlobals->if_IssetSession("user")) {
+        } else if ($this->superGlobals->testIf_IssetSession("user")) {
             // SESSION OPEN
             $this->indexController->dashboardPage();
         } else {
@@ -106,7 +102,7 @@ class Router
             $this->userController->registerNewUserFunction();
         }
 
-        if ($this->superGlobals->if_IssetSession("user")) {
+        if ($this->superGlobals->testIf_IssetSession("user")) {
 
             // LOGOUT FUNCTION
             if ($functionName === "logout") {
@@ -163,7 +159,7 @@ class Router
     public function getPage($pageName)
     {
         if ($this->superGlobals->getGlobal_Get("action") === $pageName) {
-            if ($this->superGlobals->if_IssetSession(("user"))) {
+            if ($this->superGlobals->testIf_IssetSession(("user"))) {
 
                 ////////////////////////////////////////////////////////////////////
                 ////////////////////////// ROUTER PAGES ////////////////////////////

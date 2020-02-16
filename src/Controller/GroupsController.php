@@ -132,7 +132,7 @@ class GroupsController
     {
         if (isset($_GET['groupid']) AND isset($_GET['userid'])) {
             // $req->execute(array($_GET['groupid'], $_GET['userid']));
-            $this->groupModel->removeMemberFromGroupfunction((int)($this->superGlobals->getGlobalGet('groupid')), (int)($this->superGlobals->getGlobalGet('userid')));
+            $this->groupModel->removeMemberFromGroupfunction((int)($this->superGlobals->_GET("groupid")), (int)($this->superGlobals->_GET("userid")));
             header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
             exit();
         }

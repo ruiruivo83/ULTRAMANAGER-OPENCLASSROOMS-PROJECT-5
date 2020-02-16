@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use PDO;
+use App\Tools\Database;
 use App\Model\Entity\Intervention;
 
 class InterventionModel
@@ -18,10 +19,10 @@ class InterventionModel
         $this->bdd = Database::getBdd();
     }
 
-    public function getAllInterventions(): array
+    public function getAllInterventionsForTicketId(int $id): array
     {
-        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions ORDER BY intervention_date DESC");
-        $req->execute();
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE ticket_id = ? ORDER BY intervention_date DESC");
+        $req->execute(array($id));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -35,6 +36,16 @@ class InterventionModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
+    }
+
+    public function getInterventionForTicketId(int $id): array
+    {
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE ticket_id = ? ORDER BY intervention_date DESC");
+        $req->execute(array($id));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
     }
 
 }

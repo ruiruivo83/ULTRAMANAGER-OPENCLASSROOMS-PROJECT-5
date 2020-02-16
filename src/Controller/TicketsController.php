@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Tools\SuperGlobals;
 use App\View\View;
 use App\Model\TicketModel;
 use App\Model\GroupModel;
@@ -17,6 +18,7 @@ class TicketsController
     private $ticketModel;
     private $groupModel;
     private $interventionModel;
+    private $superGlobals;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class TicketsController
         $this->ticketModel = new TicketModel();
         $this->groupModel = new GroupModel();
         $this->interventionModel = new InterventionModel();
+        $this->superGlobals = new SuperGlobals();
     }
 
     // DISPLAY PAGE - TICKETS PAGE
@@ -36,11 +39,11 @@ class TicketsController
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
     {
-        if (isset($_GET['id'])) {
-            $ticketResult = $this->ticketModel->getTicketDetails(intval($_GET['id']));
+        if ($this->superGlobals->testIf_IssetGet("id")) {
+            $ticketResult = $this->ticketModel->getTicketDetails((int)$this->superGlobals->getGlobal_Get("id"));
             foreach ($ticketResult as $ticket) {
-                $groupResult = $this->groupModel->getGroupDetails(intval($ticket->getGroup_id()));
-                $interventionResult = $this->interventionModel->getAllInterventions(intval($ticket->getId()));
+                $groupResult = $this->groupModel->getGroupDetails((int)$ticket->getGroup_id());
+                $interventionResult = $this->interventionModel->getAllInterventionsForTicketId((int)$ticket->getId());
             }
             $this->view->render("ticketdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResult, 'interventionresults' => $interventionResult]);
         } else {
@@ -49,12 +52,21 @@ class TicketsController
         }
     }
 
-
-    // DISPLAY PAGE - Global Tickets
+    // DISPLAY GLOBAL TICKETS PAGE
     public function globalTicketsPage()
     {
-        $result = $this->ticketModel->getAllTickets();
-        $this->view->render("globaltickets", ['results' => $result]);
+        $result = $this->groupModel->getMyGroups();
+        $finalArrayMyTickets = array();
+        foreach ($result as $key) {
+            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+        }
+        $result = $this->groupModel->getSharedGroups();
+        $finalArraySharedTickets = array();
+        foreach ($result as $key) {
+            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+        }
+        $finalTable = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
+        $this->view->render("globaltickets", ['results' => $finalTable]);
     }
 
 
@@ -62,12 +74,12 @@ class TicketsController
     public function createTicketPage()
     {
         $groupName = "";
-        if (isset($_GET['groupid'])) {
-            $group = $this->groupModel->getGroupDetails(intval($_GET['groupid']));
+        if ($this->superGlobals->testIf_IssetGet("groupid")) {
+            $group = $this->groupModel->getGroupDetails((int)$this->superGlobals->getGlobal_Get("groupid"));
             foreach ($group as $key) {
                 $groupName = $key->getGroup_name();
             }
-            $groupId = $_GET['groupid'];
+            $groupId = $this->superGlobals->getGlobal_Get("groupid");
             $this->view->render("createticket", ['groupid' => $groupId, 'groupname' => $groupName]);
         } else {
             echo "Missiong ID";
@@ -78,11 +90,34 @@ class TicketsController
 
     public function createTicketFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["Requester"]) and isset($_GET['groupid'])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("Title") and $this->superGlobals->testIf_IssetPost("Description") and $this->superGlobals->testIf_IssetPost("Requester") and $this->superGlobals->testIf_IssetGet("groupid")) {
             $this->ticketModel->createNewTicket();
-            header('Location: ../index.php?action=groupdetails&id=' . $_GET['groupid']);
+            header('Location: ../index.php?action=groupdetails&id=' . $this->superGlobals->getGlobal_Get("groupid"));
             exit();
         }
     }
+
+    // DISPLAY PAGE - Shared Tickets
+    public function sharedTicketsPage()
+    {
+        $result = $this->groupModel->getSharedGroups();
+        $finalArray = array();
+        foreach ($result as $key) {
+            $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+        }
+        $this->view->render("sharedtickets", ['results' => $finalArray]);
+    }
+
+    // DISPLAY PAGE - My Tickets
+    public function myTicketsPage()
+    {
+        $result = $this->groupModel->getMyGroups();
+        $finalArray = array();
+        foreach ($result as $key) {
+            $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+        }
+        $this->view->render("mytickets", ['results' => $finalArray]);
+    }
+
 
 }

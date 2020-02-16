@@ -56,16 +56,16 @@
                 <tbody>
                 {% for result in memberresults %}
                     <tr>
-                        <td class="min-width-10p"><i class="fas fa-user mr-3"></i> {{ result.email }}
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user mr-3"></i> {{ result.email }}
                         </td>
-                        <td class="min-width-10p">  {{ result.firstname }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.firstname }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.lastname }} </td>
-                        <td class="min-width-10p">  {{ result.company }} <span class="badge badge-info">Current Situation</span>
+                        <td class="table_text_overflow_ellipsis">  {{ result.company }} <span class="badge badge-info">Current Situation</span>
                         </td>
-                        <td class="min-width-10p">  {{ result.country }} <span class="badge badge-info">Current Situation</span>
+                        <td class="table_text_overflow_ellipsis"> {{ result.country }} <span class="badge badge-info">Current Situation</span>
                         </td>
-                        <td class="min-width-10p">
-                            <button>REMOVE</button>
+                        <td class="table_text_overflow_ellipsis">
+                            <a class="mr-2" href="index.php?action=removememberfromgroupfunction&groupid={{ groupid }}&userid={{ result.id }}">REMOVE</a>
                         </td>
                     </tr>
                 {% endfor %}

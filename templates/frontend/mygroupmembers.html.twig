@@ -44,13 +44,13 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td>  {{ result.id }}</td>
-                        <td>  {{ result.firstname }}</td>
-                        <td>  {{ result.lastname }}</td>
-                        <td>  {{ result.email }}</td>
-                        <td>  {{ result.company }}</td>
-                        <td>  {{ result.country }}</td>
-                        <td>  {{ result.creation_date }}</td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.id }}</td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.firstname }}</td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.lastname }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.email }}</td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.company }}</td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.country }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.creation_date }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

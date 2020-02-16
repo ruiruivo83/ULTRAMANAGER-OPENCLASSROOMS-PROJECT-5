@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Tools;
+
+
 
 // COMPOSER AUTOLOAD
 // require '../vendor/autoload.php';

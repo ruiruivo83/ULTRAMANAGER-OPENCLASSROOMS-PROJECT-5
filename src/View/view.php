@@ -19,6 +19,8 @@ class View
 
     public function render(string $template, array $data): void
     {
+        // TODO - Add $_SESSION user name to the top bar
+        // TODO - Add Totals of every results to the side bar
         echo $this->twig->render('frontend/' . $template . '.html.twig', $data);
     }
 

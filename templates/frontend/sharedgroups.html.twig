@@ -9,16 +9,11 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                <i class="fas fa-user-friends mr-3 fa-2x"></i>My GROUPS
+                <i class="fas fa-user-friends mr-3 fa-2x"></i>SHARED GROUPS
             </div>
 
         </div>
         <div class="card-body p-0">
-            <div class="w-100">
-                <a href="index.php?action=creategroup">
-                    <button type="button" class="btn btn-primary btn-sm m-1">Create Groupe</button>
-                </a>
-            </div>
 
             <table id="dtBasicExample" class="table table-striped table-bordered table-sm m-0 " cellspacing="0"
                    width="100%">
@@ -31,9 +26,11 @@
                     </th>
                     <th class="th-sm">Group Description
                     </th>
+                    <th class="th-sm">Group Admin
+                    </th>
                     <th class="th-sm">Creation Date
                     </th>
-                    <th class="th-sm align-items-end">
+                    <th class="th-sm">
                     </th>
                 </tr>
                 </thead>
@@ -42,11 +39,12 @@
                     <tr>
                         <td class="table_text_overflow_ellipsis"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
                         </td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.group_name }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.creation_date }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.group_admin }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ result.creation_date }} </td>
                         <td class="table_text_overflow_ellipsis">
-                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Details</a>
+                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Info</a>
                             <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
                             <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.id }}">Close</a>
                         </td>
@@ -60,6 +58,8 @@
                     <th class="th-sm">Group Name
                     </th>
                     <th class="th-sm">Group Description
+                    </th>
+                    <th class="th-sm">Group Admin
                     </th>
                     <th class="th-sm">Creation Date
                     </th>

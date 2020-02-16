@@ -56,15 +56,15 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="min-width-10p"><i class="fas fa-user mr-3"></i> {{ result.email }}
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user mr-3"></i> {{ result.email }}
                         </td>
-                        <td class="min-width-20p">  {{ result.firstname }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.firstname }} </td>
                         <td class="">  {{ result.lastname }} </td>
-                        <td class="min-width-20p">  {{ result.company }} <span class="badge badge-info">Current Situation</span>
+                        <td class="table_text_overflow_ellipsis"> {{ result.company }} <span class="badge badge-info">Current Situation</span>
                         </td>
-                        <td class="min-width-20p">  {{ result.country }} <span class="badge badge-info">Current Situation</span>
+                        <td class="table_text_overflow_ellipsis">  {{ result.country }} <span class="badge badge-info">Current Situation</span>
                         </td>
-                        <td class="min-width-10p">
+                        <td class="table_text_overflow_ellipsis">
                             <a href="index.php?action=createinvitationfunction&groupid={{ groupid }}&memberemail={{ result.email }}">
                                 <button class="btn btn-primary btn-xs" type="submit">
                                     INVITE

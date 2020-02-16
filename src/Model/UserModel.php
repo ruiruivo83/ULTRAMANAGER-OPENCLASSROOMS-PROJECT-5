@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use PDO;
+use App\Tools\Database;
 use App\Model\Entity\User;
 
 class UserModel
@@ -50,7 +51,7 @@ class UserModel
     }
 
     // FIND USER BY EMAIL
-    public function getUserById(int $id)
+    public function getUserById(int $id): array
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
         $req->execute(array($id));
@@ -58,7 +59,6 @@ class UserModel
         // $req->debugDumpParams();
         // die;
         return $req->fetchall(PDO::FETCH_CLASS, User::class);
-
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE

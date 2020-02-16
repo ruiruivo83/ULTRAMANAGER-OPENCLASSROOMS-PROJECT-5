@@ -53,8 +53,8 @@ class GroupsController
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
-        if (isset($_GET['id'])) {
-            $groupResult = $this->groupModel->getGroupDetails(intval($_GET['id']));
+        if ($this->superGlobals->if_IssetGet("id")) {
+            $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->getGlobal_Get("id"));
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
@@ -67,13 +67,13 @@ class GroupsController
 
     public function groupMembersPage()
     {
-        if (isset($_GET['groupid'])) {
-            $groupMembers = $this->memberModel->getGroupMembers(intval($_GET['groupid']));
+        if ($this->superGlobals->if_IssetGet("groupid")) {
+            $groupMembers = $this->memberModel->getGroupMembers((int)$this->superGlobals->getGlobal_Get("groupid"));
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {
                 $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->user_id)));
             }
-            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => intval($_GET['groupid'])]);
+            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => (int)$this->superGlobals->getGlobal_Get("groupid")]);
         } else {
             echo "Missing Group ID";
             exit();

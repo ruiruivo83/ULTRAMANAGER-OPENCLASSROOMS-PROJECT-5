@@ -31,17 +31,13 @@ class InvitationsController
 
     public function createInvitationFunction()
     {
-        if (isset($_GET['groupid']) AND isset($_GET['memberemail'])) {
-
-            // get User Id with Email
-            $user = $this->userModel->getUserByEmail($_GET['memberemail']);
+        if ($this->superGlobals->if_IssetGet("groupid") AND $this->superGlobals->if_IssetGet("memberemail")) {
+            $user = $this->userModel->getUserByEmail($this->superGlobals->getGlobal_Get("memberemail"));
             $userEmail = "";
             foreach ($user as $key) {
                 $userEmail = $key->getEmail();
             }
-
-            // TEST IF USER IS ALREADY A MEMBER
-            $groupId = intval($_GET['groupid']);
+            $groupId = (int)$this->superGlobals->getGlobal_Get("groupid");
             if ($this->invitationModel->getUserCount($groupId, $userEmail) == 0) {
                 $this->invitationModel->createInvitation();
                 header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
@@ -67,11 +63,10 @@ class InvitationsController
 
     public function acceptInvitationFunction()
     {
-        if (isset($_GET['invitationid']) AND isset($_GET['groupid']) AND isset($_GET['useremail'])) {
-
-            $user = $this->userModel->getUserByEmail($_GET['useremail']);
+        if ($this->superGlobals->if_IssetGet("invitationid") AND $this->superGlobals->if_IssetGet("groupid") AND $this->superGlobals->if_IssetGet("useremail")) {
+            $user = $this->userModel->getUserByEmail($this->superGlobals->getGlobal_Get("useremail"));
             foreach ($user as $key) {
-                $this->invitationModel->acceptInvitation(intval($key->getId()));
+                $this->invitationModel->acceptInvitation((int)$key->getId());
             }
             header('Location: ../index.php?action=invitations');
             exit();

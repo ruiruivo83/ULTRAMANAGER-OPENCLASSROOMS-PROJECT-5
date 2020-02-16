@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Tools\SuperGlobals;
 use App\View\View;
 use App\Model\GroupModel;
 use App\Model\TicketModel;
@@ -16,6 +17,7 @@ class InterventionsController
     private $interventionModel;
     private $groupModel;
     private $ticketModel;
+    private $superGlobals;
 
     public function __construct()
     {
@@ -23,36 +25,33 @@ class InterventionsController
         $this->interventionModel = new InterventionModel();
         $this->groupModel = new GroupModel();
         $this->ticketModel = new TicketModel();
+        $this->superGlobals = new SuperGlobals();
     }
 
 
     // DISPLAY PAGE - Shared Interventions
     public function sharedInterventionsPage()
     {
-        // GET SHARED GROUPS
         $result = $this->groupModel->getSharedGroups();
-        // GET TICKETS FOR SHARED GROUPS
         $finalArray = array();
         foreach ($result as $key) {
-            $ticketList = $this->ticketModel->getTicketsWithGroupId(intval($key['group_id']));
+            $ticketList = $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']);
             foreach ($ticketList as $ticket) {
-                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId(intval($ticket['id'])));
+                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
             }
         }
-
         $this->view->render("sharedinterventions", ['results' => $finalArray]);
     }
 
+    // DISPLAY PAGE - MY INTERVENTIONS
     public function myInterventionsPage()
     {
-        // GET SHARED GROUPS
         $result = $this->groupModel->getMyGroups();
-        // GET TICKETS FOR SHARED GROUPS
         $finalArray = array();
         foreach ($result as $key) {
-            $ticketList = $this->ticketModel->getTicketsWithGroupId(intval($key->getId()));
+            $ticketList = $this->ticketModel->getTicketsWithGroupId((int)$key->getId());
             foreach ($ticketList as $ticket) {
-                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId(intval($ticket['id'])));
+                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
             }
         }
         $this->view->render("myinterventions", ['results' => $finalArray]);
@@ -62,51 +61,39 @@ class InterventionsController
     public function createInterventionPage()
     {
         // $result = $this->interventionModel->getAllInterventions();
-        $ticketId = $_GET["ticketid"];
+        $ticketId =$this->superGlobals->getGlobal_Post("ticketid");
         $this->view->render("createintervention", ['ticketid' => $ticketId]);
     }
 
-    // Create Intervention Function
+    // DISPLAY PAGE - Create Intervention Function
     public function createInterventionFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"]) and isset($_POST["ticketid"])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->if_IssetGet("title") and $this->superGlobals->if_IssetPost("Description") and $this->superGlobals->if_IssetPost("ticket_id")) {
             // Add Intervention to Database
             $this->interventionModel->createNewIntervention();
-            header('Location: ../index.php?action=ticketdetails&id=' . $_POST["ticketid"]);
+            header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->getGlobal_Post("ticketid"));
             exit();
         }
     }
 
-    // DISPLAY GLOBAL TICKETS PAGE
+    // DISPLAY PAGE -  GLOBAL TICKETS
     public function globalInterventionsPage()
     {
-
         $finalInterventionsTable = array();
-
-        // GET MY TICKETS FROM MY GROUPS
-        // Shared Groups
         $result = $this->groupModel->getMyGroups();
-        // Get Tickets for my groups
         $finalArrayMyTickets = array();
         foreach ($result as $key) {
             $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
         }
-
-        // GET SHARED TICKETS FROM SHARED GROUPS
-        // Shared Groups
         $result = $this->groupModel->getSharedGroups();
-        // Get Tickets for shared groups
         $finalArraySharedTickets = array();
         foreach ($result as $key) {
             $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
         }
-
         $finalTicketList = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
-
         foreach ($finalTicketList as $ticket) {
             $finalInterventionsTable = array_merge($finalInterventionsTable, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
         }
-
         $this->view->render("globalinterventions", ['results' => $finalInterventionsTable]);
     }
 

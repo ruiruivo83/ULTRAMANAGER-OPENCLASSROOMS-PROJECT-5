@@ -23,19 +23,27 @@
                     </th>
                     <th class="th-sm">Group Name
                     </th>
-                    <th class="th-sm">Group Admin
+                    <th class="th-sm">Group Description
                     </th>
                     <th class="th-sm">Creation Date
+                    </th>
+                    <th class="th-sm align-items-end">
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"> <i class="fas fa-user-friends mr-3"></i> {{ result.id }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.group_name }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.group_admin }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.creation_date }}</td>
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
+                        </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.group_name }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.creation_date }} </td>
+                        <td class="table_text_overflow_ellipsis">
+                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Details</a>
+                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
+                            <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.id }}">Close</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -45,9 +53,11 @@
                     </th>
                     <th class="th-sm">Group Name
                     </th>
-                    <th class="th-sm">Group Admin
+                    <th class="th-sm">Group Description
                     </th>
                     <th class="th-sm">Creation Date
+                    </th>
+                    <th class="th-sm">
                     </th>
                 </tr>
                 </tfoot>

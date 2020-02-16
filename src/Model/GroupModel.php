@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
 use App\Model\Entity\Group;
@@ -13,25 +14,17 @@ class GroupModel
     // CONSTRUCT - 
 
     private $bdd;
+    private $superGlobals;
 
     public function __construct()
     {
         $this->bdd = Database::getBdd();
-    }
-
-    public function getAllGroups(): array
-    {
-        $req = $this->bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Group::class);
+        $this->superGlobals = new SuperGlobals();
     }
 
     public function getMyGroups(): array
     {
-        $currentUser = $_SESSION['user']->geteMail();
+        $currentUser = $this->superGlobals->_SESSION("user")->geteMail();
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -42,7 +35,7 @@ class GroupModel
 
     public function getSharedGroups(): array
     {
-        $currentUser = $_SESSION['user']->getId();
+        $currentUser = $this->superGlobals->_SESSION("user")->getId();
         $req = $this->bdd->prepare("SELECT * FROM group_members WHERE user_id = '$currentUser'");
         $req->execute();
         // DEBUG

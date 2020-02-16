@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
 use App\Model\Entity\User;
@@ -12,17 +13,25 @@ class UserModel
 {
 
     private $bdd;
+    private $superGlobals;
 
     public function __construct()
     {
         $this->bdd = Database::getBdd();
+        $this->superGlobals = new SuperGlobals();
     }
 
     // CREATE NEW USER
     public function createNewUser()
     {
         $req = $this->bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
-        $req->execute(array($_POST["firstname"], $_POST["lastname"], $_POST["email"], password_hash($_POST["psw"], PASSWORD_DEFAULT), $_POST["country"]));
+        $req->execute(array(
+            $this->superGlobals->_POST("firstname"),
+            $this->superGlobals->_POST("lastname"),
+            $this->superGlobals->_POST("email"),
+            password_hash($this->superGlobals->_POST("psw"),PASSWORD_DEFAULT),
+            $this->superGlobals->_POST("country"))
+        );
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -71,9 +80,6 @@ class UserModel
         // die;
         return $req->rowCount();
     }
-
-
-
 
 
 }

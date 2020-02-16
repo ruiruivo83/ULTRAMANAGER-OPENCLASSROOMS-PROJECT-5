@@ -60,16 +60,16 @@ class InterventionsController
     // DISPLAY PAGE - Create Interventions Page
     public function createInterventionPage()
     {
-        $ticketId = $this->superGlobals->getGlobal_Get("ticketid");
+        $ticketId = $this->superGlobals->_GET("ticketid");
         $this->view->render("createintervention", ['ticketid' => $ticketId]);
     }
 
     // DISPLAY PAGE - Create Intervention Function
     public function createInterventionFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("Title") and $this->superGlobals->testIf_IssetPost("Description") and $this->superGlobals->testIf_IssetPost("ticketid")) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Title") and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("ticketid")) {
             $this->interventionModel->createNewIntervention();
-            header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->getGlobal_Post("ticketid"));
+            header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->_POST("ticketid"));
             exit();
         }
     }

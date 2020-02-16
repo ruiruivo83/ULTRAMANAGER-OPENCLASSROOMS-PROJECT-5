@@ -60,7 +60,6 @@ class InterventionsController
     // DISPLAY PAGE - Create Interventions Page
     public function createInterventionPage()
     {
-        // $result = $this->interventionModel->getAllInterventions();
         $ticketId = $this->superGlobals->getGlobal_Get("ticketid");
         $this->view->render("createintervention", ['ticketid' => $ticketId]);
     }

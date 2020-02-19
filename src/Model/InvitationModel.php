@@ -21,23 +21,14 @@ class InvitationModel
         $this->superGlobals = new SuperGlobals();
     }
 
-    public function getInvitationsFromMe(): array
-    {
-        $currentUser = $this->superGlobals->_SESSION("user")->getEmail();
-        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_from = ?");
-        $req->execute(array($currentUser));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
-    }
+
 
     // CREATE NEW INVITATION
     public function createInvitation()
     {
-        $currentUser = $this->superGlobals->_SESSION("user")->getEmail();
-        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from, invitation_to, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
-        $req->execute(array($currentUser, $this->superGlobals->_GET("memberemail"), $this->superGlobals->_GET("groupid")));
+        $currentUser = $this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from_user_id, invitation_to_user_id, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
+        $req->execute(array($currentUser, $this->superGlobals->_GET("memberid"), $this->superGlobals->_GET("groupid")));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -63,21 +54,32 @@ class InvitationModel
         $req->execute(array($this->superGlobals->_GET("invitationid")));
     }
 
-    public function getInvitationsForMe(): array
+    public function getInvitationsFromMe(): array
     {
-        $currentUser = $this->superGlobals->_SESSION("user")->getEmail();
-        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_to = ?");
-        $req->execute(array($currentUser));
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_from_user_id = ?");
+        $req->execute(array($currentUserId));
         // DEBUG
         // $req->debugDumpParams();
         // die;
         return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
     }
 
-    public function getUserCount(int $groupId, string $userEmail): int
+    public function getInvitationsForMe(): array
+    {
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_to_user_id = ?");
+        $req->execute(array($currentUserId));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Invitation::class);
+    }
+
+    public function getUserCount(int $groupId, int $userId): int
     {
         $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_for_group_id = ? AND invitation_to = ?");
-        $req->execute(array($groupId, $userEmail));
+        $req->execute(array($groupId, $userId));
         // DEBUG
         // $req->debugDumpParams();
         // die;

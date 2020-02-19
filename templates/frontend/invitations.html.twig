@@ -39,7 +39,7 @@
                 <tbody>
                 {% for invitation in invitationsFromMe %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"> {{ invitation.invitation_to }} </td>
+                        <td class="table_text_overflow_ellipsis"> {{ invitation.invitation_to_user_id }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ invitation.invitation_date }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ invitation.invitation_for_group_id }} </td>
                         <td class="table_text_overflow_ellipsis"> {{ invitation.group_name }} </td>
@@ -98,12 +98,12 @@
                 <tbody>
                 {% for invitation in invitationsForMe %}
                     <tr>
-                        <td>  {{ invitation.invitation_from }} </td>
+                        <td>  {{ invitation.invitation_from_user_id }} </td>
                         <td>  {{ invitation.invitation_date }} </td>
                         <td>  {{ invitation.invitation_for_group_id }} </td>
                         <td>  {{ invitation.group_name }} </td>
                         <td>
-                            <a href="index.php?action=acceptinvitationfunction&invitationid={{ invitation.id }}&groupid={{ invitation.invitation_for_group_id }}&useremail={{ invitation.invitation_to }}">ACCEPT</a>
+                            <a href="index.php?action=acceptinvitationfunction&invitationid={{ invitation.id }}&groupid={{ invitation.invitation_for_group_id }}&userid={{ invitation.invitation_to_user_id }}">ACCEPT</a>
                             <a href="index.php?action=deleteinvitationfunction&invitationid={{ invitation.id }}">DELETE</a>
                         </td>
                     </tr>

@@ -34,14 +34,16 @@ class InvitationsController
 
     public function createInvitationFunction()
     {
-        if ($this->superGlobals->ISSET_GET("groupid") AND $this->superGlobals->ISSET_GET("memberemail")) {
-            $user = $this->userModel->getUserByEmail($this->superGlobals->_GET("memberemail"));
-            $userEmail = "";
+        if ($this->superGlobals->ISSET_GET("groupid") AND $this->superGlobals->ISSET_GET("memberid")) {
+            // $user = $this->userModel->getUserByEmail($this->superGlobals->_GET("memberemail"));
+            $userId = (int)$this->superGlobals->_GET("memberid");
+            $user = $this->userModel->getUserById($userId);
+
             foreach ($user as $key) {
-                $userEmail = $key->getEmail();
+                $userId = (int)$key->getId();
             }
             $groupId = (int)$this->superGlobals->_GET("groupid");
-            if ($this->invitationModel->getUserCount($groupId, $userEmail) == 0) {
+            if ($this->invitationModel->getUserCount($groupId, $userId) === 0) {
                 $this->invitationModel->createInvitation();
                 header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
                 exit();
@@ -66,8 +68,9 @@ class InvitationsController
 
     public function acceptInvitationFunction()
     {
-        if ($this->superGlobals->ISSET_GET("invitationid") AND $this->superGlobals->ISSET_GET("groupid") AND $this->superGlobals->ISSET_GET("useremail")) {
-            $user = $this->userModel->getUserByEmail($this->superGlobals->_GET("useremail"));
+
+        if ($this->superGlobals->ISSET_GET("invitationid") AND $this->superGlobals->ISSET_GET("groupid") AND $this->superGlobals->ISSET_GET("userid")) {
+            $user = $this->userModel->getUserById((int)$this->superGlobals->_GET("userid"));
             foreach ($user as $key) {
                 $this->invitationModel->acceptInvitation((int)$key->getId());
             }

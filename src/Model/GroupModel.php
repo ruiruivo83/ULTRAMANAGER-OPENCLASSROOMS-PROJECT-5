@@ -24,8 +24,8 @@ class GroupModel
 
     public function getMyGroups(): array
     {
-        $currentUser = $this->superGlobals->_SESSION("user")->geteMail();
-        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' ORDER BY creation_date DESC");
+        $currentUser = $this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' AND group_status = 'open' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
@@ -74,97 +74,24 @@ class GroupModel
         return $req->fetchall();
     }
 
-
-
-
-
-
-
-
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-
-
     public function createNewGroup()
     {
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $this->bdd->prepare("INSERT INTO groups(group_admin, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
-        $req->execute(array($currentUser, $_POST["Title"], $_POST["Description"], "open"));
+        $currentUser = $_SESSION['user']->getId();
+        $req = $this->bdd->prepare("INSERT INTO groups(group_admin_id, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
+        $req->execute(array($currentUser, $this->superGlobals->_POST("Title"), $this->superGlobals->_POST("Description"), "open"));
         // DEBUG
         // $req->debugDumpParams();
         // die;
     }
 
-    public function getGroups(): array
+    public function closeGroup()
     {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM groups ORDER BY creation_date DESC");
-        $req->execute();
+        $status = "closed";
+        $req = $this->bdd->prepare("UPDATE groups SET group_status = ?, group_status_change_date = NOW() where id = ?");
+        $req->execute(array($status, $this->superGlobals->_GET("groupid")));
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        $result = $req->fetchall();
-        return $result;
     }
-
-    public function getGroupsWithStatus(string $status): array
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT * FROM groups WHERE group_status = '$status' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
-
-    public function getMyGroupsWithStatus(string $status): array
-    {
-        $bdd = Database::getBdd();
-        $currentUser = $_SESSION['user']->getEmail();
-        $req = $bdd->prepare("SELECT * FROM groups WHERE group_admin = '$currentUser' AND group_status = '$status' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
-
-    public function getGroupIdWithGroupName(string $groupName): array
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT id FROM groups WHERE group_name = '$groupName' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
-
-    /*
-    public function getGroupNameWithGroupId(int $id): array
-    {
-        $bdd = Database::getBdd();
-        $req = $bdd->prepare("SELECT group_name FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        $result = $req->fetchall();
-        return $result;
-    }
-*/
 
 }

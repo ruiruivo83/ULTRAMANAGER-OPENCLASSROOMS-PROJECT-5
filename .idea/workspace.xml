@@ -98,7 +98,7 @@
       <workItem from="1581778176812" duration="12003000" />
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
-      <workItem from="1582046236963" duration="3684000" />
+      <workItem from="1582046236963" duration="10158000" />
     </task>
     <servers />
   </component>
@@ -153,12 +153,12 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581693459086" />
-    <state x="461" y="163" key="SettingsEditor" timestamp="1581811033301">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1582153835089">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581811033301" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581778199044" />
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582153835089" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1582046241222">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

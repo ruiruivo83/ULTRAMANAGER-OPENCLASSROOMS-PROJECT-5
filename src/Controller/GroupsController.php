@@ -126,6 +126,23 @@ class GroupsController
             header('Location: ../index.php?action=mygroups');
             exit();
         }
+        header('Location: ../index.php');
+        exit();
+    }
+
+    public function closeGroupFunction(): void
+    {
+        // TODO
+        // Test if Contains Tickets
+
+        if ($this->superGlobals->ISSET_GET("groupid")) {
+            $groupId = $this->superGlobals->ISSET_GET("groupid");
+            $this->groupModel->closeGroup($groupId);
+            header('Location: ../index.php?action=mygroups');
+            exit();
+        }
+        header('Location: ../index.php');
+        exit();
     }
 
     public function removeMemberFromGroupFunction()
@@ -136,6 +153,8 @@ class GroupsController
             header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
             exit();
         }
+        header('Location: ../index.php');
+        exit();
     }
 
 }

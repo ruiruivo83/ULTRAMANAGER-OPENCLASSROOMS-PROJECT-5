@@ -34,8 +34,17 @@ class InterventionModel
 
     public function createNewIntervention()
     {
-        $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
+        $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
         $req->execute(array($this->superGlobals->_POST("ticketid"), $this->superGlobals->_SESSION("user")->getEmail(), $this->superGlobals->_POST("Description"), $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
+        // DEBUG
+        $req->debugDumpParams();
+        // die;
+    }
+
+    public function createClosingIntervention($ticketId, $interventionDescription)
+    {
+        $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
+        $req->execute(array($ticketId, $this->superGlobals->_SESSION("user")->getEmail(), $interventionDescription, $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
         // DEBUG
         // $req->debugDumpParams();
         // die;

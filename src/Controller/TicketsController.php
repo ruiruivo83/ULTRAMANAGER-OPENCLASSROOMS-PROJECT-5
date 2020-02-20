@@ -29,12 +29,6 @@ class TicketsController
         $this->superGlobals = new SuperGlobals();
     }
 
-    // DISPLAY PAGE - TICKETS PAGE
-    public function ticketsPage()
-    {
-        $result = $this->ticketModel->getMyTickets();
-        $this->view->render("tickets", ['tickets' => $result]);
-    }
 
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
@@ -117,6 +111,24 @@ class TicketsController
             $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
         }
         $this->view->render("mytickets", ['results' => $finalArray]);
+    }
+
+    // CLOSE TICKET FUNCTION
+    public function closeTicketFunction()
+    {
+        if ($this->superGlobals->ISSET_GET("ticketid")) {
+            $ticketId = $this->superGlobals->_GET("ticketid");
+            // ADD CLOSE INTERVENTION
+            $interventionDescription = "CLOSING TICKET";
+            $this->interventionModel->createClosingIntervention($ticketId, $interventionDescription);
+            // CHANGE TICKET STATUS
+            $this->ticketModel->closeTicket($ticketId);
+            header('Location: ../index.php?action=mytickets');
+            exit();
+        }
+        header('Location: ../index.php');
+        exit();
+        $this->ticketModel->closeTicket();
     }
 
 

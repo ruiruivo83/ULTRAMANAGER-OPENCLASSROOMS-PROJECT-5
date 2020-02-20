@@ -37,6 +37,15 @@ class SuperGlobals
         }
     }
 
+    public function ISSET_FILES(string $var): bool
+    {
+        if (isset($_FILES[$var])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function _GET(string $var): string
     {
         return $_GET[$var];

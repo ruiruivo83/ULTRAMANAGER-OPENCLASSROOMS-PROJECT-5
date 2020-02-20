@@ -14,6 +14,8 @@ class User
     private $creation_date;
     private $id;
     private $country;
+    private $company;
+    private $photo_filename;
 
     /**
      * @return mixed
@@ -158,8 +160,7 @@ class User
     {
         $this->photo_filename = $photo_filename;
     }
-    private $company;
-    private $photo_filename;
+
 
 
 

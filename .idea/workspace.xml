@@ -39,7 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -98,7 +98,7 @@
       <workItem from="1581778176812" duration="12003000" />
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
-      <workItem from="1582046236963" duration="10158000" />
+      <workItem from="1582046236963" duration="20984000" />
     </task>
     <servers />
   </component>
@@ -136,10 +136,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2560" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581685617002" />
-    <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579606914699">
+    <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1582212456213">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1579606914699" />
+    <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582212456213" />
     <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581507176948">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -153,12 +153,12 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581693459086" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1582153835089">
+    <state x="2381" y="163" key="SettingsEditor" timestamp="1582212048364">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581811033301" />
-    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582153835089" />
+    <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582212048364" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1582046241222">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

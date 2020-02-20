@@ -56,18 +56,19 @@ class UserModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+        return $req->fetch(PDO::FETCH_CLASS, User::class);
     }
 
     // FIND USER BY EMAIL
-    public function getUserById(int $id): array
+    public function getUserById(int $id): User
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
         $req->execute(array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+        return $req->fetch();
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE
@@ -79,6 +80,15 @@ class UserModel
         // $req->debugDumpParams();
         // die;
         return $req->rowCount();
+    }
+
+    // ATACH PHOTO FILE NAME TO USER
+    public function atachPhotoFileNameToUser(int $userId,string $fileName): void
+    {
+        $req = $this->bdd->prepare("UPDATE users SET photo_filename=? WHERE id=?");
+        $req->execute(array($fileName, $userId));
+        // $req->debugDumpParams();
+        // die;
     }
 
 

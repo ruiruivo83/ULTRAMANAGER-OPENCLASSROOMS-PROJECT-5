@@ -30,6 +30,7 @@ class Router
 
     private $userController;
 
+
     private $groupsController;
     private $ticketsController;
     private $interventionsController;
@@ -110,6 +111,11 @@ class Router
 
         if ($this->superGlobals->ISSET_SESSION("user")) {
 
+            // USER PROFILE FUNCTION
+            if ($functionName === "atachphototouser") {
+                $this->userController->addAvatarToUserProfile();
+            }
+
             // LOGOUT FUNCTION
             if ($functionName === "logout") {
                 $this->userController->logout();
@@ -180,8 +186,8 @@ class Router
                 if ($pageName === "activityLog") {
                     $this->activityLogController->activityLogPage();
                 }
-                if ($pageName === "profile") {
-                    $this->profileController->profilePage();
+                if ($pageName === "userprofile") {
+                    $this->userController->userProfilePage();
                 }
                 if ($pageName === "settings") {
                     $this->settingsController->settingsPage();

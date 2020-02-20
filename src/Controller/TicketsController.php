@@ -29,7 +29,6 @@ class TicketsController
         $this->superGlobals = new SuperGlobals();
     }
 
-
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
     {
@@ -63,7 +62,6 @@ class TicketsController
         $this->view->render("globaltickets", ['results' => $finalTable]);
     }
 
-
     // DISPLAY PAGE - Create Ticket Page
     public function createTicketPage()
     {
@@ -81,15 +79,6 @@ class TicketsController
         }
     }
 
-
-    public function createTicketFunction()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Title") and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("Requester") and $this->superGlobals->ISSET_GET("groupid")) {
-            $this->ticketModel->createNewTicket();
-            header('Location: ../index.php?action=groupdetails&id=' . $this->superGlobals->_GET("groupid"));
-            exit();
-        }
-    }
 
     // DISPLAY PAGE - Shared Tickets
     public function sharedTicketsPage()
@@ -113,6 +102,16 @@ class TicketsController
         $this->view->render("mytickets", ['results' => $finalArray]);
     }
 
+    // CREATE TICKET FUNCTION
+    public function createTicketFunction()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Title") and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("Requester") and $this->superGlobals->ISSET_GET("groupid")) {
+            $this->ticketModel->createNewTicket();
+            header('Location: ../index.php?action=groupdetails&id=' . $this->superGlobals->_GET("groupid"));
+            exit();
+        }
+    }
+
     // CLOSE TICKET FUNCTION
     public function closeTicketFunction()
     {
@@ -128,7 +127,7 @@ class TicketsController
         }
         header('Location: ../index.php');
         exit();
-        $this->ticketModel->closeTicket();
+        // ?? $this->ticketModel->closeTicket();
     }
 
 

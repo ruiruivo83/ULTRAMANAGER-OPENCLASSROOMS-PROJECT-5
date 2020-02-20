@@ -29,18 +29,12 @@ class TicketsController
         $this->superGlobals = new SuperGlobals();
     }
 
-    // DISPLAY PAGE - TICKETS PAGE
-    public function ticketsPage()
-    {
-        $result = $this->ticketModel->getMyTickets();
-        $this->view->render("tickets", ['tickets' => $result]);
-    }
 
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
     {
-        if ($this->superGlobals->testIf_IssetGet("id")) {
-            $ticketResult = $this->ticketModel->getTicketDetails((int)$this->superGlobals->getGlobal_Get("id"));
+        if ($this->superGlobals->ISSET_GET("id")) {
+            $ticketResult = $this->ticketModel->getTicketDetails((int)$this->superGlobals->_GET("id"));
             foreach ($ticketResult as $ticket) {
                 $groupResult = $this->groupModel->getGroupDetails((int)$ticket->getGroup_id());
                 $interventionResult = $this->interventionModel->getAllInterventionsForTicketId((int)$ticket->getId());
@@ -74,12 +68,12 @@ class TicketsController
     public function createTicketPage()
     {
         $groupName = "";
-        if ($this->superGlobals->testIf_IssetGet("groupid")) {
-            $group = $this->groupModel->getGroupDetails((int)$this->superGlobals->getGlobal_Get("groupid"));
+        if ($this->superGlobals->ISSET_GET("groupid")) {
+            $group = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("groupid"));
             foreach ($group as $key) {
                 $groupName = $key->getGroup_name();
             }
-            $groupId = $this->superGlobals->getGlobal_Get("groupid");
+            $groupId = $this->superGlobals->_GET("groupid");
             $this->view->render("createticket", ['groupid' => $groupId, 'groupname' => $groupName]);
         } else {
             echo "Missiong ID";
@@ -90,9 +84,9 @@ class TicketsController
 
     public function createTicketFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("Title") and $this->superGlobals->testIf_IssetPost("Description") and $this->superGlobals->testIf_IssetPost("Requester") and $this->superGlobals->testIf_IssetGet("groupid")) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Title") and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("Requester") and $this->superGlobals->ISSET_GET("groupid")) {
             $this->ticketModel->createNewTicket();
-            header('Location: ../index.php?action=groupdetails&id=' . $this->superGlobals->getGlobal_Get("groupid"));
+            header('Location: ../index.php?action=groupdetails&id=' . $this->superGlobals->_GET("groupid"));
             exit();
         }
     }
@@ -117,6 +111,24 @@ class TicketsController
             $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
         }
         $this->view->render("mytickets", ['results' => $finalArray]);
+    }
+
+    // CLOSE TICKET FUNCTION
+    public function closeTicketFunction()
+    {
+        if ($this->superGlobals->ISSET_GET("ticketid")) {
+            $ticketId = $this->superGlobals->_GET("ticketid");
+            // ADD CLOSE INTERVENTION
+            $interventionDescription = "CLOSING TICKET";
+            $this->interventionModel->createClosingIntervention($ticketId, $interventionDescription);
+            // CHANGE TICKET STATUS
+            $this->ticketModel->closeTicket($ticketId);
+            header('Location: ../index.php?action=mytickets');
+            exit();
+        }
+        header('Location: ../index.php');
+        exit();
+        $this->ticketModel->closeTicket();
     }
 
 

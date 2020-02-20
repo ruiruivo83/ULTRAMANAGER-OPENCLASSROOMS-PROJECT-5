@@ -56,27 +56,33 @@ class Router
 
     }
 
+    // $this->superGlobals->_SESSION("user")
+    // $this->superGlobals->ISSET_GET("action")
+
+    // $this->superGlobals->_GET("action")
+    // $this->superGlobals->_POST("action")
+
     // ROUTER MAIN FUNCTION
     public function main()
     {
 
-        if ($this->superGlobals->testIf_IssetGet("action")) {
+        if ($this->superGlobals->ISSET_GET("action")) {
 
             // NO SESSION
-            if ($this->superGlobals->getGlobal_Get("action") === "login") {
+            if ($this->superGlobals->_GET("action") === "login") {
                 $this->commonController->loginPage();
             }
-            if ($this->superGlobals->getGlobal_Get("action") === "register") {
+            if ($this->superGlobals->_GET("action") === "register") {
                 $this->commonController->registerPage();
             }
 
             // GET FUNCTIONS - Must Run first
-            $this->getFunction($this->superGlobals->getGlobal_Get("action"));
+            $this->getFunction($this->superGlobals->_GET("action"));
 
             // GET PAGES
-            $this->getPage($this->superGlobals->getGlobal_Get("action"));
+            $this->getPage($this->superGlobals->_GET("action"));
 
-        } else if ($this->superGlobals->testIf_IssetSession("user")) {
+        } else if ($this->superGlobals->ISSET_SESSION("user")) {
             // SESSION OPEN
             $this->indexController->dashboardPage();
         } else {
@@ -85,12 +91,12 @@ class Router
         }
     }
 
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////// ROUTER FUNCTIONS ////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
     public function getFunction($functionName)
     {
-
-        ////////////////////////////////////////////////////////////////////
-        ////////////////////// ROUTER FUNCTIONS ////////////////////////////
-        ////////////////////////////////////////////////////////////////////
 
         // LOGIN VALIDATION FUNCTION
         if ($functionName === 'login_validation') {
@@ -102,7 +108,7 @@ class Router
             $this->userController->registerNewUserFunction();
         }
 
-        if ($this->superGlobals->testIf_IssetSession("user")) {
+        if ($this->superGlobals->ISSET_SESSION("user")) {
 
             // LOGOUT FUNCTION
             if ($functionName === "logout") {
@@ -156,14 +162,14 @@ class Router
         }
     }
 
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////////// ROUTER PAGES ////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
     public function getPage($pageName)
     {
-        if ($this->superGlobals->getGlobal_Get("action") === $pageName) {
-            if ($this->superGlobals->testIf_IssetSession(("user"))) {
-
-                ////////////////////////////////////////////////////////////////////
-                ////////////////////////// ROUTER PAGES ////////////////////////////
-                ////////////////////////////////////////////////////////////////////
+        if ($this->superGlobals->_GET("action") === $pageName) {
+            if ($this->superGlobals->ISSET_SESSION(("user"))) {
 
                 // MAIN
                 if ($pageName === "index") {
@@ -223,7 +229,6 @@ class Router
                 if ($pageName === "ticketdetails") {
                     $this->ticketsController->ticketDetailsPage();
                 }
-
 
 
                 // INTERVENTIONS

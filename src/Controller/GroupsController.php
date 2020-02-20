@@ -53,8 +53,8 @@ class GroupsController
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
-        if ($this->superGlobals->testIf_IssetGet("id")) {
-            $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->getGlobal_Get("id"));
+        if ($this->superGlobals->ISSET_GET("id")) {
+            $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
             foreach ($groupResult as $group) {
                 $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
             }
@@ -67,13 +67,13 @@ class GroupsController
 
     public function groupMembersPage()
     {
-        if ($this->superGlobals->testIf_IssetGet("groupid")) {
-            $groupMembers = $this->memberModel->getGroupMembers((int)$this->superGlobals->getGlobal_Get("groupid"));
+        if ($this->superGlobals->ISSET_GET("groupid")) {
+            $groupMembers = $this->memberModel->getGroupMembers((int)$this->superGlobals->_GET("groupid"));
             $memberDetailsResults = array();
             foreach ($groupMembers as $member) {
                 $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->user_id)));
             }
-            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => (int)$this->superGlobals->getGlobal_Get("groupid")]);
+            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => (int)$this->superGlobals->_GET("groupid")]);
         } else {
             echo "Missing Group ID";
             exit();
@@ -126,16 +126,35 @@ class GroupsController
             header('Location: ../index.php?action=mygroups');
             exit();
         }
+        header('Location: ../index.php');
+        exit();
+    }
+
+    public function closeGroupFunction(): void
+    {
+        // TODO
+        // Test if Contains Tickets
+
+        if ($this->superGlobals->ISSET_GET("groupid")) {
+            $groupId = $this->superGlobals->ISSET_GET("groupid");
+            $this->groupModel->closeGroup($groupId);
+            header('Location: ../index.php?action=mygroups');
+            exit();
+        }
+        header('Location: ../index.php');
+        exit();
     }
 
     public function removeMemberFromGroupFunction()
     {
         if (isset($_GET['groupid']) AND isset($_GET['userid'])) {
             // $req->execute(array($_GET['groupid'], $_GET['userid']));
-            $this->groupModel->removeMemberFromGroupfunction((int)($this->superGlobals->getGlobalGet('groupid')), (int)($this->superGlobals->getGlobalGet('userid')));
+            $this->groupModel->removeMemberFromGroupfunction((int)($this->superGlobals->_GET("groupid")), (int)($this->superGlobals->_GET("userid")));
             header('Location: ../index.php?action=groupmembers&groupid=' . $_GET['groupid']);
             exit();
         }
+        header('Location: ../index.php');
+        exit();
     }
 
 }

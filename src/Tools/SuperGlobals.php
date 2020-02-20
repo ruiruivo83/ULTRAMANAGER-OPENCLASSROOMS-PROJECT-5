@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Tools;
 
 
+use mysql_xdevapi\DatabaseObject;
+
 class SuperGlobals
 {
 
-    public function testIf_IssetGet(string $var): bool
+    public function ISSET_GET(string $var): bool
     {
         if (isset($_GET[$var])) {
             return true;
@@ -17,7 +19,7 @@ class SuperGlobals
         }
     }
 
-    public function testIf_IssetPost(string $var): bool
+    public function ISSET_POST(string $var): bool
     {
         if (isset($_POST[$var])) {
             return true;
@@ -26,7 +28,7 @@ class SuperGlobals
         }
     }
 
-    public function testIf_IssetSession(string $var): bool
+    public function ISSET_SESSION(string $var): bool
     {
         if (isset($_SESSION[$var])) {
             return true;
@@ -35,19 +37,24 @@ class SuperGlobals
         }
     }
 
-    public function getGlobal_Get(string $var): string
+    public function _GET(string $var): string
     {
         return $_GET[$var];
     }
 
-    public function getGlobal_Post(string $var): string
+    public function _POST(string $var): string
     {
         return $_POST[$var];
     }
 
-    public function getGlobal_Session(string $var): string
+    public function _SESSION(string $var): object
     {
         return $_SESSION[$var];
+    }
+
+    public function getGlobal_Server(string $var): string
+    {
+        return $_SERVER[$var];
     }
 
 

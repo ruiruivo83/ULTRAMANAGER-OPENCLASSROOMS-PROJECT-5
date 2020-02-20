@@ -25,17 +25,17 @@ class UserController
     // Search User Results Page
     public function searchUserResultsPage()
     {
-        $result = $this->userModel->searchUsers($this->superGlobals->getGlobal_Post("searchtext"));
-        $this->view->render("searchUserResults", ['results' => $result, 'groupid' => $this->superGlobals->getGlobal_Get("groupid")]);
+        $result = $this->userModel->searchUsers($this->superGlobals->_POST("searchtext"));
+        $this->view->render("searchUserResults", ['results' => $result, 'groupid' => $this->superGlobals->_GET("groupid")]);
     }
 
     // LOGIN VALIDATION FOR THE MAIN LOGIN
     public function loginValidationFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("email")) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("email")) {
             // GET LOGIN INFO FROM USER POST METHOD
-            $login_email = $this->superGlobals->getGlobal_Post("email");
-            $login_password = $this->superGlobals->getGlobal_Post("password");
+            $login_email = $this->superGlobals->_POST("email");
+            $login_password = $this->superGlobals->_POST("password");
             $userModel = $this->userModel->getUserByEmail($login_email);
             if ($userModel != null) {
                 foreach ($userModel as $user) {
@@ -58,8 +58,8 @@ class UserController
     // REGISTER A NEW USER
     public function registerNewUserFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->testIf_IssetPost("email")) {
-            if ($this->testIfEmailExists($this->superGlobals->getGlobal_Get("email"))) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("email")) {
+            if ($this->testIfEmailExists($this->superGlobals->_POST("email"))) {
                 $this->view->render("register", ['message' => "MAIL ALREADY EXISTS"]);
             } else {
                 $this->userModel->createNewUser();

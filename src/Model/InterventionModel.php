@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
 use App\Model\Entity\Intervention;
@@ -13,10 +14,12 @@ class InterventionModel
     // CONSTRUCT - 
 
     private $bdd;
+    private $superGlobals;
 
     public function __construct()
     {
         $this->bdd = Database::getBdd();
+        $this->superGlobals = new SuperGlobals();
     }
 
     public function getAllInterventionsForTicketId(int $id): array
@@ -31,8 +34,17 @@ class InterventionModel
 
     public function createNewIntervention()
     {
+        $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
+        $req->execute(array($this->superGlobals->_POST("ticketid"), $this->superGlobals->_SESSION("user")->getEmail(), $this->superGlobals->_POST("Description"), $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
+        // DEBUG
+        $req->debugDumpParams();
+        // die;
+    }
+
+    public function createClosingIntervention($ticketId, $interventionDescription)
+    {
         $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
-        $req->execute(array($_POST["ticketid"], $_SESSION['user']->getEmail(), $_POST["Description"], $_SESSION['user']->getCountry(), $_SESSION['user']->getCompany()));
+        $req->execute(array($ticketId, $this->superGlobals->_SESSION("user")->getEmail(), $interventionDescription, $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
         // DEBUG
         // $req->debugDumpParams();
         // die;

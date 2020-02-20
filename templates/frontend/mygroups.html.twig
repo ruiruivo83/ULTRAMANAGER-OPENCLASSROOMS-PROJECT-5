@@ -40,7 +40,8 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
+                        <td class="table_text_overflow_ellipsis"><i
+                                    class="fas fa-user-friends mr-3"></i> {{ result.id }}
                         </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
@@ -48,7 +49,31 @@
                         <td class="table_text_overflow_ellipsis">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Details</a>
                             <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
-                            <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.id }}">Close</a>
+
+                            <a href="#" data-href="index.php?action=closegroup&groupid={{ result.id }}"
+                               data-toggle="modal" data-target="#confirm-delete">Close</a>
+
+
+                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            Closing Group: #{{ result.id }} {{ result.group_name }}
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                                            </button>
+                                            <a href="index.php?action=closegroupfunction&groupid={{ result.id }}"
+                                               class="btn btn-danger btn-ok">Close</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 {% endfor %}

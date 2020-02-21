@@ -1,0 +1,76 @@
+{% extends "_layout.html.twig" %}
+
+
+{% block topbar %}
+    {{ include('/backend/user_topbar.html.twig') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="container">
+            <table style="width:100%">
+                <tr>
+                    <img class="img-profile rounded-circle shadow border" src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
+
+                </tr>
+            </table>
+            <br>
+            <form class="border p-3 align-middle w-50" action="index.php?action=atachphototouser" method="POST"
+                  enctype="multipart/form-data">
+                <div>
+                    Change Avatar:
+                </div>
+                <br>
+                <input type="file" name="image"/>
+                <input class="btn btn-primary " type="submit"/>
+            </form>
+        </div>
+        <hr>
+        <br>
+        <div class="container border">
+            <table style="width:100%">
+                <tr>
+                    <th>First Name:</th>
+                    <td>{{ results.Firstname() }}</td>
+                </tr>
+                <tr>
+                    <th>Last Name:</th>
+                    <td>{{ results.Lastname() }}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ results.Email() }}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <form action="index.php?action=savecompanyandcountryfunction" method="post" class="form-example border p-5 ">
+            <div class="container ">
+                <table style="width:100%">
+                    <tr>
+                        <th><label for="country"><b>Country: </b></label></th>
+                        <td><input type="text" name="country" id="country" value="{{ results.Country() }}" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="company"><b>Company: </b></label></th>
+                        <td><input type="company" name="company" id="company" value="{{ results.Company() }}" required></td>
+                    </tr>
+
+                </table>
+                <div class="form-example float-right">
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </div>
+
+            </div>
+
+
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+{% endblock %}

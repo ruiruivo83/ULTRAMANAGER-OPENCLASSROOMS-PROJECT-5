@@ -2,7 +2,7 @@
 
 
 {% block topbar %}
-    {{ include('/backend/user_topbar.html') }}
+    {{ include('/backend/user_topbar.html.twig') }}
 {% endblock %}
 
 {% block body %}
@@ -44,7 +44,7 @@
                         <td class="table_text_overflow_ellipsis">  {{ result.requester }}</td>
                         <td class="table_text_overflow_ellipsis">  {{ result.title }}</td>
                         <td class="table_text_overflow_ellipsis">  {{ result.description }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ result.author }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.author_id }} </td>
                         <td class="table_text_overflow_ellipsis"><a class="mr-2" href="index.php?action=ticketdetails&id={{ result.id }}">Details</a> <a class="mr-2" href="index.php?action=closeticket&ticketid={{ result.id }}">Close</a></td>
 
                     </tr>

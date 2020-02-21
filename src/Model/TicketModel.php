@@ -11,7 +11,6 @@ use App\Model\Entity\Ticket;
 
 class TicketModel
 {
-    // CONSTRUCT - 
 
     private $bdd;
     private $superGlobals;
@@ -22,7 +21,7 @@ class TicketModel
         $this->superGlobals = new SuperGlobals();
     }
 
-    public function createNewTicket()
+    public function createNewTicket(): void
     {
         $currentUser = $this->superGlobals->_SESSION("user")->getId();
         $req = $this->bdd->prepare("INSERT INTO tickets( author_id, requester, status, creation_date, title, description, group_id ) values (?,?,?, NOW(), ?, ?, ?) ");
@@ -32,7 +31,7 @@ class TicketModel
         // die;
     }
 
-    public function getTicketDetails(int $id)
+    public function getTicketDetails(int $id): array
     {
         $req = $this->bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
@@ -43,7 +42,7 @@ class TicketModel
     }
 
     // GET TICKET WITH GROUP ID
-    public function getTicketsWithGroupId($groupId)
+    public function getTicketsWithGroupId($groupId): array
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' AND status = 'open' ORDER BY creation_date DESC");
@@ -54,7 +53,8 @@ class TicketModel
         return $req->fetchall();
     }
 
-    public function closeTicket()
+    // CLOSE TICKET
+    public function closeTicket(): void
     {
         $status = "closed";
         $req = $this->bdd->prepare("UPDATE tickets SET status = ?, ticket_status_change_date = NOW() where id = ?");

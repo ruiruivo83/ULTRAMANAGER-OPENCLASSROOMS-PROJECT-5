@@ -2,14 +2,14 @@
 
 
 {% block topbar %}
-    {{ include('/backend/user_topbar.html') }}
+    {{ include('/backend/user_topbar.html.twig') }}
 {% endblock %}
 
 {% block body %}
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                <i class="fas fa-user-friends mr-3 fa-2x"></i>SHARED GROUPS
+                <i class="fas fa-users mr-3 fa-2x"></i>SHARED GROUPS
             </div>
 
         </div>
@@ -35,7 +35,7 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"><i class="fas fa-user-friends mr-3"></i> {{ result.id }}
+                        <td class="table_text_overflow_ellipsis"><i class="fas fa-users mr-3"></i> {{ result.id }}
                         </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>

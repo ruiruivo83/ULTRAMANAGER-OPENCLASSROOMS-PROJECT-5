@@ -26,11 +26,11 @@ class UserModel
     {
         $req = $this->bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
         $req->execute(array(
-            $this->superGlobals->_POST("firstname"),
-            $this->superGlobals->_POST("lastname"),
-            $this->superGlobals->_POST("email"),
-            password_hash($this->superGlobals->_POST("psw"),PASSWORD_DEFAULT),
-            $this->superGlobals->_POST("country"))
+                $this->superGlobals->_POST("firstname"),
+                $this->superGlobals->_POST("lastname"),
+                $this->superGlobals->_POST("email"),
+                password_hash($this->superGlobals->_POST("psw"), PASSWORD_DEFAULT),
+                $this->superGlobals->_POST("country"))
         );
         // DEBUG
         // $req->debugDumpParams();
@@ -49,25 +49,28 @@ class UserModel
     }
 
     // FIND USER BY EMAIL
-    public function getUserByEmail($email)
+    // MUST NOT DECLARE A RETURN - SOLUTION: create testExistenceUserByEmail -> return bool
+    public function getUserByEmail(string $email)
     {
-        $req = $this->bdd->prepare("SELECT * FROM users WHERE email =  ?   ");
+        $req = $this->bdd->prepare("SELECT * FROM users WHERE email = ? ");
         $req->execute(array($email));
+        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+        return $req->fetch();
     }
 
     // FIND USER BY EMAIL
-    public function getUserById(int $id): array
+    public function getUserById(int $id): User
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
         $req->execute(array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, User::class);
+        return $req->fetch();
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE
@@ -79,6 +82,24 @@ class UserModel
         // $req->debugDumpParams();
         // die;
         return $req->rowCount();
+    }
+
+    // ATACH PHOTO FILE NAME TO USER
+    public function atachPhotoFileNameToUser(int $userId, string $fileName): void
+    {
+        $req = $this->bdd->prepare("UPDATE users SET photo_filename=? WHERE id=?");
+        $req->execute(array($fileName, $userId));
+        // $req->debugDumpParams();
+        // die;
+    }
+
+    // SAVES COUNTRY AND COMPANY IN USER PROFILE
+    public function saveCompanyAndCountryFunction(string $country, string $company, int $userId): void
+    {
+        $req = $this->bdd->prepare("UPDATE users SET country = ?, company = ? WHERE id=?");
+        $req->execute(array($country, $company, $userId));
+        // $req->debugDumpParams();
+        // die;
     }
 
 

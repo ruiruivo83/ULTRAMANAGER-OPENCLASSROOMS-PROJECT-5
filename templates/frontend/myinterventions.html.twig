@@ -2,7 +2,7 @@
 
 
 {% block topbar %}
-    {{ include('/backend/user_topbar.html') }}
+    {{ include('/backend/user_topbar.html.twig') }}
 {% endblock %}
 
 {% block body %}
@@ -26,7 +26,7 @@
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author
+                    <th class="th-sm">Author Id
                     </th>
                     <th class="th-sm">Author Company
                     </th>
@@ -40,7 +40,7 @@
                          <td class="table_text_overflow_ellipsis"> <i class="fas fa-fw fa-wrench"></i> {{ intervention.id }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_date }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_description }}</td>
-                         <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author }}</td>
+                         <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_id }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_company }} </td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_country }} </td>
                     </tr>
@@ -54,7 +54,7 @@
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author
+                    <th class="th-sm">Author Id
                     </th>
                     <th class="th-sm">Author Description
                     </th>

@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\Tools\SuperGlobals;
+
 class View
 {
 
     private $twig;
+    private $superGlobals;
 
     public function __construct()
     {
+        $this->superGlobals = new SuperGlobals();
+
         $loader = new \Twig\Loader\FilesystemLoader('../templates');
         $this->twig = new \Twig\Environment($loader, [
             /*'cache' => '/path/to/compilation_cache'*/
@@ -19,9 +24,15 @@ class View
 
     public function render(string $template, array $data): void
     {
-        // TODO - Add $_SESSION user name to the top bar
-        // TODO - Add Totals of every results to the side bar
-        echo $this->twig->render('frontend/' . $template . '.html.twig', $data);
+        if ($this->superGlobals->ISSET_SESSION("user")) {
+            $userSessionInfo = $this->superGlobals->_SESSION("user");
+            $data = array_merge($data, ['profile' => $userSessionInfo]);
+            echo $this->twig->render('frontend/' . $template . '.html.twig', $data);
+        } else {
+            echo $this->twig->render('frontend/' . $template . '.html.twig', $data);
+        }
+
+
     }
 
 

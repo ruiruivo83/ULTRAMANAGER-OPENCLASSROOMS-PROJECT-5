@@ -68,12 +68,9 @@ class GroupsController
     public function groupMembersPage()
     {
         if ($this->superGlobals->ISSET_GET("groupid")) {
-            $groupMembers = $this->memberModel->getGroupMembers((int)$this->superGlobals->_GET("groupid"));
-            $memberDetailsResults = array();
-            foreach ($groupMembers as $member) {
-                $memberDetailsResults = array_merge($memberDetailsResults, $this->userModel->getUserById(intval($member->user_id)));
-            }
-            $this->view->render("groupmembers", ['memberresults' => $memberDetailsResults, 'groupid' => (int)$this->superGlobals->_GET("groupid")]);
+            $groupMembersAndDetails = $this->memberModel->getGroupMembersAndDetails((int)$this->superGlobals->_GET("groupid"));
+
+            $this->view->render("groupmembers", ['memberresults' => $groupMembersAndDetails, 'groupid' => (int)$this->superGlobals->_GET("groupid")]);
         } else {
             echo "Missing Group ID";
             exit();

@@ -78,7 +78,7 @@ class InvitationModel
 
     public function getUserCount(int $groupId, int $userId): int
     {
-        $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_for_group_id = ? AND invitation_to = ?");
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = ? AND user_id = ?");
         $req->execute(array($groupId, $userId));
         // DEBUG
         // $req->debugDumpParams();

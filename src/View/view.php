@@ -25,6 +25,7 @@ class View
     public function render(string $template, array $data): void
     {
         if ($this->superGlobals->ISSET_SESSION("user")) {
+            // TODO - UPDATE SESSION USER DATA ON EVERY REFRESH OF THE PAGE
             $userSessionInfo = $this->superGlobals->_SESSION("user");
             $data = array_merge($data, ['profile' => $userSessionInfo]);
             echo $this->twig->render('frontend/' . $template . '.html.twig', $data);

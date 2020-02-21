@@ -71,6 +71,7 @@ class UserController
             if ($this->testIfEmailExists($this->superGlobals->_POST("email"))) {
                 $this->view->render("register", ['message' => "MAIL ALREADY EXISTS"]);
             } else {
+
                 $this->userModel->createNewUser();
                 header('Location: ../index.php');
                 exit();

@@ -20,7 +20,6 @@ use App\Controller\TicketsController;
 use App\Controller\UserController;
 use App\Tools\SuperGlobals;
 
-
 // ROUTER FOR INDEX PAGE
 class Router
 {
@@ -114,6 +113,11 @@ class Router
             // USER PROFILE FUNCTION
             if ($functionName === "atachphototouser") {
                 $this->userController->addAvatarToUserProfile();
+            }
+
+            // SAVE USER PROFILE COUNTRY AND COMPANY FUNCTION
+            if ($functionName === "savecompanyandcountryfunction") {
+                $this->userController->saveCompanyAndCountryFunction();
             }
 
             // LOGOUT FUNCTION

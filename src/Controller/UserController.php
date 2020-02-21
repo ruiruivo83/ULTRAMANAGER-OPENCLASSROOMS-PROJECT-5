@@ -27,8 +27,6 @@ class UserController
     {
         $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
-
-        var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
     }
 
@@ -46,19 +44,20 @@ class UserController
             // GET LOGIN INFO FROM USER POST METHOD
             $login_email = $this->superGlobals->_POST("email");
             $login_password = $this->superGlobals->_POST("password");
-            $userModel = $this->userModel->getUserByEmail($login_email);
-            if ($userModel != null) {
-                foreach ($userModel as $user) {
-                    if (password_verify($login_password, $user->getPsw())) {   // IF PASSWORD IS OK
-                        //// IMPORTANT
-                        //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
-                        $_SESSION['user'] = $user;
-                        header('Location: ../index.php');
-                        exit();
-                    } else {
-                        $this->view->render("login", ['message' => "PASSWORD DO NOT MATCH"]);
-                    }
+            $currentUser = $this->userModel->getUserByEmail($login_email);
+
+            if ($currentUser != null) {
+                // foreach ($userModel as $user) {
+                if (password_verify($login_password, $currentUser->getPsw())) {   // IF PASSWORD IS OK
+                    //// IMPORTANT
+                    //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
+                    $_SESSION['user'] = $currentUser;
+                    header('Location: ../index.php');
+                    exit();
+                } else {
+                    $this->view->render("login", ['message' => "PASSWORD DO NOT MATCH"]);
                 }
+                // }
             } else {
                 $this->view->render("login", ['message' => "INVALID EMAIL ACCOUNT"]);
             }
@@ -132,9 +131,19 @@ class UserController
                 exit();
             }
         } else {
-            header("http://projet5/index.php?action=userprofile");
+            header("Location: ../index.php?action=userprofile");
             exit();
         }
+    }
+
+    public function saveCompanyAndCountryFunction()
+    {
+        $country = $this->superGlobals->_POST("country");
+        $company = $this->superGlobals->_POST("company");
+        $userId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $this->userModel->saveCompanyAndCountryFunction($country, $company, $userId);
+        header("Location: ../index.php?action=userprofile");
+        exit();
     }
 
 

@@ -2,7 +2,7 @@
 
 
 {% block topbar %}
-    {{ include('/backend/user_topbar.html') }}
+    {{ include('/backend/user_topbar.html.twig') }}
 {% endblock %}
 
 {% block body %}
@@ -11,7 +11,7 @@
         <div class="container">
             <table style="width:100%">
                 <tr>
-                    <img src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
+                    <img class="img-profile rounded-circle shadow border" src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
 
                 </tr>
             </table>
@@ -32,29 +32,29 @@
             <table style="width:100%">
                 <tr>
                     <th>First Name:</th>
-                    <td>{FIRST_NAME}</td>
+                    <td>{{ results.Firstname() }}</td>
                 </tr>
                 <tr>
                     <th>Last Name:</th>
-                    <td>{LAST_NAME}</td>
+                    <td>{{ results.Lastname() }}</td>
                 </tr>
                 <tr>
                     <th>Email:</th>
-                    <td>{USER_EMAIL}</td>
+                    <td>{{ results.Email() }}</td>
                 </tr>
             </table>
         </div>
         <br>
-        <form action="index.php?action=savecompanyandcountry" method="post" class="form-example border p-5 ">
+        <form action="index.php?action=savecompanyandcountryfunction" method="post" class="form-example border p-5 ">
             <div class="container ">
                 <table style="width:100%">
                     <tr>
                         <th><label for="country"><b>Country: </b></label></th>
-                        <td><input type="text" name="country" id="country" value="{COUNTRY}" required></td>
+                        <td><input type="text" name="country" id="country" value="{{ results.Country() }}" required></td>
                     </tr>
                     <tr>
                         <th><label for="company"><b>Company: </b></label></th>
-                        <td><input type="company" name="company" id="company" value="{COMPANY}" required></td>
+                        <td><input type="company" name="company" id="company" value="{{ results.Company() }}" required></td>
                     </tr>
 
                 </table>

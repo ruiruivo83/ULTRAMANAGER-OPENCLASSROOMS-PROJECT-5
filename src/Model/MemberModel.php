@@ -20,9 +20,9 @@ class MemberModel
         $this->bdd = Database::getBdd();
     }
 
-    public function getGroupMembers(int $groupid): array
+    public function getGroupMembersAndDetails(int $groupid): array
     {
-        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupid' ");
+        $req = $this->bdd->prepare("SELECT * FROM group_members grp INNER JOIN users usr on usr.id = grp.user_id WHERE group_id = $groupid");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();

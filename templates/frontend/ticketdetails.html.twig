@@ -42,38 +42,38 @@
         </div>
         <div class="card-body p-0">
             <br>
-            {% for result in groupresults %}
-                <table class="mr-3 ml-3 col-md-12">
-                    <tbody>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Group Id:</td>
-                        <td class="table_text_overflow_ellipsis"><a
-                                    href="http://projet5/index.php?action=groupdetails&id={{ result.id }}">{{ result.id }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Group Name:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_name }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Group Admin Id:</td>
-                        <td class="table_text_overflow_ellipsis"> {{ result.group_admin_id }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Status:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_status }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Creation Date:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.creation_date }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Description:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_description }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% endfor %}
+
+            <table class="mr-3 ml-3 col-md-12">
+                <tbody>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Group Id:</td>
+                    <td class="table_text_overflow_ellipsis"><a
+                                href="http://projet5/index.php?action=groupdetails&id={{ group.getId() }}">{{ group.getId() }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Group Name:</td>
+                    <td class="table_text_overflow_ellipsis">{{ group.getGroupName }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Group Admin Id:</td>
+                    <td class="table_text_overflow_ellipsis"> {{ group.GroupAdminId() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Status:</td>
+                    <td class="table_text_overflow_ellipsis">{{ group.getGroupStatus() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Creation Date:</td>
+                    <td class="table_text_overflow_ellipsis">{{ group.getCreationDate() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Description:</td>
+                    <td class="table_text_overflow_ellipsis">{{ group.getDescription() }}</td>
+                </tr>
+                </tbody>
+            </table>
+
             <br>
             {% for ticket in ticketresults %}
                 <table class="mr-3 ml-3 col-md-6">

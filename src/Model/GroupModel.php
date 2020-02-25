@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Model\Entity\User;
 use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
@@ -44,14 +45,15 @@ class GroupModel
         return $req->fetchall();
     }
 
-    public function getGroupDetails(int $id)
+    public function getGroupDetails(int $id): Group
     {
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Group::class);
+        return $req->fetch();
     }
 
     public function removeMemberFromGroupfunction(int $groupId, int $userId): void

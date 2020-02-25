@@ -35,7 +35,8 @@ class GroupsController
     public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
-        $this->view->render("mygroups", ['results' => $result]);
+        var_dump($result);
+        $this->view->render("mygroups", ['mygroups' => $result]);
     }
 
     // DISPLAY PAGE - Shared Groups
@@ -43,6 +44,8 @@ class GroupsController
     {
         $result = $this->groupModel->getSharedGroups();
         $finalArray = array();
+        var_dump($finalArray);
+        die;
         foreach ($result as $key) {
             $finalArray = array_merge($finalArray, $this->groupModel->getGroupDetails(intval($key['group_id'])));
         }
@@ -53,12 +56,22 @@ class GroupsController
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
+        if ($this->superGlobals->ISSET_GET("ticketsstatus") AND $this->superGlobals->_GET("ticketsstatus") == "closed") {
+            if ($this->superGlobals->ISSET_GET("id")) {
+                $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
+                $ticketResults = $this->ticketModel->getClosedTicketsWithGroupId((int)$groupResult->getId());
+                $this->view->render("groupdetails", ['group' => $groupResult, 'ticketresults' => $ticketResults]);
+            } else {
+                echo "Missing ID";
+                exit();
+            }
+            exit();
+        }
         if ($this->superGlobals->ISSET_GET("id")) {
             $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
-            foreach ($groupResult as $group) {
-                $ticketResults = $this->ticketModel->getTicketsWithGroupId($group->getId());
-            }
-            $this->view->render("groupdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResults]);
+            $ticketResults = $this->ticketModel->getOpenTicketsWithGroupId((int)$groupResult->getId());
+
+            $this->view->render("groupdetails", ['group' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
             echo "Missing ID";
             exit();
@@ -69,7 +82,6 @@ class GroupsController
     {
         if ($this->superGlobals->ISSET_GET("groupid")) {
             $groupMembersAndDetails = $this->memberModel->getGroupMembersAndDetails((int)$this->superGlobals->_GET("groupid"));
-
             $this->view->render("groupmembers", ['memberresults' => $groupMembersAndDetails, 'groupid' => (int)$this->superGlobals->_GET("groupid")]);
         } else {
             echo "Missing Group ID";
@@ -90,6 +102,7 @@ class GroupsController
         $finalTable = array();
 
         // GET MY GROUPS
+        // TODO
         $myGroups = $this->groupModel->getMyGroups();
         foreach ($myGroups as $myGroup) {
             array_push($finalArray, $myGroup->getId());

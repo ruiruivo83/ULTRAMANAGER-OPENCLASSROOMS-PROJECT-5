@@ -34,6 +34,18 @@ class GroupModel
         return $req->fetchall(PDO::FETCH_CLASS, Group::class);
     }
 
+    public function getSharedGroupsAndDetails(): array
+    {
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT * FROM group_members grpmembers INNER JOIN groups grp on grp.id = grpmembers.group_id INNER JOIN users usr on usr.id = grp.group_admin_id WHERE grpmembers.user_id = '$currentUserId' AND grp.group_status = 'open'");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
+    /*
     public function getSharedGroups(): array
     {
         $currentUser = $this->superGlobals->_SESSION("user")->getId();
@@ -44,10 +56,11 @@ class GroupModel
         // die;
         return $req->fetchall();
     }
+    */
 
-    public function getGroupDetails(int $id): Group
+    public function getGroupDetails(int $groupId): Group
     {
-        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$id' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
         // DEBUG
@@ -79,7 +92,7 @@ class GroupModel
     public function createNewGroup()
     {
         $currentUser = $_SESSION['user']->getId();
-        $req = $this->bdd->prepare("INSERT INTO groups(group_admin_id, creation_date, group_name, group_description, group_status) values (?, NOW(), ?, ?, ?) ");
+        $req = $this->bdd->prepare("INSERT INTO groups(group_admin_id, creation_date, group_name, group_description, group_status) values(?, NOW(), ?, ?, ?) ");
         $req->execute(array($currentUser, $this->superGlobals->_POST("Title"), $this->superGlobals->_POST("Description"), "open"));
         // DEBUG
         // $req->debugDumpParams();

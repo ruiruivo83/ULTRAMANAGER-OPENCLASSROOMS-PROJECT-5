@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Model\Entity\Group;
 use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
@@ -31,14 +32,15 @@ class TicketModel
         // die;
     }
 
-    public function getTicketDetails(int $id): array
+    public function getTicketDetails(int $id): Ticket
     {
         $req = $this->bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Ticket::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Ticket::class);
+        return $req->fetch();
     }
 
     // GET OPEN TICKET WITH GROUP ID
@@ -64,7 +66,6 @@ class TicketModel
         // die;
         return $req->fetchall();
     }
-
 
 
     // CLOSE TICKET

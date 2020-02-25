@@ -32,19 +32,11 @@ class TicketsController
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
     {
-        if ($this->superGlobals->ISSET_GET("id")) {
-            $ticketResult = $this->ticketModel->getTicketDetails((int)$this->superGlobals->_GET("id"));
-            foreach ($ticketResult as $ticket) {
-                $groupResult = $this->groupModel->getGroupDetails((int)$ticket->getGroup_id());
-                $interventionResult = $this->interventionModel->getAllInterventionsForTicketId((int)$ticket->getId());
-            }
-            var_dump($groupResult);
+        $ticketDetails = $this->ticketModel->getTicketDetails((int)$this->superGlobals->_GET("id"));
+        $groupDetails = $this->groupModel->getGroupDetails((int)$ticketDetails->getGroup_id());
+        $interventionList = $this->interventionModel->getInterventionsForTicketIdAndAuthorDetails((int)$ticketDetails->getId());
+        $this->view->render("ticketdetails", ['groupdetails' => $groupDetails, 'ticketdetails' => $ticketDetails, 'interventionresults' => $interventionList]);
 
-            $this->view->render("ticketdetails", ['group' => $groupResult, 'ticketresults' => $ticketResult, 'interventionresults' => $interventionResult]);
-        } else {
-            echo "Missiong ID";
-            exit();
-        }
     }
 
     // DISPLAY GLOBAL TICKETS PAGE

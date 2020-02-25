@@ -22,10 +22,21 @@ class InterventionModel
         $this->superGlobals = new SuperGlobals();
     }
 
-    public function getAllInterventionsForTicketId(int $id): array
+
+    public function getInterventionForTicketId(int $id): array
     {
         $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE ticket_id = ? ORDER BY intervention_date DESC");
         $req->execute(array($id));
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
+    }
+
+    public function getInterventionsForTicketIdAndAuthorDetails(int $ticketId): array
+    {
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions tktinter INNER JOIN users usr on usr.id = tktinter.intervention_author_id WHERE tktinter.ticket_id = '$ticketId' ORDER BY intervention_date DESC");
+        $req->execute(array($ticketId));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -48,16 +59,6 @@ class InterventionModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-    }
-
-    public function getInterventionForTicketId(int $id): array
-    {
-        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE ticket_id = ? ORDER BY intervention_date DESC");
-        $req->execute(array($id));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
     }
 
 }

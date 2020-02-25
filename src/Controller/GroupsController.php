@@ -35,21 +35,15 @@ class GroupsController
     public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
-        var_dump($result);
         $this->view->render("mygroups", ['mygroups' => $result]);
     }
 
     // DISPLAY PAGE - Shared Groups
     public function sharedGroupsPage()
     {
-        $result = $this->groupModel->getSharedGroups();
-        $finalArray = array();
-        var_dump($finalArray);
-        die;
-        foreach ($result as $key) {
-            $finalArray = array_merge($finalArray, $this->groupModel->getGroupDetails(intval($key['group_id'])));
-        }
-        $this->view->render("sharedgroups", ['results' => $finalArray]);
+        // TODO
+        $sharedGroups = $this->groupModel->getSharedGroupsAndDetails();
+        $this->view->render("sharedgroups", ['results' => $sharedGroups]);
     }
 
 

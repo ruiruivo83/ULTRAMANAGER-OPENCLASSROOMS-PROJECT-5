@@ -20,6 +20,8 @@
 
                 <thead>
                 <tr>
+                    <th class="th-sm">Admin
+                    </th>
                     <th class="th-sm">Group Id
                     </th>
                     <th class="th-sm">Group Name
@@ -35,21 +37,25 @@
                 <tbody>
                 {% for result in results %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"><i class="fas fa-users mr-3"></i> {{ result.id }}
+                        <td class="table_text_overflow_ellipsis"> <img class="img-profile rounded-circle avatar" style=" width: 30px; height: 30px;"src="upload_files/{{ result.photo_filename }}" alt=""/> {{ result.group_admin_id }} - {{ result.email }}
+                        </td>
+                        <td class="table_text_overflow_ellipsis">{{ result.group_id }}
                         </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.group_description }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ result.creation_date }} </td>
                         <td class="table_text_overflow_ellipsis">
-                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.id }}">Details</a>
-                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.id }}">Members</a>
-                            <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.id }}">Close</a>
+                            <a class="mr-2" href="index.php?action=groupdetails&id={{ result.group_id }}">Details</a>
+                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ result.group_id }}">Members</a>
+                            <a class="mr-2" href="index.php?action=closegroup&groupid={{ result.group_id }}">Close</a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th class="th-sm">Admin
+                    </th>
                     <th class="th-sm">Group Id
                     </th>
                     <th class="th-sm">Group Name
@@ -58,7 +64,7 @@
                     </th>
                     <th class="th-sm">Creation Date
                     </th>
-                    <th class="th-sm">
+                    <th class="th-sm align-items-end">
                     </th>
                 </tr>
                 </tfoot>

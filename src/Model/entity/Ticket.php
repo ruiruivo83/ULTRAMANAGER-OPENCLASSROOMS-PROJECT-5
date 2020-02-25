@@ -9,7 +9,7 @@ class Ticket
 
     // Variables en Private pour ne pas les modifier depuis l'exterieur de la class, seulement le "getter" peux les lir depuis l'exterieur.
     private $id;
-    private $author;
+    private $author_id;
     private $requester;
     private $creation_date;
     private $title;
@@ -41,9 +41,9 @@ class Ticket
     /**
      * Get the value of author
      */ 
-    public function getAuthor()
+    public function getAuthorId()
     {
-        return $this->author;
+        return $this->author_id;
     }
 
     /**
@@ -51,9 +51,9 @@ class Ticket
      *
      * @return  self
      */ 
-    public function setAuthor($author)
+    public function setAuthorId($author_id)
     {
-        $this->author = $author;
+        $this->author_id = $author_id;
 
         return $this;
     }

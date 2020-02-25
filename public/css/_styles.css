@@ -5,6 +5,7 @@ body {
 
 body {
     display: none;
+
 }
 
 table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {

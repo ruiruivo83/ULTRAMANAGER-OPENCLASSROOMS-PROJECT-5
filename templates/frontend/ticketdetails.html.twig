@@ -11,8 +11,8 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                {% for ticket in ticketresults %}
-                    <i class="fas fa-ticket-alt fa-2x mr-3"></i>TICKET DETAILS #{{ ticket.id }}
+
+                    <i class="fas fa-ticket-alt fa-2x mr-3"></i>TICKET DETAILS #{{ ticketdetails.id }}
                     <!-- BUTTON CLOSE THIS GROUP -->
                     <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
                             data-target="#confirm-close">
@@ -23,7 +23,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    Closing Ticket: <span class=""><h6>#{{ ticket.id }} - {{ ticket.title }}</h6></span>
+                                    Closing Ticket: <span class=""><h6>#{{ ticketdetails.id }} - {{ ticketdetails.title }}</h6></span>
                                 </div>
                                 <div class="modal-body">
                                     Are you sure ?
@@ -31,13 +31,13 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                                     </button>
-                                    <a href="index.php?action=closeticketfunction&ticketid={{ ticket.id }}"
+                                    <a href="index.php?action=closeticketfunction&ticketid={{ ticketdetails.id }}"
                                        class="btn btn-danger btn-ok">Close</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+
             </div>
         </div>
         <div class="card-body p-0">

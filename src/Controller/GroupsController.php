@@ -31,6 +31,12 @@ class GroupsController
         $this->superGlobals = new SuperGlobals();
     }
 
+    // DISPLAY PAGE - Create New Group
+    public function createGroupPage()
+    {
+        $this->view->render("creategroup", []);
+    }
+
     // DISPLAY PAGE - My Groups
     public function myGroupsPage()
     {
@@ -41,9 +47,8 @@ class GroupsController
     // DISPLAY PAGE - Shared Groups
     public function sharedGroupsPage()
     {
-        // TODO
         $sharedGroups = $this->groupModel->getSharedGroupsAndDetails();
-        $this->view->render("sharedgroups", ['results' => $sharedGroups]);
+        $this->view->render("sharedgroups", ['sharedgroups' => $sharedGroups]);
     }
 
 
@@ -90,43 +95,13 @@ class GroupsController
         $this->view->render("mygroups", ['results' => $result]);
     }
 
-    public function globalGroupsPage()
-    {
-        $finalArray = array();
-        $finalTable = array();
 
-        // GET MY GROUPS
-        // TODO
-        $myGroups = $this->groupModel->getMyGroups();
-        foreach ($myGroups as $myGroup) {
-            array_push($finalArray, $myGroup->getId());
-        }
-
-        // GET SHARED GROUPS
-        $sharedGroups = $this->groupModel->getSharedGroups();
-        foreach ($sharedGroups as $sharedGroup) {
-            array_push($finalArray, $sharedGroup['group_id']);
-        }
-
-        // JOIN BOTH MY GROUPS AND GLOBAL GROUPS
-        foreach ($finalArray as $id) {
-            // var_dump($id);
-            // var_dump($this->groupModel->getGroupDetails(intval($id)));
-            $finalTable = array_merge($finalTable, $this->groupModel->getGroupDetails(intval($id)));
-        }
-
-        $this->view->render("globalgroups", ['results' => $finalTable]);
-    }
-
-    public function createGroupPage()
-    {
-        $this->view->render("creategroup", []);
-    }
 
     public function createGroupFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
             $this->groupModel->createNewGroup();
+            $this->groupModel->addAdminToGroup();
             header('Location: ../index.php?action=mygroups');
             exit();
         }

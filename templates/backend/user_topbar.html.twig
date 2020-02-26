@@ -16,8 +16,10 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 ">  {{ profile.Firstname() }} {{ profile.Lastname() }} </span>
+                <span class="badge badge-light">#{{ profile.Id() }}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img class="img-profile rounded-circle avatar" src="upload_files/{{ profile.PhotoFilename() }}" alt=""/> &nbsp;&nbsp;<h6><span class="badge badge-light">#{{ profile.Id() }}</span></h6>
+                <img class="img-profile rounded-circle avatar" src="upload_files/{{ profile.PhotoFilename() }}" alt=""/>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </a>
             <!-- Dropdown - User Information -->

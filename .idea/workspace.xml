@@ -38,7 +38,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../_old/build04/test03" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
@@ -98,7 +98,7 @@
       <workItem from="1581778176812" duration="12003000" />
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
-      <workItem from="1582046236963" duration="56216000" />
+      <workItem from="1582046236963" duration="57922000" />
     </task>
     <servers />
   </component>
@@ -145,10 +145,10 @@
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510347407" />
     <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582626614489" />
-    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1581810939881">
+    <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1582706650684">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581810939881" />
+    <state x="2660" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582706650684" />
     <state x="2635" y="335" key="NewPhpClassDialog" timestamp="1581693459086">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

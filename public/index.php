@@ -169,6 +169,29 @@ class Router
                 $this->groupsController->removeMemberFromGroupFunction();
             }
 
+            // CHARTS
+            // STATS CONTROLLER
+            if ($functionName === 'TotalOpenTicketsThisMonth') {
+                $this->chartController->getTotalOpenTicketsThisMonthFunction();
+                echo("STOP");
+                die;
+            }
+
+            // STATS CONTROLLER
+            if ($functionName === 'TotalClosedTicketsThisMonth') {
+                $this->chartController->getTotalClosedTicketsThisMonthFunction();
+                echo("STOP");
+                die;
+            }
+
+            // STATS CONTROLLER
+            if ($functionName === 'TotalInterventionsThisMonth') {
+                $this->chartController->getTotalInterventionsThisMonthFunction();
+                echo("STOP");
+                die;
+            }
+
+
         }
     }
 

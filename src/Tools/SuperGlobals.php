@@ -61,6 +61,11 @@ class SuperGlobals
         return $_SESSION[$var];
     }
 
+    public function SET_USER_SESSION(array $var): void
+    {
+        $_SESSION['user'] = $var;
+    }
+
     public function getGlobal_Server(string $var): string
     {
         return $_SERVER[$var];

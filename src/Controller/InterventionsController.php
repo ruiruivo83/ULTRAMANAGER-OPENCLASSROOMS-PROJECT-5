@@ -35,7 +35,7 @@ class InterventionsController
         $result = $this->groupModel->getSharedGroups();
         $finalArray = array();
         foreach ($result as $key) {
-            $ticketList = $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']);
+            $ticketList = $this->ticketModel->getOpenTicketsWithGroupId((int)$key['group_id']);
             foreach ($ticketList as $ticket) {
                 $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
             }
@@ -49,7 +49,7 @@ class InterventionsController
         $result = $this->groupModel->getMyGroups();
         $finalArray = array();
         foreach ($result as $key) {
-            $ticketList = $this->ticketModel->getTicketsWithGroupId((int)$key->getId());
+            $ticketList = $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId());
             foreach ($ticketList as $ticket) {
                 $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
             }
@@ -81,12 +81,12 @@ class InterventionsController
         $result = $this->groupModel->getMyGroups();
         $finalArrayMyTickets = array();
         foreach ($result as $key) {
-            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId()));
         }
         $result = $this->groupModel->getSharedGroups();
         $finalArraySharedTickets = array();
         foreach ($result as $key) {
-            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key['group_id']));
         }
         $finalTicketList = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
         foreach ($finalTicketList as $ticket) {

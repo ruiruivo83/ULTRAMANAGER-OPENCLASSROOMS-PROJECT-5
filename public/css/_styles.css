@@ -5,6 +5,7 @@ body {
 
 body {
     display: none;
+
 }
 
 table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
@@ -52,7 +53,7 @@ table.dataTable thead .sorting:after {
     padding-bottom: 10px;
 }
 
-tr:hover {
+tbody tr td:hover {
     background-color: #e2e8ed;
 }
 
@@ -63,6 +64,7 @@ tr:hover {
 .min-width-10p {
     min-width: 10%;
 }
+
 .min-width-20p {
     min-width: 20%;
 }
@@ -88,4 +90,8 @@ tr:hover {
     width: 45px;
     height: 50px;
     border-radius: 50%;
+}
+
+.th-sm {
+    color: #b9b9b9;
 }

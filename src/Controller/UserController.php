@@ -27,6 +27,7 @@ class UserController
     {
         $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
+        var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
     }
 
@@ -71,6 +72,7 @@ class UserController
             if ($this->testIfEmailExists($this->superGlobals->_POST("email"))) {
                 $this->view->render("register", ['message' => "MAIL ALREADY EXISTS"]);
             } else {
+
                 $this->userModel->createNewUser();
                 header('Location: ../index.php');
                 exit();

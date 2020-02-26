@@ -25,6 +25,7 @@ class UserModel
     public function createNewUser()
     {
         $req = $this->bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
+
         $req->execute(array(
                 $this->superGlobals->_POST("firstname"),
                 $this->superGlobals->_POST("lastname"),

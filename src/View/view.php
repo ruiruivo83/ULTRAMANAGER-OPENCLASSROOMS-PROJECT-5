@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\View;
 
 use App\Tools\SuperGlobals;
+use App\Model\UserModel;
 
 class View
 {
 
     private $twig;
     private $superGlobals;
+    private $userModel;
 
     public function __construct()
     {
         $this->superGlobals = new SuperGlobals();
+        $this->userModel = new UserModel();
 
         $loader = new \Twig\Loader\FilesystemLoader('../templates');
         $this->twig = new \Twig\Environment($loader, [
@@ -25,7 +28,10 @@ class View
     public function render(string $template, array $data): void
     {
         if ($this->superGlobals->ISSET_SESSION("user")) {
+            // TODO - UPDATE SESSION USER DATA ON EVERY REFRESH OF THE PAGE
             $userSessionInfo = $this->superGlobals->_SESSION("user");
+            // FORCES TO UPDATE PROFILE FROM DATABASE EVERY REFRESH OF THE PAGE
+            $userSessionInfo = $this->userModel->getUserById((int)$userSessionInfo->getId());
             $data = array_merge($data, ['profile' => $userSessionInfo]);
             echo $this->twig->render('frontend/' . $template . '.html.twig', $data);
         } else {

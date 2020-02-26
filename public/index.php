@@ -187,14 +187,8 @@ class Router
                 }
 
                 // USER
-                if ($pageName === "activityLog") {
-                    $this->activityLogController->activityLogPage();
-                }
                 if ($pageName === "userprofile") {
                     $this->userController->userProfilePage();
-                }
-                if ($pageName === "settings") {
-                    $this->settingsController->settingsPage();
                 }
                 if ($pageName === "sharedTickets") {
                     $this->ticketsController->sharedTicketsPage();
@@ -219,9 +213,6 @@ class Router
                 if ($pageName === "groupmembers") {
                     $this->groupsController->groupMembersPage();
                 }
-                if ($pageName === "globalgroups") {
-                    $this->groupsController->globalGroupsPage();
-                }
 
                 // TICKETS
                 if ($pageName === "createticket") {
@@ -232,9 +223,6 @@ class Router
                 }
                 if ($pageName === "sharedtickets") {
                     $this->ticketsController->sharedTicketsPage();
-                }
-                if ($pageName === "globaltickets") {
-                    $this->ticketsController->globalTicketsPage();
                 }
                 if ($pageName === "ticketdetails") {
                     $this->ticketsController->ticketDetailsPage();
@@ -250,9 +238,6 @@ class Router
                 }
                 if ($pageName === "sharedinterventions") {
                     $this->interventionsController->sharedInterventionsPage();
-                }
-                if ($pageName === "globalinterventions") {
-                    $this->interventionsController->globalInterventionsPage();
                 }
                 if ($pageName === "interventiondetails") {
                     $this->interventionsController->interventionDetailsPage();

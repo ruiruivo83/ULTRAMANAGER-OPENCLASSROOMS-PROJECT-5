@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Model\Entity\Group;
 use App\Tools\SuperGlobals;
 use PDO;
 use App\Tools\Database;
@@ -31,18 +32,19 @@ class TicketModel
         // die;
     }
 
-    public function getTicketDetails(int $id): array
+    public function getTicketDetails(int $id): Ticket
     {
         $req = $this->bdd->prepare("SELECT * FROM tickets WHERE id = '$id' ORDER BY creation_date DESC");
         $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Ticket::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchall(PDO::FETCH_CLASS, Ticket::class);
+        return $req->fetch();
     }
 
-    // GET TICKET WITH GROUP ID
-    public function getTicketsWithGroupId($groupId): array
+    // GET OPEN TICKET WITH GROUP ID
+    public function getOpenTicketsWithGroupId(int $groupId): array
     {
         $bdd = Database::getBdd();
         $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' AND status = 'open' ORDER BY creation_date DESC");
@@ -52,6 +54,19 @@ class TicketModel
         // die;
         return $req->fetchall();
     }
+
+    // GET CLOSED TICKET WITH GROUP ID
+    public function getClosedTicketsWithGroupId(int $groupId): array
+    {
+        $bdd = Database::getBdd();
+        $req = $bdd->prepare("SELECT * FROM tickets WHERE group_id = '$groupId' AND status = 'closed' ORDER BY creation_date DESC");
+        $req->execute();
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
 
     // CLOSE TICKET
     public function closeTicket(): void

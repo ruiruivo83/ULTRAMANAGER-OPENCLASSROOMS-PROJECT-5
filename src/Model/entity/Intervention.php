@@ -10,7 +10,7 @@ class Intervention
     // Variables en Private pour ne pas les modifier depuis l'exterieur de la class, seulement le "getter" peux les lir depuis l'exterieur.
     private $id;
     private $ticket_id;
-    private $intervention_author;
+    private $intervention_author_id;
     private $intervention_date;
     private $intervention_description;
     private $intervention_author_country;
@@ -61,9 +61,9 @@ class Intervention
     /**
      * Get the value of intervention_author
      */ 
-    public function getIntervention_author()
+    public function getIntervention_authorId()
     {
-        return $this->intervention_author;
+        return $this->intervention_author_id;
     }
 
     /**
@@ -71,9 +71,9 @@ class Intervention
      *
      * @return  self
      */ 
-    public function setIntervention_author($intervention_author)
+    public function setIntervention_authorId($intervention_author_id)
     {
-        $this->intervention_author = $intervention_author;
+        $this->intervention_author_id = $intervention_author_id;
 
         return $this;
     }

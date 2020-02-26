@@ -32,17 +32,11 @@ class TicketsController
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
     {
-        if ($this->superGlobals->ISSET_GET("id")) {
-            $ticketResult = $this->ticketModel->getTicketDetails((int)$this->superGlobals->_GET("id"));
-            foreach ($ticketResult as $ticket) {
-                $groupResult = $this->groupModel->getGroupDetails((int)$ticket->getGroup_id());
-                $interventionResult = $this->interventionModel->getAllInterventionsForTicketId((int)$ticket->getId());
-            }
-            $this->view->render("ticketdetails", ['groupresults' => $groupResult, 'ticketresults' => $ticketResult, 'interventionresults' => $interventionResult]);
-        } else {
-            echo "Missiong ID";
-            exit();
-        }
+        $ticketDetails = $this->ticketModel->getTicketDetails((int)$this->superGlobals->_GET("id"));
+        $groupDetails = $this->groupModel->getGroupDetails((int)$ticketDetails->getGroup_id());
+        $interventionList = $this->interventionModel->getInterventionsForTicketIdAndAuthorDetails((int)$ticketDetails->getId());
+        $this->view->render("ticketdetails", ['groupdetails' => $groupDetails, 'ticketdetails' => $ticketDetails, 'interventionresults' => $interventionList]);
+
     }
 
     // DISPLAY GLOBAL TICKETS PAGE
@@ -51,12 +45,12 @@ class TicketsController
         $result = $this->groupModel->getMyGroups();
         $finalArrayMyTickets = array();
         foreach ($result as $key) {
-            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId()));
         }
         $result = $this->groupModel->getSharedGroups();
         $finalArraySharedTickets = array();
         foreach ($result as $key) {
-            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key['group_id']));
         }
         $finalTable = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
         $this->view->render("globaltickets", ['results' => $finalTable]);
@@ -86,7 +80,7 @@ class TicketsController
         $result = $this->groupModel->getSharedGroups();
         $finalArray = array();
         foreach ($result as $key) {
-            $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key['group_id']));
+            $finalArray = array_merge($finalArray, $this->ticketModel->getOpenTicketsWithGroupId((int)$key['group_id']));
         }
         $this->view->render("sharedtickets", ['results' => $finalArray]);
     }
@@ -97,7 +91,7 @@ class TicketsController
         $result = $this->groupModel->getMyGroups();
         $finalArray = array();
         foreach ($result as $key) {
-            $finalArray = array_merge($finalArray, $this->ticketModel->getTicketsWithGroupId((int)$key->getId()));
+            $finalArray = array_merge($finalArray, $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId()));
         }
         $this->view->render("mytickets", ['results' => $finalArray]);
     }

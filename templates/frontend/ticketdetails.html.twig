@@ -11,8 +11,8 @@
     <div class="card m-1">
         <div class="card-header">
             <div class="w-100">
-                {% for ticket in ticketresults %}
-                    <i class="fas fa-ticket-alt fa-2x mr-3"></i>TICKET DETAILS #{{ ticket.id }}
+
+                    <i class="fas fa-ticket-alt fa-2x mr-3"></i>TICKET DETAILS #{{ ticketdetails.id }}
                     <!-- BUTTON CLOSE THIS GROUP -->
                     <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
                             data-target="#confirm-close">
@@ -23,7 +23,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    Closing Ticket: <span class=""><h6>#{{ ticket.id }} - {{ ticket.title }}</h6></span>
+                                    Closing Ticket: <span class=""><h6>#{{ ticketdetails.id }} - {{ ticketdetails.title }}</h6></span>
                                 </div>
                                 <div class="modal-body">
                                     Are you sure ?
@@ -31,80 +31,80 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                                     </button>
-                                    <a href="index.php?action=closeticketfunction&ticketid={{ ticket.id }}"
+                                    <a href="index.php?action=closeticketfunction&ticketid={{ ticketdetails.id }}"
                                        class="btn btn-danger btn-ok">Close</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+
             </div>
         </div>
         <div class="card-body p-0">
             <br>
-            {% for result in groupresults %}
-                <table class="mr-3 ml-3 col-md-12">
-                    <tbody>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Group Id:</td>
-                        <td class="table_text_overflow_ellipsis"><a
-                                    href="http://projet5/index.php?action=groupdetails&id={{ result.id }}">{{ result.id }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Group Name:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_name }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Group Admin Id:</td>
-                        <td class="table_text_overflow_ellipsis"> {{ result.group_admin_id }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Status:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_status }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Creation Date:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.creation_date }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Description:</td>
-                        <td class="table_text_overflow_ellipsis">{{ result.group_description }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% endfor %}
+
+            <table class="mr-3 ml-3 col-md-6">
+                <tbody>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Group Id:</td>
+                    <td class="table_text_overflow_ellipsis"><a
+                                href="http://projet5/index.php?action=groupdetails&id={{ groupdetails.getId() }}">{{ groupdetails.getId() }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Group Name:</td>
+                    <td class="table_text_overflow_ellipsis">{{ groupdetails.getGroupName }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Group Admin Id:</td>
+                    <td class="table_text_overflow_ellipsis"> {{ groupdetails.GroupAdminId() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Status:</td>
+                    <td class="table_text_overflow_ellipsis">{{ groupdetails.getGroupStatus() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Creation Date:</td>
+                    <td class="table_text_overflow_ellipsis">{{ groupdetails.getCreationDate() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Description:</td>
+                    <td class="table_text_overflow_ellipsis">{{ groupdetails.getGroupDescription() }}</td>
+                </tr>
+                </tbody>
+            </table>
+
             <br>
-            {% for ticket in ticketresults %}
-                <table class="mr-3 ml-3 col-md-6">
-                    <tbody>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Ticket Id:</td>
-                        <td class="table_text_overflow_ellipsis">{{ ticket.id }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Ticket Title:</td>
-                        <td class="table_text_overflow_ellipsis">{{ ticket.title }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis"> Ticket Author:</td>
-                        <td class="table_text_overflow_ellipsis"> {{ ticket.author_id }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Ticket Status:</td>
-                        <td class="table_text_overflow_ellipsis">{{ ticket.status }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Creation Date:</td>
-                        <td class="table_text_overflow_ellipsis">{{ ticket.creation_date }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table_text_overflow_ellipsis">Description:</td>
-                        <td class="table_text_overflow_ellipsis">{{ ticket.description }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% endfor %}
+
+            <table class="mr-3 ml-3 col-md-6">
+                <tbody>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Ticket Id:</td>
+                    <td class="table_text_overflow_ellipsis">{{ ticketdetails.getId() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Ticket Title:</td>
+                    <td class="table_text_overflow_ellipsis">{{ ticketdetails.getTitle() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis"> Ticket Author:</td>
+                    <td class="table_text_overflow_ellipsis"> {{ ticketdetails.getAuthorId() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Ticket Status:</td>
+                    <td class="table_text_overflow_ellipsis">{{ ticketdetails.getStatus() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Creation Date:</td>
+                    <td class="table_text_overflow_ellipsis">{{ ticketdetails.getCreation_date() }}</td>
+                </tr>
+                <tr>
+                    <td class="table_text_overflow_ellipsis">Description:</td>
+                    <td class="table_text_overflow_ellipsis">{{ ticketdetails.getDescription() }}</td>
+                </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 
@@ -118,9 +118,9 @@
         </div>
         <div class="card-body p-0">
             <div class="w-100">
-                {% for result in ticketresults %}
-                <a href="index.php?action=createintervention&ticketid={{ result.id }}">
-                    {% endfor %}
+
+                <a href="index.php?action=createintervention&ticketid={{ ticketdetails.getId() }}">
+
                     <button type="button" class="btn btn-primary btn-sm m-1">Create Intervention</button>
 
                 </a>
@@ -150,12 +150,16 @@
                 {% for intervention in interventionresults %}
                     <tr>
                         <td class="table_text_overflow_ellipsis"><i
-                                    class="fas fa-wrench mr-3"></i> {{ intervention.id }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_date }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_description }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_id }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_company }} </td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.intervention_author_country }} </td>
+                                    class="fas fa-wrench mr-3"></i> {{ intervention.getId() }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_date() }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_description() }}</td>
+                        <td class="table_text_overflow_ellipsis"><img class="img-profile rounded-circle shadow border"
+                                                                      style="width: 30px; height: 30px;"
+                                                                      src="upload_files/{{ intervention.photo_filename }}"
+                                                                      alt="avatar"/> {{ intervention.email }}
+                        </td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_company() }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_country() }} </td>
                     </tr>
                 {% endfor %}
                 </tbody>

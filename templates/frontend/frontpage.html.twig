@@ -9,7 +9,171 @@
 {% block body %}
 
 
-    // FRONTPAGE
+
+    <div class="card shadow m-1">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            Private
+        </div>
+        <div class="card-body">
+            <div class="p-3 row mb-1 w-100">
+                <div class="m-1">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Total Groups:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                13
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Total Open Tickets:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                28
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Total Interventions:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                24
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 row mb-1 w-100">
+            <div class="m-1">
+                <!-- Bar Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="m-0 font-weight-bold text-primary">Open Tickets this month:</div>
+                        <a href="../index.php?action=getTotalOpenTicketsThisMonthFunction">test</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <canvas id="opentickets01"></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 ">
+                <div class="card shadow mb-4 ">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="m-0 font-weight-bold text-primary">Open Interventions this month:</div>
+                        <a href="../index.php?action=getTotalOpenInterventionsThisMonthFunction">test</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <canvas id="openinterventions01"></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow m-1">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            Shared
+        </div>
+        <div class="card-body">
+            <div class="p-3 row mb-1 w-100 ">
+
+                <div class="m-1 ">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Shared Groups:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                13
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1 ">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Shared Open Tickets:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                28
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1 ">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <div class="m-0 font-weight-bold text-primary">Interventions:</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                24
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 row mb-1 w-100">
+            <div class="m-1 ">
+                <!-- Bar Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                        <div class="m-0 font-weight-bold text-primary">Shared Open Tickets this month:</div>
+                        <a href="../index.php?action=getTotalOpenTicketsThisMonthFunction">test</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <canvas id="opentickets01"></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 ">
+                <div class="card shadow mb-4 ">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="m-0 font-weight-bold text-primary">Shared Open Interventions this month:</div>
+                        <a href="../index.php?action=getTotalOpenInterventionsThisMonthFunction">test</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <canvas id="openinterventions01"></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 {% endblock %}

@@ -61,4 +61,14 @@ class InterventionModel
         // die;
     }
 
+    // GET ALL OPEN INTERVENTIONS THIS MONTH
+    public function getInterventionsForYearAndMonth($CreationYear, $CreationMonth)
+    {
+        $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' ORDER BY intervention_date DESC");
+        $req->execute();
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
 }

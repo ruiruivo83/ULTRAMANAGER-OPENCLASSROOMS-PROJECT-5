@@ -79,7 +79,7 @@ function buildBarChart(elementId, labels, data) {
             // LABELS FOR EACH DAY TITLE
             labels: labels,
             datasets: [{
-                label: '# of Votes',
+                label: 'Total on this day: ',
                 // COUNT FOR EACH DAY
                 data: data,
                 backgroundColor: [

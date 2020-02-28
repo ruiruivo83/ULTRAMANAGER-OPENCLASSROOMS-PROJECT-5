@@ -62,9 +62,10 @@ class InterventionModel
     }
 
     // GET ALL OPEN INTERVENTIONS THIS MONTH
-    public function getInterventionsForYearAndMonth($CreationYear, $CreationMonth)
+    public function getMyInterventionsForYearAndMonth($CreationYear, $CreationMonth)
     {
-        $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' ORDER BY intervention_date DESC");
+        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' AND intervention_author_id = '$currentUserId' ORDER BY intervention_date DESC");
         $req->execute();
         // $req->debugDumpParams();
         // die;

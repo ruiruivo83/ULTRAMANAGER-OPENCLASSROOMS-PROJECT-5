@@ -79,18 +79,16 @@ class TicketModel
         // die;
     }
 
-    // GET ALL OPEN TICKETS THIS MONTH
-    public function getTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
+    // STATS - GET ALL OPEN TICKETS THIS MONTH
+    public function getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
     {
-        $req = $this->bdd->prepare("SELECT creation_date FROM tickets WHERE YEAR(creation_date) = '$CreationYear' AND MONTH(creation_date) = '$CreationMonth' AND status = '$status' ORDER BY creation_date DESC");
+        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT creation_date FROM tickets WHERE YEAR(creation_date) = '$CreationYear' AND MONTH(creation_date) = '$CreationMonth' AND status = '$status' AND author_id = '$currentUserId' ORDER BY creation_date DESC");
         $req->execute();
-        // $req->debugDumpParams();
-        // die;
+        //  $req->debugDumpParams();
+        //  die;
         return $req->fetchall();
     }
-
-
-
 
 
 }

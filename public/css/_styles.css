@@ -95,3 +95,16 @@ tbody tr td:hover {
 .th-sm {
     color: #b9b9b9;
 }
+
+.width-300 {
+    width: 300px;
+}
+
+.width-400 {
+    width: 400px;
+}
+
+
+.width-500 {
+    width: 500px;
+}

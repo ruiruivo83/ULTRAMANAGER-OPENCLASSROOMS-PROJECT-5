@@ -72,6 +72,8 @@ class Router
 
         if ($this->superGlobals->ISSET_GET("action")) {
 
+
+
             // NO SESSION
             if ($this->superGlobals->_GET("action") === "login") {
                 $this->commonController->loginPage();
@@ -91,6 +93,7 @@ class Router
             $this->indexController->dashboardPage();
         } else {
             // SESSION NOT OPEN
+
             $this->indexController->noLoginFrontPage();
         }
     }

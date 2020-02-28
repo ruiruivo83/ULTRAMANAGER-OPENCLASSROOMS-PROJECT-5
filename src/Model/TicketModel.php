@@ -79,26 +79,18 @@ class TicketModel
         // die;
     }
 
-    // GET ALL CLOSED TICKETS THIS MONTH
-    public function getClosedTicketsOnDate($CloseYear, $CloseMonth, $CloseDay, $CurrentStatus)
+    // GET ALL OPEN TICKETS THIS MONTH
+    public function getTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
     {
-        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE YEAR(tickets_status_change_date) = '$CloseYear' AND MONTH(tickets_status_change_date) = '$CloseMonth' AND DAY(tickets_status_change_date) = '$CloseDay' AND status = '$CurrentStatus' ORDER BY tickets_status_change_date DESC");
+        $req = $this->bdd->prepare("SELECT creation_date FROM tickets WHERE YEAR(creation_date) = '$CreationYear' AND MONTH(creation_date) = '$CreationMonth' AND status = '$status' ORDER BY creation_date DESC");
         $req->execute();
-        $result = $req->fetchall();
         // $req->debugDumpParams();
         // die;
-        return count($result);
+        return $req->fetchall();
     }
 
-    // GET ALL OPEN TICKETS THIS MONTH
-    public function getOpenTicketsOnDate($CreationYear, $CreationMonth, $CreationDay, $CurrentStatus)
-    {
-        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE YEAR(tickets_status_change_date) = '$CreationYear' AND MONTH(tickets_status_change_date) = '$CreationMonth' AND DAY(tickets_status_change_date) = '$CreationDay' AND status = '$CurrentStatus' ORDER BY tickets_status_change_date DESC");
-        $req->execute();
-        $result = $req->fetchall();
-        $req->debugDumpParams();
-        die;
-        return count($result);
-    }
+
+
+
 
 }

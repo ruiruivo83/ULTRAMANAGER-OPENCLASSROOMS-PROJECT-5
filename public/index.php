@@ -18,6 +18,7 @@ use App\Controller\ProfileController;
 use App\Controller\SettingsController;
 use App\Controller\TicketsController;
 use App\Controller\UserController;
+use App\Controller\StatsController;
 use App\Tools\SuperGlobals;
 
 // ROUTER FOR INDEX PAGE
@@ -28,6 +29,7 @@ class Router
     private $indexController;
 
     private $userController;
+    private $statsController;
 
 
     private $groupsController;
@@ -45,14 +47,16 @@ class Router
         }
 
         $this->superGlobals = new SuperGlobals();
-        $this->indexController = new IndexController;
-        $this->commonController = new CommonController;
-        $this->userController = new UserController;
+        $this->indexController = new IndexController();
+        $this->commonController = new CommonController();
+        $this->userController = new UserController();
 
-        $this->groupsController = new GroupsController;
-        $this->ticketsController = new TicketsController;
-        $this->interventionsController = new InterventionsController;
-        $this->invitationsController = new InvitationsController;
+        $this->groupsController = new GroupsController();
+        $this->ticketsController = new TicketsController();
+        $this->interventionsController = new InterventionsController();
+        $this->invitationsController = new InvitationsController();
+
+        $this->statsController = new StatsController();
 
     }
 
@@ -169,29 +173,26 @@ class Router
                 $this->groupsController->removeMemberFromGroupFunction();
             }
 
-            // CHARTS
-            // STATS CONTROLLER
-            if ($functionName === 'TotalOpenTicketsThisMonth') {
-                $this->chartController->getTotalOpenTicketsThisMonthFunction();
-                echo("STOP");
-                die;
-            }
 
             // STATS CONTROLLER
+            if ($functionName === 'getTotalOpenTicketsThisMonthFunction') {
+                $this->statsController->getTotalOpenTicketsThisMonthFunction();
+                exit();
+            }
             if ($functionName === 'TotalClosedTicketsThisMonth') {
-                $this->chartController->getTotalClosedTicketsThisMonthFunction();
-                echo("STOP");
-                die;
+                $this->statsController->getTotalClosedTicketsThisMonthFunction();
+                exit();
             }
-
-            // STATS CONTROLLER
-            if ($functionName === 'TotalInterventionsThisMonth') {
-                $this->chartController->getTotalInterventionsThisMonthFunction();
-                echo("STOP");
-                die;
+            if ($functionName === 'getTotalOpenInterventionsThisMonthFunction') {
+                $this->statsController->getTotalInterventionsThisMonthFunction();
+                exit();
             }
 
 
+        } else {
+            // IF SESSION IS NOT OPEN
+            header('Location: ../index.php');
+            exit();
         }
     }
 
@@ -289,6 +290,10 @@ class Router
                 header('Location: ../index.php');
                 exit();
             }
+        } else {
+            // IF SESSION IS NOT OPEN
+            header('Location: ../index.php');
+            exit();
         }
     }
 

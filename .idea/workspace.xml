@@ -38,18 +38,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../_old/build04/test03" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
       <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\tools" />
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
     </key>
   </component>
@@ -98,7 +99,7 @@
       <workItem from="1581778176812" duration="12003000" />
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
-      <workItem from="1582046236963" duration="103882000" />
+      <workItem from="1582046236963" duration="110599000" />
     </task>
     <servers />
   </component>
@@ -140,6 +141,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2305" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582711014441" />
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1582899547669">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582899547669" />
     <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582626614489">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

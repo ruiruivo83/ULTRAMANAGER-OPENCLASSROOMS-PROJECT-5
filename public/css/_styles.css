@@ -3,11 +3,6 @@ body {
     height: 100%;
 }
 
-body {
-    display: none;
-
-}
-
 table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
     display: none;
 }
@@ -94,6 +89,10 @@ tbody tr td:hover {
 
 .th-sm {
     color: #b9b9b9;
+}
+
+.width-200 {
+    width: 200px;
 }
 
 .width-300 {

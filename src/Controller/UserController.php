@@ -27,7 +27,7 @@ class UserController
     {
         $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
-        var_dump($currentUser);
+        // var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
     }
 

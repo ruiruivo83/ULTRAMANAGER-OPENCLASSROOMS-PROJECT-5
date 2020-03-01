@@ -30,8 +30,9 @@
                     </th>
                     <th class="th-sm">Description
                     </th>
-                    <th class="th-sm">Author Id
+                    <th class="th-sm">Author
                     </th>
+
                     <th class="th-sm">
                     </th>
                 </tr>
@@ -42,9 +43,9 @@
                          <td class="table_text_overflow_ellipsis"><i class="fas fa-ticket-alt mr-3"></i> {{ result.id }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ result.creation_date }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ result.requester }}</td>
-                         <td class="table_text_overflow_ellipsis">  {{ result.title }}</td>
-                         <td class="table_text_overflow_ellipsis">  {{ result.description }}</td>
-                         <td class="table_text_overflow_ellipsis">  {{ result.author_id }} </td>
+                         <td class="table_text_overflow_ellipsis"><b> {{ result.title }} </b> </td>
+                         <td class="table_text_overflow_ellipsis"><b>  {{ result.description }} </td>
+                        <td class="table_text_overflow_ellipsis">  {{ result.author_id }} </td>
                          <td class="table_text_overflow_ellipsis">
                              <a class="mr-2" href="index.php?action=ticketdetails&id={{ result.id }}">Details</a>
                              <a class="mr-2" href="index.php?action=closeticket&ticketid={{ result.id }}">Close</a>
@@ -67,6 +68,7 @@
                     </th>
                     <th class="th-sm">Author
                     </th>
+
                     <th class="th-sm">
                     </th>
                 </tr>

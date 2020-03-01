@@ -15,7 +15,8 @@ window.onload = function getStatData() {
     });
 
     // Detects if current path is index.php and run stats script
-    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php") {
+    console.log(window.location.href.toString().substring(window.location.href.toString().length));
+    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php" || window.location.href.toString().substring(window.location.href.toString().length - 9) == "") {
         let elementId;
         // Build label for Chart
         const labels = buildLabelForChart(daysInMonth());

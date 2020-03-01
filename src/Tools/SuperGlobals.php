@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tools;
 
-
-use mysql_xdevapi\DatabaseObject;
-
 class SuperGlobals
 {
 
@@ -48,12 +45,12 @@ class SuperGlobals
 
     public function _GET(string $var): string
     {
-        return $_GET[$var];
+        return htmlentities($_GET[$var]);
     }
 
     public function _POST(string $var): string
     {
-        return $_POST[$var];
+        return htmlentities($_POST[$var]);
     }
 
     public function _SESSION(string $var): object
@@ -68,7 +65,7 @@ class SuperGlobals
 
     public function getGlobal_Server(string $var): string
     {
-        return $_SERVER[$var];
+        return htmlentities($_SERVER[$var]);
     }
 
 

@@ -59,7 +59,9 @@ class UserModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchObject();
+        var_dump($req->fetch());
+        die;
+        return $req->fetch();
     }
 
     // FIND USER BY EMAIL
@@ -71,7 +73,7 @@ class UserModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetchObject();
+        return $req->fetch();
     }
 
     // VERIFY IF USER EMAIL EXISTS IN THE DATABASE

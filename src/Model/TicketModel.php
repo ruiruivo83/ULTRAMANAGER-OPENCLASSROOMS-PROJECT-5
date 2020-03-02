@@ -40,7 +40,7 @@ class TicketModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetch();
+        return $req->fetchObject();
     }
 
     // GET OPEN TICKET WITH GROUP ID

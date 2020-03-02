@@ -42,16 +42,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates" />
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src" />
       <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
       <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\tools" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates" />
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -101,7 +101,7 @@
       <workItem from="1581980445693" duration="214000" />
       <workItem from="1582046236963" duration="110599000" />
       <workItem from="1583087815072" duration="927000" />
-      <workItem from="1583100971481" duration="582000" />
+      <workItem from="1583100971481" duration="6686000" />
     </task>
     <servers />
   </component>

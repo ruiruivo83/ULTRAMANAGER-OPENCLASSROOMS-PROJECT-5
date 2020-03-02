@@ -66,7 +66,7 @@ class GroupModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetch();
+        return $req->fetchObject();
     }
 
     public function removeMemberFromGroupfunction(int $groupId, int $userId): void

@@ -24,7 +24,7 @@ class InvitationModel
 
 
     // CREATE NEW INVITATION
-    public function createInvitation()
+    public function createInvitation(): void
     {
         $currentUser = $this->superGlobals->_SESSION("user")->getId();
         $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from_user_id, invitation_to_user_id, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
@@ -41,7 +41,7 @@ class InvitationModel
         $req->execute(array($this->superGlobals->_GET("invitationid")));
     }
 
-    public function acceptInvitation(int $userId)
+    public function acceptInvitation(int $userId): void
     {
         // Add User to the group in the database
         $req = $this->bdd->prepare("INSERT INTO group_members(group_id, user_id) values (?, ?) ");

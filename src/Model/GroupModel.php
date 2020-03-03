@@ -91,7 +91,7 @@ class GroupModel
 
     public function createNewGroup()
     {
-        $currentUser = $_SESSION['user']->getId();
+        $currentUser = $_SESSION['user']['id'];
         $req = $this->bdd->prepare("INSERT INTO groups(group_admin_id, creation_date, group_name, group_description, group_status) values(?, NOW(), ?, ?, ?) ");
         $req->execute(array($currentUser, $this->superGlobals->_POST("Title"), $this->superGlobals->_POST("Description"), "open"));
         // DEBUG
@@ -99,6 +99,7 @@ class GroupModel
         // die;
     }
 
+    /*
     public function closeGroup()
     {
         $status = "closed";
@@ -108,5 +109,6 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
     }
+    */
 
 }

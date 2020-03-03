@@ -108,6 +108,7 @@ class GroupsController
         exit();
     }
 
+    /*
     public function closeGroupFunction(): void
     {
         // TODO
@@ -122,6 +123,7 @@ class GroupsController
         header('Location: ../index.php');
         exit();
     }
+    */
 
     public function removeMemberFromGroupFunction()
     {

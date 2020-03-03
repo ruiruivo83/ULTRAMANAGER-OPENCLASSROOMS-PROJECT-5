@@ -162,10 +162,12 @@ class Router
             if ($functionName === 'modifygroupfunction') {
                 $this->groupsController->modifyGroupFunction();
             }
+            /*
             // - close group will add a ticket with author, date and time.
             if ($functionName === 'closegroupfunction') {
                 $this->groupsController->closeGroupFunction();
             }
+            */
 
             // TICKETS FUNCTIONS
             if ($functionName === 'createticketfunction') {

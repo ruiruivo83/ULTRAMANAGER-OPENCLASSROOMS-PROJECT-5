@@ -99,7 +99,7 @@
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
       <workItem from="1582046236963" duration="98469000" />
-      <workItem from="1583240446065" duration="564000" />
+      <workItem from="1583240446065" duration="5079000" />
     </task>
     <servers />
   </component>
@@ -146,10 +146,10 @@
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580510347407" />
     <state x="2610" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1582626614489" />
-    <state x="2012" y="92" width="1736" height="856" key="DirDiffDialog" timestamp="1583240970542">
+    <state x="2012" y="92" width="1736" height="856" maximized="true" key="DirDiffDialog" timestamp="1583243742689">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2012" y="92" width="1736" height="856" key="DirDiffDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583240970542" />
+    <state x="2012" y="92" width="1736" height="856" maximized="true" key="DirDiffDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583243742689" />
     <state x="2660" y="276" key="FileChooserDialogImpl" timestamp="1582706650684">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

@@ -51,24 +51,23 @@ class UserModel
 
     // FIND USER BY EMAIL
     // MUST NOT DECLARE A RETURN - SOLUTION: create testExistenceUserByEmail -> return bool
-    public function getUserByEmail(string $email): User
+    public function getUserByEmail(string $email): Array
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE email = ? ");
         $req->execute(array($email));
-        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
+        $req->setFetchMode(PDO::FETCH_CLASS, 'User');
         // DEBUG
         // $req->debugDumpParams();
         // die;
-
         return $req->fetch();
     }
 
     // FIND USER BY EMAIL
-    public function getUserById(int $id): User
+    public function getUserById(int $id): Array
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE id =  ?   ");
         $req->execute(array($id));
-        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
+        $req->setFetchMode(PDO::FETCH_CLASS, 'User');
         // DEBUG
         // $req->debugDumpParams();
         // die;

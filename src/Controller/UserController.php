@@ -51,7 +51,7 @@ class UserController
                 $currentUser = $this->userModel->getUserByEmail($login_email);
                 if ($currentUser != null) {
                     // foreach ($userModel as $user) {
-                    if (password_verify($login_password, $currentUser->getPsw())) {   // IF PASSWORD IS OK
+                    if (password_verify($login_password, $currentUser['psw'])) {   // IF PASSWORD IS OK
                         //// IMPORTANT
                         //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
                         $_SESSION['user'] = $currentUser;

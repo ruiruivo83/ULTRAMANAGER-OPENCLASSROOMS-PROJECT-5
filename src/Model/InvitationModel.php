@@ -26,7 +26,7 @@ class InvitationModel
     // CREATE NEW INVITATION
     public function createInvitation(): void
     {
-        $currentUser = $this->superGlobals->_SESSION("user")->getId();
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("INSERT INTO invitations(invitation_from_user_id, invitation_to_user_id, invitation_date, invitation_for_group_id ) values (?, ?, NOW(), ?) ");
         $req->execute(array($currentUser, $this->superGlobals->_GET("memberid"), $this->superGlobals->_GET("groupid")));
         // DEBUG
@@ -56,7 +56,7 @@ class InvitationModel
 
     public function getInvitationsFromMe(): array
     {
-        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_from_user_id = ?");
         $req->execute(array($currentUserId));
         // DEBUG
@@ -67,7 +67,7 @@ class InvitationModel
 
     public function getInvitationsForMe(): array
     {
-        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT * FROM invitations WHERE invitation_to_user_id = ?");
         $req->execute(array($currentUserId));
         // DEBUG

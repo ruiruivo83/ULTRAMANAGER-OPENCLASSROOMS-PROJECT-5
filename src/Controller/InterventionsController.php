@@ -54,6 +54,7 @@ class InterventionsController
                 $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
             }
         }
+        // var_dump($finalArray);
         $this->view->render("myinterventions", ['results' => $finalArray]);
     }
 

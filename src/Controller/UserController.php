@@ -27,7 +27,7 @@ class UserController
     {
         $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
-        var_dump($currentUser);
+        // var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
     }
 
@@ -41,27 +41,33 @@ class UserController
     // LOGIN VALIDATION FOR THE MAIN LOGIN
     public function loginValidationFunction()
     {
+        // var_dump("loginValidationFunction");
         if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("email")) {
             // GET LOGIN INFO FROM USER POST METHOD
             $login_email = $this->superGlobals->_POST("email");
             $login_password = $this->superGlobals->_POST("password");
-            $currentUser = $this->userModel->getUserByEmail($login_email);
 
-            if ($currentUser != null) {
-                // foreach ($userModel as $user) {
-                if (password_verify($login_password, $currentUser->getPsw())) {   // IF PASSWORD IS OK
-                    //// IMPORTANT
-                    //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
-                    $_SESSION['user'] = $currentUser;
-                    header('Location: ../index.php');
-                    exit();
+            if ($this->userModel->getEmailCount($login_email) == 1) {
+                $currentUser = $this->userModel->getUserByEmail($login_email);
+                if ($currentUser != null) {
+                    // foreach ($userModel as $user) {
+                    if (password_verify($login_password, $currentUser->getPsw())) {   // IF PASSWORD IS OK
+                        //// IMPORTANT
+                        //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
+                        $_SESSION['user'] = $currentUser;
+                        header('Location: ../index.php');
+                        exit();
+                    } else {
+                        $this->view->render("login", ['message' => "PASSWORD DO NOT MATCH"]);
+                    }
+                    // }
                 } else {
-                    $this->view->render("login", ['message' => "PASSWORD DO NOT MATCH"]);
+                    $this->view->render("login", ['message' => "INVALID EMAIL ACCOUNT"]);
                 }
-                // }
             } else {
                 $this->view->render("login", ['message' => "INVALID EMAIL ACCOUNT"]);
             }
+
         }
     }
 

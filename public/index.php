@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 // COMPOSER AUTOLOAD
 require '../vendor/autoload.php';
 
@@ -20,6 +21,7 @@ use App\Controller\TicketsController;
 use App\Controller\UserController;
 use App\Controller\StatsController;
 use App\Tools\SuperGlobals;
+use App\Model\UserModel;
 
 // ROUTER FOR INDEX PAGE
 class Router
@@ -39,9 +41,16 @@ class Router
 
     private $commonController;
 
+    private $userModel;
+
+
+
 
     public function __construct()
     {
+
+        var_dump("Starting Construct");
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -50,6 +59,7 @@ class Router
         $this->indexController = new IndexController();
         $this->commonController = new CommonController();
         $this->userController = new UserController();
+        $this->userModel = new UserModel();
 
         $this->groupsController = new GroupsController();
         $this->ticketsController = new TicketsController();
@@ -57,6 +67,18 @@ class Router
         $this->invitationsController = new InvitationsController();
 
         $this->statsController = new StatsController();
+
+        if ($this->superGlobals->ISSET_SESSION("user")) {
+            // IF USER EXISTS FOR SESSION OPEN
+            if ($this->userModel->getEmailCount($this->superGlobals->_SESSION("user")->getEmail()) == 0) {
+                // LOGOUT
+                session_destroy();
+                header('Location: ../public/index.php');
+                exit();
+            }
+        }
+
+        var_dump("Finished Construct");
 
     }
 
@@ -70,7 +92,10 @@ class Router
     public function main()
     {
 
+        var_dump("INSIDE MAIN");
+
         if ($this->superGlobals->ISSET_GET("action")) {
+
 
             // NO SESSION
             if ($this->superGlobals->_GET("action") === "login") {
@@ -91,6 +116,7 @@ class Router
             $this->indexController->dashboardPage();
         } else {
             // SESSION NOT OPEN
+
             $this->indexController->noLoginFrontPage();
         }
     }
@@ -112,6 +138,7 @@ class Router
             $this->userController->registerNewUserFunction();
         }
 
+        // IF SESSION IS OPEN
         if ($this->superGlobals->ISSET_SESSION("user")) {
 
             // USER PROFILE FUNCTION
@@ -191,7 +218,7 @@ class Router
 
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../index.php');
+            header('Location: ../public/index.php');
             exit();
         }
     }
@@ -287,12 +314,12 @@ class Router
 
             } else {
                 // IF SESSION IS NOT OPEN
-                header('Location: ../index.php');
+                header('Location: ../public/index.php');
                 exit();
             }
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../index.php');
+            header('Location: ../public/index.php');
             exit();
         }
     }

@@ -15,7 +15,8 @@ window.onload = function getStatData() {
     });
 
     // Detects if current path is index.php and run stats script
-    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php") {
+    console.log(window.location.href.toString().substring(window.location.href.toString().length));
+    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php" || window.location.href.toString().substring(window.location.href.toString().length - 9) == "") {
         let elementId;
         // Build label for Chart
         const labels = buildLabelForChart(daysInMonth());
@@ -79,7 +80,7 @@ function buildBarChart(elementId, labels, data) {
             // LABELS FOR EACH DAY TITLE
             labels: labels,
             datasets: [{
-                label: '# of Votes',
+                label: 'Total on this day: ',
                 // COUNT FOR EACH DAY
                 data: data,
                 backgroundColor: [

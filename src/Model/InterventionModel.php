@@ -43,7 +43,7 @@ class InterventionModel
         return $req->fetchall(PDO::FETCH_CLASS, Intervention::class);
     }
 
-    public function createNewIntervention()
+    public function createNewIntervention(): void
     {
         $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
         $req->execute(array($this->superGlobals->_POST("ticketid"), $this->superGlobals->_SESSION("user")->getId(), $this->superGlobals->_POST("Description"), $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
@@ -52,7 +52,7 @@ class InterventionModel
         // die;
     }
 
-    public function createClosingIntervention($ticketId, $interventionDescription)
+    public function createClosingIntervention($ticketId, $interventionDescription): void
     {
         $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
         $req->execute(array($ticketId, $this->superGlobals->_SESSION("user")->getId(), $interventionDescription, $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
@@ -62,9 +62,10 @@ class InterventionModel
     }
 
     // GET ALL OPEN INTERVENTIONS THIS MONTH
-    public function getInterventionsForYearAndMonth($CreationYear, $CreationMonth)
+    public function getMyInterventionsForYearAndMonth($CreationYear, $CreationMonth)
     {
-        $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' ORDER BY intervention_date DESC");
+        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' AND intervention_author_id = '$currentUserId' ORDER BY intervention_date DESC");
         $req->execute();
         // $req->debugDumpParams();
         // die;

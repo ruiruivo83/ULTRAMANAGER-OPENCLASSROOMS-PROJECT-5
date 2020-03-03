@@ -34,7 +34,7 @@ class StatsController
         $CreationYear = date("Y");
         $CreationMonth = date("m");
         $status = "open";
-        $ticketsForThisMonth = $this->ticketModel->getTicketsForYearAndMonth($CreationYear, $CreationMonth, $status);
+        $ticketsForThisMonth = $this->ticketModel->getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status);
 
         // FOR DEBUG ONLY
         // var_dump($ticketsForThisMonth);
@@ -59,7 +59,7 @@ class StatsController
         // GET INTERVENTIONS
 
 
-        $interventionsForThisMonth = $this->interventionsModel->getInterventionsForYearAndMonth($CreationYear, $CreationMonth);
+        $interventionsForThisMonth = $this->interventionsModel->getMyInterventionsForYearAndMonth($CreationYear, $CreationMonth);
 
         // FOR DEBUG ONLY
         // var_dump($ticketsForThisMonth);

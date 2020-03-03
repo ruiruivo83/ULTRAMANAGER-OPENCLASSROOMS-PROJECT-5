@@ -101,7 +101,6 @@ class GroupsController
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
             $this->groupModel->createNewGroup();
-            $this->groupModel->addAdminToGroup();
             header('Location: ../index.php?action=mygroups');
             exit();
         }

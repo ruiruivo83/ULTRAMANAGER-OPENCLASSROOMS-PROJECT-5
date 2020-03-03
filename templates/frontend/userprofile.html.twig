@@ -11,7 +11,9 @@
         <div class="container">
             <table style="width:100%">
                 <tr>
-                    <img class="img-profile rounded-circle shadow border" src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
+
+                    <img class="width-200 img-profile rounded-circle shadow border"
+                         src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
 
                 </tr>
             </table>
@@ -50,11 +52,13 @@
                 <table style="width:100%">
                     <tr>
                         <th><label for="country"><b>Country: </b></label></th>
-                        <td><input type="text" name="country" id="country" value="{{ results.Country() }}" required></td>
+                        <td><input type="text" name="country" id="country" value="{{ results.Country() }}" required>
+                        </td>
                     </tr>
                     <tr>
                         <th><label for="company"><b>Company: </b></label></th>
-                        <td><input type="company" name="company" id="company" value="{{ results.Company() }}" required></td>
+                        <td><input type="company" name="company" id="company" value="{{ results.Company() }}" required>
+                        </td>
                     </tr>
 
                 </table>

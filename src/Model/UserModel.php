@@ -51,7 +51,7 @@ class UserModel
 
     // FIND USER BY EMAIL
     // MUST NOT DECLARE A RETURN - SOLUTION: create testExistenceUserByEmail -> return bool
-    public function getUserByEmail(string $email)
+    public function getUserByEmail(string $email): User
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE email = ? ");
         $req->execute(array($email));
@@ -59,6 +59,7 @@ class UserModel
         // DEBUG
         // $req->debugDumpParams();
         // die;
+
         return $req->fetch();
     }
 

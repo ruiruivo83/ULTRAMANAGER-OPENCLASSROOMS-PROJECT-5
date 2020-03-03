@@ -25,7 +25,7 @@ class UserController
     // DISPLAY PAGE - My Profile
     public function userProfilePage()
     {
-        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")['id'];
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
         // var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
@@ -131,7 +131,7 @@ class UserController
 
             if (empty($errors) == true) {
                 move_uploaded_file($file_tmp, "upload_files/" . $fileName);
-                $this->userModel->atachPhotoFileNameToUser((int)$_SESSION['user']->getId(), $fileName);
+                $this->userModel->atachPhotoFileNameToUser((int)$_SESSION['user']['id'], $fileName);
                 header("Location: ../index.php?action=userprofile");
                 exit();
             } else {

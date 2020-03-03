@@ -43,17 +43,18 @@ class Router
 
     private $userModel;
 
-
-
-
     public function __construct()
     {
 
-        var_dump("Starting Construct");
+        var_dump("Starting Construct \n");
+
+        var_dump(session_status());
+        die;
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        var_dump("OK 001");
 
         $this->superGlobals = new SuperGlobals();
         $this->indexController = new IndexController();

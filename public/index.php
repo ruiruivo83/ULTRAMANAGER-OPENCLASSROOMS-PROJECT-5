@@ -75,7 +75,7 @@ class Router
             if ($this->userModel->getEmailCount($this->superGlobals->_SESSION("user")['email']) == 0) {
                 // LOGOUT
                 session_destroy();
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
                 exit();
             }
         }
@@ -219,7 +219,7 @@ class Router
 
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
             exit();
         }
     }
@@ -315,12 +315,12 @@ class Router
 
             } else {
                 // IF SESSION IS NOT OPEN
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
                 exit();
             }
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
             exit();
         }
     }

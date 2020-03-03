@@ -41,8 +41,8 @@ class UserModel
     // SEARCH USERS
     public function searchUsers(string $searchtext): array
     {
-        $req = $this->bdd->prepare("SELECT * FROM users WHERE ( LOWER(firstname) Like  LOWER(?)) OR ( LOWER(lastname) like  LOWER(?)) OR  (LOWER(email) like  LOWER(?))");
-        $req->execute(array("%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%"));
+        $req = $this->bdd->prepare("SELECT * FROM users WHERE ( LOWER(firstname) Like  LOWER(?)) OR ( LOWER(lastname) like  LOWER(?)) OR  (LOWER(email) like  LOWER(?) OR  id like  ? )");
+        $req->execute(array("%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%"));
         // DEBUG
         // $req->debugDumpParams();
         // die;

@@ -20,14 +20,15 @@
 
                 <thead>
                 <tr>
+                    <th class="th-sm">Author Id
+                    </th>
                     <th class="th-sm">Id
                     </th>
                     <th class="th-sm">Intervention Date
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author Id
-                    </th>
+
                     <th class="th-sm">Author Company
                     </th>
                     <th class="th-sm">Author Country
@@ -37,10 +38,10 @@
                 <tbody>
                 {% for intervention in results %}
                     <tr>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_authorId() }}</td>
                          <td class="table_text_overflow_ellipsis"> <i class="fas fa-fw fa-wrench"></i> {{ intervention.getId() }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_date() }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_description() }}</td>
-                         <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_authorId() }}</td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_company() }} </td>
                          <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_country() }} </td>
                     </tr>
@@ -48,14 +49,15 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th class="th-sm">Author Id
+                    </th>
                     <th class="th-sm">Id
                     </th>
                     <th class="th-sm">Intervention Date
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author Id
-                    </th>
+
                     <th class="th-sm">Author Description
                     </th>
                     <th class="th-sm">Author Country

@@ -148,7 +148,7 @@ class UserController
     {
         $country = $this->superGlobals->_POST("country");
         $company = $this->superGlobals->_POST("company");
-        $userId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $userId = (int)$this->superGlobals->_SESSION("user")['id'];
         $this->userModel->saveCompanyAndCountryFunction($country, $company, $userId);
         header("Location: ../index.php?action=userprofile");
         exit();

@@ -43,23 +43,25 @@ class Router
 
     private $userModel;
 
-
-
-
     public function __construct()
     {
 
-        var_dump("Starting Construct");
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
+
         $this->superGlobals = new SuperGlobals();
+
         $this->indexController = new IndexController();
+
         $this->commonController = new CommonController();
+
         $this->userController = new UserController();
+
         $this->userModel = new UserModel();
+
 
         $this->groupsController = new GroupsController();
         $this->ticketsController = new TicketsController();
@@ -70,7 +72,7 @@ class Router
 
         if ($this->superGlobals->ISSET_SESSION("user")) {
             // IF USER EXISTS FOR SESSION OPEN
-            if ($this->userModel->getEmailCount($this->superGlobals->_SESSION("user")->getEmail()) == 0) {
+            if ($this->userModel->getEmailCount($this->superGlobals->_SESSION("user")['email']) == 0) {
                 // LOGOUT
                 session_destroy();
                 header('Location: ../public/index.php');
@@ -78,7 +80,6 @@ class Router
             }
         }
 
-        var_dump("Finished Construct");
 
     }
 
@@ -91,8 +92,6 @@ class Router
     // ROUTER MAIN FUNCTION
     public function main()
     {
-
-        var_dump("INSIDE MAIN");
 
         if ($this->superGlobals->ISSET_GET("action")) {
 

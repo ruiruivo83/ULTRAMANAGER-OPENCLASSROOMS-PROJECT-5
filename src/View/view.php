@@ -31,7 +31,7 @@ class View
             // TODO - UPDATE SESSION USER DATA ON EVERY REFRESH OF THE PAGE
             $currentUser = $this->superGlobals->_SESSION("user");
             // FORCES TO UPDATE PROFILE FROM DATABASE EVERY REFRESH OF THE PAGE
-            $currentUser = $this->userModel->getUserById((int)$currentUser->getId());
+            $currentUser = $this->userModel->getUserById((int)$currentUser['id']);
             // var_dump($currentUser);
             $data = array_merge($data, ['profile' => $currentUser]);
             echo $this->twig->render('frontend/' . $template . '.html.twig', $data);

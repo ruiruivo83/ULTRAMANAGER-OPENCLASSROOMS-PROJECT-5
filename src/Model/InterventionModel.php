@@ -46,7 +46,7 @@ class InterventionModel
     public function createNewIntervention(): void
     {
         $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
-        $req->execute(array($this->superGlobals->_POST("ticketid"), $this->superGlobals->_SESSION("user")->getId(), $this->superGlobals->_POST("Description"), $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
+        $req->execute(array($this->superGlobals->_POST("ticketid"), $this->superGlobals->_SESSION("user")['id'], $this->superGlobals->_POST("Description"), $this->superGlobals->_SESSION("user")['country'], $this->superGlobals->_SESSION("user")['company']));
         // DEBUG
         // $req->debugDumpParams();
         // die;
@@ -55,7 +55,7 @@ class InterventionModel
     public function createClosingIntervention($ticketId, $interventionDescription): void
     {
         $req = $this->bdd->prepare("INSERT INTO ticket_interventions(ticket_id, intervention_author_id, intervention_date, intervention_description, intervention_author_country, intervention_author_company) values (?, ?, NOW(), ?, ?, ?) ");
-        $req->execute(array($ticketId, $this->superGlobals->_SESSION("user")->getId(), $interventionDescription, $this->superGlobals->_SESSION("user")->getCountry(), $this->superGlobals->_SESSION("user")->getCompany()));
+        $req->execute(array($ticketId, $this->superGlobals->_SESSION("user")['id'], $interventionDescription, $this->superGlobals->_SESSION("user")['country'], $this->superGlobals->_SESSION("user")['company']));
         // DEBUG
         // $req->debugDumpParams();
         // die;

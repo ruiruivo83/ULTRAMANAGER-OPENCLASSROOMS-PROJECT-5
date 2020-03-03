@@ -65,7 +65,7 @@ class InvitationsController
         if ($this->superGlobals->ISSET_GET("invitationid") AND $this->superGlobals->ISSET_GET("groupid") AND $this->superGlobals->ISSET_GET("userid")) {
             $user = $this->userModel->getUserById((int)$this->superGlobals->_GET("userid"));
 
-            $this->invitationModel->acceptInvitation((int)$user->getId());
+            $this->invitationModel->acceptInvitation((int)$user['id']);
 
             header('Location: ../index.php?action=invitations');
             exit();

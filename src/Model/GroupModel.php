@@ -25,7 +25,7 @@ class GroupModel
 
     public function getMyGroups(): array
     {
-        $currentUser = $this->superGlobals->_SESSION("user")->getId();
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' AND group_status = 'open' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -36,7 +36,7 @@ class GroupModel
 
     public function getSharedGroupsAndDetails(): array
     {
-        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT * FROM group_members grpmembers INNER JOIN groups grp on grp.id = grpmembers.group_id INNER JOIN users usr on usr.id = grp.group_admin_id WHERE grpmembers.user_id = '$currentUserId' AND grp.group_status = 'open'");
         $req->execute();
         // DEBUG

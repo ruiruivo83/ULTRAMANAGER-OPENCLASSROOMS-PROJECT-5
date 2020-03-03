@@ -53,7 +53,7 @@ class SuperGlobals
         return htmlentities($_POST[$var]);
     }
 
-    public function _SESSION(string $var): object
+    public function _SESSION(string $var): array
     {
         return $_SESSION[$var];
     }

@@ -197,16 +197,16 @@ class Router
 
 
             // STATS CONTROLLER
-            if ($functionName === 'getTotalOpenTicketsThisMonthFunction') {
-                $this->statsController->getTotalOpenTicketsThisMonthFunction();
+            if ($functionName === 'ajaxGetTotalOpenTicketsThisMonthFunction') {
+                $this->statsController->ajaxGetTotalOpenTicketsThisMonthFunction();
                 exit();
             }
             if ($functionName === 'TotalClosedTicketsThisMonth') {
                 $this->statsController->getTotalClosedTicketsThisMonthFunction();
                 exit();
             }
-            if ($functionName === 'getTotalOpenInterventionsThisMonthFunction') {
-                $this->statsController->getTotalInterventionsThisMonthFunction();
+            if ($functionName === 'ajaxGetTotalOpenInterventionsThisMonthFunction') {
+                $this->statsController->ajaxGetTotalInterventionsThisMonthFunction();
                 exit();
             }
 

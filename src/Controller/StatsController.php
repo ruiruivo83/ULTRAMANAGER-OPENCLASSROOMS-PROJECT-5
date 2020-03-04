@@ -29,7 +29,7 @@ class StatsController
         $this->superGlobals = new SuperGlobals();
     }
 
-    public function getTotalOpenTicketsThisMonthFunction()
+    public function ajaxGetTotalOpenTicketsThisMonthFunction()
     {
         $CreationYear = date("Y");
         $CreationMonth = date("m");
@@ -46,7 +46,7 @@ class StatsController
         echo "running getTotalClosedTicketsThisMonthFunction";
     }
 
-    public function getTotalInterventionsThisMonthFunction()
+    public function ajaxGetTotalInterventionsThisMonthFunction()
     {
         $CreationYear = date("Y");
         $CreationMonth = date("m");

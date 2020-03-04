@@ -40,7 +40,7 @@ function ajaxGetOpenTicketsForCurrentMonthFunction(elementId, labels) {
         let data = JSON.parse(this.responseText);
         buildData(elementId, data, labels);
     };
-    oReq.open("get", "../index.php?action=getTotalOpenTicketsThisMonthFunction", true);
+    oReq.open("get", "../index.php?action=ajaxGetTotalOpenTicketsThisMonthFunction", true);
     oReq.send();
 }
 
@@ -50,7 +50,7 @@ function ajaxGetOpenInterventionsForCurrentMonthFunction(elementId, labels) {
         let data = JSON.parse(this.responseText);
         buildData(elementId, data, labels);
     };
-    oReq.open("get", "../index.php?action=getTotalOpenInterventionsThisMonthFunction", true);
+    oReq.open("get", "../index.php?action=ajaxGetTotalOpenInterventionsThisMonthFunction", true);
     oReq.send();
 }
 

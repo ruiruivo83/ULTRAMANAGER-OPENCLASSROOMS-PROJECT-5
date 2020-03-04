@@ -51,7 +51,6 @@ class GroupsController
         $this->view->render("sharedgroups", ['sharedgroups' => $sharedGroups]);
     }
 
-
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
@@ -95,8 +94,6 @@ class GroupsController
         $this->view->render("mygroups", ['results' => $result]);
     }
 
-
-
     public function createGroupFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
@@ -107,23 +104,6 @@ class GroupsController
         header('Location: ../index.php');
         exit();
     }
-
-    /*
-    public function closeGroupFunction(): void
-    {
-        // TODO
-        // Test if Contains Tickets
-
-        if ($this->superGlobals->ISSET_GET("groupid")) {
-            $groupId = $this->superGlobals->ISSET_GET("groupid");
-            $this->groupModel->closeGroup($groupId);
-            header('Location: ../index.php?action=mygroups');
-            exit();
-        }
-        header('Location: ../index.php');
-        exit();
-    }
-    */
 
     public function removeMemberFromGroupFunction()
     {

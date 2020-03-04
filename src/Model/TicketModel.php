@@ -82,7 +82,7 @@ class TicketModel
     // STATS - GET ALL OPEN TICKETS THIS MONTH
     public function getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
     {
-        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT creation_date FROM tickets WHERE YEAR(creation_date) = '$CreationYear' AND MONTH(creation_date) = '$CreationMonth' AND status = '$status' AND author_id = '$currentUserId' ORDER BY creation_date DESC");
         $req->execute();
         //  $req->debugDumpParams();

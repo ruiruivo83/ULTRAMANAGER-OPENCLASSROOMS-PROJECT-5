@@ -45,19 +45,6 @@ class GroupModel
         return $req->fetchall();
     }
 
-    /*
-    public function getSharedGroups(): array
-    {
-        $currentUser = $this->superGlobals->_SESSION("user")->getId();
-        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE user_id = '$currentUser'");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall();
-    }
-    */
-
     public function getGroupDetails(int $groupId): Group
     {
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
@@ -98,17 +85,5 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
     }
-
-    /*
-    public function closeGroup()
-    {
-        $status = "closed";
-        $req = $this->bdd->prepare("UPDATE groups SET group_status = ?, group_status_change_date = NOW() where id = ?");
-        $req->execute(array($status, $this->superGlobals->_GET("groupid")));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
-    */
 
 }

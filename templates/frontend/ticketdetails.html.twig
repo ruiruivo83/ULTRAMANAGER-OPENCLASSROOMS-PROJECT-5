@@ -48,7 +48,7 @@
                 <tr>
                     <td class="table_text_overflow_ellipsis">Group Id:</td>
                     <td class="table_text_overflow_ellipsis"><a
-                                href="http://projet5/index.php?action=groupdetails&id={{ groupdetails.getId() }}">{{ groupdetails.getId() }}</a>
+                                href="index.php?action=groupdetails&id={{ groupdetails.getId() }}">{{ groupdetails.getId() }}</a>
                     </td>
                 </tr>
                 <tr>
@@ -132,14 +132,15 @@
 
                 <thead>
                 <tr>
+                    <th class="th-sm">Author
+                    </th>
                     <th class="th-sm">Id
                     </th>
                     <th class="th-sm">Intervention Date
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author
-                    </th>
+
                     <th class="th-sm">Author Company
                     </th>
                     <th class="th-sm">Author Country
@@ -149,15 +150,16 @@
                 <tbody>
                 {% for intervention in interventionresults %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"><i
-                                    class="fas fa-wrench mr-3"></i> {{ intervention.getId() }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_date() }}</td>
-                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_description() }}</td>
                         <td class="table_text_overflow_ellipsis"><img class="img-profile rounded-circle shadow border"
                                                                       style="width: 30px; height: 30px;"
                                                                       src="upload_files/{{ intervention.photo_filename }}"
                                                                       alt="avatar"/> {{ intervention.email }}
                         </td>
+                        <td class="table_text_overflow_ellipsis"><i
+                                    class="fas fa-wrench mr-3"></i> {{ intervention.getId() }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_date() }}</td>
+                        <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_description() }}</td>
+
                         <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_company() }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ intervention.getIntervention_author_country() }} </td>
                     </tr>
@@ -165,14 +167,15 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th class="th-sm">Author
+                    </th>
                     <th class="th-sm">Id
                     </th>
                     <th class="th-sm">Intervention Date
                     </th>
                     <th class="th-sm">Intervention Description
                     </th>
-                    <th class="th-sm">Author
-                    </th>
+
                     <th class="th-sm">Author Description
                     </th>
                     <th class="th-sm">Author Country

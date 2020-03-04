@@ -43,6 +43,17 @@ class TicketModel
         return $req->fetch();
     }
 
+    public function getTicketGroupIdWithTicketId($ticketId): Ticket
+    {
+        $req = $this->bdd->prepare("SELECT group_id FROM tickets WHERE id = '$ticketId' ");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Ticket::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetch();
+    }
+
     // GET OPEN TICKET WITH GROUP ID
     public function getOpenTicketsWithGroupId(int $groupId): array
     {
@@ -80,9 +91,20 @@ class TicketModel
     }
 
     // STATS - GET ALL OPEN TICKETS THIS MONTH
+    public function getMyTickets(string $status): array
+    {
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE author_id = '$currentUserId' AND status = '$status' ORDER BY creation_date DESC");
+        $req->execute();
+        //  $req->debugDumpParams();
+        //  die;
+        return $req->fetchall();
+    }
+
+    // STATS - GET ALL OPEN TICKETS THIS MONTH
     public function getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
     {
-        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT creation_date FROM tickets WHERE YEAR(creation_date) = '$CreationYear' AND MONTH(creation_date) = '$CreationMonth' AND status = '$status' AND author_id = '$currentUserId' ORDER BY creation_date DESC");
         $req->execute();
         //  $req->debugDumpParams();

@@ -19,6 +19,11 @@ table.dataTable thead .sorting:after {
     display: none;
 }
 
+.table td {
+    text-align: center;
+    vertical-align: center;
+}
+
 
 #textarea_id {
     margin-top: 10px;

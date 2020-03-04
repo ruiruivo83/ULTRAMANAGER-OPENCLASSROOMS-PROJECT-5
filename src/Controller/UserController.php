@@ -25,9 +25,8 @@ class UserController
     // DISPLAY PAGE - My Profile
     public function userProfilePage()
     {
-        $currentUserId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = (int)$this->superGlobals->_SESSION("user")['id'];
         $currentUser = $this->userModel->getUserById((int)$currentUserId);
-        // var_dump($currentUser);
         $this->view->render("userprofile", ['results' => $currentUser]);
     }
 
@@ -41,7 +40,6 @@ class UserController
     // LOGIN VALIDATION FOR THE MAIN LOGIN
     public function loginValidationFunction()
     {
-        // var_dump("loginValidationFunction");
         if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("email")) {
             // GET LOGIN INFO FROM USER POST METHOD
             $login_email = $this->superGlobals->_POST("email");
@@ -50,7 +48,6 @@ class UserController
             if ($this->userModel->getEmailCount($login_email) == 1) {
                 $currentUser = $this->userModel->getUserByEmail($login_email);
                 if ($currentUser != null) {
-                    // foreach ($userModel as $user) {
                     if (password_verify($login_password, $currentUser['psw'])) {   // IF PASSWORD IS OK
                         //// IMPORTANT
                         //// CREATION DE LA SESSION USER AVEC LES DONNEES EN BD DE L'UTILISATEUR
@@ -120,18 +117,14 @@ class UserController
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
             }
-
             if ($file_size > 2097152) {
                 $errors[] = 'File size must be excately 2 MB';
             }
-
             $rand = rand(0, 1000);
-
             $fileName = "photo" . $string[0] . "_" . $rand . "." . $string[1];
-
             if (empty($errors) == true) {
                 move_uploaded_file($file_tmp, "upload_files/" . $fileName);
-                $this->userModel->atachPhotoFileNameToUser((int)$_SESSION['user']->getId(), $fileName);
+                $this->userModel->atachPhotoFileNameToUser((int)$_SESSION['user']['id'], $fileName);
                 header("Location: ../index.php?action=userprofile");
                 exit();
             } else {
@@ -148,7 +141,7 @@ class UserController
     {
         $country = $this->superGlobals->_POST("country");
         $company = $this->superGlobals->_POST("company");
-        $userId = (int)$this->superGlobals->_SESSION("user")->getId();
+        $userId = (int)$this->superGlobals->_SESSION("user")['id'];
         $this->userModel->saveCompanyAndCountryFunction($country, $company, $userId);
         header("Location: ../index.php?action=userprofile");
         exit();

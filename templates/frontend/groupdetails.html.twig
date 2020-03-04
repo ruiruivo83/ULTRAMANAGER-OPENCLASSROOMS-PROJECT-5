@@ -56,10 +56,7 @@
                     <td> Group Admin Id:</td>
                     <td> {{ group.getGroupAdminId() }}</td>
                 </tr>
-                <tr>
-                    <td>Status:</td>
-                    <td>{{ group.getGroupstatus() }}</td>
-                </tr>
+
                 <tr>
                     <td>Creation Date:</td>
                     <td>{{ group.getCreationdate() }}</td>
@@ -102,6 +99,7 @@
 
             <thead>
             <tr>
+
                 <th class="th-sm">Id
                 </th>
                 <th class="th-sm">Creation Date
@@ -114,6 +112,7 @@
                 </th>
                 <th class="th-sm">Author
                 </th>
+
                 <th class="th-sm">
                 </th>
             </tr>
@@ -121,12 +120,14 @@
             <tbody>
             {% for ticket in ticketresults %}
                 <tr>
+
                     <td class="table_text_overflow_ellipsis"><i class="fas fa-ticket-alt mr-3"></i> {{ ticket.id }}</td>
                     <td class="table_text_overflow_ellipsis">  {{ ticket.creation_date }}</td>
                     <td class="table_text_overflow_ellipsis">  {{ ticket.requester }}</td>
                     <td class="table_text_overflow_ellipsis">  {{ ticket.title }}</td>
                     <td class="table_text_overflow_ellipsis">  {{ ticket.description }}</td>
-                    <td class="table_text_overflow_ellipsis">  {{ ticket.author_id }} </td>
+                    <td class="table_text_overflow_ellipsis">  {{ ticket.author_id }}
+                    </td>
                     <td class="table_text_overflow_ellipsis"><a class="mr-2"
                                                                 href="index.php?action=ticketdetails&id={{ ticket.id }}">Details</a>
                     </td>

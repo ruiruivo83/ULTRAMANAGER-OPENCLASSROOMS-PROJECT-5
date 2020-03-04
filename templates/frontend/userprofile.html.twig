@@ -13,7 +13,7 @@
                 <tr>
 
                     <img class="width-200 img-profile rounded-circle shadow border"
-                         src="upload_files/{{ results.PhotoFilename() }}" alt=""/>
+                         src="upload_files/{{ results.photo_filename }}" alt=""/>
 
                 </tr>
             </table>
@@ -34,15 +34,15 @@
             <table style="width:100%">
                 <tr>
                     <th>First Name:</th>
-                    <td>{{ results.Firstname() }}</td>
+                    <td>{{ results.firstname }}</td>
                 </tr>
                 <tr>
                     <th>Last Name:</th>
-                    <td>{{ results.Lastname() }}</td>
+                    <td>{{ results.lastname }}</td>
                 </tr>
                 <tr>
                     <th>Email:</th>
-                    <td>{{ results.Email() }}</td>
+                    <td>{{ results.email }}</td>
                 </tr>
             </table>
         </div>
@@ -52,12 +52,12 @@
                 <table style="width:100%">
                     <tr>
                         <th><label for="country"><b>Country: </b></label></th>
-                        <td><input type="text" name="country" id="country" value="{{ results.Country() }}" required>
+                        <td><input type="text" name="country" id="country" value="{{ results.country }}" required>
                         </td>
                     </tr>
                     <tr>
                         <th><label for="company"><b>Company: </b></label></th>
-                        <td><input type="company" name="company" id="company" value="{{ results.Company() }}" required>
+                        <td><input type="company" name="company" id="company" value="{{ results.company }}" required>
                         </td>
                     </tr>
 

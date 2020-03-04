@@ -26,7 +26,7 @@ class GroupModel
     public function getMyGroups(): array
     {
         $currentUser = $this->superGlobals->_SESSION("user")['id'];
-        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' AND group_status = 'open' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
@@ -45,19 +45,6 @@ class GroupModel
         return $req->fetchall();
     }
 
-    /*
-    public function getSharedGroups(): array
-    {
-        $currentUser = $this->superGlobals->_SESSION("user")->getId();
-        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE user_id = '$currentUser'");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall();
-    }
-    */
-
     public function getGroupDetails(int $groupId): Group
     {
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
@@ -67,6 +54,42 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
         return $req->fetch();
+    }
+
+    public function getGroupMembersCount(int $groupId): int
+    {
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupId' ");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
+    }
+
+
+    public function testGroupMemberForCurrentUser(int $groupId): int
+    {
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupId' AND user_id = '$currentUser'");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
+    }
+
+    public function testGroupAdminForCurrentUser(int $groupId): int
+    {
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' AND group_admin_id = '$currentUser'");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
     }
 
     public function removeMemberFromGroupfunction(int $groupId, int $userId): void
@@ -79,31 +102,11 @@ class GroupModel
         // die;
     }
 
-    public function getGroupNameWithGroupId(int $id): array
-    {
-        $req = $this->bdd->prepare("SELECT group_name FROM groups WHERE id = '$id'");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall();
-    }
-
     public function createNewGroup()
     {
-        $currentUser = $_SESSION['user']->getId();
+        $currentUser = $_SESSION['user']['id'];
         $req = $this->bdd->prepare("INSERT INTO groups(group_admin_id, creation_date, group_name, group_description, group_status) values(?, NOW(), ?, ?, ?) ");
         $req->execute(array($currentUser, $this->superGlobals->_POST("Title"), $this->superGlobals->_POST("Description"), "open"));
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-    }
-
-    public function closeGroup()
-    {
-        $status = "closed";
-        $req = $this->bdd->prepare("UPDATE groups SET group_status = ?, group_status_change_date = NOW() where id = ?");
-        $req->execute(array($status, $this->superGlobals->_GET("groupid")));
         // DEBUG
         // $req->debugDumpParams();
         // die;

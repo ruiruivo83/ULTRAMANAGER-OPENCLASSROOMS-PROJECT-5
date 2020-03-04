@@ -11,7 +11,6 @@ use App\Model\Entity\Intervention;
 
 class InterventionModel
 {
-    // CONSTRUCT - 
 
     private $bdd;
     private $superGlobals;
@@ -21,7 +20,6 @@ class InterventionModel
         $this->bdd = Database::getBdd();
         $this->superGlobals = new SuperGlobals();
     }
-
 
     public function getInterventionForTicketId(int $id): array
     {
@@ -64,12 +62,24 @@ class InterventionModel
     // GET ALL OPEN INTERVENTIONS THIS MONTH
     public function getMyInterventionsForYearAndMonth($CreationYear, $CreationMonth)
     {
-        $currentUserId = $this->superGlobals->_SESSION("user")->getId();
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
         $req = $this->bdd->prepare("SELECT intervention_date FROM ticket_interventions WHERE YEAR(intervention_date) = '$CreationYear' AND MONTH(intervention_date) = '$CreationMonth' AND intervention_author_id = '$currentUserId' ORDER BY intervention_date DESC");
         $req->execute();
         // $req->debugDumpParams();
         // die;
         return $req->fetchall();
     }
+
+    // GET ALL OPEN INTERVENTIONS THIS MONTH
+    public function getMyInterventions(): array
+    {
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE intervention_author_id = '$currentUserId' ORDER BY intervention_date DESC");
+        $req->execute();
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
 
 }

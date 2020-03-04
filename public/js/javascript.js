@@ -5,6 +5,7 @@ window.onload = function getStatData() {
         $('body').show();
     }); // end ready
 
+
     // Run datatable JS for table pagination and search
     $(document).ready(function () {
         $('#dtBasicExample').DataTable({
@@ -15,8 +16,8 @@ window.onload = function getStatData() {
     });
 
     // Detects if current path is index.php and run stats script
-    console.log(window.location.href.toString().substring(window.location.href.toString().length));
-    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php" || window.location.href.toString().substring(window.location.href.toString().length - 9) == "") {
+    if (window.location.href.toString().substring(window.location.href.toString().length - 9) == "index.php" || window.location.href.toString() == "https://www.ultramanager.net/" || window.location.href.toString() == "http://www.ultramanager.net/") {
+
         let elementId;
         // Build label for Chart
         const labels = buildLabelForChart(daysInMonth());
@@ -24,12 +25,13 @@ window.onload = function getStatData() {
         // OPEN TICKETS THIS MONTH
         elementId = 'opentickets01';
         ajaxGetOpenTicketsForCurrentMonthFunction(elementId, labels);
+
         // OPEN Interventions THIS MONTH
         elementId = 'openinterventions01';
         ajaxGetOpenInterventionsForCurrentMonthFunction(elementId, labels);
+
     }
 }
-
 
 
 function ajaxGetOpenTicketsForCurrentMonthFunction(elementId, labels) {
@@ -38,7 +40,7 @@ function ajaxGetOpenTicketsForCurrentMonthFunction(elementId, labels) {
         let data = JSON.parse(this.responseText);
         buildData(elementId, data, labels);
     };
-    oReq.open("get", "../index.php?action=getTotalOpenTicketsThisMonthFunction", true);
+    oReq.open("get", "../index.php?action=ajaxGetTotalOpenTicketsThisMonthFunction", true);
     oReq.send();
 }
 
@@ -48,7 +50,7 @@ function ajaxGetOpenInterventionsForCurrentMonthFunction(elementId, labels) {
         let data = JSON.parse(this.responseText);
         buildData(elementId, data, labels);
     };
-    oReq.open("get", "../index.php?action=getTotalOpenInterventionsThisMonthFunction", true);
+    oReq.open("get", "../index.php?action=ajaxGetTotalOpenInterventionsThisMonthFunction", true);
     oReq.send();
 }
 
@@ -65,8 +67,8 @@ function buildData(elementId, data, labels) {
         }
         temp[i] = k;
     }
-    temp.splice(0, 1)
-    data = temp
+    temp.splice(0, 1);
+    data = temp;
     buildBarChart(elementId, labels, data);
 }
 
@@ -80,7 +82,7 @@ function buildBarChart(elementId, labels, data) {
             // LABELS FOR EACH DAY TITLE
             labels: labels,
             datasets: [{
-                label: 'Total on this day: ',
+                label: 'Total on this day',
                 // COUNT FOR EACH DAY
                 data: data,
                 backgroundColor: [

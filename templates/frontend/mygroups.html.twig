@@ -40,40 +40,19 @@
                 <tbody>
                 {% for group in mygroups %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"><i
-                                    class="fas fa-users mr-3"></i> {{ group.getId() }}
+                        <td class="table_text_overflow_ellipsis">
+                            <span class="badge badge-info">{{ group.getId() }}</span>
+                            <img class="img-profile rounded-circle avatar" style="width: 25px; height: 25px;"
+                                 src="upload_files/{{ profile.photo_filename }}"
+                                 alt=""/>
                         </td>
-                        <td class="table_text_overflow_ellipsis">  {{ group.getGroupName() }} </td>
-                        <td class="table_text_overflow_ellipsis">  {{ group.getGroupDescription() }} </td>
+                        <td class="table_text_overflow_ellipsis"><b> {{ group.getGroupName() }} </b></td>
+                        <td class="table_text_overflow_ellipsis"><b> {{ group.getGroupDescription() }} </b></td>
                         <td class="table_text_overflow_ellipsis">  {{ group.getCreationDate() }} </td>
                         <td class="table_text_overflow_ellipsis">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ group.getId() }}">Details</a>
-                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ group.getId() }}">Members</a>
-
-                            <!-- CLOSE MODAL -->
-                            <a href="#" data-href="index.php?action=closegroup&groupid={{ group.getId() }}"
-                               data-toggle="modal" data-target="#confirm-delete">Close</a>
-
-                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-                                 aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            Closing Group: #{{ group.getId() }} {{ group.getGroupName() }}
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
-                                            </button>
-                                            <a href="index.php?action=closegroupfunction&groupid={{ group.getId() }}"
-                                               class="btn btn-danger btn-ok">Close</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ group.getId() }}">Members
+                                <sup><span class="badge badge-info">{{ group.totalmembers }}</span></sup></a>
                         </td>
                     </tr>
                 {% endfor %}

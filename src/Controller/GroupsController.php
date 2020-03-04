@@ -51,28 +51,44 @@ class GroupsController
         $this->view->render("sharedgroups", ['sharedgroups' => $sharedGroups]);
     }
 
+    private function testForAccess(string $action, int $id): bool
+    {
+        if ($action == "groupdetails") {
+            if ($this->groupModel->testGroupMemberForCurrentUser($id) >= 1 OR $this->groupModel->testGroupAdminForCurrentUser($id) >= 1) {
+                return true;
+            } else  return false;
+        } else {
+            header('Location: ../index.php');
+            exit();
+        }
+    }
 
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
-        if ($this->superGlobals->ISSET_GET("ticketsstatus") AND $this->superGlobals->_GET("ticketsstatus") == "closed") {
+        if ($this->testForAccess($this->superGlobals->_GET("action"), (int)$this->superGlobals->_GET("id"))) {
+            if ($this->superGlobals->ISSET_GET("ticketsstatus") AND $this->superGlobals->_GET("ticketsstatus") == "closed") {
+                if ($this->superGlobals->ISSET_GET("id")) {
+                    $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
+                    $ticketResults = $this->ticketModel->getClosedTicketsWithGroupId((int)$groupResult->getId());
+                    $this->view->render("groupdetails", ['group' => $groupResult, 'ticketresults' => $ticketResults]);
+                } else {
+                    echo "Missing ID";
+                    exit();
+                }
+                exit();
+            }
             if ($this->superGlobals->ISSET_GET("id")) {
                 $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
-                $ticketResults = $this->ticketModel->getClosedTicketsWithGroupId((int)$groupResult->getId());
+                $ticketResults = $this->ticketModel->getOpenTicketsWithGroupId((int)$groupResult->getId());
+
                 $this->view->render("groupdetails", ['group' => $groupResult, 'ticketresults' => $ticketResults]);
             } else {
                 echo "Missing ID";
                 exit();
             }
-            exit();
-        }
-        if ($this->superGlobals->ISSET_GET("id")) {
-            $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
-            $ticketResults = $this->ticketModel->getOpenTicketsWithGroupId((int)$groupResult->getId());
-
-            $this->view->render("groupdetails", ['group' => $groupResult, 'ticketresults' => $ticketResults]);
         } else {
-            echo "Missing ID";
+            header('Location: ../index.php');
             exit();
         }
     }
@@ -95,27 +111,10 @@ class GroupsController
         $this->view->render("mygroups", ['results' => $result]);
     }
 
-
-
     public function createGroupFunction()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Title"]) and isset($_POST["Description"])) {
             $this->groupModel->createNewGroup();
-            header('Location: ../index.php?action=mygroups');
-            exit();
-        }
-        header('Location: ../index.php');
-        exit();
-    }
-
-    public function closeGroupFunction(): void
-    {
-        // TODO
-        // Test if Contains Tickets
-
-        if ($this->superGlobals->ISSET_GET("groupid")) {
-            $groupId = $this->superGlobals->ISSET_GET("groupid");
-            $this->groupModel->closeGroup($groupId);
             header('Location: ../index.php?action=mygroups');
             exit();
         }
@@ -134,5 +133,6 @@ class GroupsController
         header('Location: ../index.php');
         exit();
     }
+
 
 }

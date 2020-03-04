@@ -45,29 +45,18 @@ class Router
 
     public function __construct()
     {
-
-
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
-
         $this->superGlobals = new SuperGlobals();
-
         $this->indexController = new IndexController();
-
         $this->commonController = new CommonController();
-
         $this->userController = new UserController();
-
         $this->userModel = new UserModel();
-
-
         $this->groupsController = new GroupsController();
         $this->ticketsController = new TicketsController();
         $this->interventionsController = new InterventionsController();
         $this->invitationsController = new InvitationsController();
-
         $this->statsController = new StatsController();
 
         if ($this->superGlobals->ISSET_SESSION("user")) {
@@ -75,27 +64,17 @@ class Router
             if ($this->userModel->getEmailCount($this->superGlobals->_SESSION("user")['email']) == 0) {
                 // LOGOUT
                 session_destroy();
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
                 exit();
             }
         }
-
-
     }
-
-    // $this->superGlobals->_SESSION("user")
-    // $this->superGlobals->ISSET_GET("action")
-
-    // $this->superGlobals->_GET("action")
-    // $this->superGlobals->_POST("action")
 
     // ROUTER MAIN FUNCTION
     public function main()
     {
 
         if ($this->superGlobals->ISSET_GET("action")) {
-
-
             // NO SESSION
             if ($this->superGlobals->_GET("action") === "login") {
                 $this->commonController->loginPage();
@@ -103,19 +82,15 @@ class Router
             if ($this->superGlobals->_GET("action") === "register") {
                 $this->commonController->registerPage();
             }
-
             // GET FUNCTIONS - Must Run first
             $this->getFunction($this->superGlobals->_GET("action"));
-
             // GET PAGES
             $this->getPage($this->superGlobals->_GET("action"));
-
         } else if ($this->superGlobals->ISSET_SESSION("user")) {
             // SESSION OPEN
             $this->indexController->dashboardPage();
         } else {
             // SESSION NOT OPEN
-
             $this->indexController->noLoginFrontPage();
         }
     }
@@ -126,35 +101,28 @@ class Router
 
     public function getFunction($functionName)
     {
-
         // LOGIN VALIDATION FUNCTION
         if ($functionName === 'login_validation') {
             $this->userController->loginValidationFunction();
         }
-
         // REGISTER NEW USER FUNCTION
         if ($functionName === 'registernewuser') {
             $this->userController->registerNewUserFunction();
         }
-
         // IF SESSION IS OPEN
         if ($this->superGlobals->ISSET_SESSION("user")) {
-
             // USER PROFILE FUNCTION
             if ($functionName === "atachphototouser") {
                 $this->userController->addAvatarToUserProfile();
             }
-
             // SAVE USER PROFILE COUNTRY AND COMPANY FUNCTION
             if ($functionName === "savecompanyandcountryfunction") {
                 $this->userController->saveCompanyAndCountryFunction();
             }
-
             // LOGOUT FUNCTION
             if ($functionName === "logout") {
                 $this->userController->logout();
             }
-
             // GROUPS FUNCTIONS
             if ($functionName === 'creategroupfunction') {
                 $this->groupsController->createGroupFunction();
@@ -162,11 +130,6 @@ class Router
             if ($functionName === 'modifygroupfunction') {
                 $this->groupsController->modifyGroupFunction();
             }
-            // - close group will add a ticket with author, date and time.
-            if ($functionName === 'closegroupfunction') {
-                $this->groupsController->closeGroupFunction();
-            }
-
             // TICKETS FUNCTIONS
             if ($functionName === 'createticketfunction') {
                 $this->ticketsController->createTicketFunction();
@@ -177,12 +140,10 @@ class Router
             if ($functionName === 'closeticketfunction') {
                 $this->ticketsController->closeTicketFunction();
             }
-
             // INTERVENTIONS FUNCTIONS -- CANNOT MODIFY NOR CLOSE
             if ($functionName === 'createinterventionfunction') {
                 $this->interventionsController->createInterventionFunction();
             }
-
             // INVITATIONS FUNCTIONS
             if ($functionName === 'createinvitationfunction') {
                 $this->invitationsController->createInvitationFunction();
@@ -193,31 +154,26 @@ class Router
             if ($functionName === 'deleteinvitationfunction') {
                 $this->invitationsController->deleteInvitationFunction();
             }
-
             // MEMBERS FUNCTIONS
             if ($functionName === 'removememberfromgroupfunction') {
                 $this->groupsController->removeMemberFromGroupFunction();
             }
-
-
             // STATS CONTROLLER
-            if ($functionName === 'getTotalOpenTicketsThisMonthFunction') {
-                $this->statsController->getTotalOpenTicketsThisMonthFunction();
+            if ($functionName === 'ajaxGetTotalOpenTicketsThisMonthFunction') {
+                $this->statsController->ajaxGetTotalOpenTicketsThisMonthFunction();
                 exit();
             }
             if ($functionName === 'TotalClosedTicketsThisMonth') {
                 $this->statsController->getTotalClosedTicketsThisMonthFunction();
                 exit();
             }
-            if ($functionName === 'getTotalOpenInterventionsThisMonthFunction') {
-                $this->statsController->getTotalInterventionsThisMonthFunction();
+            if ($functionName === 'ajaxGetTotalOpenInterventionsThisMonthFunction') {
+                $this->statsController->ajaxGetTotalInterventionsThisMonthFunction();
                 exit();
             }
-
-
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
             exit();
         }
     }
@@ -230,12 +186,10 @@ class Router
     {
         if ($this->superGlobals->_GET("action") === $pageName) {
             if ($this->superGlobals->ISSET_SESSION(("user"))) {
-
                 // MAIN
                 if ($pageName === "index") {
                     $this->indexController->dashboardPage();
                 }
-
                 // USER
                 if ($pageName === "userprofile") {
                     $this->userController->userProfilePage();
@@ -246,7 +200,6 @@ class Router
                 if ($pageName === "searchuser") {
                     $this->userController->searchUserResultsPage();
                 }
-
                 // GROUPS
                 if ($pageName === "creategroup") {
                     $this->groupsController->createGroupPage();
@@ -263,7 +216,6 @@ class Router
                 if ($pageName === "groupmembers") {
                     $this->groupsController->groupMembersPage();
                 }
-
                 // TICKETS
                 if ($pageName === "createticket") {
                     $this->ticketsController->createTicketPage();
@@ -277,8 +229,6 @@ class Router
                 if ($pageName === "ticketdetails") {
                     $this->ticketsController->ticketDetailsPage();
                 }
-
-
                 // INTERVENTIONS
                 if ($pageName === "createintervention") {
                     $this->interventionsController->createInterventionPage();
@@ -292,8 +242,6 @@ class Router
                 if ($pageName === "interventiondetails") {
                     $this->interventionsController->interventionDetailsPage();
                 }
-
-
                 // MEMBERS
                 if ($pageName === "sharedgroupmembers") {
                     $this->groupsController->sharedGroupMembersPage();
@@ -305,26 +253,22 @@ class Router
                 if ($pageName === "sharedmemberdetails") {
                     $this->groupsController->sharedMemberDetailsPage();
                 }
-
                 // INVITATIONS
                 if ($pageName === "invitations") {
                     $this->invitationsController->invitationsPage();
                 }
-
             } else {
                 // IF SESSION IS NOT OPEN
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
                 exit();
             }
         } else {
             // IF SESSION IS NOT OPEN
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
             exit();
         }
     }
-
 }
-
 
 $router = new Router;
 $router->main();

@@ -23,6 +23,4 @@ class commonController
     {
         $this->view->render("register", []);
     }
-
-
 }

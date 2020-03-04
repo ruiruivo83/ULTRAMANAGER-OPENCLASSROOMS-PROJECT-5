@@ -10,9 +10,6 @@ use App\Model\Entity\Member;
 
 class MemberModel
 {
-
-    // CONSTRUCT
-
     private $bdd;
 
     public function __construct()

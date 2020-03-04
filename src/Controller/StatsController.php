@@ -15,7 +15,6 @@ use App\Tools\SuperGlobals;
 
 class StatsController
 {
-
     private $superGlobals;
     private $ticketModel;
     private $interventionsModel;
@@ -29,15 +28,12 @@ class StatsController
         $this->superGlobals = new SuperGlobals();
     }
 
-    public function getTotalOpenTicketsThisMonthFunction()
+    public function ajaxGetTotalOpenTicketsThisMonthFunction()
     {
         $CreationYear = date("Y");
         $CreationMonth = date("m");
         $status = "open";
         $ticketsForThisMonth = $this->ticketModel->getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status);
-
-        // FOR DEBUG ONLY
-        // var_dump($ticketsForThisMonth);
         echo json_encode($ticketsForThisMonth);
     }
 
@@ -46,23 +42,11 @@ class StatsController
         echo "running getTotalClosedTicketsThisMonthFunction";
     }
 
-    public function getTotalInterventionsThisMonthFunction()
+    public function ajaxGetTotalInterventionsThisMonthFunction()
     {
         $CreationYear = date("Y");
         $CreationMonth = date("m");
-
-        // todo
-        // GET GROUPS
-
-        // GET TICKETS
-
-        // GET INTERVENTIONS
-
-
         $interventionsForThisMonth = $this->interventionsModel->getMyInterventionsForYearAndMonth($CreationYear, $CreationMonth);
-
-        // FOR DEBUG ONLY
-        // var_dump($ticketsForThisMonth);
         echo json_encode($interventionsForThisMonth);
     }
 }

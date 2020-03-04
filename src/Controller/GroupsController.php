@@ -41,15 +41,6 @@ class GroupsController
     public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
-var_dump($result[0]);
-        /*
-        foreach ($result as $key) {
-            echo '<pre>', var_dump($key), '</pre>';
-            $groupMembersCount = $this->groupModel->getGroupMembersCount((int)$key->getId());
-            var_dump($groupMembersCount);
-        }
-        */
-
         $this->view->render("mygroups", ['mygroups' => $result]);
     }
 
@@ -62,7 +53,6 @@ var_dump($result[0]);
 
     private function testForAccess(string $action, int $id): bool
     {
-
         if ($action == "groupdetails") {
             if ($this->groupModel->testGroupMemberForCurrentUser($id) >= 1 OR $this->groupModel->testGroupAdminForCurrentUser($id) >= 1) {
                 return true;
@@ -71,16 +61,12 @@ var_dump($result[0]);
             header('Location: ../index.php');
             exit();
         }
-
-
     }
 
     // DISPLAY PAGE - Group Details
     public function groupDetailsPage()
     {
-
         if ($this->testForAccess($this->superGlobals->_GET("action"), (int)$this->superGlobals->_GET("id"))) {
-
             if ($this->superGlobals->ISSET_GET("ticketsstatus") AND $this->superGlobals->_GET("ticketsstatus") == "closed") {
                 if ($this->superGlobals->ISSET_GET("id")) {
                     $groupResult = $this->groupModel->getGroupDetails((int)$this->superGlobals->_GET("id"));
@@ -105,8 +91,6 @@ var_dump($result[0]);
             header('Location: ../index.php');
             exit();
         }
-
-
     }
 
     public function groupMembersPage()

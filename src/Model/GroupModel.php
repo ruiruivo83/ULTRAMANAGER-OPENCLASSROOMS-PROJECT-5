@@ -26,7 +26,6 @@ class GroupModel
     public function getMyGroups(): array
     {
         $currentUser = $this->superGlobals->_SESSION("user")['id'];
-        // $req = $this->bdd->prepare("SELECT *, count(grpmm.group_id) as totalmembers FROM groups grp INNER JOIN group_members grpmm on grpmm.group_id = grp.id WHERE group_admin_id = '$currentUser' ORDER BY creation_date DESC");
         $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
@@ -47,15 +46,15 @@ class GroupModel
     }
 
     public function getGroupDetails(int $groupId): Group
-{
-    $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
-    $req->execute();
-    $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
-    // DEBUG
-    // $req->debugDumpParams();
-    // die;
-    return $req->fetch();
-}
+    {
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetch();
+    }
 
     public function getGroupMembersCount(int $groupId): int
     {
@@ -67,7 +66,6 @@ class GroupModel
         // die;
         return $req->rowCount();
     }
-
 
 
     public function testGroupMemberForCurrentUser(int $groupId): int
@@ -103,18 +101,6 @@ class GroupModel
         // $req->debugDumpParams();
         // die;
     }
-
-    /*
-    public function getGroupNameWithGroupId(int $id): array
-    {
-        $req = $this->bdd->prepare("SELECT group_name FROM groups WHERE id = '$id'");
-        $req->execute();
-        // DEBUG
-        // $req->debugDumpParams();
-        // die;
-        return $req->fetchall();
-    }
-    */
 
     public function createNewGroup()
     {

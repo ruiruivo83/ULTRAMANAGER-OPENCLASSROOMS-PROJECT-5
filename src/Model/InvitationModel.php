@@ -21,8 +21,6 @@ class InvitationModel
         $this->superGlobals = new SuperGlobals();
     }
 
-
-
     // CREATE NEW INVITATION
     public function createInvitation(): void
     {

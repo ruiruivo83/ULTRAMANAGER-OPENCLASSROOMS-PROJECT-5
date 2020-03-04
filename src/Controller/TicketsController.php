@@ -46,35 +46,27 @@ class TicketsController
         }
     }
 
-
+    // SECURITY TEST
     private function testForAccess(string $action, int $id): bool
     {
-
         if ($action == "ticketdetails") {
             // GET GROUP ID WITH TICKET ID
             $ticketId = (int)$this->superGlobals->_GET("id");
-
             $ticketGroupId = $this->ticketModel->getTicketGroupIdWithTicketId((int)$ticketId);
             $groupId = $ticketGroupId->getGroup_id();
-
             if ($this->groupModel->testGroupMemberForCurrentUser((int)$groupId) != 0 OR $this->groupModel->testGroupAdminForCurrentUser((int)$groupId) != 0) {
                 return true;
             } else  return false;
         }
-
-
         if ($action == "createticketfunction") {
             if ($this->groupModel->testGroupMemberForCurrentUser((int)$id) != 0 OR $this->groupModel->testGroupAdminForCurrentUser((int)$id) != 0) {
                 return true;
             } else  return false;
-
-
         } else {
             header('Location: ../index.php');
             exit();
         }
     }
-
 
     // DISPLAY PAGE - TICKET DETAILS
     public function ticketDetailsPage()
@@ -131,7 +123,6 @@ class TicketsController
     }
 
 
-
     // CLOSE TICKET FUNCTION
     public function closeTicketFunction()
     {
@@ -144,10 +135,11 @@ class TicketsController
             $this->ticketModel->closeTicket($ticketId);
             header('Location: ../index.php?action=mytickets');
             exit();
+        } else {
+            header('Location: ../index.php');
+            exit();
         }
-        header('Location: ../index.php');
-        exit();
-        // ?? $this->ticketModel->closeTicket();
+
     }
 
 

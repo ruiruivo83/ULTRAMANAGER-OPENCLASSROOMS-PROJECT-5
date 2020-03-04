@@ -11,7 +11,6 @@ use App\Model\Entity\Intervention;
 
 class InterventionModel
 {
-    // CONSTRUCT - 
 
     private $bdd;
     private $superGlobals;
@@ -21,7 +20,6 @@ class InterventionModel
         $this->bdd = Database::getBdd();
         $this->superGlobals = new SuperGlobals();
     }
-
 
     public function getInterventionForTicketId(int $id): array
     {
@@ -71,7 +69,6 @@ class InterventionModel
         // die;
         return $req->fetchall();
     }
-
 
     // GET ALL OPEN INTERVENTIONS THIS MONTH
     public function getMyInterventions(): array

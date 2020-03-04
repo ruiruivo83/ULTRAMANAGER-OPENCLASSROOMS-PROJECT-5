@@ -99,7 +99,7 @@
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
       <workItem from="1582046236963" duration="98469000" />
-      <workItem from="1583240446065" duration="34505000" />
+      <workItem from="1583240446065" duration="38460000" />
     </task>
     <servers />
   </component>
@@ -187,6 +187,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2656" y="251" key="ftp.server.browser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583240824206" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583336788762">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583336788762" />
   </component>
   <component name="hg4idea.settings">
     <option name="CHECK_INCOMING_OUTGOING" value="true" />

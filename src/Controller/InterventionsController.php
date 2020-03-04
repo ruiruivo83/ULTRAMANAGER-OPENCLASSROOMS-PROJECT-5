@@ -47,16 +47,6 @@ class InterventionsController
     public function myInterventionsPage()
     {
         $result = $this->interventionModel->getMyInterventions();
-
-        /*
-        $finalArray = array();
-        foreach ($result as $key) {
-            $ticketList = $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId());
-            foreach ($ticketList as $ticket) {
-                $finalArray = array_merge($finalArray, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
-            }
-        }
-        */
         $this->view->render("myinterventions", ['results' => $result]);
     }
 
@@ -75,6 +65,8 @@ class InterventionsController
             header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->_POST("ticketid"));
             exit();
         }
+        header('Location: ../index.php');
+        exit();
     }
 
     // DISPLAY PAGE -  GLOBAL TICKETS

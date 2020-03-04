@@ -25,7 +25,6 @@ class UserModel
     public function createNewUser()
     {
         $req = $this->bdd->prepare("INSERT INTO users(firstname, lastname, email, psw, creation_date, country ) values (?, ?, ?, ?, NOW(), ?) ");
-
         $req->execute(array(
                 $this->superGlobals->_POST("firstname"),
                 $this->superGlobals->_POST("lastname"),
@@ -39,10 +38,10 @@ class UserModel
     }
 
     // SEARCH USERS
-    public function searchUsers(string $searchtext): array
+    public function searchUsers(string $searchText): array
     {
         $req = $this->bdd->prepare("SELECT * FROM users WHERE ( LOWER(firstname) Like  LOWER(?)) OR ( LOWER(lastname) like  LOWER(?)) OR  (LOWER(email) like  LOWER(?) OR  id like  ? )");
-        $req->execute(array("%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%", "%" . $searchtext . "%"));
+        $req->execute(array("%" . $searchText . "%", "%" . $searchText . "%", "%" . $searchText . "%", "%" . $searchText . "%"));
         // DEBUG
         // $req->debugDumpParams();
         // die;

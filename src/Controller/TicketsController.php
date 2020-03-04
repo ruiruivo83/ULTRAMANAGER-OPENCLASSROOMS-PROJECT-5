@@ -88,12 +88,9 @@ class TicketsController
     // DISPLAY PAGE - My Tickets
     public function myTicketsPage()
     {
-        $result = $this->groupModel->getMyGroups();
-        $finalArray = array();
-        foreach ($result as $key) {
-            $finalArray = array_merge($finalArray, $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId()));
-        }
-        $this->view->render("mytickets", ['results' => $finalArray]);
+
+        $result = $this->ticketModel->getMyTickets("open");
+        $this->view->render("mytickets", ['results' => $result]);
     }
 
     // CREATE TICKET FUNCTION

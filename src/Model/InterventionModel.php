@@ -72,4 +72,17 @@ class InterventionModel
         return $req->fetchall();
     }
 
+
+    // GET ALL OPEN INTERVENTIONS THIS MONTH
+    public function getMyInterventions(): array
+    {
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM ticket_interventions WHERE intervention_author_id = '$currentUserId' ORDER BY intervention_date DESC");
+        $req->execute();
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetchall();
+    }
+
+
 }

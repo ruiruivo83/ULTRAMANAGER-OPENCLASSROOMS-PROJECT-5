@@ -42,14 +42,14 @@
     <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ruivo\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Model" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\Tools" />
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\src\tools" />
-      <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Dropbox\OPENCLASSROOMS\PROJET_P5\OCR-P5\templates\frontend" />
     </key>
   </component>
@@ -99,7 +99,7 @@
       <workItem from="1581811002538" duration="1496000" />
       <workItem from="1581980445693" duration="214000" />
       <workItem from="1582046236963" duration="98469000" />
-      <workItem from="1583240446065" duration="18796000" />
+      <workItem from="1583240446065" duration="20948000" />
     </task>
     <servers />
   </component>

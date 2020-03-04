@@ -80,6 +80,17 @@ class TicketModel
     }
 
     // STATS - GET ALL OPEN TICKETS THIS MONTH
+    public function getMyTickets(string $status): array
+    {
+        $currentUserId = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM tickets WHERE author_id = '$currentUserId' AND status = '$status' ORDER BY creation_date DESC");
+        $req->execute();
+        //  $req->debugDumpParams();
+        //  die;
+        return $req->fetchall();
+    }
+
+    // STATS - GET ALL OPEN TICKETS THIS MONTH
     public function getMyTicketsForYearAndMonth($CreationYear, $CreationMonth, $status)
     {
         $currentUserId = $this->superGlobals->_SESSION("user")['id'];

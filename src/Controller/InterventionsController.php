@@ -60,7 +60,7 @@ class InterventionsController
     // DISPLAY PAGE - Create Intervention Function
     public function createInterventionFunction()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Title") and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("ticketid")) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and $this->superGlobals->ISSET_POST("Description") and $this->superGlobals->ISSET_POST("ticketid")) {
             $this->interventionModel->createNewIntervention();
             header('Location: ../index.php?action=ticketdetails&id=' . $this->superGlobals->_POST("ticketid"));
             exit();
@@ -68,27 +68,5 @@ class InterventionsController
         header('Location: ../index.php');
         exit();
     }
-
-    // DISPLAY PAGE -  GLOBAL TICKETS
-    public function globalInterventionsPage()
-    {
-        $finalInterventionsTable = array();
-        $result = $this->groupModel->getMyGroups();
-        $finalArrayMyTickets = array();
-        foreach ($result as $key) {
-            $finalArrayMyTickets = array_merge($finalArrayMyTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key->getId()));
-        }
-        $result = $this->groupModel->getSharedGroups();
-        $finalArraySharedTickets = array();
-        foreach ($result as $key) {
-            $finalArraySharedTickets = array_merge($finalArraySharedTickets, $this->ticketModel->getOpenTicketsWithGroupId((int)$key['group_id']));
-        }
-        $finalTicketList = array_merge($finalArrayMyTickets, $finalArraySharedTickets);
-        foreach ($finalTicketList as $ticket) {
-            $finalInterventionsTable = array_merge($finalInterventionsTable, $this->interventionModel->getInterventionForTicketId((int)$ticket['id']));
-        }
-        $this->view->render("globalinterventions", ['results' => $finalInterventionsTable]);
-    }
-
 
 }

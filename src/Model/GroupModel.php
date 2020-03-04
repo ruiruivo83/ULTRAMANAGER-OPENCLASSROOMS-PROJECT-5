@@ -46,14 +46,25 @@ class GroupModel
     }
 
     public function getGroupDetails(int $groupId): Group
+{
+    $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
+    $req->execute();
+    $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+    // DEBUG
+    // $req->debugDumpParams();
+    // die;
+    return $req->fetch();
+}
+
+    public function getGroupMembersCount(int $groupId): int
     {
-        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupId' ");
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
         // DEBUG
         // $req->debugDumpParams();
         // die;
-        return $req->fetch();
+        return $req->rowCount();
     }
 
     public function removeMemberFromGroupfunction(int $groupId, int $userId): void
@@ -66,6 +77,7 @@ class GroupModel
         // die;
     }
 
+    /*
     public function getGroupNameWithGroupId(int $id): array
     {
         $req = $this->bdd->prepare("SELECT group_name FROM groups WHERE id = '$id'");
@@ -75,6 +87,7 @@ class GroupModel
         // die;
         return $req->fetchall();
     }
+    */
 
     public function createNewGroup()
     {

@@ -41,6 +41,13 @@ class GroupsController
     public function myGroupsPage()
     {
         $result = $this->groupModel->getMyGroups();
+
+        foreach ($result as $key) {
+            echo '<pre>', var_dump($key), '</pre>';
+            $groupMembersCount = $this->groupModel->getGroupMembersCount((int)$key->getId());
+            var_dump($groupMembersCount);
+        }
+
         $this->view->render("mygroups", ['mygroups' => $result]);
     }
 

@@ -26,7 +26,8 @@ class GroupModel
     public function getMyGroups(): array
     {
         $currentUser = $this->superGlobals->_SESSION("user")['id'];
-        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' AND group_status = 'open' ORDER BY creation_date DESC");
+        // $req = $this->bdd->prepare("SELECT *, count(grpmm.group_id) as totalmembers FROM groups grp INNER JOIN group_members grpmm on grpmm.group_id = grp.id WHERE group_admin_id = '$currentUser' ORDER BY creation_date DESC");
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE group_admin_id = '$currentUser' ORDER BY creation_date DESC");
         $req->execute();
         // DEBUG
         // $req->debugDumpParams();
@@ -59,6 +60,32 @@ class GroupModel
     public function getGroupMembersCount(int $groupId): int
     {
         $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupId' ");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
+    }
+
+
+
+    public function testGroupMemberForCurrentUser(int $groupId): int
+    {
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM group_members WHERE group_id = '$groupId' AND user_id = '$currentUser'");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->rowCount();
+    }
+
+    public function testGroupAdminForCurrentUser(int $groupId): int
+    {
+        $currentUser = $this->superGlobals->_SESSION("user")['id'];
+        $req = $this->bdd->prepare("SELECT * FROM groups WHERE id = '$groupId' AND group_admin_id = '$currentUser'");
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Group::class);
         // DEBUG

@@ -37,16 +37,22 @@
                 <tbody>
                 {% for group in sharedgroups %}
                     <tr>
-                        <td class="table_text_overflow_ellipsis"> <img class="img-profile rounded-circle avatar" style=" width: 30px; height: 30px;"src="upload_files/{{ group.photo_filename }}" alt=""/> {{ group.group_admin_id }} - {{ group.email }}
+                        <td class="table_text_overflow_ellipsis"><img style="width: 25px; height: 25px;" class="img-profile rounded-circle avatar"
+                                                                      style=" width: 30px; height: 30px;"
+                                                                      src="upload_files/{{ group.photo_filename }}"
+                                                                      alt=""/> {{ group.group_admin_id }}
+                            - {{ group.email }}
                         </td>
-                        <td class="table_text_overflow_ellipsis">{{ group.group_id }}
+                        <td class="table_text_overflow_ellipsis"><span
+                                    class="badge badge-info">   {{ group.group_id }}  </span>
                         </td>
                         <td class="table_text_overflow_ellipsis">  {{ group.group_name }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ group.group_description }} </td>
                         <td class="table_text_overflow_ellipsis">  {{ group.creation_date }} </td>
                         <td class="table_text_overflow_ellipsis">
                             <a class="mr-2" href="index.php?action=groupdetails&id={{ group.group_id }}">Details</a>
-                            <a class="mr-2" href="index.php?action=groupmembers&groupid={{ group.group_id }}">Members</a>
+                            <a class="mr-2"
+                               href="index.php?action=groupmembers&groupid={{ group.group_id }}">Members</a>
                             <a class="mr-2" href="index.php?action=closegroup&groupid={{ group.group_id }}">Close</a>
                         </td>
                     </tr>

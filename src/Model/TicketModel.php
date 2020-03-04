@@ -43,6 +43,17 @@ class TicketModel
         return $req->fetch();
     }
 
+    public function getTicketGroupIdWithTicketId($ticketId): Ticket
+    {
+        $req = $this->bdd->prepare("SELECT group_id FROM tickets WHERE id = '$ticketId' ");
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Ticket::class);
+        // DEBUG
+        // $req->debugDumpParams();
+        // die;
+        return $req->fetch();
+    }
+
     // GET OPEN TICKET WITH GROUP ID
     public function getOpenTicketsWithGroupId(int $groupId): array
     {

@@ -1,0 +1,22 @@
+4 Utilisateurs son crée pour tester l'application
+
+GIT HUB: https://github.com/ruiruivo83/OCR-P5
+
+
+user: user01@gmail.com
+pass: az
+
+user: user02@gmail.com
+pass: az
+
+user: user03@gmail.com
+pass: az
+
+user: user04@gmail.com
+pass: az
+
+
+Le Meillheur exemple est:
+user01@gmail.com -> Group 140 -> ticket 2617
+
+

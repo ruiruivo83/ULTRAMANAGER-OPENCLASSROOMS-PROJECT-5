@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 04 mars 2020 à 19:58
+-- Généré le : jeu. 05 mars 2020 à 11:41
 -- Version du serveur :  10.3.22-MariaDB
 -- Version de PHP : 7.3.6
 
@@ -198,7 +198,11 @@ INSERT INTO `tickets` (`id`, `group_id`, `author_id`, `AuthorPhotoFileName`, `re
 (2662, 145, 77, '', 'Nikodem Crosby', 'Delightful unreserved impo', 'Delightful unreserved impossible few estimating men favourable see entreaties. She propriety immediate was improving. He or entrance humoured likewise moderate. Much nor game son say feel. Fat make met can must form into gate. Me we offending prevailed discovery. ', '2020-03-02 16:32:04', 'open', NULL),
 (2663, 145, 77, '', 'Priscilla Blankenship', 'On recommend tolerably my belonging or am. ', 'On recommend tolerably my belonging or am. Mutual has cannot beauty indeed now sussex merely you. It possible no husbands jennings ye offended packages pleasant he. Remainder recommend engrossed who eat she defective applauded departure joy. Get dissimilar not introduced day her apartments. Fully as taste he mr do smile abode every. Luckily offered article led lasting country minutes nor old. Happen people things oh is oppose up parish effect. Law handsome old outweigh humoured far appetite. ', '2020-03-01 16:32:17', 'open', NULL),
 (2664, 145, 77, '', 'Atif Roberts', 'Started earnest brother believe an exposed so.', 'Started earnest brother believe an exposed so. Me he believing daughters if forfeited at furniture. Age again and stuff downs spoke. Late hour new nay able fat each sell. Nor themselves age introduced frequently use unsatiable devonshire get. They why quit gay cold rose deal park. One same they four did ask busy. Reserved opinions fat him nay position. Breakfast as zealously incommode do agreeable furniture. One too nay led fanny allow plate. ', '2020-03-01 16:32:29', 'open', NULL),
-(2665, 145, 78, '', 'Atif Roberts', 'Parish so enable innate in fo', 'Parish so enable innate in formed missed. Hand two was eat busy fail. Stand smart grave would in so. Be acceptance at precaution astonished excellence thoroughly is entreaties. Who decisively attachment has dispatched. Fruit defer in party me built under first. Forbade him but savings sending ham general. So play do in near park that pain. ', '2020-03-03 16:33:04', 'open', NULL);
+(2665, 145, 78, '', 'Atif Roberts', 'Parish so enable innate in fo', 'Parish so enable innate in formed missed. Hand two was eat busy fail. Stand smart grave would in so. Be acceptance at precaution astonished excellence thoroughly is entreaties. Who decisively attachment has dispatched. Fruit defer in party me built under first. Forbade him but savings sending ham general. So play do in near park that pain. ', '2020-03-03 16:33:04', 'open', NULL),
+(2666, 140, 77, '', 'Requester', 'Title', 'Description', '2020-03-05 09:17:18', 'closed', '2020-03-05 09:17:18'),
+(2667, 140, 77, '', 'test requester0000000000000000', 'title 00000000000000000000', 'Description0000000000000000000', '2020-03-05 09:22:15', 'closed', '2020-03-05 09:22:15'),
+(2668, 140, 77, '', 'Requester NAME', 'Ticket Title', 'Description', '2020-03-05 09:23:47', 'open', NULL),
+(2669, 140, 77, '', 'Requester Name', 'Ticket Title', 'Description', '2020-03-05 09:24:01', 'open', NULL);
 
 -- --------------------------------------------------------
 
@@ -239,7 +243,9 @@ INSERT INTO `ticket_interventions` (`id`, `ticket_id`, `intervention_author_id`,
 (294, 2617, 79, '2020-03-04 17:39:32', 'Yet bed any for travelling assistance indulgence unpleasing. Not thoughts all exercise blessing. Indulgence way everything joy alteration boisterous the attachment. Party we years to order allow asked of. We so opinion friends me message as delight. Whole front do of plate heard oh ought. His defective nor convinced residence own. Connection has put impossible own apartments boisterous. At jointure ladyship an insisted so humanity he. Friendly bachelor entrance to on by. ', 'Espagne', 'Seat'),
 (295, 2617, 78, '2020-03-04 17:39:47', 'Comfort reached gay perhaps chamber his six detract besides add. Moonlight newspaper up he it enjoyment agreeable depending. Timed voice share led his widen noisy young. On weddings believed laughing although material do exercise of. Up attempt offered ye civilly so sitting to. She new course get living within elinor joy. She her rapturous suffering concealed. ', 'France', 'Renault'),
 (296, 2617, 79, '2020-03-04 17:39:58', 'Terminated principles sentiments of no pianoforte if projection impossible. Horses pulled nature favour number yet highly his has old. Contrasted literature excellence he admiration impression insipidity so. Scale ought who terms after own quick since. Servants margaret husbands to screened in throwing. Imprudence oh an collecting partiality. Admiration gay difficulty unaffected how. ', 'Espagne', 'Seat'),
-(297, 2617, 80, '2020-03-04 17:40:09', 'Able an hope of body. Any nay shyness article matters own removal nothing his forming. Gay own additions education satisfied the perpetual. If he cause manor happy. Without farther she exposed saw man led. Along on happy could cease green oh. ', 'Italy', 'Ferrari');
+(297, 2617, 80, '2020-03-04 17:40:09', 'Able an hope of body. Any nay shyness article matters own removal nothing his forming. Gay own additions education satisfied the perpetual. If he cause manor happy. Without farther she exposed saw man led. Along on happy could cease green oh. ', 'Italy', 'Ferrari'),
+(299, 2666, 77, '2020-03-05 10:17:18', 'CLOSING TICKET', 'Allemagne', 'Audi'),
+(300, 2667, 77, '2020-03-05 10:22:15', 'CLOSING TICKET', 'Allemagne', 'Audi');
 
 -- --------------------------------------------------------
 
@@ -267,7 +273,8 @@ INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `psw`, `creation_da
 (77, 'user01@gmail.com', 'user01', 'user01', '$2y$10$9YrqU0Jcwk4E2w/kjQbLx.tGXpaT.HI98o16DjINrQWWY5pPwHWZa', '2020-03-03', 'Allemagne', 'Audi', 'photo20200303044043pmd35d51553aeed11681aa2146223330f8674a76c7ddffc8efd0a9af397cec36ef_620.jpg'),
 (78, 'user02@gmail.com', 'user02', 'user02', '$2y$10$VTcKs9we/IEGaUx6hQYtRuJmE3g8xyNaNGab.UfGiFG4cm24GuGsK', '2020-03-03', 'France', 'Renault', 'photo20200303044053pmtlchargement_938.png'),
 (79, 'user03@gmail.com', 'user03', 'user03', '$2y$10$33L3uLQjbwMfaec6sw53F..3BAmWwKMAXnIFzswdpC1U0/ukUdIKC', '2020-03-03', 'Espagne', 'Seat', 'photo20200303044408pma55_801.jpg'),
-(80, 'user04@gmail.com', 'user04', 'user04', '$2y$10$mhY8UtBMw71//imK2ipfz./k5zYAGIbiSfAmBnFiFqij.dTobBbvi', '2020-03-03', 'Italy', 'Ferrari', 'photo20200304081703amavatarpeoplepersonbusiness_868.jpg');
+(80, 'user04@gmail.com', 'user04', 'user04', '$2y$10$mhY8UtBMw71//imK2ipfz./k5zYAGIbiSfAmBnFiFqij.dTobBbvi', '2020-03-03', 'Italy', 'Ferrari', 'photo20200304081703amavatarpeoplepersonbusiness_868.jpg'),
+(81, 'nruivo89@gmail.com', 'N&eacute;lia', 'Ruivo', '$2y$10$YQd5rdm3/.wuRG4hk4yww..vswISR5X7pAj6Llr1yJS1fs.AMxofO', '2020-03-05', 'Portugal', NULL, 'default.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -347,19 +354,19 @@ ALTER TABLE `invitations`
 -- AUTO_INCREMENT pour la table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2666;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2670;
 
 --
 -- AUTO_INCREMENT pour la table `ticket_interventions`
 --
 ALTER TABLE `ticket_interventions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=299;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- Contraintes pour les tables déchargées

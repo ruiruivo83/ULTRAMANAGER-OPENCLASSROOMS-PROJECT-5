@@ -21,8 +21,9 @@ class Config
 
 }
 
-/*
-     // OVH DATABASE
+    /*
+
+    // OVH DATABASE
     public $Database_Name = "ultragesyrp5root";
     public $Database_User = "ultragesyrp5root";
     public $Database_Password = "SCxaP3HSsVbC";
@@ -32,13 +33,9 @@ class Config
     public $Database_User = "p5root";
     public $Database_Password = "ycvms74b";
 
-
-
     // O2SWITCH
     public $Database_Name = "ruru4671_ultra";
     public $Database_User = "ruru4671_p5root";
     public $Database_Password = "*Ycvms74b";
 
-
-
- */
+    */

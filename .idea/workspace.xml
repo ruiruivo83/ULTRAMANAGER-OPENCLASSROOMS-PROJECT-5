@@ -38,8 +38,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ALL PROJECTS/RR_P2_integrez-la-maquette-du-site-d-une-agence-web_2018-07-27T144740/PROJET WEBAGENCY - FINAL" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -100,6 +100,9 @@
       <workItem from="1581980445693" duration="214000" />
       <workItem from="1582046236963" duration="98469000" />
       <workItem from="1583240446065" duration="52957000" />
+      <workItem from="1583435246990" duration="353000" />
+      <workItem from="1583443063671" duration="1344000" />
+      <workItem from="1583483350778" duration="320000" />
     </task>
     <servers />
   </component>
@@ -162,18 +165,20 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2635" y="335" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1581693459086" />
-    <state x="2381" y="163" key="SettingsEditor" timestamp="1583323706293">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="328" y="13" key="SettingsEditor" timestamp="1583445688686">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580830695549" />
+    <state x="328" y="13" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583445688686" />
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581811033301" />
     <state x="2381" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583323706293" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1583240465679">
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog" timestamp="1583483352072">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580822643305" />
+    <state x="759" y="316" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1583443066324" />
     <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581811006873" />
-    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583240465679" />
+    <state x="1313" y="451" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583483352072" />
     <state x="427" y="0" width="780" height="1027" maximized="true" key="dock-window-1" timestamp="1581818535402">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -187,6 +192,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2656" y="251" key="ftp.server.browser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583240824206" />
+    <state x="532" y="257" key="publish.login" timestamp="1583445667682">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="532" y="257" key="publish.login/0.0.1366.728@0.0.1366.728" timestamp="1583445667682" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583336788762">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

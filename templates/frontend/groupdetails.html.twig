@@ -128,6 +128,7 @@
                     <td class="table_text_overflow_ellipsis">  {{ ticket.description }}</td>
                     <td class="table_text_overflow_ellipsis">  {{ ticket.author_id }}
                     </td>
+                    {{ app.request.get('name') }}
                     <td class="table_text_overflow_ellipsis"><a class="mr-2"
                                                                 href="index.php?action=ticketdetails&id={{ ticket.id }}">Details</a>
                     </td>

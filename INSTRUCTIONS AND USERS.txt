@@ -17,7 +17,7 @@ user: user04@gmail.com
 pass: az
 
 
-Le Meillheur exemple est:
+Le Meilleur exemple est:
 user01@gmail.com -> Group 140 -> ticket 2617
 
 

@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body %}
-
     <!-- TICKET DETAILS-->
     <div class="card m-1">
         <div class="card-header">
@@ -14,36 +13,36 @@
 
                 <i class="fas fa-ticket-alt fa-2x mr-3"></i>TICKET DETAILS #{{ ticketdetails.id }}
                 <!-- BUTTON CLOSE THIS GROUP -->
-                <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
-                        data-target="#confirm-close">
-                    Close Ticket
-                </button>
-                <div class="modal fade" id="confirm-close" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                Closing Ticket: <span
-                                        class=""><h6>#{{ ticketdetails.id }} - {{ ticketdetails.title }}</h6></span>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
-                                </button>
-                                <a href="index.php?action=closeticketfunction&ticketid={{ ticketdetails.id }}"
-                                   class="btn btn-danger btn-ok">Close</a>
+                {% if ticketdetails.getStatus()  != "closed" %}
+                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
+                            data-target="#confirm-close">
+                        Close Ticket
+                    </button>
+                    <div class="modal fade" id="confirm-close" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Closing Ticket: <span
+                                            class=""><h6>#{{ ticketdetails.id }} - {{ ticketdetails.title }}</h6></span>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                                    </button>
+                                    <a href="index.php?action=closeticketfunction&ticketid={{ ticketdetails.id }}"
+                                       class="btn btn-danger btn-ok">Close</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                {% endif %}
             </div>
         </div>
         <div class="card-body p-0">
             <br>
-
             <table class="mr-3 ml-3 col-md-6">
                 <tbody>
                 <tr>
@@ -74,9 +73,7 @@
                 </tr>
                 </tbody>
             </table>
-
             <br>
-
             <table class="mr-3 ml-3 col-md-6">
                 <tbody>
                 <tr>
@@ -105,7 +102,6 @@
                 </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 
